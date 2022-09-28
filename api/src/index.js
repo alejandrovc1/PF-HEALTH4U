@@ -5,6 +5,7 @@ const morgan = require ('morgan');
 const cors = require('cors');
 //cors permite comunicar el servidor y el frontend 
 
+
 const app = express();
 
 app.use(morgan('dev'))
