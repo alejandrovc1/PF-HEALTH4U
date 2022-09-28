@@ -7,9 +7,9 @@ const cors = require('cors');
 //cors permite comunicar el servidor y el frontend 
 const routes = require('./routes/index.js')
 
-
 const app = express();
 
+app.use(express.json())
 app.use(morgan('dev'))
 app.use(cors())
 

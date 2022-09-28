@@ -7,7 +7,10 @@ const { DB_URI } = process.env;
 const connectionString = DB_URI
 
 // conexion a mongodb
-mongoose.connect(connectionString)
+mongoose.connect(connectionString, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
     //devuelve promesa
     .then(() => {
         console.log('Database connected to ATLAS')
