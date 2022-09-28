@@ -1,14 +1,18 @@
 //Archivo para la conexion a la base de datos
+require('dotenv').config();
 const mongoose = require('mongoose')
-//Aplicacion que nos sirve para esquematizar la base de datos 
-const {
-    DB_USER, DB_PASSWORD,
-} = process.env;
+const { Schema } = mongoose;
+//Aplicacion que nos sirve para esquematizar la base de datos
 
-const connectionString = `mongodb+srv://Health4UAdmin:mongodb@cluster1.hgdsrwx.mongodb.net/?retryWrites=true&w=majority`
+const { DB_USER, DB_PASSWORD } = require('../credentialsMongo.js');
+
+const connectionString = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster1.hgdsrwx.mongodb.net/Health4U?retryWrites=true&w=majority`
 
 // conexion a mongodb
-mongoose.connect(connectionString)
+mongoose.connect(connectionString, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
     //devuelve promesa
     .then(() => {
         console.log('Database connected')
@@ -18,39 +22,43 @@ mongoose.connect(connectionString)
 
 //Esquemas que tienen que tener los modelos de nuestra app
 //Utilizando los esquemas creamos los modelos
-const pacienteSchema = new mongoose.Schema({
+const pacienteSchema = new Schema({
     //Mongo da una id predeterminadamente, no es necesario declarar
     Nombre: String,
+    Documento: Number,
     Correo: String,
     Contrasena: String,
     FechaNacimiento: String,
     Genero: String
 })
 
-const consultaSchema = new mongoose.Schema({
+const consultaSchema = new Schema({
     Servicio: String,
     Precio: Number,
-    Fecha: Date
+    Fecha: Date,
+    Hora: String
 })
 
-const reviewSchema = new mongoose.Schema({
+const reviewSchema = new Schema({
     Calificacion: Number,
     Fecha: Date,
     Review: String
 })
 
-const medicoSchema = new mongoose.Schema({
+const medicoSchema = new Schema({
     Nombre: String,
     Correo: String,
     Contrasena: String,
-    Disponibilidad: String
+    Disponibilidad: String,
+    Especialidad: String,
+    Estado: String
 })
 
-const especialidadSchema = new mongoose.Schema({
+const especialidadSchema = new Schema({
     Nombre: String
 })
 
-const horarioServicioSchema = new mongoose.Schema({
+const horarioServicioSchema = new Schema({
     Fecha: Date,
     HoraInicio: String,
     HoraFinal: String
