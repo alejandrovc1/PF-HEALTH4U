@@ -1,0 +1,82 @@
+.navbar{
+ width: 100vw;
+ height: auto;
+}
+
+.navi{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    padding: 0 4%;
+    margin: 0;
+    box-shadow: 0 1rem 1.5rem rgb(76, 0, 255);
+}
+
+#navul{
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+#navul li{
+    list-style: none;
+    padding: 0 1.5rem;
+    position: relative;
+}
+
+#navul li a{
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 2rem;
+    color: black;
+}
+
+#navul li a:hover{
+    color: #00c3ff;
+}
+
+#navul li a:hover::after{
+    content: "";
+    width: 70%;
+    height: 0.4rem;
+    background: #00c3ff;
+    position: absolute;
+    bottom: -0.3rem;
+    left: 0.4rem;
+}
+
+.boton {
+  display: flex;
+  align-items: center;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.7em 1.4em 0.7em 1.1em;
+  color: white;
+  background: linear-gradient(#BBF3F9, #7CD1E5);
+  border: none;
+  letter-spacing: 0.05em;
+  border-radius: 20em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin-left: 10rem;
+  margin-right: 2rem;
+}
+
+.boton:hover {
+  box-shadow: 0 0.5em 1.5em -0.5em #02006198;
+}
+
+.boton:active {
+  box-shadow: 0 0.3em 1em -0.5em #00c3ff98;
+}
+
+.img{
+    cursor: pointer;
+    width: 7rem;
+    height: 4rem;
+    margin-left: 2rem;
+}
