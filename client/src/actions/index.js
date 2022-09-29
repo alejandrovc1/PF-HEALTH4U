@@ -14,7 +14,7 @@ export function orderByRating(payload) { //ordernar por rating asc o desc
     }
 }
 
-export function filterSpecialties(payload) {//filtrado por especialidad
+export function filterBySpecialties(payload) {//filtrado por especialidad
     return {
         type: "FILTER_BY_SPECIALTIES",
         payload

@@ -9,7 +9,7 @@ import { useAuth } from "../context/authContext";
 
 export default function Home(){
     const {users,logout,loading}= useAuth()
-console.log(users)
+
     /*
     const dispatch = useDispatch();
     const [orden, setOrden] = useState(""); //creo el estado de orden para poder renderizar en un orden

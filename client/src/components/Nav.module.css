@@ -10,7 +10,6 @@
     background: white;
     padding: 0 4%;
     margin: 0;
-    box-shadow: 0 1rem 1.5rem rgb(76, 0, 255);
 }
 
 #navul{
@@ -35,7 +34,6 @@ justify-content: center;
 #navul li a:hover{
     color: #00c3ff;
 }
-
 #navul li a:hover::after{
     content: "";
     width: 70%;
@@ -53,7 +51,7 @@ justify-content: center;
   font-weight: 500;
   font-size: 1rem;
   padding: 0.7em 1.4em 0.7em 1.1em;
-  color: white;
+  color: black;
   background: linear-gradient(#BBF3F9, #7CD1E5);
   border: none;
   letter-spacing: 0.05em;
@@ -80,3 +78,15 @@ justify-content: center;
     height: 4rem;
     margin-left: 2rem;
 }
+
+.op{
+  border-radius: 2rem;
+}
+
+.filter{
+  cursor: pointer;
+  border-radius: 2rem;
+  background: linear-gradient(#BBF3F9, #7CD1E5);
+  border: none;
+}
+

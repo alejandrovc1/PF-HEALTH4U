@@ -18,6 +18,7 @@ function App() {
         <Route exact path="/account" components><Account/></Route>
         <Route path = '/login/' components><Login/></Route>
         <Route path = '/register/' components><Register/></Route> 
+        <Route path = 'appointment'><Appointment/></Route>
       </Switch>
       </AuthProvider>
     </BrowserRouter>
