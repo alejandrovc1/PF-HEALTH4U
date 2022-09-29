@@ -9,8 +9,8 @@ function App() {
   return (
       <BrowserRouter>
       <Switch>
-        <Route exact path="/home" components={<Home/>} />
-        <Route exact path="/profile" components={<Profile/>} />
+        <Route exact path="/home" components><Home/></Route>
+        <Route exact path="/profile" components><Profile/></Route>
       </Switch>
     </BrowserRouter>
   );

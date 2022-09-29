@@ -2,10 +2,11 @@ import React from "react";
 import style from "./Navbar.module.css";
 import logo from "./image/logo.png";
 
+
 export default function Nav(){
-
-
+ 
     return (
+      <header>
           <nav className={style.navbar}>
              <div className={style.navi}>
                 <img className={style.img} src={logo}/>
@@ -20,5 +21,10 @@ export default function Nav(){
                 </div>
              </div>
             </nav>
+            <div id="mobile">
+                 <i className="fas fabars"></i>
+            </div>
+         </header>
     )
 }
+

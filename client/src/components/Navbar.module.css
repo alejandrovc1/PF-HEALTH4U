@@ -10,7 +10,6 @@
     background: white;
     padding: 0 4%;
     margin: 0;
-    box-shadow: 0 1rem 1.5rem rgb(76, 0, 255);
 }
 
 #navul{
@@ -35,7 +34,6 @@ justify-content: center;
 #navul li a:hover{
     color: #00c3ff;
 }
-
 #navul li a:hover::after{
     content: "";
     width: 70%;
@@ -80,3 +78,6 @@ justify-content: center;
     height: 4rem;
     margin-left: 2rem;
 }
+
+
+
