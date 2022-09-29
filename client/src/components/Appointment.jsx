@@ -5,8 +5,18 @@ import {useDispatch} from "react-redux";
 import { useState } from "react";
 import { filterBySpecialties, orderByRating, orderByName } from "../actions";
 import Footer from "./Footer";
-
+import { useAuth } from "../context/authContext";
 export default function Appointment(){
+
+    
+    const {users,logout,loading}= useAuth()
+console.log(users)
+   
+
+    const handleLogOut = async () =>{
+        await logout()
+    }
+
     const dispatch = useDispatch();
     const [orden, setOrden] = useState("");
     /*
@@ -44,6 +54,7 @@ function handleSpecialties(e){
         <div className={s.tite}>
             <h1>Select your preferences to make an appointment!</h1>
         </div>
+        <button onClick={handleLogOut}>logout</button>
         <div className={s.conten}>
             <select className={s.filter} onChange={e => handleSort(e)}>
                 <option>Alphabetically</option>
