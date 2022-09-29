@@ -5,9 +5,11 @@ import doctor from "./image/Doctor.png";
 import pie from "./image/pieDePagina.png";
 //import {useDispatch} from "react-redux";
 //import { useState, useEffect } from "react";
+import { useAuth } from "../context/authContext";
 
 export default function Home(){
-    
+    const {users,logout,loading}= useAuth()
+console.log(users)
     /*
     const dispatch = useDispatch();
     const [orden, setOrden] = useState(""); //creo el estado de orden para poder renderizar en un orden
@@ -32,9 +34,16 @@ export default function Home(){
         setOrden(e.target.value) // seteamos  
     }
  */
+
+    const handleLogOut = async () =>{
+        await logout()
+    }
+    
+
     return (
         <div className={style.fnd}>
           <Nav/>
+          <button onClick={handleLogOut}>logout</button>
           <div className={style.fondo}>
             <div className={style.float}>
                 <img className={style.image} src={doctor}/>
