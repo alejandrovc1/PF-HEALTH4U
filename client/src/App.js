@@ -10,7 +10,7 @@ function App() {
   return (
       <BrowserRouter>
       <Switch>
-        <Route exact path="/home" components><Home/></Route>
+        <Route exact path="/" components><Home/></Route>
         <Route exact path="/account" components><Account/></Route>
         <Route exact path="/appointment" components><Appointment/></Route>
       </Switch>
