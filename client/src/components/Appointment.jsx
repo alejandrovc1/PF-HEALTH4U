@@ -4,7 +4,7 @@ import s from "./Appointment.module.css"
 import {useDispatch} from "react-redux";
 import { useState } from "react";
 import { filterBySpecialties, orderByRating, orderByName } from "../actions";
-
+import Footer from "./Footer";
 
 export default function Appointment(){
     const dispatch = useDispatch();
@@ -77,6 +77,7 @@ function handleSpecialties(e){
         <div>
             <h1>Aqui va la card xd</h1>
         </div>
+        <Footer/>
         </div>
     )
 }

@@ -1,6 +1,7 @@
 const initialState = { //estados iniciales
     Doctors: [],
-    Specialties: []
+    Specialties: [],
+    Patients: []
 }
 
 function rootReducer(state = initialState, action) {
