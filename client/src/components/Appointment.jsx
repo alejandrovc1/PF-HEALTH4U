@@ -53,6 +53,8 @@ export default function Appointment(){
             </select>
             <select className={s.filter}>
                 <option>Method</option>
+                <option>PayPal</option>
+                <option>Tarjeta</option>
             </select>
             <select className={s.filter}>
                 <option>Day Available</option>
