@@ -1,34 +1,40 @@
+//MODELO DE PACIENTE
 //Utilizando los esquemas creamos los modelos
 const { Schema, model } = require("mongoose");
 //const mongooseDelete = require("mongoose-delete");
 
 //Mongo da una id predeterminadamente, no es necesario declarar
-const medicoSchema = new Schema({
-    nombre: {
+const patientSchema = new Schema({
+    id:{
+        type: DataTypes.UUID,
+    },
+    name: {
         type: String,
     },
-    correo: {
+    email: {
         type: String,
         unique: true,
     },
-    contrasena: {
+    password: {
         type: String,
     },
-    disponibilidad: {
+    //fecha nacimiento
+    birthDate: {
         type: Date,
     },
-    especialidad: {
+    genre: {
         type: String
     },
-    estado: {
+    // CLOUDINARY 
+    image: {
         type: String
     }
 },
-{
-    timestamps: true,
-    versionKey: false,
-});
+    {
+        timestamps: true,
+        versionKey: false,
+    });
 
-const MedicoModel = model("Medico", medicoSchema);
+const patientModel = model("Patient", patientSchema);
 
-module.exports = MedicoModel;
+module.exports = patientModel;

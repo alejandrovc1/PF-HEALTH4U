@@ -1,4 +1,4 @@
-const ConsultaModel = require('../models/consulta')
+const appointmentModel = require('../models/appointment')
 const mongoose = require("mongoose");
 
 const generarConsulta = async (req, res) => {
@@ -9,7 +9,7 @@ const generarConsulta = async (req, res) => {
     res.status(400).send("Error, los tipos de datos son incorrectos")}
 
     try {
-        let crearConsulta = await new ConsultaModel({
+        let crearConsulta = await new appointmentModel({
             servicio: servicio,
             precio: precio,
             fecha: fecha.toLocaleString()
@@ -31,7 +31,7 @@ const generarConsulta = async (req, res) => {
     }
 };
 
-// let crearConsulta = new ConsultaModel({
+// let crearConsulta = new appointmentModel({
 //     servicio: "General",
 //     precio: 1000,
 //     fecha: new Date()
@@ -49,7 +49,7 @@ const generarConsulta = async (req, res) => {
 
 const visualizarConsultas = async (req, res) => {
     try{
-        const findConsulta = await ConsultaModel.find({})
+        const findConsulta = await appointmentModel.find({})
         .then( result => {
             console.log(result)
             mongoose.connection.close()
