@@ -16,6 +16,12 @@ const medicoSchema = new Schema({
     },
     disponibilidad: {
         type: Date,
+    },
+    especialidad: {
+        type: String
+    },
+    estado: {
+        type: String
     }
 },
 {

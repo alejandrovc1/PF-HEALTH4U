@@ -17,4 +17,8 @@ const a = fs.readdirSync(PATH_ROUTES).filter((file) => {
     }
 });
 
+router.get("*", (req, res) => {
+    res.status(400).send('What are you looking for?')
+})
+
 module.exports = router;
