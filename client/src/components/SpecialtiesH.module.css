@@ -11,6 +11,7 @@
     /* background-color: blue; */
     grid-template-columns: auto auto auto;
     justify-content: space-evenly;
+    margin-bottom: 25px;
 }
 
 .gridContainer div {
