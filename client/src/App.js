@@ -1,7 +1,8 @@
 import './App.css';
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 import Home from './components/Home';
-import Profile from './components/Profile'
+import Account from './components/Account'
+import Appointment from './components/Appointment';
 
 function App() {
 
@@ -10,7 +11,8 @@ function App() {
       <BrowserRouter>
       <Switch>
         <Route exact path="/home" components><Home/></Route>
-        <Route exact path="/profile" components><Profile/></Route>
+        <Route exact path="/account" components><Account/></Route>
+        <Route exact path="/appointment" components><Appointment/></Route>
       </Switch>
     </BrowserRouter>
   );
