@@ -3,7 +3,7 @@ import style from "./Nav.module.css";
 import logo from "./image/logo.png";
 
 
-export default function Nav(){
+export default function NavAppointment(){
  
     return (
       <header>
@@ -13,13 +13,13 @@ export default function Nav(){
                 <div>
                    <ul id={style.navul}>
                       <li><a href="index.html">Specialties</a></li>
-                      <li><a href="index.html">About us</a></li>
+                      <li><a href="index.html">My Appointments</a></li>
+                      <li><a href="/account">Account</a></li>
                       <li><a href="index.html">Cart</a></li>
-                      <select className={style.filter}>
-                        <option className={style.op}>Sign up</option>
-                        <option className={style.op}>Doctor</option>
-                        <option className={style.op}>Patient</option>
-                      </select>
+                      <button className={style.boton}>Sign Out</button>
+                      <li><a href="index.html">Contact Us</a></li>
+                      <li><a href="index.html">Profile</a></li>
+                      <li><a href="/register">Sign Up</a></li>
                       <button className={style.boton}>Sign in</button>
                     </ul>
                 </div>
@@ -28,4 +28,3 @@ export default function Nav(){
          </header>
     )
 }
-

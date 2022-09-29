@@ -51,7 +51,7 @@
     font-weight: 500;
     font-size: 1rem;
     padding: 0.7em 1.4em 0.7em 1.1em;
-    color: white;
+    color: black;
     background: linear-gradient(#BBF3F9, #7CD1E5);
     border: none;
     letter-spacing: 0.05em;
@@ -74,14 +74,68 @@
     box-shadow: 0 0.3em 1em -0.5em #00c3ff98;
   }
 
---------------------------------
+
+/*
 .imgpie{
    height: 2rem;
    width: 100vw;
    margin-bottom: 0;
 }
+*/
 
+.imgpie{
+width: 100vw;
+height: 20vh;
+display: flex;
+align-items: center;
+justify-content: center;
+background: url(./image/pieDePagina.png);
+background-size: cover;
+background-position: center;
+}
 
 .piepagina{
     width: 100%;
+}
+
+icon{
+  margin-left: 2rem;
+}
+
+a{
+  cursor: pointer;
+}
+
+.reds{
+  justify-content: center;
+  align-items: center;
+  margin: 0 2rem;
+}
+
+.contac{
+  text-align: center;
+}
+
+.redes{
+  margin:0 1rem;
+}
+
+.signin{
+  margin: 0 2rem;
+}
+
+.signup{
+  margin: 0 1rem;
+  padding-right: 4rem;
+}
+
+.help{
+  margin: 0 1rem;
+  padding-right: 3rem;
+}
+
+.copy{
+  margin: 0 1rem;
+  padding-right: 3rem;
+  margin-top: 4rem;
 }

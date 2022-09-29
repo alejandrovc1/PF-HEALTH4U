@@ -1,17 +1,27 @@
 import './App.css';
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 import Home from './components/Home';
-import Profile from './components/Profile'
+import Account from './components/Account'
+import Login from './components/Login'
+import Register from './components/Register';
+import ProtectedRoute from './components/ProtectedRoute';
+import {AuthProvider} from './context/authContext'
+import Appointment from './components/Appointment'
 
 function App() {
 
 
   return (
       <BrowserRouter>
+        <AuthProvider>
       <Switch>
-        <Route exact path="/home" components><Home/></Route>
-        <Route exact path="/profile" components><Profile/></Route>
+       <Route path= '/'><Home/></Route>
+        <Route exact path="/account" components><Account/></Route>
+        <Route path = '/login/' components><Login/></Route>
+        <Route path = '/register/' components><Register/></Route> 
+        <ProtectedRoute path= '/appointment'><Appointment/></ProtectedRoute>
       </Switch>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

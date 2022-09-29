@@ -1,36 +1,15 @@
 import React from "react";
-import Nav from "./Nav";
-import s from "./Home.module.css";
-import doctor from "./image/Doctor.png";
+import s from "./Footer.module.css"
 import f from "./image/facebook.png"
 import i from "./image/instagram.png"
 import t from "./image/gorjeo.png"
 import tk from "./image/tik-tok.png"
 import w from "./image/whatsapp.png"
-import SpecialtiesH from "./SpecialtiesH";
 
-export default function Home(){
-    
-
-    return (
-        <div className={s.fnd}>
-          <Nav/>
-          <div className={s.fondo}>
-            
-                <div className={s.float1}>
-                  <h3 className={s.h3}>Solution For Healtcare Needs</h3>
-                  <h1 className={s.title}>We Always Provide Best Service</h1>
-                  <p className={s.text}>More than 50 specialist doctors waiting to assist you, makean appointment <br/>that fits your schedule</p>
-                  <button className={s.boton}>Get started</button>
-                </div>
-                <div className={s.float}>
-                     <img className={s.image} src={doctor}/>
-                </div>
-            </div>
-            <div>
-                <SpecialtiesH />
-            </div>
-             <div className={s.imgpie}>
+export default function Footer(){
+    return(
+          <footer>
+              <div className={s.imgpie}>
               <div className={s.signup}>
              <p><a>Sing up</a></p>
              <p>For Patients</p>
@@ -56,6 +35,6 @@ export default function Home(){
               <p>@Health4u All rights reserved</p>
              </div>
              </div>
-        </div>
+          </footer>
     )
 }
