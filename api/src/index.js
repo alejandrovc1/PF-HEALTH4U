@@ -4,12 +4,26 @@ const morgan = require ('morgan');
 //morgan permite ver las peticiones en consola
 const cors = require('cors');
 //cors permite comunicar el servidor y el frontend 
+const routes = require('./routes/index.js')
 
 const app = express();
 
+app.use(express.json())
 app.use(morgan('dev'))
 app.use(cors())
 
+app.use('/', routes)
 
-app.listen(3000)
-console.log("Server on port 3000")
+// Error catching endware.
+app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+    const status = err.status || 500;
+    const message = err.message || err;
+    console.error(err);
+    res.status(status).send(message);
+});
+
+app.listen(3000, () => { // puerto 3001
+    console.log('Server listening on port 3000'); // eslint-disable-line no-console
+});
+
+// console.log('Server listening on port 3000');

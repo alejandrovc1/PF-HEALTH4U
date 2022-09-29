@@ -7,6 +7,7 @@ import i from "./image/instagram.png"
 import t from "./image/gorjeo.png"
 import tk from "./image/tik-tok.png"
 import w from "./image/whatsapp.png"
+import SpecialtiesH from "./SpecialtiesH";
 
 export default function Home(){
     
@@ -25,6 +26,9 @@ export default function Home(){
                 <div className={s.float}>
                      <img className={s.image} src={doctor}/>
                 </div>
+            </div>
+            <div>
+                <SpecialtiesH />
             </div>
              <div className={s.imgpie}>
               <div className={s.signup}>
