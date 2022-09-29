@@ -7,6 +7,9 @@ const pacienteSchema = new Schema({
     nombre: {
         type: String,
     },
+    identificación: {
+        type: Number,
+    },
     correo: {
         type: String,
         unique: true,
