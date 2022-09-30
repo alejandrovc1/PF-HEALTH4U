@@ -5,25 +5,26 @@ import Account from './components/Account'
 import Login from './components/Login'
 import Register from './components/Register';
 import ProtectedRoute from './components/ProtectedRoute';
-import {AuthProvider} from './context/authContext'
+import { AuthProvider } from './context/authContext'
 import Appointment from './components/Appointment'
 import roles from './helpers/roles';
 
 
 
-function App() {
+function App()
+{
 
 
   return (
-      <BrowserRouter>
-        <AuthProvider>
-      <Switch>
-       <Route path= '/'><Home/></Route>
-        <Route exact path="/account" components><Account/></Route>
-        <Route path = '/login/' components><Login/></Route>
-        <Route path = '/register/' components><Register/></Route> 
-        <ProtectedRoute path= '/appointment'><Appointment/></ProtectedRoute>
-      </Switch>
+    <BrowserRouter>
+      <AuthProvider>
+        <Switch>
+          <Route exact path='/'><Home /></Route>
+          <Route exact path="/account" components><Account /></Route>
+          <Route path='/login/' components><Login /></Route>
+          <Route path='/register/' components><Register /></Route>
+          <ProtectedRoute exact path='/appointment'><Appointment /></ProtectedRoute>
+        </Switch>
       </AuthProvider>
     </BrowserRouter>
   );
