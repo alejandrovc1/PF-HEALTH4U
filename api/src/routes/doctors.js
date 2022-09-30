@@ -1,41 +1,41 @@
 const { Router } = require('express')
 const {
-    getAllMedicos,
-    getMedicoDetail,
-    registerMedico,
-    loginMedico,
-} = require('../controllers/')
+    getAllDoctors,
+    getDoctorDetail,
+    registerDoctor,
+    loginDoctor,
+} = require('../controllers/doctorController')
 
 const router = Router();
 
 router.get('/', async (req, res) => {
     try {
-        const response = await getAllMedicos()
+        const response = await getAllDoctors()
         return res.status(200).send(response)
 
     } catch (e) {
         console.error(e);
-        return res.status(400).send("Ocurrió un error. No se pueden mostrar los Médicos.")
+        return res.status(400).send("Error occured. Doctors can't be showed.")
     }
 })
 
 router.get('/:id', async (req, res) => {
     try {
         const { id } = req.params
-        const response = await getMedicoDetail(id)
+        const response = await getDoctorDetail(id)
         return res.status(200).send(response)
 
     } catch (e) {
         console.error(e);
-        return res.status(400).send("Ocurrió un error. No se pueden mostrar al Médico.")
+        return res.status(400).send("Error occured. Doctor can't be showed.")
     }
 })
 
 router.post('/register', async (req, res) => {
     try {  
-        const medicoData = req.body
-        if(medicoData) {
-            const registerResponse = await registerMedico(medicoData)
+        const doctorData = req.body
+        if(doctorData) {
+            const registerResponse = await registerDoctor(doctorData)
             if(registerResponse) {
                 return res.status(200).json(registerResponse)
             }
@@ -43,7 +43,7 @@ router.post('/register', async (req, res) => {
 
     } catch (e) {
         console.error(e);
-        return res.status(400).send("Ocurrió un error. No se puede registrar al nueo usuario.")
+        return res.status(400).send("Error occured. New User can't be created.")
     }
 })
 
@@ -51,7 +51,7 @@ router.post('/login', async (req, res) => {
     try {
         const loginData = req.body
         if(loginData) {
-            const loginResponse = await loginMedico(loginData)
+            const loginResponse = await loginDoctor(loginData)
             if(loginResponse) {
                 return res.status(200).json(loginResponse)
             }
@@ -59,7 +59,7 @@ router.post('/login', async (req, res) => {
 
     } catch (e) {
         console.error(e);
-        return res.status(400).send("Ocurrió un error. No se puede iniciar la sesión ahora.")
+        return res.status(400).send("Error occured. Can't access to your session.")
     }
 })
 

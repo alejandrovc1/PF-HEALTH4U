@@ -6,7 +6,7 @@ const { Schema, model } = require("mongoose");
 //Mongo da una id predeterminadamente, no es necesario declarar
 const doctorSchema = new Schema({
     id: {
-        type: DataTypes.UUID,
+        type: String,
     },
     name: {
         type: String,
