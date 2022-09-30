@@ -1,0 +1,67 @@
+.conten{
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 5%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.contenImg{
+    text-align: center;
+    margin: 1%;
+    max-width: 50%;
+    
+}
+.contenImg{
+    text-align: center;
+}
+.contenInfo{
+    margin: 0%;
+    width: 100%;
+    max-width: 50%;
+}
+.tituloInfo{
+    
+    margin-left: 15%;
+}
+.contoenInfoMision{
+    margin-left: 15%;
+}
+
+
+.subtituloInfoMision{
+    
+    margin-right: 3%;
+    
+}
+.infoMision{
+    
+    margin-right: 3%;
+    
+    
+}
+.contoenInfoNosotros{
+   margin-right: 15%;
+}
+.subtituloInfoNosotros{
+    margin-left: 3%;
+}
+.infoNosotros{
+    margin-left: 3%;
+}
+.contenButon{
+    text-align: center;
+    margin: 10%;
+    
+}
+.contenButon button{
+    padding: 3%;
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+    background-color:rgb(0, 162, 255);
+}
+.contenButon button:hover{
+    background-color:rgb(1, 106, 167);
+}
