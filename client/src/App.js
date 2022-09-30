@@ -7,6 +7,9 @@ import Register from './components/Register';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/authContext'
 import Appointment from './components/Appointment'
+import roles from './helpers/roles';
+
+
 
 function App()
 {

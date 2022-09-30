@@ -18,14 +18,13 @@ import {auth} from '../firebase'
  }
 
 export  function AuthProvider({children}){
-      const user = {
-        login:true
-      }
+      
        const [users,setUsers] = useState(null)
        const [loading,setLoading] = useState(true)
 
     const signup = (email,password)=>
         createUserWithEmailAndPassword(auth,email,password)
+        
     const login = (email,password) => signInWithEmailAndPassword(auth,email,password)
     const logout = () => signOut(auth)
 

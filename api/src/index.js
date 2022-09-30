@@ -1,10 +1,13 @@
 //Archivo que arranca el servidor 
+require("dotenv").config();
 const express = require ('express');
 const morgan = require ('morgan');
 //morgan permite ver las peticiones en consola
 const cors = require('cors');
 //cors permite comunicar el servidor y el frontend 
 const routes = require('./routes/index.js')
+//conectamos la DB
+const { dbConn } = require("./db.js")
 
 const app = express();
 
@@ -26,4 +29,4 @@ app.listen(3000, () => { // puerto 3001
     console.log('Server listening on port 3000'); // eslint-disable-line no-console
 });
 
-// console.log('Server listening on port 3000');
+dbConn();

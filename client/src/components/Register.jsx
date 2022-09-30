@@ -36,8 +36,13 @@ export default function Register(){
         if(!user.dateOfBirth){
             error.dateOfBirth = "Birth date is required"
         }
-        return error
+        if(!user.dni){
+            error.dni = "DNI is required"
+        }else if(!/^[\d]{1,3}\.?[\d]{3,3}\.?[\d]{3,3}$/.test(user.dni.trim())){
+          error.dni = "DNI not valid"
     }
+    return error
+}
 
     const [user,setUser] = useState({
         fullname:"",
@@ -45,7 +50,9 @@ export default function Register(){
         password:"",
         confirmPassword:"",
         dateOfBirth:"",
-        typeGenre:[]
+        dni:"",
+        typeGenre:[],
+        typeUser:[]
     })
 
     const {signup} = useAuth()
@@ -139,12 +146,27 @@ export default function Register(){
                 onChange={handleInputChange}
                  />
                  {error.dateOfBirth && <p>{error.dateOfBirth}</p>}
+                <label>Identification</label>
+                <input
+                type = "number"
+                name = "dni"
+                value = {user.dni}
+                onChange={handleInputChange}
+                 />
+                {error.dni && <p>{error.dni}</p>}
                 <label>Genre:</label>
                 <select onChange={handleSelected}>
                 <option selected>Select your genre</option>
                 <option value ="male">Male</option>
                 <option value = "female">Female</option>
                 </select>
+                <select id = "rol" onChange={handleSelected}>
+                <option selected>Select your type of user</option>
+                <option>Administrator</option>
+                <option>Doctor</option>
+                <option>Patient</option>
+                </select>
+            
                 <button type = "submit">Register</button>
                </form>
              <p>
