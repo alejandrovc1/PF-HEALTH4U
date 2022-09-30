@@ -20,7 +20,7 @@ function App()
           <Route exact path="/account" components><Account /></Route>
           <Route path='/login/' components><Login /></Route>
           <Route path='/register/' components><Register /></Route>
-          <ProtectedRoute path='/appointment'><Appointment /></ProtectedRoute>
+          <ProtectedRoute exact path='/appointment'><Appointment /></ProtectedRoute>
         </Switch>
       </AuthProvider>
     </BrowserRouter>
