@@ -14,7 +14,7 @@ function rootReducer(state = initialState, action) {
                 allDoctors: action.payload 
         }
 
-        case "GET_GENRES": 
+        case "GET_ESPECIALTIES": 
             return {
                 ...state,
                 Specialties: action.payload
