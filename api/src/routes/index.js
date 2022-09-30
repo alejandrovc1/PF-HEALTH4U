@@ -2,6 +2,8 @@ const express = require("express");
 // const fs = require("fs");
 const router = express.Router();
 const appointments = require ("./appointments")
+const doctors = require ("./doctors")
+const specialties = require ("./specialties")
 
 // const PATH_ROUTES = __dirname; 
 
@@ -19,10 +21,11 @@ const appointments = require ("./appointments")
 // });
 
 router.use('/appointments', appointments);
-
+router.use('/doctors', doctors)
+router.use('/specialties', specialties)
 
 router.get("*", (req, res) => {
-    res.status(400).send('What are you looking for?')
+    res.status(404).send('What are you looking for?')
 })
 
 module.exports = router;
