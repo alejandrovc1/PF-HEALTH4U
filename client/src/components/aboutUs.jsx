@@ -1,6 +1,7 @@
 import React from "react";
 import s from './aboutUs.module.css'
 import img from './image/imgabout.png'
+import { NavLink } from "react-router-dom";
  
 export default function AboutUs(){
 
@@ -32,7 +33,7 @@ export default function AboutUs(){
                 </div> 
 
                 <div className={s.contenButon}>
-                    <button>GET AN  APPOINTMENT</button>
+                    <button><NavLink to='/appointment' className={s.NavLink}>GET AN  APPOINTMENT</NavLink></button>
                 </div>
 
 
