@@ -1,16 +1,18 @@
+//MODELO DE ADMIN 
 //Utilizando los esquemas creamos los modelos
 const { Schema, model } = require("mongoose");
 //const mongooseDelete = require("mongoose-delete");
 
 //Mongo da una id predeterminadamente, no es necesario declarar
-const horarioSchema = new Schema({
-    fecha: {
-        type: Date,
-    },
-    horaInicio: {
+const adminSchema = new Schema({
+    name: {
         type: String,
     },
-    horaFinal: {
+    email: {
+        type: String,
+        unique: true,
+    },
+    password: {
         type: String,
     },
 },
@@ -19,6 +21,6 @@ const horarioSchema = new Schema({
     versionKey: false,
 });
 
-const HorarioModel = model("Horario", horarioSchema);
+const adminModel = model("Admin", adminSchema);
 
-module.exports = HorarioModel;
+module.exports = adminModel;

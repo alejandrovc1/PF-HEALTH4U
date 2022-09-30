@@ -1,10 +1,17 @@
+//MODELO HORARIO
 //Utilizando los esquemas creamos los modelos
 const { Schema, model } = require("mongoose");
 //const mongooseDelete = require("mongoose-delete");
 
 //Mongo da una id predeterminadamente, no es necesario declarar
-const especialidadSchema = new Schema({
-    nombre: {
+const scheduleSchema = new Schema({
+    date: {
+        type: Date,
+    },
+    startTime: {
+        type: String,
+    },
+    endTime: {
         type: String,
     },
 },
@@ -13,6 +20,6 @@ const especialidadSchema = new Schema({
     versionKey: false,
 });
 
-const EspecialidadModel = model("Especialidad", especialidadSchema);
+const scheduleModel = model("Schedule", scheduleSchema);
 
-module.exports = EspecialidadModel;
+module.exports = scheduleModel;

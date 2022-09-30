@@ -1,11 +1,12 @@
+//constante de todos los modelos
 const models = {
-    pacienteModel: require("./paciente"),
-    medicoModel: require("./medico"),
-    consultaModel: require("./consulta"),
-    especialidadModel: require("./especialidad"),
+    pacienteModel: require("./patient"),
+    medicoModel: require("./doctor"),
+    appointmentModel: require("./appointment"),
+    specialtieModel: require("./specialtie"),
     reviewModel: require("./review"),
-    horarioModel: require("./horario"),
-    administradorModel: require("./administrador"),
+    scheduleModel: require("./schedule"),
+    adminModel: require("./admin"),
 };
 
 module.exports = models;

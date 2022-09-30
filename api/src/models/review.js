@@ -4,10 +4,10 @@ const { Schema, model } = require("mongoose");
 
 //Mongo da una id predeterminadamente, no es necesario declarar
 const reviewSchema = new Schema({
-    servicio: {
-        calificacion: Number,
+    service: {
+        type: Number,
     },
-    fecha: {
+    date: {
         type: Date,
     },
     review: {

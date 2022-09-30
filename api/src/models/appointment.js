@@ -1,28 +1,25 @@
+//MODELO CONSULTA
 //Utilizando los esquemas creamos los modelos
 const { Schema, model } = require("mongoose");
 //const mongooseDelete = require("mongoose-delete");
 
 //Mongo da una id predeterminadamente, no es necesario declarar
-const medicoSchema = new Schema({
-    nombre: {
+const appointmentSchema = new Schema({
+    service: {
         type: String,
     },
-    correo: {
-        type: String,
-        unique: true,
+    price: {
+        type: Number,
     },
-    contrasena: {
-        type: String,
-    },
-    disponibilidad: {
+    date: {
         type: Date,
-    }
+    },
 },
 {
     timestamps: true,
     versionKey: false,
 });
 
-const MedicoModel = model("Medico", medicoSchema);
+const appointmentModel = model("Consulta", appointmentSchema);
 
-module.exports = MedicoModel;
+module.exports = appointmentModel;
