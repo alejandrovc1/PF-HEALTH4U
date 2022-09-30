@@ -3,7 +3,7 @@
 export default function Account(){
     return(
         <div>
-            <h1>Este es nuestro perfil</h1>
+            <h1>Aqui va mi cuenta</h1>
         </div>
     )
 }

@@ -7,6 +7,8 @@ import { filterBySpecialties, orderByRating, orderByName } from "../actions";
 import Footer from "./Footer";
 
 export default function Appointment(){
+ 
+
     const dispatch = useDispatch();
     const [orden, setOrden] = useState("");
     /*
@@ -44,6 +46,7 @@ function handleSpecialties(e){
         <div className={s.tite}>
             <h1>Select your preferences to make an appointment!</h1>
         </div>
+        
         <div className={s.conten}>
             <select className={s.filter} onChange={e => handleSort(e)}>
                 <option>Alphabetically</option>

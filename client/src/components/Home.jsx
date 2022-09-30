@@ -1,62 +1,60 @@
 import React from "react";
 import Nav from "./Nav";
-import style from "./Home.module.css";
+import s from "./Home.module.css";
 import doctor from "./image/Doctor.png";
-import pie from "./image/pieDePagina.png";
-//import {useDispatch} from "react-redux";
-//import { useState, useEffect } from "react";
-import { useAuth } from "../context/authContext";
+import f from "./image/facebook.png"
+import i from "./image/instagram.png"
+import t from "./image/gorjeo.png"
+import tk from "./image/tik-tok.png"
+import w from "./image/whatsapp.png"
+import SpecialtiesH from "./SpecialtiesH";
 
 export default function Home(){
-    const {users,logout,loading}= useAuth()
-
-    /*
-    const dispatch = useDispatch();
-    const [orden, setOrden] = useState(""); //creo el estado de orden para poder renderizar en un orden
- 
-    useEffect(()=>{ //lo manda al store para hacer la logica  
-        dispatch(getPatientes());
-        dispatch(getDoctors()); 
-    }, [dispatch])
-
-    function handleRating(e){ //funcion para ordenar por rating de cada doctor
-        e.preventDefault();
-        setOrden(e.target.value)
-    }
-
-    function handleSpecialties(e){ //funcion para ordenar por especialidad
-        e.preventDefault();
-        setOrden(e.target.value);
-    }
-  
- function handleSort(e){ //funcion para filtrar por orden alfabetico
-        e.preventDefault();//preveemos el orden por default
-        setOrden(e.target.value) // seteamos  
-    }
- */
-
-    const handleLogOut = async () =>{
-        await logout()
-    }
     
 
     return (
-        <div className={style.fnd}>
+        <div className={s.fnd}>
           <Nav/>
-          <button onClick={handleLogOut}>logout</button>
-          <div className={style.fondo}>
-            <div className={style.float}>
-                <img className={style.image} src={doctor}/>
-            </div>
-                <div className={style.float1}>
-                  <h3 className={style.h3}>Solution For Healtcare Needs</h3>
-                  <h1>We Always Provide Best Service</h1>
-                  <p>More than 50 specialist doctors waiting to assist you, makean appointment that fits your schedule</p>
-                  <button className={style.boton}>Get started</button>
+          <div className={s.fondo}>
+            
+                <div className={s.float1}>
+                  <h3 className={s.h3}>Solution For Healtcare Needs</h3>
+                  <h1 className={s.title}>We Always Provide Best Service</h1>
+                  <p className={s.text}>More than 50 specialist doctors waiting to assist you, makean appointment <br/>that fits your schedule</p>
+                  <button className={s.boton}>Get started</button>
+                </div>
+                <div className={s.float}>
+                     <img className={s.image} src={doctor}/>
                 </div>
             </div>
-             <div>
-                <img className={style.piepagina} src={pie}/>
+            <div>
+                <SpecialtiesH />
+            </div>
+             <div className={s.imgpie}>
+              <div className={s.signup}>
+             <p><a>Sing up</a></p>
+             <p>For Patients</p>
+             <p>For Medical Staff</p>
+              </div>
+              <div className={s.signin}>
+             <p><a>Sing in</a></p>
+             <p>For Patients</p>
+             <p>For Medical Staff</p>
+              </div>
+             <div className={s.reds}>
+              <p className={s.contac}>Contact</p>
+              <img src={f} className={s.redes}/>
+              <img src={i} className={s.redes}/>
+              <img src={t} className={s.redes}/>
+              <img src={tk} className={s.redes}/>
+              <img src={w} className={s.redes}/>
+             </div>
+             <div className={s.help}>
+              <p><a>Help?</a></p>
+             </div>
+             <div className={s.copy}>
+              <p>@Health4u All rights reserved</p>
+             </div>
              </div>
         </div>
     )
