@@ -31,7 +31,6 @@ export default function Cards()
         <div className={styles.docs}>
             <div className={styles.cardXdoc}>
                 {
-
                     allDoctors.map(doctors => (
                         < CardDoc
                             id={doctors.id}
@@ -42,14 +41,9 @@ export default function Cards()
                             specialtie={doctors.specialtie}
                             commets={doctors.commets}
                         />
-
                     ))
                 }
-
-
             </div>
-
         </div>
-
     )
 } 
