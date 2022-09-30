@@ -5,10 +5,11 @@ import Account from './components/Account'
 import Login from './components/Login'
 import Register from './components/Register';
 import ProtectedRoute from './components/ProtectedRoute';
-import {AuthProvider} from './context/authContext'
+import { AuthProvider } from './context/authContext'
 import Appointment from './components/Appointment'
 
-function App() {
+function App()
+{
 
 
   return (
