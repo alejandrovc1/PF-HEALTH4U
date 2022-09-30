@@ -7,6 +7,7 @@ import Register from './components/Register';
 import ProtectedRoute from './components/ProtectedRoute';
 import {AuthProvider} from './context/authContext'
 import Appointment from './components/Appointment'
+import roles from './helpers/roles';
 
 
 
@@ -17,11 +18,11 @@ function App() {
       <BrowserRouter>
         <AuthProvider>
       <Switch>
-       <Route exact path= '/'><Home/></Route>
+       <Route path= '/'><Home/></Route>
         <Route exact path="/account" components><Account/></Route>
         <Route path = '/login/' components><Login/></Route>
-        <Route path = '/user/' components><Register/></Route>      
-        <ProtectedRoute path= '/home'><Appointment/></ProtectedRoute>
+        <Route path = '/register/' components><Register/></Route> 
+        <ProtectedRoute path= '/appointment'><Appointment/></ProtectedRoute>
       </Switch>
       </AuthProvider>
     </BrowserRouter>
