@@ -15,11 +15,11 @@ function App() {
       <BrowserRouter>
         <AuthProvider>
       <Switch>
-       <Route path= '/'><Home/></Route>
+       <Route exact path= '/'><Home/></Route>
         <Route exact path="/account" components><Account/></Route>
-        <Route path = '/login/' components><Login/></Route>
-        <Route path = '/register/' components><Register/></Route> 
-        <ProtectedRoute path= '/appointment'><Appointment/></ProtectedRoute>
+        <Route exact path = '/login/' components><Login/></Route>
+        <Route exact path = '/register/' components><Register/></Route> 
+        <ProtectedRoute exact path= '/home'><Appointment/></ProtectedRoute>
       </Switch>
       </AuthProvider>
     </BrowserRouter>
