@@ -17,10 +17,6 @@ export default function NavAppointment(){
                       <li><a href="/account">Account</a></li>
                       <li><a href="index.html">Cart</a></li>
                       <button className={style.boton}>Sign Out</button>
-                      <li><a href="index.html">Contact Us</a></li>
-                      <li><a href="index.html">Profile</a></li>
-                      <li><a href="/register">Sign Up</a></li>
-                      <button className={style.boton}>Sign in</button>
                     </ul>
                 </div>
              </div>
