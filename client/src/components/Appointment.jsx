@@ -1,11 +1,12 @@
 import React from "react";
 import NavAppointment from "./NavAppointment";
 import s from "./Appointment.module.css"
-import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import { getDoctors, filterBySpecialties, orderByRating, orderByName } from "../actions";
 import Footer from "./Footer";
 import { useAuth } from "../context/authContext";
+import CardDoc from './CardDoc.jsx';
 export default function Appointment()
 {
 
@@ -91,8 +92,8 @@ export default function Appointment()
                     <option>Hour Available</option>
                 </select>
             </div>
-            <div className={styles.docs}>
-                <div className={styles.cardXdoc}>
+            <div className={s.docs}>
+                <div className={s.cardXdoc}>
                     {
 
                         doctors.map(doctors => (
