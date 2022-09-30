@@ -1,8 +1,9 @@
 const { doctorModel } = require('../models/models');
+const cloudinary = require('../cloudinary')
+const nameFolder = 'doctorPhotos'
 
 const getAllDoctors = async () => {
     try {
-        console.log("acá")
         const response = await doctorModel
             .find({}).populate({
                 path: "specialtie",
@@ -39,11 +40,11 @@ const registerDoctor = async (registerData) => {
     try {
         const { name, email, password, status, specialtie, method, image } = registerData
         const found = await doctorModel.findOne({ name: name })
-        console.log(registerData)
+
         if (!found) {
             const result = await cloudinary.uploader.upload(image, {
                 //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
-                folder: doctorPhotos,
+                folder: nameFolder,
             })
             const register = await doctorModel.create({
                 name,
