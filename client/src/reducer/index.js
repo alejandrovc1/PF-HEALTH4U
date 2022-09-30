@@ -1,14 +1,5 @@
 const initialState = { //estados iniciales
-<<<<<<< HEAD
-    "aun nose que hira aca": []
-}
 
-function rootReducer(state = initialState, action)
-{
-    switch (action.type)
-    {
-
-=======
     Doctors: [],
     Specialties: [],
     Patients: []
@@ -82,7 +73,7 @@ function rootReducer(state = initialState, action) {
                                         ...state,
                                         Doctors: sortedArrRating
                                     }
->>>>>>> 7d256085c21e21b4445d17c7c85dfdb11d8dc007
+
         default:
             return state;
     }

@@ -1,7 +1,7 @@
 import React from "react";
 import s from './aboutUs.module.css'
-import img from './imagen/imgabout.png'
-
+import img from './image/imgabout.png'
+ 
 export default function AboutUs(){
 
     return(
