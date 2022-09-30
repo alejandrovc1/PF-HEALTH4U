@@ -160,7 +160,7 @@ export default function Register(){
                 <option value ="male">Male</option>
                 <option value = "female">Female</option>
                 </select>
-                <select onChange={handleSelected}>
+                <select id = "rol" onChange={handleSelected}>
                 <option selected>Select your type of user</option>
                 <option>Administrator</option>
                 <option>Doctor</option>
