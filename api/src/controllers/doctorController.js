@@ -1,75 +1,87 @@
-const { medicoModel } = require('../models/models');
-const { create } = require('../models/paciente');
+const { doctorModel } = require('../models/models');
 
-const getAllMedicos = async () => {
+const getAllDoctors = async () => {
     try {
-        const response = await medicoModel
+        console.log("acá")
+        const response = await doctorModel
             .find({ }).populate({
-                path: "especialidad",
+                path: "specialtie",
             })
         if(response) {
             return response
         } else {
-            res.send({ msg: "No hay médicos en la DB"});
+            res.send({ msg: "There's no doctors in the DB"});
         }
 
     } catch (e) {
         console.error(e);
-        throw new Error ("Error. No se pueden mostrar los médicos.")
+        throw new Error ("Error. Doctors can't be showed.")
     }
 }
     
-const getMedicoDetail = async (id) => {
+const getDoctorDetail = async (id) => {
     try {
-        const response = await medicoModel.findById(id).populate({
-            path: "especialidad",
+        const response = await doctorModel.findById(id).populate({
+            path: "specialtie",
         })
         if(response) {
             return response
         } else {
-            res.send({ msg: "No hay médico con ese id"});
+            res.send({ msg: "There's no doctor with that id"});
         }
     } catch (e) {
         console.error(e);
-        throw new Error ("Error. No se puede mostrar médico.")
+        throw new Error ("Error. Doctor can't showed.")
     }
 }
     
-const registerMedico = async (registerData) => {
+const registerDoctor = async (registerData) => {
     try {
-        const { nombre, correo, contrasena, disponibilidad, cedula } = registerData
-        const found = await medicoModel.findOne({ cedula: cedula })
-
+        const { name, email, password, status, specialtie, method, image } = registerData
+        const found = await doctorModel.findOne({ name: name })
+        console.log(registerData)
         if(!found) {
-            const register = await medicoModel.create({
-                nombre,
-                correo,
-                contrasena,
-                disponibilidad,
-                cedula,
+            const register = await doctorModel.create({
+                name,
+                email,
+                password,
+                status,
+                specialtie,
+                method,
+                image,
             })
             return register
         } else {
-            res.send({ msg: "Este médico ya existe"});
+            res.send({ msg: "This Doctor already exists"});
         }
 
     } catch (e) {
         console.error(e);
-        throw new Error ("Error. No se puede registrar al médico.")
+        throw new Error ("Error. Doctor can't be registered.")
     }
 }
-    const loginMedico = async (loginData) => {
+    const loginDoctor = async (loginData) => {
         try {
+            const { email, password } = loginData
+            
+            if(email && password) {
+                const doctor = await doctorModel.findOne({ email: email, password: password})
+                if(doctor) {
+                    return doctor
+                } else {
+                    res.send({ msg: "Some Login data wasn't correct"});
+                }
+            }
 
         } catch (e) {
             console.error(e);
-            throw new Error ("Error. No se puede iniciar sesión.")
+            throw new Error ("Error. Can't logIn.")
         }
     }
 
     module.exports = {
-        getAllMedicos,
-        getMedicoDetail,
-        registerMedico,
-        loginMedico,
+        getAllDoctors,
+        getDoctorDetail,
+        registerDoctor,
+        loginDoctor,
     };
