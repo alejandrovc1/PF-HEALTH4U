@@ -2,6 +2,7 @@ import React from "react"
 import { useState } from "react"
 import { useHistory } from "react-router-dom"
 import { useAuth } from "../context/authContext"
+import { Link } from "react-router-dom"
 
 
 export default function Login(){
@@ -84,6 +85,7 @@ export default function Login(){
                          
             </form>
             <button onClick={handleGoogleSignIn}>Login with Google</button>
+            <Link to="/"><button>Go back</button></Link>
         </div>
     )
 }
