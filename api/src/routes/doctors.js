@@ -34,6 +34,7 @@ router.get('/:id', async (req, res) => {
 router.post('/register', async (req, res) => {
     try {  
         const doctorData = req.body
+
         if(doctorData) {
             const registerResponse = await registerDoctor(doctorData)
             if(registerResponse) {
