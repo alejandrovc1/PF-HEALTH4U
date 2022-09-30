@@ -20,6 +20,6 @@ const appointmentSchema = new Schema({
     versionKey: false,
 });
 
-const appointmentModel = model("Consulta", appointmentSchema);
+const appointmentModel = model("Appointment", appointmentSchema);
 
 module.exports = appointmentModel;
