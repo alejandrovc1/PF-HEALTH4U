@@ -2,23 +2,25 @@ const appointmentModel = require('../models/appointment')
 const mongoose = require("mongoose");
 
 const generarConsulta = async (req, res) => {
-    const {servicio, precio, fecha} = req.body
+    let {service, price, date} = req.body
 
-    if ( !servicio || !precio || !fecha ) res.status(400).send('Falta enviar datos obligatorios');
-    else if (typeof servicio !== 'string' || typeof precio !== 'number' || typeof fecha !== 'date') {
+    //date = date.toLocaleString()
+
+    if ( !service || !price || !date ) res.status(400).send('Falta enviar datos obligatorios');
+    else if (typeof service !== 'string' || typeof price !== 'number') {
     res.status(400).send("Error, los tipos de datos son incorrectos")}
 
     try {
         let crearConsulta = await new appointmentModel({
-            servicio: servicio,
-            precio: precio,
-            fecha: fecha.toLocaleString()
+            service: service,
+            price: price,
+            date: date
         });
 
         crearConsulta.save()
         .then( result => {
             console.log(result)
-            mongoose.connection.close() // es buena práctica cerrar las conexiones
+            // mongoose.connection.close() // es buena práctica cerrar las conexiones
         })
         .catch(err => {
             console.error(err)
@@ -31,27 +33,11 @@ const generarConsulta = async (req, res) => {
     }
 };
 
-// let crearConsulta = new appointmentModel({
-//     servicio: "General",
-//     precio: 1000,
-//     fecha: new Date()
-// });
-
-// crearConsulta.save()
-// .then( result => {
-//     console.log(result)
-//     mongoose.connection.close() // es buena práctica cerrar las conexiones
-// })
-// .catch(err => {
-//     console.error(err)
-// })
-
-
 const visualizarConsultas = async (req, res) => {
     try{
         const findConsulta = await appointmentModel.find({})
         .then( result => {
-            console.log(result)
+            res.json(result)
             mongoose.connection.close()
         })
         .catch(err => {

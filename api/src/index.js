@@ -30,5 +30,3 @@ app.listen(3000, () => { // puerto 3001
 });
 
 dbConn();
-
-// console.log('Server listening on port 3000');
