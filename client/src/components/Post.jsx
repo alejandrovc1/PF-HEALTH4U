@@ -35,6 +35,8 @@ export default function Post(){
 
     const specialties = useSelector((state) => state.Specialties);
 
+    let method = ["Private office", "Virtual meeting", "Address"]
+
     const [input, setInput] = useState({name: "", email: "",  image: "", description: "", method: [], specialties: []});
      
 
@@ -43,6 +45,7 @@ export default function Post(){
     }, [dispatch]);
     
     
+
     function handleChange(e){ 
         setInput({ ...input, [e.target.name]: e.target.value });
         setErrors(validate({ ...input, [e.target.name]: e.target.value }));
