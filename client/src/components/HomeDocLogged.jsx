@@ -17,9 +17,9 @@ export default function HomeDocLogged()
             <div>
                 <p>HOLA</p>
             </div>
-            <div>
-                <Footer />
-            </div>
+
+            <Footer />
+
         </div>
     )
 }
