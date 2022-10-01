@@ -3,7 +3,7 @@ import style from "./Nav.module.css";
 import logo from "./image/logo.png";
 
 
-export default function Nav(name)
+export default function NavDoctorLogged()
 {
 
     return (
@@ -16,7 +16,7 @@ export default function Nav(name)
                             <li><a href="index.html">My Schedule</a></li>
                             <li><a href="index.html">Account</a></li>
                             <li><a href="index.html">My Finances</a></li>
-                            <li><a>Hello, Dr.{name} </a></li>
+                            <li><a>Hello, Dr. </a></li>
                             <button className={style.boton}>SIGN OUT</button>
                         </ul>
                     </div>
