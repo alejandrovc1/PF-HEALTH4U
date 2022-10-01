@@ -57,7 +57,7 @@ export default function Post(){
 
     function handleSubmit(e){
         e.preventDefault();
-        if(!input.name || !input.email || !input.method || !input.description || input.specialties.length < 1 || input.specialties.length > 3 || input.status.length < 1 || !input.image || !input.image.includes("https")){
+        if(!input.name || !input.email || !input.method || !input.description || input.specialties.length < 1 || input.specialties.length > 3 || !input.image || !input.image.includes("https")){
             e.preventDefault();
             alert("Missing property to create your personal charter!")
         } else {

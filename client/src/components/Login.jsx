@@ -45,7 +45,7 @@ export default function Login(){
 
      const handleGoogleSignIn = async () =>{
       await loginWithGoogle()
-      history.push('/home')
+      history.push('/appointment')
      }
 
     const handleSubmit =async(e)=>{
@@ -53,7 +53,7 @@ export default function Login(){
         setError("")
         try {
            await login(user.email,user.password)
-           history.push('/home')
+           history.push('/appointment')
         } catch (error) {
             console.log(error.code)       
             setError(error.message)

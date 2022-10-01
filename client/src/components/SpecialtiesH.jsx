@@ -25,7 +25,7 @@ export default function SpecialtiesH()
     return (
         <div>
             <div className={style.title}>
-                <h2> Specialties</h2>
+                <h2>Specialties</h2>
             </div>
             <div className={style.gridContainer}>
                 <div className={style.box}>

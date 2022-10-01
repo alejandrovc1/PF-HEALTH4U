@@ -25,8 +25,8 @@ function App()
           <Route exact path="/account" components><Account /></Route>
           <Route exact path='/login/' components><Login /></Route>
           <Route exact path='/register/' components><Register /></Route>
-          {/* <Route exact path='/appointment' components><Appointment /></Route> */}
-          <ProtectedRoute exact path='/appointment'><Appointment /></ProtectedRoute>
+          <Route exact path='/appointment' components><Appointment /></Route> 
+          {/*<ProtectedRoute exact path='/appointment'><Appointment /></ProtectedRoute>*/}
         </Switch>
       </AuthProvider>
     </BrowserRouter>
