@@ -1,19 +1,58 @@
 import React from "react";
 import NavAppointment from "./NavAppointment";
-import s from "./Appointment.module.css"
+import s from "./Appointment.module.css";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { getDoctors, filterBySpecialties, orderByRating, orderByName } from "../actions";
 import Footer from "./Footer";
 import CardDoc from './CardDoc.jsx';
+import Paginado from "./Paginado.jsx";
+import style from "./Paginado.module.css"
+
 export default function Appointment()
 {
 
+    const allDoctors = useSelector(state => state.Doctors);
 
     const dispatch = useDispatch();
+
     const [orden, setOrden] = useState("");
 
-    let doctors = useSelector(state => state.Doctors);
+
+
+
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const [doctorsPerPage, setDoctorsPerPage] = useState(8);
+
+    const indexOfLastDoctors = currentPage * doctorsPerPage;
+
+    const indexOfFirstDoctors = indexOfLastDoctors - doctorsPerPage;
+
+    const currentDoctors = allDoctors.slice(indexOfFirstDoctors, indexOfLastDoctors);
+
+
+
+    const paginado = (pageNumber) =>
+    {
+        setCurrentPage(pageNumber)
+    }
+
+    function handlerPrev()
+    {
+        if (currentPage <= 1) return;
+        paginado(currentPage - 1);
+    }
+
+    function handlerNext()
+    {
+        if (currentPage >= currentPage.length) return;
+        paginado(currentPage + 1);
+    }
+
+
+
+
 
     useEffect(() =>
     {
@@ -81,11 +120,31 @@ export default function Appointment()
                     <option>Hour Available</option>
                 </select>
             </div>
+
+
+            <div className={style.paginado_container}>
+                <div className={style.paginado1}>
+                    {
+                        currentPage === 1 ? <div></div> :
+                            <button onClick={() => handlerPrev()} className={style.paginado_orden}>{"<"}</button>
+                    }
+                    <Paginado doctorsPerPage={doctorsPerPage}
+                        allDoctors={allDoctors.length}
+                        paginado={paginado}
+                    />
+                    {
+                        currentPage === 7 ? <div></div> :
+                            <button onClick={() => handlerNext()} className={style.paginado_orden}>{">"}</button>
+                    }
+                </div>
+            </div>
+
+
             <div className={s.docs}>
                 <div className={s.cardXdoc}>
                     {
 
-                        doctors.map(doctors => (
+                        currentDoctors.map(doctors => (
                             < CardDoc
                                 id={doctors.id}
                                 name={doctors.name}
