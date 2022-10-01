@@ -125,7 +125,7 @@ export default function Appointment(){
                    paginado={paginado} 
                 />
                 {
-                   currentPage === 7 ? <div></div> :
+                   currentPage === 2 ? <div></div> :
                    <button onClick={()=> handlerNext()} className={style.paginado_orden}>{">"}</button>
                 }
             </div>
