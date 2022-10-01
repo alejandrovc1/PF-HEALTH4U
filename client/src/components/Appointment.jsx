@@ -9,59 +9,66 @@ import CardDoc from './CardDoc.jsx';
 import Paginado from "./Paginado.jsx";
 import style from "./Paginado.module.css"
 
-export default function Appointment(){
-    
-    const allDoctors = useSelector (state => state.Doctors); 
-    
+export default function Appointment()
+{
+
+    const allDoctors = useSelector(state => state.Doctors);
+
     const dispatch = useDispatch();
 
     const [orden, setOrden] = useState("");
 
 
- 
-
-    const [currentPage, setCurrentPage] = useState(1); 
-
-    const [doctorsPerPage, setDoctorsPerPage] = useState(8); 
-
-    const indexOfLastDoctors = currentPage * doctorsPerPage; 
-
-    const indexOfFirstDoctors = indexOfLastDoctors - doctorsPerPage; 
-
-    const currentDoctors = allDoctors.slice(indexOfFirstDoctors, indexOfLastDoctors); 
 
 
+    const [currentPage, setCurrentPage] = useState(1);
 
-    const paginado = (pageNumber) => { 
+    const [doctorsPerPage, setDoctorsPerPage] = useState(8);
+
+    const indexOfLastDoctors = currentPage * doctorsPerPage;
+
+    const indexOfFirstDoctors = indexOfLastDoctors - doctorsPerPage;
+
+    const currentDoctors = allDoctors.slice(indexOfFirstDoctors, indexOfLastDoctors);
+
+
+
+    const paginado = (pageNumber) =>
+    {
         setCurrentPage(pageNumber)
     }
-    
-    function handlerPrev(){
-        if(currentPage <= 1) return;
+
+    function handlerPrev()
+    {
+        if (currentPage <= 1) return;
         paginado(currentPage - 1);
     }
 
-    function handlerNext(){
-        if(currentPage >= currentPage.length) return;
+    function handlerNext()
+    {
+        if (currentPage >= currentPage.length) return;
         paginado(currentPage + 1);
     }
 
 
 
-    
 
-    useEffect(() =>{
+
+    useEffect(() =>
+    {
         // dispatch(getPatientes());
         dispatch(getDoctors());
     }, [dispatch])
 
-    function handleRating(e){
+    function handleRating(e)
+    {
         e.preventDefault();
         dispatch(orderByRating(e.target.value));
         setOrden(e.target.value)
     }
 
-    function handleSort(e){
+    function handleSort(e)
+    {
         e.preventDefault();
         dispatch(orderByName(e.target.value));
         setOrden(e.target.value)
@@ -69,7 +76,8 @@ export default function Appointment(){
 
     let specialties = ["Cardiology", "Dermatology", "Endocrinology", "Gastroenterology", "Geriatrics", "Gynecology", "Internal Medicine", "Neurology", "Opthalmology", "Otorhinolaryngology", "Pneumology", "Psychiatry", "Rheumatology", "Traumatology", "Urology"]
 
-    function handleSpecialties(e){
+    function handleSpecialties(e)
+    {
         e.preventDefault();
         dispatch(filterBySpecialties(e.target.value));
         setOrden(e.target.value);
@@ -112,24 +120,24 @@ export default function Appointment(){
                     <option>Hour Available</option>
                 </select>
             </div>
-            
-            
-        <div className={style.paginado_container}> 
-            <div className={style.paginado1}>
-                {
-                   currentPage === 1 ? <div></div> :
-                   <button onClick={()=> handlerPrev()} className={style.paginado_orden}>{"<"}</button>
-                }
-                <Paginado doctorsPerPage={doctorsPerPage}
-                   allDoctors={allDoctors.length}    
-                   paginado={paginado} 
-                />
-                {
-                   currentPage === 7 ? <div></div> :
-                   <button onClick={()=> handlerNext()} className={style.paginado_orden}>{">"}</button>
-                }
+
+
+            <div className={style.paginado_container}>
+                <div className={style.paginado1}>
+                    {
+                        currentPage === 1 ? <div></div> :
+                            <button onClick={() => handlerPrev()} className={style.paginado_orden}>{"<"}</button>
+                    }
+                    <Paginado doctorsPerPage={doctorsPerPage}
+                        allDoctors={allDoctors.length}
+                        paginado={paginado}
+                    />
+                    {
+                        currentPage === 7 ? <div></div> :
+                            <button onClick={() => handlerNext()} className={style.paginado_orden}>{">"}</button>
+                    }
+                </div>
             </div>
-        </div>
 
 
             <div className={s.docs}>

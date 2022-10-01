@@ -1,0 +1,26 @@
+.form {
+    background-color: #97e0ec;
+    margin: auto;
+    width: 90%;
+    max-width: 500px;
+    padding: 3em 3em;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 30%) 0px 5px 15px;
+    text-align: left;
+}
+
+.labelAndInput {
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    border: none;
+    border-radius: 5px;
+}
+
+.inputDescription {
+    height: 80px;
+    border: none;
+    border-radius: 5px
+}

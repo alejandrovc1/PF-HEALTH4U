@@ -1,9 +1,14 @@
+import React from "react";
+import Post from "./Post";
 
-
-export default function Account(){
-    return(
+export default function Account()
+{
+    return (
         <div>
-            <h1>Aqui va mi cuenta</h1>
+            <div> Account</div>
+            <div>
+                <Post />
+            </div>
         </div>
     )
 }

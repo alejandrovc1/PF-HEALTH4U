@@ -21,7 +21,7 @@ function App()
       <AuthProvider>
         <Switch>
           <Route exact path='/'><Home /></Route>
-          <Route exact path='/docLogged'><HomeDocLogged /></Route>
+          <Route exact path='/homeDoc'><HomeDocLogged /></Route>
           <Route exact path="/account" components><Account /></Route>
           <Route exact path='/login/' components><Login /></Route>
           <Route exact path='/register/' components><Register /></Route>
