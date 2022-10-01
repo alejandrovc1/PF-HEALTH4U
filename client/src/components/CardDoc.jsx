@@ -11,7 +11,7 @@ export default function Card({ image, name, rating, specialtie, id })
                 <div className={style.datos}>
                     <img className={style.image} src={image} alt="" />
 
-                    <div>
+                    <div className={style.text}>
                         <h3 className={style.name} >{name}</h3>
                         <h3 className={style.specialtie} >{specialtie}</h3>
                     </div>
@@ -23,7 +23,7 @@ export default function Card({ image, name, rating, specialtie, id })
                         <img className={style.star} src={star} alt="" />
                     </div>
                     <div>
-                        <button>Schedule</button>
+                        <button className={style.Schedule}>Schedule</button>
                     </div>
                 </div>
             </div>

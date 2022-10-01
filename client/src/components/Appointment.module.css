@@ -1,4 +1,4 @@
-.tite{
+.tite {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,7 +12,13 @@
   align-items: center;
 }
 
-.filter{
-    border-color: rgb(0, 204, 255);
-    margin: 1rem 0.5rem;
+.filter {
+  border-color: rgb(0, 204, 255);
+  margin: 1rem 0.5rem;
+}
+
+.cardXdoc {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
