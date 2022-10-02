@@ -1,26 +1,26 @@
-.form {
-    background-color: #97e0ec;
-    margin: auto;
-    width: 90%;
-    max-width: 500px;
-    padding: 3em 3em;
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 30%) 0px 5px 15px;
-    text-align: left;
+.form{
+    text-align: center;
+    background: rgb(155, 248, 255);
+    margin-left: 30%;
+    margin-right: 30%;
+    padding-bottom: 3rem;
+    border-radius: 1rem;
+} 
+
+.input{
+    color: rgb(226, 53, 0);
+    padding-bottom: 1.2rem;
 }
 
-.labelAndInput {
-    display: flex;
-    flex-direction: column;
+input{
+     border-color: rgb(0, 195, 255);
 }
 
-.input {
-    border: none;
-    border-radius: 5px;
+select{
+    border-color: rgb(0, 195, 255);
+    margin: 1rem 1rem;
 }
 
-.inputDescription {
-    height: 80px;
-    border: none;
-    border-radius: 5px
+button{
+    border-color: rgb(0, 195, 255);
 }

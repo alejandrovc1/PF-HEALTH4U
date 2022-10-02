@@ -65,11 +65,9 @@ export default function Post()
     function handleMethod(e) { setInput({ ...input, method: [...input.method, e.target.value] }) }
 
 
-    function handleSubmit(e)
-    {
+    function handleSubmit(e){
         e.preventDefault();
-        if (!input.name || !input.email || !input.method || !input.description || input.specialties.length < 1 || input.specialties.length > 3 || input.status.length < 1 || !input.image || !input.image.includes("https"))
-        {
+        if (!input.name || !input.email || !input.method || !input.description || input.specialties.length < 1 || input.specialties.length > 3 || !input.image || !input.image.includes("https")){
             e.preventDefault();
             alert("Missing property to create your personal charter!")
         } else
@@ -89,10 +87,11 @@ export default function Post()
         <div>
 
             <form className={style.form} onSubmit={e => handleSubmit(e)}>
-                <h1> Create a Profile!</h1>
-                <div className={style.labelAndInput}>
-                    <p className={style.label}>Name</p>
-                    <input className={style.input}
+                <div className={style.container}>
+                <h2>Create!</h2>
+                <div className={style.input}>
+                    <p className={style.label}></p>
+                    <input
                         type="text"
                         value={input.name}
                         name="name"
@@ -103,9 +102,9 @@ export default function Post()
                     {errors.name && (<p>{errors.name}</p>)}
                 </div>
 
-                <div className={style.labelAndInput}>
-                    <p className={style.label}>description</p>
-                    <input className={style.inputDescription}
+                <div className={style.input}>
+                    <p className={style.label}></p>
+                    <input
                         type="text"
                         value={input.description}
                         name="description"
@@ -116,9 +115,9 @@ export default function Post()
                     {errors.description && (<p>{errors.description}</p>)}
                 </div>
 
-                <div className={style.labelAndInput}>
-                    <p className={style.label}>email</p>
-                    <input className={style.input}
+                <div className={style.input}>
+                    <p className={style.label}></p>
+                    <input 
                         type="text"
                         value={input.email}
                         name="email"
@@ -129,9 +128,9 @@ export default function Post()
                     {errors.email && (<p>{errors.email}</p>)}
                 </div>
 
-                <div className={style.labelAndInput}>
-                    <p className={style.label}>image</p>
-                    <input className={style.input}
+                <div className={style.input}>
+                    <p className={style.label}></p>
+                    <input
                         type="text"
                         value={input.image}
                         name="image"
@@ -141,32 +140,36 @@ export default function Post()
                     />
                     {errors.image && (<p>{errors.image}</p>)}
                 </div>
+                <div>
+                    <select onChange={e => handleSpecialties(e)}>
+                        <option hidden={true}>Specialties</option>
+                        {specialties.map(data => (<option value={data.name}>{data.name}</option>))}
+                    </select>
+                 
+                    <select onChange={e => handleMethod(e)}>
+                        <option hidden={true}>Method</option>
+                        {input.method.map(data => (<option value={data}>{data}</option>))}
+                    </select>
+                </div>
+                
 
-                <select onChange={e => handleSpecialties(e)}>
-                    <option hidden={true}>Specialties</option>
-                    {specialties.map(data => (<option value={data.name}>{data.name}</option>))}
-                </select>
+                <div className={style.input}>
+                     <button type="submit">Create card</button>
+                </div>
+               
+                    {input.specialties.map(data => (
+                        <div>
+                            <button onClick={() => deleteSpecialties(data)}>{data}</button>
+                        </div>
+                    ))}
 
-                <select onChange={e => handleMethod(e)}>
-                    <option hidden={true}>Method</option>
-                    {input.method.map(data => (<option value={data}>{data}</option>))}
-                </select>
-
-                <button type="submit">Create card</button>
-
+                    {input.method.map(data => (
+                        <div>
+                            <button onClick={() => deleteMethod(data)}>{data}</button>
+                        </div>
+                    ))}
+                </div>
             </form>
-
-            {input.specialties.map(data => (
-                <div>
-                    <button onClick={() => deleteSpecialties(data)}>{data}</button>
-                </div>
-            ))}
-
-            {input.method.map(data => (
-                <div>
-                    <button onClick={() => deleteMethod(data)}>{data}</button>
-                </div>
-            ))}
         </div>
     )
 }
