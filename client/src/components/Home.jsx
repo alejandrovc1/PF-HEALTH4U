@@ -32,12 +32,12 @@ export default function Home(){
             </div>
              <div className={s.imgpie}>
               <div className={s.signup}>
-             <p><a>Sing up</a></p>
+             <p><a href="/register">Sing up</a></p>
              <p>For Patients</p>
              <p>For Medical Staff</p>
               </div>
               <div className={s.signin}>
-             <p><a>Sing in</a></p>
+             <p><a href="/register">Sing in</a></p>
              <p>For Patients</p>
              <p>For Medical Staff</p>
               </div>
