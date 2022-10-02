@@ -6,7 +6,7 @@ import star from "./image/starRating.png";
 export default function Card({ image, name, rating, specialtie, id })
 {
     return (
-        <Link to={`/detail/${id}`} className={style.link}>
+        <Link to={`/docDetail/${id}`} className={style.link}>
             <div className={style.carta}>
                 <div className={style.datos}>
                     <img className={style.image} src={image} alt="" />
