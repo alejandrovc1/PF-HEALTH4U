@@ -28,7 +28,7 @@ console.log(users)
                       <li><a href="index.html">My Appointments</a></li>
                       <li><a href="/account">Account</a></li>
                       <li><a href="index.html">Cart</a></li>
-                      <button className={style.boton} onClick={handleLogOut}>Sign Out</button>
+                      <button className={style.boton} onClick={handleLogOut}>SIGN OUT</button>
 
                     </ul>
                 </div>
