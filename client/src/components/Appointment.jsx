@@ -33,19 +33,16 @@ export default function Appointment()
 
 
 
-    const paginado = (pageNumber) =>
-    {
+    const paginado = (pageNumber) =>{
         setCurrentPage(pageNumber)
     }
 
-    function handlerPrev()
-    {
+    function handlerPrev(){
         if (currentPage <= 1) return;
         paginado(currentPage - 1);
     }
 
-    function handlerNext()
-    {
+    function handlerNext(){
         if (currentPage >= currentPage.length) return;
         paginado(currentPage + 1);
     }
@@ -54,21 +51,18 @@ export default function Appointment()
 
 
 
-    useEffect(() =>
-    {
+    useEffect(() =>{
         // dispatch(getPatientes());
         dispatch(getDoctors());
     }, [dispatch])
 
-    function handleRating(e)
-    {
+    function handleRating(e){
         e.preventDefault();
         dispatch(orderByRating(e.target.value));
         setOrden(e.target.value)
     }
 
-    function handleSort(e)
-    {
+    function handleSort(e){
         e.preventDefault();
         dispatch(orderByName(e.target.value));
         setOrden(e.target.value)
@@ -76,8 +70,7 @@ export default function Appointment()
 
     let specialties = ["Cardiology", "Dermatology", "Endocrinology", "Gastroenterology", "Geriatrics", "Gynecology", "Internal Medicine", "Neurology", "Opthalmology", "Otorhinolaryngology", "Pneumology", "Psychiatry", "Rheumatology", "Traumatology", "Urology"]
 
-    function handleSpecialties(e)
-    {
+    function handleSpecialties(e){
         e.preventDefault();
         dispatch(filterBySpecialties(e.target.value));
         setOrden(e.target.value);
@@ -99,7 +92,7 @@ export default function Appointment()
                 <select className={s.filter} onChange={e => handleSpecialties(e)}>
                     <option hidden={true}>Specialties</option>
                     {specialties.map(data => (
-                        <option value={data}>{data}</option>
+                    <option value={data}>{data}</option>
                     ))}
                 </select>
                 <select className={s.filter} onChange={e => handleRating(e)}>
@@ -133,7 +126,7 @@ export default function Appointment()
                         paginado={paginado}
                     />
                     {
-                        currentPage === 7 ? <div></div> :
+                        currentPage === 2 ? <div></div> :
                             <button onClick={() => handlerNext()} className={style.paginado_orden}>{">"}</button>
                     }
                 </div>
