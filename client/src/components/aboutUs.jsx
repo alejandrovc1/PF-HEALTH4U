@@ -12,24 +12,24 @@ export default function AboutUs(){
             </div>
 
             <div className={s.contenInfo}>
-                <h1 className={s.tituloInfo}>Text text text</h1>
+                <h1 className={s.tituloInfo}>you want to know about us</h1>
                 
                 <div className={s.contoenInfoMision}>
-                    <h3 className={s.subtituloInfoMision}>Text text text la mision de la pagina</h3>
-                    <p className={s.infoMision}>ts text text text texttexttext texttexttext
+                    <h3 className={s.subtituloInfoMision}>Are you looking for medical attention?</h3>
+                    <p className={s.infoMision}>HEALTH 4U is a digital platform where you wil
                     <br/>
-                    ts text text text texttexttext texttexttext
+                    l be able to find everything you are looking for
                     <br/>
-                    ts text text text texttexttext texttexttext</p>
+                    with a wide variety of doctors at your disposal</p>
                 </div> 
 
                 <div className={s.contoenInfoNosotros}>
-                    <h3 className={s.subtituloInfoNosotros}>Text text quienes somos</h3>
-                    <p className={s.infoNosotros}>ts text text text texttexttext texttexttext
+                    <h3 className={s.subtituloInfoNosotros}>about HEALTH 4U</h3>
+                    <p className={s.infoNosotros}>We are a young but ambitious company that seeks 
                     <br/>
-                    ts text text text texttexttext texttexttext
+                    to leave its mark on the world of medicine and in 
                     <br/>
-                    ts text text text texttexttext texttexttext</p>
+                    the digital with the new technologies that we implement</p>
                 </div> 
 
                 <div className={s.contenButon}>
