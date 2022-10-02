@@ -8,11 +8,22 @@ const getAllDoctors = async () => {
             .find({}).populate({
                 path: "specialtie",
             })
-        if (response) {
-            return response
-        } else {
-            res.send({ msg: "There's no doctors in the DB" });
-        }
+        const doctors = response?.map(d => {
+            const Dr = {
+                id: d._id,
+                name: d.name,
+                email: d.email,
+                status: d.status,
+                specialtie: d.specialtie,
+                method: d.method,
+                image: d.image,
+            }
+            return Dr
+        })
+        if(doctors.length > 0) {
+            return doctors
+        } else return { msg: "There's no doctors in the DB" }
+
 
     } catch (e) {
         console.error(e);
@@ -25,10 +36,19 @@ const getDoctorDetail = async (id) => {
         const response = await doctorModel.findById(id).populate({
             path: "specialtie",
         })
-        if (response) {
-            return response
+        const doctor = {
+            id: response._id,
+            name: response.name,
+            email: response.email,
+            status: response.status,
+            specialtie: response.specialtie,
+            method: response.method,
+            image: response.image,
+        }
+        if (doctor) {
+            return doctor
         } else {
-            res.send({ msg: "There's no doctor with that id" });
+            return { msg: "There's no doctor with that id" };
         }
     } catch (e) {
         console.error(e);
@@ -39,14 +59,14 @@ const getDoctorDetail = async (id) => {
 const registerDoctor = async (registerData) => {
     try {
         const { name, email, password, status, specialtie, method, image } = registerData
-        const found = await doctorModel.findOne({ name: name })
+        const found = await doctorModel.findOne({ email: email })
 
         if (!found) {
             const result = await cloudinary.uploader.upload(image, {
                 //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
                 folder: nameFolder,
             })
-            const register = await doctorModel.create({
+            const newDoctor = await doctorModel.create({
                 name,
                 email,
                 password,
@@ -55,9 +75,19 @@ const registerDoctor = async (registerData) => {
                 method,
                 image: result.secure_url
             })
+            const register = {
+                id: newDoctor._id,
+                name: newDoctor.name,
+                email: newDoctor.email,
+                status: newDoctor.status,
+                specialtie: newDoctor.specialtie,
+                method: newDoctor.method,
+                image: newDoctor.image,
+            }
+
             return register
         } else {
-            res.send({ msg: "This Doctor already exists" });
+            return { msg: "This email is already in use" };
         }
 
     } catch (e) {
@@ -72,9 +102,18 @@ const loginDoctor = async (loginData) => {
         if (email && password) {
             const doctor = await doctorModel.findOne({ email: email, password: password })
             if (doctor) {
-                return doctor
+                const response = {
+                    id: doctor._id,
+                    name: doctor.name,
+                    email: doctor.email,
+                    status: doctor.status,
+                    specialtie: doctor.specialtie,
+                    method: doctor.method,
+                    image: doctor.image,
+                }
+                return response
             } else {
-                res.send({ msg: "Some Login data wasn't correct" });
+                return { msg: "Some Login data wasn't correct" };
             }
         }
 
