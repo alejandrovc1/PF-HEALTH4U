@@ -9,6 +9,7 @@ import {createUserWithEmailAndPassword,
   from 'firebase/auth';
 
 import {auth} from '../firebase'
+import roles from "../helpers/roles";
 
  export const authContext = createContext()
 
@@ -20,7 +21,9 @@ import {auth} from '../firebase'
 export  function AuthProvider({children}){
       
        const [users,setUsers] = useState(null)
-       const [loading,setLoading] = useState(true)
+      
+
+       
 
     const signup = (email,password)=>
         createUserWithEmailAndPassword(auth,email,password)
@@ -36,14 +39,13 @@ export  function AuthProvider({children}){
     useEffect(()=>{
       const unsubscribe=  onAuthStateChanged(auth,currentUser=>{
             setUsers(currentUser)
-            setLoading(false)
         })
         return () => unsubscribe()
     },[])
 
     return (
         <div>
-            <authContext.Provider value = {{signup,login,users,logout,loading,loginWithGoogle}}>
+            <authContext.Provider value = {{signup,login,users,logout,loginWithGoogle,hasRole}}>
                {children}
             </authContext.Provider>
         </div>

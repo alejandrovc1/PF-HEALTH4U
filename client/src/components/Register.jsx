@@ -1,7 +1,8 @@
 import React from "react"
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import { useAuth } from "../context/authContext"
 import { useHistory } from "react-router-dom"
+import roles from '../helpers/roles'
 
 
 
@@ -10,6 +11,8 @@ export default function Register(){
     const history = useHistory()
 
     const [error,setError]=useState({})
+     
+    
 
     function validate(user){
         let error = {}
@@ -55,10 +58,13 @@ export default function Register(){
         typeUser:[]
     })
 
+    useEffect(() => console.log(user), [user])
+   
+
     const {signup} = useAuth()
     
     function handleInputChange(e){
-        console.log(user)
+
         setUser({
             ...user,
             [e.target.name]:e.target.value
@@ -69,34 +75,48 @@ export default function Register(){
 }))
  }
 
- function handleSelected(e){
-    if(!user.typeGenre.includes(e.target.value))
+ function handleSelectedGenre(e){
+    if(e.target.value !== "select"){
     setUser({
         ...user,
-    typeGenre:[...user.typeGenre,e.target.value]})
+    typeGenre:[e.target.value],
+    
+})
  }
+}
+function handleSelectedUser(e){
+if(e.target.value !== "select"){
+    setUser({
+        ...user,
+    typeUser:[e.target.value]
+})
+}
+}
  
    // if(error.code === "auth/internal-error")
     const handleSubmit =async(e)=>{
-        e.preventDefault()
-        try {
-           await signup(user.email,user.password,)
+
+e.preventDefault()
+if(Object.entries(error).length === 0){
+    await signup(user.email,user.password,user.fullname,user.confirmPassword,user.dateOfBirth,user.typeGenre,user.typeUser)
            setUser({
             fullname:"",
             email:"",
             password:"",
             confirmPassword:"",
             dateOfBirth:"",
-            typeGenre:[]
+            typeGenre:[],
+            typeUser:[]
             })
-           history.push('/home')
-        } catch (error) {
-            console.log(error.code)       
-            setError(error.message)
-    }
+           history.push('/login')
+
      }
+    }
+    
     return (
+        
         <div>
+            
             <h1>USUARY REGISTER</h1>
               <form onSubmit={handleSubmit}>
                 <div>
@@ -155,16 +175,18 @@ export default function Register(){
                  />
                 {error.dni && <p>{error.dni}</p>}
                 <label>Genre:</label>
-                <select onChange={handleSelected}>
-                <option selected>Select your genre</option>
+                <select onChange={handleSelectedGenre}>
+               <option value ="select">Select you genre</option>
                 <option value ="male">Male</option>
                 <option value = "female">Female</option>
                 </select>
-                <select id = "rol" onChange={handleSelected}>
-                <option selected>Select your type of user</option>
-                <option>Administrator</option>
-                <option>Doctor</option>
-                <option>Patient</option>
+                <label>User</label>
+                <select id = "rol" onChange={handleSelectedUser}>
+                <option value ="select">Select the user</option>
+                <option value = "admin">Administrator</option>
+                <option value = "doctor">Doctor</option>
+                <option value= "patient">Patient</option>
+                <label>User</label>
                 </select>
             
                 <button type = "submit">Register</button>
@@ -178,5 +200,6 @@ export default function Register(){
                </a>
               </p>
             </div>
+
     )
 }

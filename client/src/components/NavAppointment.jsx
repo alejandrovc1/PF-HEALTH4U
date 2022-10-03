@@ -14,7 +14,7 @@ console.log(users)
 
     const handleLogOut = async () =>{
         await logout()
-        history.push("/login")
+        history.push("/")
     }
  
     return (

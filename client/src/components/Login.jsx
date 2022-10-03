@@ -6,7 +6,9 @@ import { Link } from "react-router-dom"
 
 
 export default function Login(){
-
+   
+    
+     
     const history = useHistory()
  
     function validate(user){
@@ -31,6 +33,8 @@ export default function Login(){
     const {login,loginWithGoogle} = useAuth()
     const [error,setError]=useState({})
 
+
+
     function handleInputChange(e){
         setUser({
             ...user,
@@ -45,21 +49,30 @@ export default function Login(){
 
      const handleGoogleSignIn = async () =>{
       await loginWithGoogle()
-      history.push('/appointment')
+   
      }
 
     const handleSubmit =async(e)=>{
         e.preventDefault()
         setError("")
         try {
+            if(user.email && user.password === "Lbitrn11"){ 
            await login(user.email,user.password)
+
+           history.push('/adminview')
+            }else{
+                history.push('/appointment')
+            }
+        
+
            history.push('/appointment')
+
         } catch (error) {
             console.log(error.code)       
             setError(error.message)
     }
-       
      }
+    
     return (
         <div>
             <h1>SIGN IN</h1>

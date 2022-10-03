@@ -10,6 +10,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/authContext'
 import Appointment from './components/Appointment'
 import roles from './helpers/roles';
+import AdminView from './components/AdminView';
 
 
 
@@ -26,10 +27,16 @@ function App()
           <Route exact path="/account" components><Account /></Route>
           <Route exact path='/login/' components><Login /></Route>
           <Route exact path='/register/' components><Register /></Route>
+
+          <Route exact path='/appointment' components><Appointment /></Route> 
+          
+        
+
           <Route exact path='/docDetail/:id' components><DoctorDetail /></Route>
 
           {/* <Route exact path='/appointment' components><Appointment /></Route> */}
           <ProtectedRoute exact path='/appointment'><Appointment /></ProtectedRoute>
+
         </Switch>
       </AuthProvider>
     </BrowserRouter>
