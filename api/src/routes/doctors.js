@@ -48,20 +48,20 @@ router.post('/register', async (req, res) => {
     }
 })
 
-router.post('/login', async (req, res) => {
-    try {
-        const loginData = req.body
-        if(loginData) {
-            const loginResponse = await loginDoctor(loginData)
-            if(loginResponse) {
-                return res.status(200).json(loginResponse)
-            }
-        }
+// router.post('/login', async (req, res) => {
+//     try {
+//         const loginData = req.body
+//         if(loginData) {
+//             const loginResponse = await loginDoctor(loginData)
+//             if(loginResponse) {
+//                 return res.status(200).json(loginResponse)
+//             }
+//         }
 
-    } catch (e) {
-        console.error(e);
-        return res.status(400).send("Error occured. Can't access to your session.")
-    }
-})
+//     } catch (e) {
+//         console.error(e);
+//         return res.status(400).send("Error occured. Can't access to your session.")
+//     }
+// })
 
 module.exports = router

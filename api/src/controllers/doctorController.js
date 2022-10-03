@@ -17,14 +17,15 @@ const getAllDoctors = async () => {
                 specialtie: d.specialtie,
                 method: d.method,
                 image: d.image,
+                description: d.description,
+                rating: d.rating,
+                role: d.role
             }
             return Dr
         })
         if(doctors.length > 0) {
             return doctors
         } else return { msg: "There's no doctors in the DB" }
-
-
     } catch (e) {
         console.error(e);
         throw new Error("Error. Doctors can't be showed.")
@@ -44,6 +45,9 @@ const getDoctorDetail = async (id) => {
             specialtie: response.specialtie,
             method: response.method,
             image: response.image,
+            description: response.description,
+            rating: response.rating,
+            role: response.role
         }
         if (doctor) {
             return doctor
@@ -58,7 +62,7 @@ const getDoctorDetail = async (id) => {
 
 const registerDoctor = async (registerData) => {
     try {
-        const { name, email, password, status, specialtie, method, image } = registerData
+        const { name, email, password, status, specialtie, method, image, description } = registerData
         const found = await doctorModel.findOne({ email: email })
 
         if (!found) {
@@ -73,7 +77,10 @@ const registerDoctor = async (registerData) => {
                 status,
                 specialtie,
                 method,
-                image: result.secure_url
+                image: result.secure_url,
+                description,
+                role: "Doctor",
+                rating: 0
             })
             const register = {
                 id: newDoctor._id,
@@ -83,49 +90,50 @@ const registerDoctor = async (registerData) => {
                 specialtie: newDoctor.specialtie,
                 method: newDoctor.method,
                 image: newDoctor.image,
+                description: newDoctor.description,
+                role: newDoctor.role,
+                rating: newDoctor.rating
             }
 
             return register
         } else {
             return { msg: "This email is already in use" };
         }
-
     } catch (e) {
         console.error(e);
         throw new Error("Error. Doctor can't be registered.")
     }
 }
-const loginDoctor = async (loginData) => {
-    try {
-        const { email, password } = loginData
 
-        if (email && password) {
-            const doctor = await doctorModel.findOne({ email: email, password: password })
-            if (doctor) {
-                const response = {
-                    id: doctor._id,
-                    name: doctor.name,
-                    email: doctor.email,
-                    status: doctor.status,
-                    specialtie: doctor.specialtie,
-                    method: doctor.method,
-                    image: doctor.image,
-                }
-                return response
-            } else {
-                return { msg: "Some Login data wasn't correct" };
-            }
-        }
-
-    } catch (e) {
-        console.error(e);
-        throw new Error("Error. Can't logIn.")
-    }
-}
+// const loginDoctor = async (loginData) => {
+//     try {
+//         const { username, password } = loginData
+//         if (email && password) {
+//             const doctor = await doctorModel.findOne({ email: email, password: password })
+//             if (doctor) {
+//                 const response = {
+//                     id: doctor._id,
+//                     name: doctor.name,
+//                     email: doctor.email,
+//                     status: doctor.status,
+//                     specialtie: doctor.specialtie,
+//                     method: doctor.method,
+//                     image: doctor.image,
+//                 }
+//                 return response
+//             } else {
+//                 return { msg: "Some Login data wasn't correct" };
+//             }
+//         }
+//     } catch (e) {
+//         console.error(e);
+//         throw new Error("Error. Can't logIn.")
+//     }
+// }
 
 module.exports = {
     getAllDoctors,
     getDoctorDetail,
     registerDoctor,
-    loginDoctor,
+    // loginDoctor,
 };

@@ -5,5 +5,7 @@ const { generarConsulta, visualizarConsultas, eliminarConsulta, actualizarConsul
 
 router.get('/', visualizarConsultas);
 router.post('/', generarConsulta);
+router.delete('/', eliminarConsulta);
+router.put('/', actualizarConsulta);
 
 module.exports = router;
