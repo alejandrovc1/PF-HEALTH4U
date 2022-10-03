@@ -3,7 +3,7 @@
 const { Schema, model } = require("mongoose");
 //const mongooseDelete = require("mongoose-delete");
 
-//Mongo da una id predeterminadamente, no es necesario declarar
+//Mongo crea un id predeterminadamente, pero se agrega otro para mayor claridad
 const doctorSchema = new Schema({
     id: {
         type: String,
@@ -30,6 +30,15 @@ const doctorSchema = new Schema({
     },
     //CLOUDINARY
     image: {
+        type: String
+    },
+    description: {
+        type: String
+    },
+    rating: {
+        type: Number
+    },
+    role: {
         type: String
     }
 },

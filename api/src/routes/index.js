@@ -5,6 +5,8 @@ const appointments = require ("./appointments")
 const doctors = require ("./doctors")
 const specialties = require ("./specialties")
 const patients = require ("./patients")
+const login = require ("./login")
+
 
 // const PATH_ROUTES = __dirname; 
 
@@ -21,10 +23,11 @@ const patients = require ("./patients")
 //     }
 // });
 
-router.use('/appointments', appointments);
 router.use('/doctors', doctors)
-router.use('/specialties', specialties)
 router.use('/patients', patients)
+router.use('/appointments', appointments)
+router.use('/specialties', specialties)
+router.use('/login', login)
 
 router.get("*", (req, res) => {
     res.status(404).send('What are you looking for?')

@@ -13,6 +13,7 @@ const getAllPatients = async () => {
                 birthDate: p.birthDate,
                 genre: p.genre,
                 image: p.image,
+                role: p.role
             }
             return Pa
         })
@@ -64,6 +65,7 @@ const getPatientDetail = async (id) => {
             birthDate: response.birthDate,
             genre: response.genre,
             image: response.image,
+            role: response.role
         }
         if(patient) {
             return patient
@@ -91,7 +93,8 @@ const registerPatient = async (registerData) => {
                 password,
                 birthDate,
                 genre,
-                image: result.secure_url
+                image: result.secure_url,
+                role: "Patient"
             })
             const register = {
                 id: newPatient._id,
@@ -100,8 +103,8 @@ const registerPatient = async (registerData) => {
                 birthDate: newPatient.birthDate,
                 genre: newPatient.genre,
                 image: newPatient.image,
+                role: newPatient.role
             }
-
             return register
         } else {
             return { msg: "This email is already in use" };
@@ -112,32 +115,33 @@ const registerPatient = async (registerData) => {
         throw new Error("Error. Patient can't be registered.")
     }
 }
-const loginPatient = async (loginData) => {
-    try {
-        const { email, password } = loginData
 
-        if (email && password) {
-            const patient = await patientModel.findOne({ email: email, password: password })
-            if (patient) {
-                const response = {
-                    id: patient._id,
-                    name: patient.name,
-                    email: patient.email,
-                    birthDate: patient.birthDate,
-                    genre: patient.genre,
-                    image: patient.image,
-                }
-                return response
-            } else {
-                return { msg: "Some Login data wasn't correct" };
-            }
-        }
+// const loginPatient = async (loginData) => {
+//     try {
+//         const { email, password } = loginData
 
-    } catch (e) {
-        console.error(e);
-        throw new Error("Error. Can't logIn.")
-    }
-}
+//         if (email && password) {
+//             const patient = await patientModel.findOne({ email: email, password: password })
+//             if (patient) {
+//                 const response = {
+//                     id: patient._id,
+//                     name: patient.name,
+//                     email: patient.email,
+//                     birthDate: patient.birthDate,
+//                     genre: patient.genre,
+//                     image: patient.image,
+//                 }
+//                 return response
+//             } else {
+//                 return { msg: "Some Login data wasn't correct" };
+//             }
+//         }
+
+//     } catch (e) {
+//         console.error(e);
+//         throw new Error("Error. Can't logIn.")
+//     }
+// }
 
 
 module.exports = {
@@ -145,5 +149,5 @@ module.exports = {
     getPatientByName,
     getPatientDetail,
     registerPatient,
-    loginPatient,
+    // loginPatient,
 }
