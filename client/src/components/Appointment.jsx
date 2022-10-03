@@ -9,46 +9,47 @@ import CardDoc from './CardDoc.jsx';
 import Paginado from "./Paginado.jsx";
 import style from "./Paginado.module.css"
 
-export default function Appointment(){
-    
-    const allDoctors = useSelector (state => state.Doctors); 
-    
+export default function Appointment()
+{
+
+    const allDoctors = useSelector(state => state.Doctors);
+
     const dispatch = useDispatch();
 
     const [orden, setOrden] = useState("");
 
 
- 
-
-    const [currentPage, setCurrentPage] = useState(1); 
-
-    const [doctorsPerPage, setDoctorsPerPage] = useState(8); 
-
-    const indexOfLastDoctors = currentPage * doctorsPerPage; 
-
-    const indexOfFirstDoctors = indexOfLastDoctors - doctorsPerPage; 
-
-    const currentDoctors = allDoctors.slice(indexOfFirstDoctors, indexOfLastDoctors); 
 
 
+    const [currentPage, setCurrentPage] = useState(1);
 
-    const paginado = (pageNumber) => { 
+    const [doctorsPerPage, setDoctorsPerPage] = useState(8);
+
+    const indexOfLastDoctors = currentPage * doctorsPerPage;
+
+    const indexOfFirstDoctors = indexOfLastDoctors - doctorsPerPage;
+
+    const currentDoctors = allDoctors.slice(indexOfFirstDoctors, indexOfLastDoctors);
+
+
+
+    const paginado = (pageNumber) =>{
         setCurrentPage(pageNumber)
     }
-    
+
     function handlerPrev(){
-        if(currentPage <= 1) return;
+        if (currentPage <= 1) return;
         paginado(currentPage - 1);
     }
 
     function handlerNext(){
-        if(currentPage >= currentPage.length) return;
+        if (currentPage >= currentPage.length) return;
         paginado(currentPage + 1);
     }
 
 
 
-    
+
 
     useEffect(() =>{
         // dispatch(getPatientes());
@@ -91,7 +92,7 @@ export default function Appointment(){
                 <select className={s.filter} onChange={e => handleSpecialties(e)}>
                     <option hidden={true}>Specialties</option>
                     {specialties.map(data => (
-                        <option value={data}>{data}</option>
+                    <option value={data}>{data}</option>
                     ))}
                 </select>
                 <select className={s.filter} onChange={e => handleRating(e)}>
@@ -112,24 +113,24 @@ export default function Appointment(){
                     <option>Hour Available</option>
                 </select>
             </div>
-            
-            
-        <div className={style.paginado_container}> 
-            <div className={style.paginado1}>
-                {
-                   currentPage === 1 ? <div></div> :
-                   <button onClick={()=> handlerPrev()} className={style.paginado_orden}>{"<"}</button>
-                }
-                <Paginado doctorsPerPage={doctorsPerPage}
-                   allDoctors={allDoctors.length}    
-                   paginado={paginado} 
-                />
-                {
-                   currentPage === 7 ? <div></div> :
-                   <button onClick={()=> handlerNext()} className={style.paginado_orden}>{">"}</button>
-                }
+
+
+            <div className={style.paginado_container}>
+                <div className={style.paginado1}>
+                    {
+                        currentPage === 1 ? <div></div> :
+                            <button onClick={() => handlerPrev()} className={style.paginado_orden}>{"<"}</button>
+                    }
+                    <Paginado doctorsPerPage={doctorsPerPage}
+                        allDoctors={allDoctors.length}
+                        paginado={paginado}
+                    />
+                    {
+                        currentPage === 2 ? <div></div> :
+                            <button onClick={() => handlerNext()} className={style.paginado_orden}>{">"}</button>
+                    }
+                </div>
             </div>
-        </div>
 
 
             <div className={s.docs}>

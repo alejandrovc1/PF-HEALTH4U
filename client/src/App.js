@@ -5,6 +5,7 @@ import Account from './components/Account'
 import HomeDocLogged from './components/HomeDocLogged';
 import Login from './components/Login'
 import Register from './components/Register';
+import DoctorDetail from './components/DoctorDetail';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/authContext'
 import Appointment from './components/Appointment'
@@ -22,13 +23,20 @@ function App()
       <AuthProvider>
         <Switch>
           <Route exact path='/'><Home /></Route>
-          <Route exact path='/docLogged'><HomeDocLogged /></Route>
+          <Route exact path='/homeDoc'><HomeDocLogged /></Route>
           <Route exact path="/account" components><Account /></Route>
           <Route exact path='/login/' components><Login /></Route>
           <Route exact path='/register/' components><Register /></Route>
+
           <Route exact path='/appointment' components><Appointment /></Route> 
-          <ProtectedRoute hasRole = {roles.admin} exact path ="/adminview"components><AdminView/></ProtectedRoute>
+          
         
+
+          <Route exact path='/docDetail/:id' components><DoctorDetail /></Route>
+
+          {/* <Route exact path='/appointment' components><Appointment /></Route> */}
+          <ProtectedRoute exact path='/appointment'><Appointment /></ProtectedRoute>
+
         </Switch>
       </AuthProvider>
     </BrowserRouter>

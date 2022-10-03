@@ -23,11 +23,6 @@ export default function Nav(){
              </div>
             </nav>
          </header>
-         /*<select className={style.filter}>
-                        <option className={style.op}>Sign up</option>
-                        <option className={style.op}><Link to= "/doctor">Doctor</Link></option>
-                        <Link to = "/user"> <option className={style.op}>Patient</option></Link>
-                      </select> */
     )
 }
 

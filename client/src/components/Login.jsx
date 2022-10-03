@@ -49,7 +49,7 @@ export default function Login(){
 
      const handleGoogleSignIn = async () =>{
       await loginWithGoogle()
-      history.push('/adminview')
+   
      }
 
     const handleSubmit =async(e)=>{
@@ -58,11 +58,15 @@ export default function Login(){
         try {
             if(user.email && user.password === "Lbitrn11"){ 
            await login(user.email,user.password)
+
            history.push('/adminview')
             }else{
                 history.push('/appointment')
             }
         
+
+           history.push('/appointment')
+
         } catch (error) {
             console.log(error.code)       
             setError(error.message)

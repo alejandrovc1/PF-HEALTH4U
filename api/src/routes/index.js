@@ -4,6 +4,9 @@ const router = express.Router();
 const appointments = require ("./appointments")
 const doctors = require ("./doctors")
 const specialties = require ("./specialties")
+const patients = require ("./patients")
+const login = require ("./login")
+
 
 // const PATH_ROUTES = __dirname; 
 
@@ -20,9 +23,11 @@ const specialties = require ("./specialties")
 //     }
 // });
 
-router.use('/appointments', appointments);
 router.use('/doctors', doctors)
+router.use('/patients', patients)
+router.use('/appointments', appointments)
 router.use('/specialties', specialties)
+router.use('/login', login)
 
 router.get("*", (req, res) => {
     res.status(404).send('What are you looking for?')

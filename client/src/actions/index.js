@@ -1,4 +1,6 @@
 import axios from "axios"
+export const GET_DETAIL = "GET_DETAIL";
+export const CLEAN_FILTER = "CLEAN_FILTER";
 
 
 export function getDoctors()
@@ -24,6 +26,23 @@ export function getSpecialties()
         })
     }
 }
+
+export const cleanFilter = () =>
+{
+    return {
+        type: 'CLEAN_FILTER',
+        payload: []
+    }
+}
+
+export const getDetail = (id) => async dispatch => //ir al detail
+{
+    let respuesta = await axios.get(`http://localhost:3001/doctors/${id}`);
+
+
+    dispatch({ type: "GET_DETAIL", payload: respuesta.data })
+
+};
 
 export function orderByName(payload)
 { //ordenar por nombre asc o desc

@@ -15,6 +15,9 @@ const adminSchema = new Schema({
     password: {
         type: String,
     },
+    role: {
+        type: String
+    }
 },
 {
     timestamps: true,
