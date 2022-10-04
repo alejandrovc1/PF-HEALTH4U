@@ -4,8 +4,7 @@ const nameFolder = 'doctorPhotos'
 
 const getAllDoctors = async () => {
     try {
-        const response = await doctorModel
-            .find({}).populate({
+        const response = await doctorModel.find({}).populate({
                 path: "specialtie",
             })
         const doctors = response?.map(d => {
@@ -62,7 +61,7 @@ const getDoctorDetail = async (id) => {
 
 const registerDoctor = async (registerData) => {
     try {
-        const { name, email, password, status, specialtie, method, image, description } = registerData
+        const { name, email, password, specialtie, method, image, description, rating} = registerData
         const found = await doctorModel.findOne({ email: email })
 
         if (!found) {
@@ -74,13 +73,13 @@ const registerDoctor = async (registerData) => {
                 name,
                 email,
                 password,
-                status,
+                status: "active",
                 specialtie,
                 method,
                 image: result.secure_url,
                 description,
-                role: "Doctor",
-                rating: 0
+                rating: rating || 0,
+                role: "Doctor"
             })
             const register = {
                 id: newDoctor._id,
@@ -91,8 +90,8 @@ const registerDoctor = async (registerData) => {
                 method: newDoctor.method,
                 image: newDoctor.image,
                 description: newDoctor.description,
-                role: newDoctor.role,
-                rating: newDoctor.rating
+                rating: newDoctor.rating,
+                role: newDoctor.role
             }
 
             return register

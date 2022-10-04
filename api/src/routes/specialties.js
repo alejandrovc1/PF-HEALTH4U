@@ -22,12 +22,12 @@ router.post('/add', async (req, res) => {
         const specialtieData = req.body
         if(specialtieData) {
             const response = await addSpecialtie(specialtieData)
-            return res.status(400).json(response)
+            return res.status(200).json(response)
         }
 
     } catch (e) {
         console.error(e);
-        return res.status(400).send("An error occured. Specialtie can't be added.")
+        return res.status(400).send("An error has occurred. Specialtie can't be added.")
     }
 })
 
