@@ -85,7 +85,7 @@ const registerPatient = async (registerData) => {
         if (!found) {
             const result = await cloudinary.uploader.upload(image, {
                 //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
-                folder: nameFolder,
+                folder: patientPhotos,
             })
             const newPatient = await patientModel.create({
                 name,
