@@ -6,13 +6,11 @@ import { useHistory } from "react-router-dom"
 import roles from '../helpers/roles'
 import { useDispatch, useSelector } from 'react-redux'
 
-
+let isDoctor = false;
 export default function Register() {
     const history = useHistory()
     const dispatch = useDispatch()
     const [error, setError] = useState({})
-
-
 
     function validate(user) {
         let error = {}
@@ -115,29 +113,44 @@ export default function Register() {
         }
     }
 
-    function handleInputImage(e) {
-        if (e.target.value !== "select") {
-            setDoctor({
-                ...user,
-                image: [e.target.value],
-            })
-        }
-    }
+    // function handleInputImage(e) {
+    //     if (e.target.value !== "select") {
+    //         setDoctor({
+    //             ...user,
+    //             image: [e.target.value],
+    //         })
+    //     }
+    // }
 
     function handleSelectedUser(e) {
         if (e.target.value !== "select") {
+            console.log('Paso por aca', e.target.value)
             if (e.target.value === "doctor") {
                 setDoctor({
                     ...user,
                     typeUser: [e.target.value]
                 })
+                isDoctor = true;
             }
             else {
                 setPatient({
-                    ...user,
+                    ...patient,
                     typeUser: [e.target.value]
                 })
+                setDoctor({
+                    ...user,
+                    typeUser: ''
+                })
             }
+        } else {
+            setDoctor({
+                ...user,
+                typeUser: ''
+            })
+            setPatient({
+                ...patient,
+                typeUser: ''
+            })
         }
 
     }
@@ -146,28 +159,29 @@ export default function Register() {
     const handleSubmit = async (e) => {
 
         e.preventDefault()
-        if (Object.entries(error).length === 0) {
+        if (true) {
+            console.log('Pase por el submit')
             await signup(user.email, user.password, user.fullname, user.confirmPassword, user.specialtie, user.method, user.image, user.dateOfBirth, user.typeGenre, user.typeUser)
-            // const doctor = {
-            //     name: user.fullname,
-            //     email: user.email,
-            //     password: user.password,
-            //     specialtie: user.specialtie,
-            //     method: user.method,
-            //     image: user.image,
-            //     role: user.typeUser
-            //     //'http://res.cloudinary.com/dzikj6tja/image/upload/v1664542753/doctor_test.jpg'
-            // }
             const doctor = {
-                name: 'prueba',
-                email: 'prueba@hotmail,com',
-                password: 'Prueba12',
-                specialtie: 'user.specialtie',
-                method: 'user.method',
-                image: 'http://res.cloudinary.com/dzikj6tja/image/upload/v1664542753/doctor_test.jpg',
-                role: 'Doctor'
+                name: user.fullname,
+                email: user.email,
+                password: user.password,
+                specialtie: user.specialtie.toString(),
+                method: user.method.toString(),
+                image: user.image,
+                role: user.typeUser.toString()
                 //'http://res.cloudinary.com/dzikj6tja/image/upload/v1664542753/doctor_test.jpg'
             }
+            // const doctor = {
+            //     name: 'prueba',
+            //     email: 'prueba@hotmail,com',
+            //     password: 'Prueba12',
+            //     specialtie: 'user.specialtie',
+            //     method: 'user.method',
+            //     image: 'http://res.cloudinary.com/dzikj6tja/image/upload/v1664542753/doctor_test.jpg',
+            //     role: 'Doctor'
+            //     //'http://res.cloudinary.com/dzikj6tja/image/upload/v1664542753/doctor_test.jpg'
+            // }
             dispatch(postDoctors(doctor))
             // if (user.typeUser === 'Doctor') dispatch(postDoctors(doctor))
             // if (user.typeUser === 'Patient') dispatch(postDoctors(doctor, 'patients/register'))
@@ -198,7 +212,10 @@ export default function Register() {
                         <option value="doctor">Doctor</option>
                         <option value="patient">Patient</option>
                     </select>
-
+                </div>
+            </form>
+            {user.typeUser ? <form onSubmit={handleSubmit}>
+                <div>
                     <label>FullName</label>
                     <input
                         type="text"
@@ -208,103 +225,158 @@ export default function Register() {
                         onChange={handleInputChange}
                     />
                     {error.fullname && <p>{error.fullname}</p>}
-                </div>
 
-                <label htmlFor="email">Email</label>
-                <input
-                    type="email"
-                    name="email"
-                    value={user.email}
-                    placeholder="your email"
-                    onChange={handleInputChange}
-                />
-                {error.email && <p>{error.email}</p>}
+                    <label htmlFor="email">Email</label>
+                    <input
+                        type="email"
+                        name="email"
+                        value={user.email}
+                        placeholder="your email"
+                        onChange={handleInputChange}
+                    />
+                    {error.email && <p>{error.email}</p>}
 
-                <label htmlFor="password">Password</label>
-                <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    placeholder="*******"
-                    value={user.password}
-                    onChange={handleInputChange}
-                />
-                {error.password && <p>{error.password}</p>}
+                    <label htmlFor="password">Password</label>
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        placeholder="*******"
+                        value={user.password}
+                        onChange={handleInputChange}
+                    />
+                    {error.password && <p>{error.password}</p>}
 
-                <label>Confirm Password</label>
-                <input
-                    type="password"
-                    placeholder="Re password"
-                    name="confirmPassword"
-                    value={user.confirmPassword}
-                    onChange={handleInputChange}
-                />
-                {error.confirmPassword && <p>{error.confirmPassword}</p>}
+                    <label>Confirm Password</label>
+                    <input
+                        type="password"
+                        placeholder="Re password"
+                        name="confirmPassword"
+                        value={user.confirmPassword}
+                        onChange={handleInputChange}
+                    />
+                    {error.confirmPassword && <p>{error.confirmPassword}</p>}
 
-                <label>Date of birth</label>
-                <input
-                    type="date"
-                    name="dateOfBirth"
-                    value={user.dateOfBirth}
-                    onChange={handleInputChange}
-                />
-                {error.dateOfBirth && <p>{error.dateOfBirth}</p>}
+                    <label>Specialtie:</label>
+                    <select onChange={handleSelectedSpecialtie}>
+                        <option value="select">Select you specialtie</option>
+                        <option value="Cardiology">Cardiology</option>
+                        <option value="Dermatology">Dermatology</option>
+                        <option value="Endocrinology">Endocrinology</option>
+                        <option value="Gastroenterology">Gastroenterology</option>
+                        <option value="Geriatrics">Geriatrics</option>
+                        <option value="Gynecology">Gynecology</option>
+                        <option value="Internal Medicine">Internal Medicine</option>
+                        <option value="Neurology">Neurology</option>
+                        <option value="Ophthalmology">Ophthalmology</option>
+                        <option value="Otorhinolaryngology">Otorhinolaryngology</option>
+                        <option value="Pneumology">Pneumology</option>
+                        <option value="Psychiatry">Psychiatry</option>
+                        <option value="Rheumatology">Rheumatology</option>
+                        <option value="Traumatology">Traumatology</option>
+                        <option value="Urology">Urology</option>
+                    </select>
 
-                <label>Identification</label>
-                <input
-                    type="number"
-                    name="dni"
-                    value={user.dni}
-                    onChange={handleInputChange}
-                />
-                {error.dni && <p>{error.dni}</p>}
+                    <label>Method:</label>
+                    <select onChange={handleSelectedMethod}>
+                        <option value="select">Select you genre</option>
+                        <option value="At home">At home</option>
+                        <option value="Virtual">Virtual</option>
+                        <option value="Private office">Private office</option>
+                    </select>
 
-                <label>Genre:</label>
-                <select onChange={handleSelectedGenre}>
-                    <option value="select">Select you genre</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
+                    <label>Profile photo</label>
+                    <input
+                        type="text"
+                        placeholder="Insert your image"
+                        name="image"
+                        value={user.image}
+                        onChange={handleInputChange}
+                    />
 
-                <label>Specialtie:</label>
-                <select onChange={handleSelectedSpecialtie}>
-                    <option value="select">Select you specialtie</option>
-                    <option value="Cardiology">Cardiology</option>
-                    <option value="Dermatology">Dermatology</option>
-                    <option value="Endocrinology">Endocrinology</option>
-                    <option value="Gastroenterology">Gastroenterology</option>
-                    <option value="Geriatrics">Geriatrics</option>
-                    <option value="Gynecology">Gynecology</option>
-                    <option value="Internal Medicine">Internal Medicine</option>
-                    <option value="Neurology">Neurology</option>
-                    <option value="Ophthalmology">Ophthalmology</option>
-                    <option value="Otorhinolaryngology">Otorhinolaryngology</option>
-                    <option value="Pneumology">Pneumology</option>
-                    <option value="Psychiatry">Psychiatry</option>
-                    <option value="Rheumatology">Rheumatology</option>
-                    <option value="Traumatology">Traumatology</option>
-                    <option value="Urology">Urology</option>
-                </select>
+                    <button type="submit">Register</button>
+                </div></form>
+                : <form onSubmit={handleSubmit}>
+                    <div>
+                        <label>FullName</label>
+                        <input
+                            type="text"
+                            placeholder="Write your fullname"
+                            name="fullname"
+                            value={user.fullname}
+                            onChange={handleInputChange}
+                        />
+                        {error.fullname && <p>{error.fullname}</p>}
 
-                <label>Method:</label>
-                <select onChange={handleSelectedMethod}>
-                    <option value="select">Select you genre</option>
-                    <option value="At home">At home</option>
-                    <option value="Virtual">Virtual</option>
-                    <option value="Private office">Private office</option>
-                </select>
+                        <label htmlFor="email">Email</label>
+                        <input
+                            type="email"
+                            name="email"
+                            value={user.email}
+                            placeholder="your email"
+                            onChange={handleInputChange}
+                        />
+                        {error.email && <p>{error.email}</p>}
 
-                <label>Profile photo</label>
-                <input
-                    type="text"
-                    placeholder="Insert your image"
-                    name="image"
-                    value={user.image}
-                    onChange={handleInputChange}
-                />
+                        <label htmlFor="password">Password</label>
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            placeholder="*******"
+                            value={user.password}
+                            onChange={handleInputChange}
+                        />
+                        {error.password && <p>{error.password}</p>}
 
-                <button type="submit">Register</button>
-            </form>
+                        <label>Confirm Password</label>
+                        <input
+                            type="password"
+                            placeholder="Re password"
+                            name="confirmPassword"
+                            value={user.confirmPassword}
+                            onChange={handleInputChange}
+                        />
+                        {error.confirmPassword && <p>{error.confirmPassword}</p>}
+
+                        <label>Date of birth</label>
+                        <input
+                            type="date"
+                            name="dateOfBirth"
+                            value={user.dateOfBirth}
+                            onChange={handleInputChange}
+                        />
+                        {error.dateOfBirth && <p>{error.dateOfBirth}</p>}
+
+                        <label>Identification</label>
+                        <input
+                            type="number"
+                            name="dni"
+                            value={user.dni}
+                            onChange={handleInputChange}
+                        />  
+                        {error.dni && <p>{error.dni}</p>}
+
+                        <label>Genre:</label>
+                        <select onChange={handleSelectedGenre}>
+                            <option value="select">Select you genre</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+
+                        <label>Profile photo</label>
+                        <input
+                            type="text"
+                            placeholder="Insert your image"
+                            name="image"
+                            value={user.image}
+                            onChange={handleInputChange}
+                        />
+
+                        <button type="submit">Register</button>
+                    </div></form>
+            }
+
             <p>
                 Already have an account?
                 <a
@@ -313,7 +385,7 @@ export default function Register() {
                     LogIn
                 </a>
             </p>
-        </div>
+        </div >
 
     )
 }
