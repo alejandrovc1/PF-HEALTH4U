@@ -14,6 +14,9 @@ const appointmentSchema = new Schema({
     date: {
         type: Date,
     },
+    doctor: {
+        type: String
+    }
 },
 {
     timestamps: true,

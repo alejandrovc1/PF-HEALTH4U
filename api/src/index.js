@@ -18,12 +18,12 @@ app.use(cors())
 app.use('/', routes)
 
 // Error catching endware.
-app.use((err, req, res, next) =>
-{ // eslint-disable-line no-unused-vars
-    const status = err.status || 500;
-    const message = err.message || err;
-    console.error(err);
-    res.status(status).send(message);
+app.use((error, req, res, next) => {
+    console.log(error)
+    const name = error.name
+    const message = error.message;
+    // console.error(error);
+    res.status(400).send(name + message);
 });
 
 app.listen(3001, () =>

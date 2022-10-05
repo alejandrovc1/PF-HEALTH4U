@@ -1,65 +1,88 @@
 const appointmentModel = require('../models/appointment')
 const mongoose = require("mongoose");
 
-const generarConsulta = async (req, res) => {
-    let {service, price, date} = req.body
+const createAppointment = async (req, res, next) => {
+    let {service, price, date, doctor} = req.body
 
     //date = date.toLocaleString()
 
-    if ( !service || !price || !date ) res.status(400).send('Falta enviar datos obligatorios');
-    else if (typeof service !== 'string' || typeof price !== 'number') {
+    if ( !service || !price || !date || !doctor ) res.status(400).send('Falta enviar datos obligatorios');
+    else if (typeof service !== 'string' || typeof price !== 'number' || typeof doctor !== "string") {
     res.status(400).send("Error, los tipos de datos son incorrectos")}
 
     try {
-        let crearConsulta = await new appointmentModel({
-            service: service,
-            price: price,
-            date: date
+        await appointmentModel.create({
+            service,
+            price,
+            date,
+            doctor
         });
 
-        crearConsulta.save()
-        .then( result => {
-            console.log(result)
-            // mongoose.connection.close() // es buena práctica cerrar las conexiones
-        })
-        .catch(err => {
-            console.error(err)
-        })
+        // let crearConsulta = await new appointmentModel({})
+        // crearConsulta.save()
+        // .then( result => {
+        //     console.log(result)
+        //     mongoose.connection.close() // es buena práctica cerrar las conexiones
+        // })
+        // .catch(err => next(err))
 
-        res.status(200).send('Consulta generada con éxito');
-    } catch(e) {
-        console.log(e);
-        res.status(406).send('Error al generar la consulta')
+        res.status(200).send('Appointment Successfully Created');
+    } catch(error) {
+        console.log('Error creating the appointment', error.message);
+        next(error)
     }
 };
 
-const visualizarConsultas = async (req, res) => {
+const showAppointments = async (req, res, next) => {
     try{
         const findConsulta = await appointmentModel.find({})
         .then( result => {
             res.json(result)
-            mongoose.connection.close()
+            // mongoose.connection.close()
         })
-        .catch(err => {
-            console.error(err)
-        })
+        .catch(err => next (err))
+
         res.status(200).send(findConsulta)
     } catch (error) {
-        console.log("Something went wrong, ", error)
+        console.log("Something went wrong, ", error);
+        next(error)
     }
 };
 
-const eliminarConsulta = async (req, res) => {
+const deleteAppointment = async (req, res, next) => {
+    try {
+        const {id} = req.params
 
+        await appointmentModel.findByIdAndRemove(id)
+        .then( result => {
+            res.status(200).send("Appointment Successfully Deleted")
+        })
+    } catch (error) {
+        next(error)
+    }
 };
 
-const actualizarConsulta = async (req, res) => {
+const updateAppointment = async (req, res, next) => {
+    try {
+        const {id} = req.params
+        const {service, price, date, doctor} = req.body
 
+        await appointmentModel.findByIdAndUpdate(id, {
+            service: service,
+            price: price,
+            date: date,
+            doctor: doctor
+        })
+        
+        res.status(200).send("Appointment Successfully Updated")
+    } catch (error) {
+        next(error)
+    }
 };
 
 module.exports = {
-    generarConsulta,
-    visualizarConsultas,
-    eliminarConsulta,
-    actualizarConsulta
+    createAppointment,
+    showAppointments,
+    deleteAppointment,
+    updateAppointment
 }
