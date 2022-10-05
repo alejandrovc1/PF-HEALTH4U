@@ -3,8 +3,10 @@ export const GET_DETAIL = "GET_DETAIL";
 export const CLEAN_FILTER = "CLEAN_FILTER";
 
 
-export function getDoctors() { //obtener todos los doctores
-    return async function (dispatch) {
+export function getDoctors()
+{ //obtener todos los doctores
+    return async function (dispatch)
+    {
         let json = await axios.get("http://localhost:3001/doctors");
         return dispatch({
             type: "GET_DOCTORS",
@@ -13,8 +15,10 @@ export function getDoctors() { //obtener todos los doctores
     }
 }
 
-export function getSpecialties() { //obtener specialties
-    return async function (dispatch) {
+export function getSpecialties()
+{ //obtener specialties
+    return async function (dispatch)
+    {
         let info = await axios.get("http://localhost:3001/specialties");
         return dispatch({
             type: "GET_SPECIALTIES",
@@ -23,7 +27,8 @@ export function getSpecialties() { //obtener specialties
     }
 }
 
-export const cleanFilter = () => {
+export const cleanFilter = () =>
+{
     return {
         type: 'CLEAN_FILTER',
         payload: []
@@ -39,34 +44,47 @@ export const getDetail = (id) => async dispatch => //ir al detail
 
 };
 
-export function orderByName(payload) { //ordenar por nombre asc o desc
+export function orderByName(payload)
+{ //ordenar por nombre asc o desc
     return {
         type: "ORDER_BY_NAME",
         payload
     }
 }
 
-export function orderByRating(payload) { //ordernar por rating asc o desc
+export function orderByRating(payload)
+{ //ordernar por rating asc o desc
     return {
         type: "ORDER_BY_RATING",
         payload
     }
 }
 
-export function filterBySpecialties(payload) {//filtrado por especialidad
+export function filterBySpecialties(payload)
+{//filtrado por especialidad
     return {
         type: "FILTER_BY_SPECIALTIES",
         payload
     }
 }
 
-export function postDoctors(payload, route) { //post doctor
-    return async function (dispatch) {
-        console.log(payload)
-
-        const response = await axios.post("http://localhost:3001/doctors/register", payload);
+export function postDoctors(doctor)
+{ //post doctor
+    return async function (dispatch)
+    {
+        const response = await axios.post("http://localhost:3001/doctors/register", doctor);
         return dispatch({
             type: "POST_DOCTOR",
+            payload: response
+        })
+    }
+}
+
+export function postPatient(patient) {
+    return async function (dispatch) {
+        const response = await axios.post("http://localhost:3001/patients/register", patient)
+        return dispatch({
+            type: "POST_PATIENT",
             payload: response
         })
     }
