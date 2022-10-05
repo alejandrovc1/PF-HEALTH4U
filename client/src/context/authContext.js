@@ -1,3 +1,4 @@
+import React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
@@ -6,11 +7,10 @@ import {
   signOut,
   GoogleAuthProvider,
   signInWithPopup
-}
-  from 'firebase/auth';
+} from 'firebase/auth';
 
 import { auth } from '../firebase'
-import roles from "../helpers/roles";
+// import roles from "../helpers/roles";
 
 export const authContext = createContext()
 
@@ -22,9 +22,6 @@ export const useAuth = () => {
 export function AuthProvider({ children }) {
 
   const [users, setUsers] = useState(null)
-
-
-
 
   const signup = (email, password) =>
     createUserWithEmailAndPassword(auth, email, password)
