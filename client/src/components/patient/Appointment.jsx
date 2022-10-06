@@ -3,8 +3,8 @@ import NavAppointment from "./NavAppointment";
 import s from "./Appointment.module.css";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { getDoctors, filterBySpecialties, orderByRating, orderByName } from "../actions";
-import Footer from "./Footer";
+import { getDoctors, filterBySpecialties, orderByRating, orderByName } from "../../actions";
+import Footer from "../Footer";
 import CardDoc from './CardDoc.jsx';
 import Paginado from "./Paginado.jsx";
 import style from "./Paginado.module.css"

@@ -1,6 +1,6 @@
 import React from "react";
-import NavDoctorLogged from "./NavDoctorLogged";
-import Footer from "./Footer";
+import NavDoctorLogged from "../NavDoctorLogged";
+import Footer from "../Footer";
 import s from "./Home.module.css";
 import doctor from "./image/Doctor.png";
 

@@ -16,9 +16,6 @@ import sphy from "./image/sphy.png";
 import tra from "./image/reum.png";
 import uro from "./image/uro.png";
 
-
-
-
 export default function SpecialtiesH()
 {
 
