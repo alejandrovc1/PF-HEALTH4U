@@ -4,7 +4,8 @@ const {
     getPatientByName,
     getPatientDetail,
     registerPatient,
-    loginPatient,
+    updatePatient,
+    deletePatient
 } = require('../controllers/patientController')
 
 const router = Router();
@@ -22,7 +23,7 @@ router.get('/', async (req, res) => {
 
     } catch (e) {
         console.error(e);
-        return res.status(400).send("Error occured. Patient(s) can't be showed.")
+        return res.status(400).send("Error occured. Patient(s) couldn't be shown.")
     }
 })
 
@@ -34,7 +35,7 @@ router.get('/:id', async (req, res) => {
 
     } catch (e) {
         console.error(e);
-        return res.status(400).send("Error occured. Patient can't be showed.")
+        return res.status(400).send("Error occured. Patient couldn't be shown.")
     }
 })
 
@@ -51,24 +52,13 @@ router.post('/register', async (req, res) => {
 
     } catch (e) {
         console.error(e);
-        return res.status(400).send("Error occured. New User can't be created.")
+        return res.status(400).send("Error occurred. The new user couldn't be created.")
     }
 })
 
-router.post('/login', async (req, res) => {
-    try {
-        const loginData = req.body
-        if(loginData) {
-            const loginResponse = await loginPatient(loginData)
-            if(loginResponse) {
-                return res.status(200).json(loginResponse)
-            }
-        }
+router.put('/:id', updatePatient);
 
-    } catch (e) {
-        console.error(e);
-        return res.status(400).send("Error occured. Can't access to your session.")
-    }
-})
+router.delete('/:id', deletePatient);
+
 
 module.exports = router

@@ -5,9 +5,6 @@ const { Schema, model } = require("mongoose");
 
 //Mongo da una id predeterminadamente, no es necesario declarar
 const patientSchema = new Schema({
-    id:{
-        type: String
-    },
     name: {
         type: String,
     },
@@ -18,18 +15,30 @@ const patientSchema = new Schema({
     password: {
         type: String,
     },
-    //fecha nacimiento
     birthDate: {
         type: Date,
     },
     genre: {
         type: String
     },
+    //Dirección
+    address: {
+        type: String
+    },
+    country: {
+        type: String
+    },
+    tel: {
+        type: Number
+    },
     // CLOUDINARY 
     image: {
         type: String
     },
     role: {
+        type: String
+    },
+    status: {
         type: String
     }
 },

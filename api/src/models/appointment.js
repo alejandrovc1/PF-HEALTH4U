@@ -8,9 +8,6 @@ const appointmentSchema = new Schema({
     service: {
         type: String,
     },
-    price: {
-        type: Number,
-    },
     date: {
         type: Date,
     },

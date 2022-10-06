@@ -3,17 +3,20 @@ const cloudinary = require('cloudinary')
 
 const getAllSpecialties = async () => {
     try {
-        const response = await specialtieModel
-            .find({})
-        if (response) {
-            return response
-        } else {
-            res.send({ msg: "Thereś no specialties in the DB" });
-        }
-
+        const response = await specialtieModel.find({})
+        const specialties = response?.map( E => {
+            const Spe = {
+                name: E.name,
+                description: E.description,
+                image: E.image
+            }
+            return Spe
+        })
+        if(specialties.length > 0) return specialties;
+        else return { msg: "There are no specialties in the DB" }; 
     } catch (e) {
         console.error(e);
-        throw new Error("Error. Specialties can't be showed.")
+        throw new Error("An error occurred. Specialties couldn't be shown.")
     }
 }
 
@@ -39,7 +42,7 @@ const addSpecialtie = async (Data) => {
 
     } catch (e) {
         console.error(e);
-        throw new Error("Error. Specialtie can't be added.")
+        throw new Error("Error. Specialtie couldn't be added.")
     }
 }
 
