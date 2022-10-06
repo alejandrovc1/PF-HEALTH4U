@@ -63,16 +63,16 @@ function rootReducer(state = initialState, action)
             }
 
 
-        case "FILTER_BY_SPECIALTIES":
-            let filterEspe = state.Specialties.filter(p =>
-            {
-                if (p.Specialties?.includes(action.payload)) return p
-            })
-            if (action.payload === "All") { filterEspe = state.Doctors }
-            return {
-                ...state,
-                Doctors: filterEspe
-            }
+        // case "FILTER_BY_SPECIALTIES":
+        //     let filterEspe = state.Specialties.filter(p =>
+        //     {
+        //         if (p.Specialties?.includes(action.payload)) return p
+        //     })
+        //     if (action.payload === "All") { filterEspe = state.Doctors }
+        //     return {
+        //         ...state,
+        //         Doctors: filterEspe
+        //     }
 
 
         case "ORDER_BY_RATING":
