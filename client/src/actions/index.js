@@ -60,13 +60,23 @@ export function filterBySpecialties(payload) {//filtrado por especialidad
     }
 }
 
-export function postDoctors(payload,route) { //post doctor
+export function postDoctors(payload, route) { //post doctor
     return async function (dispatch) {
         console.log(payload)
-        
+
         const response = await axios.post("http://localhost:3001/doctors/register", payload);
         return dispatch({
             type: "POST_DOCTOR",
+            payload: response
+        })
+    }
+}
+
+export function login(payload) {//login
+    return async function (dispatch) {
+        const response = await axios.post("http://localhost:3001/login", payload)
+        return dispatch({
+            type: "LOGIN",
             payload: response
         })
     }

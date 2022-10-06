@@ -3,9 +3,9 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './DoctorDetail.module.css'
-import { getDetail } from '../actions/index.js';
-import { cleanFilter } from '../actions/index.js';
-import Loading from './Loading';
+import { getDetail } from '../../actions/index.js';
+import { cleanFilter } from '../../actions/index.js';
+import Loading from '../Loading';
 
 
 export default function DoctorDetail(props)
