@@ -1,10 +1,12 @@
 const express = require("express");
 // const fs = require("fs");
 const router = express.Router();
-const appointments = require ("./appointments")
+
 const doctors = require ("./doctors")
-const specialties = require ("./specialties")
 const patients = require ("./patients")
+const appointments = require ("./appointments")
+const specialties = require ("./specialties")
+const reviews = require ("./reviews")
 const login = require ("./login")
 
 
@@ -27,10 +29,12 @@ router.use('/doctors', doctors)
 router.use('/patients', patients)
 router.use('/appointments', appointments)
 router.use('/specialties', specialties)
+// router.use('/reviews', reviews)
 router.use('/login', login)
 
-router.get("*", (req, res) => {
-    res.status(404).send('What are you looking for?')
+//middleware para el Not Found
+router.use((req, res, next) => {
+    res.status(404).end()
 })
 
 module.exports = router;

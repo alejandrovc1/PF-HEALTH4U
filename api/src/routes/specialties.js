@@ -1,8 +1,5 @@
 const { Router } = require('express')
-const {
-    getAllSpecialties,
-    addSpecialtie,
-} = require('../controllers/specialtieController')
+const { getAllSpecialties, addSpecialtie } = require('../controllers/specialtieController.js')
 
 const router = Router();
 
@@ -13,7 +10,7 @@ router.get('/', async (req, res) => {
 
     } catch (e) {
         console.error(e);
-        return res.status(400).send("An error occured. Specialties can't be showed.")
+        return res.status(400).send("An error occurred. Specialties couldn't be shown.")
     }
 })
 
@@ -27,7 +24,7 @@ router.post('/add', async (req, res) => {
 
     } catch (e) {
         console.error(e);
-        return res.status(400).send("An error has occurred. Specialtie can't be added.")
+        return res.status(400).send("An error occurred. Specialtie couldn't be added.")
     }
 })
 

@@ -5,55 +5,62 @@ const nameFolder = 'patientPhotos'
 const getAllPatients = async () => {
     try {
         const response = await patientModel.find({})
-        const patients = response?.map(p => {
-            const Pa = {
-                id: p._id,
-                name: p.name,
-                email: p.email,
-                birthDate: p.birthDate,
-                genre: p.genre,
-                image: p.image,
-                role: p.role
+        const patients = response?.map(Pat => {
+            const Patient = {
+                id: Pat._id,
+                name: Pat.name,
+                email: Pat.email,
+                birthDate: Pat.birthDate,
+                genre: Pat.genre,
+                address: Pat.address,
+                country: Pat.country,
+                tel: Pat.tel,
+                image: Pat.image,
+                role: Pat.role,
+                status: Pat.status
             }
-            return Pa
+            return Patient
         })
         if (patients.length > 0) {
             return patients
-        } else {
-            return { msg: "There's no patients in the DB" };
-        }
+        } else return { msg: "There's no patients in the DB" }
 
     } catch (e) {
         console.error(e);
-        throw new Error("Error. Patients can't be showed.")
+        throw new Error("Error occurred. Patients couldn't be shown.")
     }
-}
+};
 
 const getPatientByName = async (name) => {
     try {
         const response = await patientModel.find({
             name: name,
         })
-        const patients = response?.map(p => {
-            const Pa = {
-                id: p._id,
-                name: p.name,
-                email: p.email,
-                birthDate: p.birthDate,
-                genre: p.genre,
-                image: p.image,
+        const patients = response?.map(P => {
+            const Patient = {
+                id: P._id,
+                name: P.name,
+                email: P.email,
+                birthDate: P.birthDate,
+                genre: P.genre,
+                address: P.address,
+                country: P.country,
+                tel: P.tel,
+                image: P.image,
+                role: P.role,
+                status: P.status
             }
-            return Pa
+            return Patient
         })
         if(patients.length > 0) {
             return patients
-        } else return { msg: "There's no patients with that name"}
+        } else return { msg: "There are no patients with that name"}
 
     } catch (e) {
         console.error(e);
-        throw new Erorr("Error. Patients not found")
+        throw new Erorr("Error occurred. Patients not found")
     }
-}
+};
 
 const getPatientDetail = async (id) => {
     try {
@@ -63,9 +70,13 @@ const getPatientDetail = async (id) => {
             name: response.name,
             email: response.email,
             birthDate: response.birthDate,
+            address: response.address,
+            country: response.country,
+            tel: response.tel,
             genre: response.genre,
             image: response.image,
-            role: response.role
+            role: response.role,
+            status: response.status
         }
         if(patient) {
             return patient
@@ -73,13 +84,13 @@ const getPatientDetail = async (id) => {
 
     } catch (e) {
         console.error(e);
-        throw new Erorr("Error. Patient not found")
+        throw new Erorr("Error occurred. Patient not found")
     }
-}
+};
 
 const registerPatient = async (registerData) => {
     try {
-        const { name, email, password, birthDate, genre, image } = registerData
+        const { name, email, password, birthDate, genre, address, country, tel, image } = registerData
         const found = await patientModel.findOne({ email: email })
 
         if (!found) {
@@ -93,8 +104,12 @@ const registerPatient = async (registerData) => {
                 password,
                 birthDate,
                 genre,
+                address,
+                country,
+                tel,
                 image: result.secure_url,
-                role: "Patient"
+                role: "Patient",
+                status: "active"
             })
             const register = {
                 id: newPatient._id,
@@ -102,8 +117,12 @@ const registerPatient = async (registerData) => {
                 email: newPatient.email,
                 birthDate: newPatient.birthDate,
                 genre: newPatient.genre,
+                address: newPatient.address,
+                country: newPatient.country,
+                tel: newPatient.tel,
                 image: newPatient.image,
-                role: newPatient.role
+                role: newPatient.role,
+                status: newPatient.status
             }
             return register
         } else {
@@ -112,36 +131,54 @@ const registerPatient = async (registerData) => {
 
     } catch (e) {
         console.error(e);
-        throw new Error("Error. Patient can't be registered.")
+        throw new Error("Error occurred. Patient couldn't be registered.")
     }
-}
+};
 
-// const loginPatient = async (loginData) => {
-//     try {
-//         const { email, password } = loginData
+const updatePatient = async (req, res, next ) => {
+    try {
+        
+        const {id} = req.params
+        const {name, email, password, birthDate, genre, address, country, tel, image, status} = req.body 
+        
+        const updatedPatient = await patientModel.findByIdAndUpdate(id, {
+            name: name,
+            emails: email,
+            password: password,
+            birthDate: birthDate,
+            genre: genre,
+            address: address,
+            country: country,
+            tel: tel, 
+            image: image,
+            status: status
+        }, { new : true}) // este ultimo parámetro hace que nos devuelva el doc actualizado
 
-//         if (email && password) {
-//             const patient = await patientModel.findOne({ email: email, password: password })
-//             if (patient) {
-//                 const response = {
-//                     id: patient._id,
-//                     name: patient.name,
-//                     email: patient.email,
-//                     birthDate: patient.birthDate,
-//                     genre: patient.genre,
-//                     image: patient.image,
-//                 }
-//                 return response
-//             } else {
-//                 return { msg: "Some Login data wasn't correct" };
-//             }
-//         }
+        .then( () => {
+            console.log(updatedPatient)
+            res.status(200).send("Patient Successfully Updated")
+        })
+    
+    } catch (error) { 
+        console.error('Failed to update patient');
+        next(error)
+    }
 
-//     } catch (e) {
-//         console.error(e);
-//         throw new Error("Error. Can't logIn.")
-//     }
-// }
+};
+
+const deletePatient = async (req, res, next) => { 
+    try {
+        const {id} = req.params
+
+        await patientModel.findByIdAndRemove(id)
+        .then( () => {
+            res.status(200).send("Patient Successfully Deleted")
+        })
+    } catch (error) { 
+        console.error('Failed to remove patient');
+        next(error)
+    }
+};
 
 
 module.exports = {
@@ -149,5 +186,6 @@ module.exports = {
     getPatientByName,
     getPatientDetail,
     registerPatient,
-    // loginPatient,
+    updatePatient,
+    deletePatient
 }

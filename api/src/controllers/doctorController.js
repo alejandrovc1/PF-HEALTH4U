@@ -2,11 +2,11 @@ const { doctorModel } = require('../models/models');
 const cloudinary = require('../cloudinary')
 const nameFolder = 'doctorPhotos'
 
-const getAllDoctors = async () => {
+const getAllDoctors = async (req, res, next) => {
     try {
         const response = await doctorModel.find({}).populate({
-                path: "specialtie",
-            })
+            path: "specialtie",
+        })
         const doctors = response?.map(d => {
             const Dr = {
                 id: d._id,
@@ -18,21 +18,24 @@ const getAllDoctors = async () => {
                 image: d.image,
                 description: d.description,
                 rating: d.rating,
-                role: d.role
+                role: d.role,
+                country: d.country
             }
             return Dr
         })
-        if(doctors.length > 0) {
-            return doctors
-        } else return { msg: "There's no doctors in the DB" }
-    } catch (e) {
-        console.error(e);
-        throw new Error("Error. Doctors can't be showed.")
-    }
-}
 
-const getDoctorDetail = async (id) => {
+        if(doctors.length > 0) res.status(200).send(doctors);
+        else return { msg: "There are no doctors in the DB" }
+    } catch (error) {
+        console.error("Error occurred. Doctors couldn't be shown.");
+        next(error)
+    }
+};
+
+const getDoctorDetail = async (req, res, next) => {
     try {
+        const {id} = req.params
+
         const response = await doctorModel.findById(id).populate({
             path: "specialtie",
         })
@@ -46,25 +49,23 @@ const getDoctorDetail = async (id) => {
             image: response.image,
             description: response.description,
             rating: response.rating,
-            role: response.role
+            role: response.role,
+            country: response.country
         }
-        if (doctor) {
-            return doctor
-        } else {
-            return { msg: "There's no doctor with that id" };
-        }
-    } catch (e) {
-        console.error(e);
-        throw new Error("Error. Doctor can't showed.")
+        doctor ? res.status(200).send(doctor) : { msg: "There's no doctor with that id" };
+
+    } catch (error) {
+        console.error("Error occurred. Doctor couldn't be shown.");
+        next(error)
     }
-}
+};
 
-const registerDoctor = async (registerData) => {
-    console.log(registerData);
+const registerDoctor = async (req, res, next) => {
+    
     try {
-        const { name, email, password, specialtie, method, image, description, rating} = registerData
-        const found = await doctorModel.findOne({ email: email })
+        const { name, email, password, specialtie, method, image, description, rating, country} = req.body
 
+        const found = await doctorModel.findOne({ email: email })
         if (!found) {
             const result = await cloudinary.uploader.upload(image, {
                 //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
@@ -80,7 +81,8 @@ const registerDoctor = async (registerData) => {
                 image: result.secure_url,
                 description,
                 rating: rating || 0,
-                role: "Doctor"
+                role: "Doctor",
+                country
             })
             const register = {
                 id: newDoctor._id,
@@ -92,48 +94,58 @@ const registerDoctor = async (registerData) => {
                 image: newDoctor.image,
                 description: newDoctor.description,
                 rating: newDoctor.rating,
-                role: newDoctor.role
+                role: newDoctor.role,
+                country: newDoctor.country
             }
 
-            return register
-        } else {
-            return { msg: "This email is already in use" };
-        }
-    } catch (e) {
-        console.error(e);
-        throw new Error("Error. Doctor can't be registered.")
+            res.status(200).send(register)
+        } else return { msg: "This email is already in use" };
+    
+    } catch (error) {
+        console.error("Error occurred. Doctor couldn't be registered.");
+        next(error)
     }
 }
 
-// const loginDoctor = async (loginData) => {
-//     try {
-//         const { username, password } = loginData
-//         if (email && password) {
-//             const doctor = await doctorModel.findOne({ email: email, password: password })
-//             if (doctor) {
-//                 const response = {
-//                     id: doctor._id,
-//                     name: doctor.name,
-//                     email: doctor.email,
-//                     status: doctor.status,
-//                     specialtie: doctor.specialtie,
-//                     method: doctor.method,
-//                     image: doctor.image,
-//                 }
-//                 return response
-//             } else {
-//                 return { msg: "Some Login data wasn't correct" };
-//             }
-//         }
-//     } catch (e) {
-//         console.error(e);
-//         throw new Error("Error. Can't logIn.")
-//     }
-// }
+const updateDoctor = async (req, res, next) => {
+    try {
+        const {id} = req.params
+        const {name, email, password, status, specialtie, method, image, description, rating, country} = req.body
+
+        const updatedDoc = await doctorModel.findByIdAndUpdate(id, {
+            name,
+            email,
+            password,
+            status,
+            specialtie,
+            method,
+            image,
+            description,
+            rating,
+            country
+        }, { new : true}) // este ultimo parámetro hace que nos devuelva el doc actualizado
+        .then( () => {
+            console.log(updatedDoc)
+            res.status(200).send("Doctor Successfully Updated")
+        })
+    } catch (error) { next(error)}
+};
+
+const deleteDoctor = async (req, res, next) => {
+    try {
+        const {id} = req.params
+
+        await doctorModel.findByIdAndRemove(id)
+        .then( () => {
+            res.status(200).send("Doctor Successfully Deleted")
+        })
+    } catch (error) { next(error)}
+} 
 
 module.exports = {
     getAllDoctors,
     getDoctorDetail,
     registerDoctor,
-    // loginDoctor,
+    updateDoctor,
+    deleteDoctor
 };
