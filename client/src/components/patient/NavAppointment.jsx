@@ -1,6 +1,6 @@
 import React from "react";
-import style from "./Nav.module.css";
-import logo from "./image/logo.png";
+import style from "../Nav.module.css";
+import logo from "../image/logo.png";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 
