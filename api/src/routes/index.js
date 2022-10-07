@@ -8,8 +8,6 @@ const appointments = require ("./appointments")
 const specialties = require ("./specialties")
 const reviews = require ("./reviews")
 const login = require ("./login")
-const reviews = require ("./reviews")
-
 
 // const PATH_ROUTES = __dirname; 
 

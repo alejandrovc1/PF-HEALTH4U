@@ -94,20 +94,20 @@ const registerPatient = async (registerData) => {
         const found = await patientModel.findOne({ email: email })
 
         if (!found) {
-            const result = await cloudinary.uploader.upload(image, {
-                //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
-                folder: patientPhotos,
-            })
+            // const result = await cloudinary.uploader.upload(image, {
+            //     //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
+            //     folder: patientPhotos,
+            // })
             const newPatient = await patientModel.create({
                 name,
                 email,
                 password,
-                birthDate,
-                genre,
-                address,
-                country,
-                tel,
-                image: result.secure_url,
+                // birthDate,
+                // genre,
+                // address,
+                // country,
+                // tel,
+                // image: result.secure_url,
                 role: "Patient",
                 status: "active"
             })
@@ -115,12 +115,12 @@ const registerPatient = async (registerData) => {
                 id: newPatient._id,
                 name: newPatient.name,
                 email: newPatient.email,
-                birthDate: newPatient.birthDate,
-                genre: newPatient.genre,
-                address: newPatient.address,
-                country: newPatient.country,
-                tel: newPatient.tel,
-                image: newPatient.image,
+                // birthDate: newPatient.birthDate,
+                // genre: newPatient.genre,
+                // address: newPatient.address,
+                // country: newPatient.country,
+                // tel: newPatient.tel,
+                // image: newPatient.image,
                 role: newPatient.role,
                 status: newPatient.status
             }
@@ -140,6 +140,11 @@ const updatePatient = async (req, res, next ) => {
         
         const {id} = req.params
         const {name, email, password, birthDate, genre, address, country, tel, image, status} = req.body 
+
+        // const result = await cloudinary.uploader.upload(image, {
+        //     //     //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
+        //     //     folder: patientPhotos,
+        //     // })
         
         const updatedPatient = await patientModel.findByIdAndUpdate(id, {
             name: name,
