@@ -24,7 +24,7 @@ const getAllDoctors = async (req, res, next) => {
             return Dr
         })
 
-        if(doctors.length > 0) res.status(200).send(doctors);
+        if (doctors.length > 0) res.status(200).send(doctors);
         else return { msg: "There are no doctors in the DB" }
     } catch (error) {
         console.error("Error occurred. Doctors couldn't be shown.");
@@ -34,7 +34,7 @@ const getAllDoctors = async (req, res, next) => {
 
 const getDoctorDetail = async (req, res, next) => {
     try {
-        const {id} = req.params
+        const { id } = req.params
 
         const response = await doctorModel.findById(id).populate({
             path: "specialtie",
@@ -60,57 +60,61 @@ const getDoctorDetail = async (req, res, next) => {
     }
 };
 
-const registerDoctor = async (req, res, next) => {
-    
+const registerDoctor = async (registerData) => {
+
     try {
-        const { name, email, password, specialtie, method, image, description, rating, country} = req.body
+        const { name, email, password, specialtie, method, image, description, rating, country } = registerData
 
         const found = await doctorModel.findOne({ email: email })
         if (!found) {
-            const result = await cloudinary.uploader.upload(image, {
-                //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
-                folder: 'doctorPhotos',
-            })
+            // const result = await cloudinary.uploader.upload(image, {
+            //     //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
+            //     folder: 'doctorPhotos',
+            // })
             const newDoctor = await doctorModel.create({
                 name,
                 email,
                 password,
                 status: "active",
-                specialtie,
-                method,
-                image: result.secure_url,
-                description,
-                rating: rating || 0,
+                // specialtie,
+                // method,
+                // image: result.secure_url,
+                // description,
+                // rating: rating || 0,
                 role: "Doctor",
-                country
+                // country
             })
             const register = {
                 id: newDoctor._id,
                 name: newDoctor.name,
                 email: newDoctor.email,
                 status: newDoctor.status,
-                specialtie: newDoctor.specialtie,
-                method: newDoctor.method,
-                image: newDoctor.image,
-                description: newDoctor.description,
-                rating: newDoctor.rating,
+                // specialtie: newDoctor.specialtie,
+                // method: newDoctor.method,
+                // image: newDoctor.image,
+                // description: newDoctor.description,
+                // rating: newDoctor.rating,
                 role: newDoctor.role,
-                country: newDoctor.country
+                // country: newDoctor.country
             }
-
-            res.status(200).send(register)
+            return register
         } else return { msg: "This email is already in use" };
-    
-    } catch (error) {
-        console.error("Error occurred. Doctor couldn't be registered.");
-        next(error)
+
+    } catch (e) {
+        console.error(e);
+        throw new Error("Error occurred. Patient couldn't be registered.")
     }
 }
 
 const updateDoctor = async (req, res, next) => {
     try {
-        const {id} = req.params
-        const {name, email, password, status, specialtie, method, image, description, rating, country} = req.body
+        const { id } = req.params
+        const { name, email, password, status, specialtie, method, image, description, rating, country } = req.body
+
+        // const result = await cloudinary.uploader.upload(image, {
+        //     //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
+        //     folder: 'doctorPhotos',
+        // })
 
         const updatedDoc = await doctorModel.findByIdAndUpdate(id, {
             name,
@@ -123,24 +127,24 @@ const updateDoctor = async (req, res, next) => {
             description,
             rating,
             country
-        }, { new : true}) // este ultimo parámetro hace que nos devuelva el doc actualizado
-        .then( () => {
-            console.log(updatedDoc)
-            res.status(200).send("Doctor Successfully Updated")
-        })
-    } catch (error) { next(error)}
+        }, { new: true }) // este ultimo parámetro hace que nos devuelva el doc actualizado
+            .then(() => {
+                console.log(updatedDoc)
+                res.status(200).send("Doctor Successfully Updated")
+            })
+    } catch (error) { next(error) }
 };
 
 const deleteDoctor = async (req, res, next) => {
     try {
-        const {id} = req.params
+        const { id } = req.params
 
         await doctorModel.findByIdAndRemove(id)
-        .then( () => {
-            res.status(200).send("Doctor Successfully Deleted")
-        })
-    } catch (error) { next(error)}
-} 
+            .then(() => {
+                res.status(200).send("Doctor Successfully Deleted")
+            })
+    } catch (error) { next(error) }
+}
 
 module.exports = {
     getAllDoctors,

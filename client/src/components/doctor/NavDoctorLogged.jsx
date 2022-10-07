@@ -1,18 +1,18 @@
 import React from "react";
-import style from "./Nav.module.css";
-import logo from "./image/logo.png";
+import style from "../Nav.module.css";
+import logo from "../image/logo.png";
 import { useHistory } from "react-router-dom";
-import { useAuth } from "../context/authContext";
+import { useAuth } from "../../context/authContext";
 
-export default function NavDoctorLogged(){
+export default function NavDoctorLogged() {
 
     const history = useHistory()
 
-    const {users,logout,loading}= useAuth()
+    const { users, logout, loading } = useAuth()
     console.log(users)
-   
 
-    const handleLogOut = async () =>{
+
+    const handleLogOut = async () => {
         await logout()
         history.push("/login")
     }

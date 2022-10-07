@@ -9,7 +9,6 @@ const specialties = require ("./specialties")
 const reviews = require ("./reviews")
 const login = require ("./login")
 
-
 // const PATH_ROUTES = __dirname; 
 
 // // Se le quita la extensión del archivo

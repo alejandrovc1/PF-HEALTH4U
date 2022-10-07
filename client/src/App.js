@@ -2,14 +2,13 @@ import React from 'react'
 import './App.css';
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 import Home from './components/Home';
-import Account from './components/Account'
-import HomeDocLogged from './components/HomeDocLogged';
+import HomeDocLogged from './components/doctor/HomeDocLogged';
 import Login from './components/Login'
 import Register from './components/Register';
-import DoctorDetail from './components/DoctorDetail';
+import DoctorDetail from './components/patient/DoctorDetail';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/authContext'
-import Appointment from './components/Appointment'
+import Appointment from './components/patient/Appointment'
 // import roles from './helpers/roles';
 // import AdminView from './components/AdminView';
 
@@ -22,7 +21,6 @@ export default function App() {
         <Switch>
           <Route exact path='/'><Home/></Route>
           <Route exact path='/homeDoc'><HomeDocLogged/></Route>
-          <Route exact path='/account'><Account/></Route>
           <Route exact path='/login/'><Login/></Route>
           <Route exact path='/register/'><Register/></Route>
           <Route exact path='/appointment'><Appointment/></Route>

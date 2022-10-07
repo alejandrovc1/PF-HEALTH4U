@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import style from './CardDoc.module.css';
-import star from "./image/starRating.png";
+import star from "../image/starRating.png";
 
 export default function Card({ image, name, rating, specialtie, id })
 {
