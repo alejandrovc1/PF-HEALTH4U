@@ -1,4 +1,4 @@
-const { reviewModel } = require('../models/models');
+const { reviewModel, doctorModel } = require('../models/models');
 
 const getAllReviews = async () => {
     try {
@@ -104,16 +104,29 @@ const getReviewDetail = async (id) => {
 
 const createReview = async (reviewData) => {
     try {
-        const { service, date, review, calification, patient, doctor } = reviewData
-
+        const { service, date, review, score, patient, doctor } = reviewData
         const newReview = await reviewModel.create({
             service,
             date,
             review, 
-            calification,
+            score,
             patient,
             doctor
         })
+        const doctorReviews = await reviewModel.find({
+            doctor: doctor
+        })
+        const scores = doctorReviews?.map(dr => dr.score)
+        const total = scores.reduce((acc, val) => {
+            return acc = acc + val
+        })
+        const rating = total/scores.length
+        const putRating = await doctorModel.findByIdAndUpdate(doctor, {
+            rating: rating
+        }, { new : true})
+        console.log(putRating)
+        console.log("total: ", total, ", rating: ", rating)
+
         if(newReview) {
             return newReview
         } else return { msg: "The new review can't be created"}

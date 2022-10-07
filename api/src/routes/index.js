@@ -8,7 +8,6 @@ const appointments = require ("./appointments")
 const specialties = require ("./specialties")
 const reviews = require ("./reviews")
 const login = require ("./login")
-const reviews = require ("./reviews")
 
 
 // const PATH_ROUTES = __dirname; 
@@ -30,7 +29,6 @@ router.use('/doctors', doctors)
 router.use('/patients', patients)
 router.use('/appointments', appointments)
 router.use('/specialties', specialties)
-// router.use('/reviews', reviews)
 router.use('/login', login)
 router.use('/reviews', reviews)
 
