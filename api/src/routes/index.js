@@ -28,7 +28,6 @@ router.use('/doctors', doctors)
 router.use('/patients', patients)
 router.use('/appointments', appointments)
 router.use('/specialties', specialties)
-// router.use('/reviews', reviews)
 router.use('/login', login)
 router.use('/reviews', reviews)
 

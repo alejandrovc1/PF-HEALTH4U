@@ -11,7 +11,7 @@ const reviewSchema = new Schema({
     review: {
         type: String,
     },
-    calification: {
+    score: {
         type: Number,
     },
     patient: {
