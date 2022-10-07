@@ -60,10 +60,10 @@ const getDoctorDetail = async (req, res, next) => {
     }
 };
 
-const registerDoctor = async (req, res, next) => {
+const registerDoctor = async (registerData) => {
 
     try {
-        const { name, email, password, specialtie, method, image, description, rating, country } = req.body
+        const { name, email, password, specialtie, method, image, description, rating, country } = registerData
 
         const found = await doctorModel.findOne({ email: email })
         if (!found) {
@@ -97,13 +97,12 @@ const registerDoctor = async (req, res, next) => {
                 role: newDoctor.role,
                 // country: newDoctor.country
             }
-
-            res.status(200).send(register)
+            return register
         } else return { msg: "This email is already in use" };
 
-    } catch (error) {
-        console.error("Error occurred. Doctor couldn't be registered.");
-        next(error)
+    } catch (e) {
+        console.error(e);
+        throw new Error("Error occurred. Patient couldn't be registered.")
     }
 }
 

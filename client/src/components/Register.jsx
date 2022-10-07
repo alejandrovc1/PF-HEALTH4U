@@ -139,6 +139,7 @@ export default function Register() {
             //     //'http://res.cloudinary.com/dzikj6tja/image/upload/v1664542753/doctor_test.jpg'
             // }
             dispatch(postDoctors(doctor))
+            console.log(doctor);
             setDoctor({
                 fullname: "",
                 email: "",
@@ -160,6 +161,7 @@ export default function Register() {
                 password: patient.password,
             }
             dispatch(postPatient(patient2))
+            console.log(patient2)
             setPatient({
                 fullname: "",
                 email: "",
