@@ -231,7 +231,8 @@ export default function Register() {
                         {error.confirmPassword && <p>{error.confirmPassword}</p>}
 
                         <button type="submit">Register</button>
-                    </div></form>
+                    </div>
+                </form>
             }
             {patient.typeUser == 'patient' &&
                 <form onSubmit={handleSubmitPatient}>
@@ -292,6 +293,5 @@ export default function Register() {
                 </a>
             </p>
         </div >
-
     )
 }
