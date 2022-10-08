@@ -1,6 +1,7 @@
 import React from 'react'
 import './App.css';
-import { BrowserRouter, Route, Switch } from "react-router-dom"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { Admin, Resource } from "react-admin"
 import Home from './components/Home';
 import HomeDocLogged from './components/doctor/HomeDocLogged';
 import Login from './components/Login'
@@ -21,19 +22,21 @@ export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Switch>
-          <Route exact path='/'><Home/></Route>
-          <Route exact path='/login/'><Login/></Route>
-          <Route exact path='/register/'><Register/></Route>
-          <Route exact path='/docDetail/:id'><DoctorDetail /></Route>
+        <Routes>
+          <Route exact path='/' element={<Home />} />
+          <Route exact path='/login/' element={<Login />} />
+          <Route exact path='/register/' element={<Register />} />
+          <Route exact path='/docDetail/:id' element={<DoctorDetail />} />
 
-          <PrivateRoute exact path='/appointment'><Appointment/></PrivateRoute>
-          <PrivateRoute hasRole={roles.doctor} exact path='/homeDoc'><HomeDocLogged/></PrivateRoute>
-          <PrivateRoute hasRole={roles.admin} exact path='/adminView'><AdminView/></PrivateRoute>
+          <Route exact path='/appointment' element= { <PrivateRoute element={<Appointment />} />} />
+          <Route exact path='/homeDoc' element= { <PrivateRoute hasRole={roles.doctor} element={<HomeDocLogged />} />} />
+          <Route exact path='/adminView' element= { <PrivateRoute hasRole={roles.admin} element={<AdminView />} />} />
           
-          {/* <Route exact path='/appointment'><Appointment/></Route> */}
-
-        </Switch>
+          {/* <PrivateRoute exact path='/appointment' element={<Appointment />} />
+          <PrivateRoute hasRole={roles.doctor} exact path='/homeDoc' element={<HomeDocLogged />} />
+          <PrivateRoute hasRole={roles.admin} exact path='/adminView' element={<AdminView />} /> */}
+          
+        </Routes>
       </AuthProvider>
     </BrowserRouter>
   );

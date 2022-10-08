@@ -2,11 +2,11 @@ import React from "react"
 import { postDoctors, postPatient } from "../actions"
 import { useState, useEffect } from "react"
 import { useAuth } from "../context/authContext"
-import { useHistory } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 
 export default function Register() {
-    const history = useHistory()
+    const history = useNavigate()
     const dispatch = useDispatch()
     const [error, setError] = useState({})
 

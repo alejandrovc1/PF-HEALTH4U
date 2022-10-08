@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Navigate, Route } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 
 export default function PrivateRoute({ hasRole: role, ...rest }) {
@@ -7,9 +7,9 @@ export default function PrivateRoute({ hasRole: role, ...rest }) {
     console.log(users)
     console.log(hasRole)
 
-    if (role && !hasRole(role)) return <Redirect to="/" />
+    if (role && !hasRole(role)) return <Navigate to="/" />
 
-    if (!users) return <Redirect to="/login" />
+    if (!users) return <Navigate to="/login" />
     
     return (
         <Route {...rest} />

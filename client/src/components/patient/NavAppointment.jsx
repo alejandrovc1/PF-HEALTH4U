@@ -1,12 +1,12 @@
 import React from "react";
 import style from "../Nav.module.css";
 import logo from "../image/logo.png";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 
 export default function NavAppointment() {
 
-    const history = useHistory()
+    const history = useNavigate()
 
     const { users, logout, loading } = useAuth()
     console.log(users)
