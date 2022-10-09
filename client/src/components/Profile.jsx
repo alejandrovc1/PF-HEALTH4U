@@ -18,17 +18,17 @@ export default function Profile(){
     let functiionEdit=()=>{
         setEdit(edit?false:true)
     }
-    // detail.length?props={
-    //    // image:detail[0]?.image,
-    //     //name:detail[0]?.name,
-    //    // email:detail[0]?.email,
-    //    // birthDate:detail[0]?.birthDate,
-    //     //genre:detail[0]?.genre,
-    //     //address:detail[0]?.address,
-    //     //country:detail[0]?.country,
-    //     //tel:detail[0]?.tel,
-    //     functiionEdit
-    // }:console.log('algo esta pasando')
+    detail.length?props={
+       image:detail[0].image,
+        name:detail[0].name,
+       email:detail[0].email,
+       birthDate:detail[0].birthDate,
+        genre:detail[0].genre,
+        address:detail[0].address,
+        country:detail[0].country,
+        tel:detail[0].tel,
+        functiionEdit
+    }:console.log('algo esta pasando')
     useEffect(()=>{
         console.log('entra')
         dispatch(getprofile('María Naranjo'))
