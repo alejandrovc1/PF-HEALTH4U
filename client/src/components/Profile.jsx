@@ -7,31 +7,31 @@ import ProfileDetail from "./ProfileDetail.jsx";
 import { useState } from "react";
 import ProfileEdit from "./ProfileEdit.jsx";
 export default function Profile(){
-    const { name } = useParams();
-    console.log(name)
+    const { id } = useParams();
     const dispatch=useDispatch()
     let[edit,setEdit]=useState(false)
     let  detail=useSelector(f=>f.profileDetail)
+    console.log(detail)
     let props={
        
     }
     let functiionEdit=()=>{
         setEdit(edit?false:true)
     }
-    detail.length?props={
-       image:detail[0].image,
-        name:detail[0].name,
-       email:detail[0].email,
-       birthDate:detail[0].birthDate,
-        genre:detail[0].genre,
-        address:detail[0].address,
-        country:detail[0].country,
-        tel:detail[0].tel,
+    detail?props={
+       image:detail.image,
+        name:detail.name,
+       email:detail.email,
+       birthDate:detail.birthDate,
+        genre:detail.genre,
+        address:detail.address,
+        country:detail.country,
+        tel:detail.tel,
         functiionEdit
     }:console.log('algo esta pasando')
     useEffect(()=>{
         console.log('entra')
-        dispatch(getprofile('María Naranjo'))
+        dispatch(getprofile(id))
     },[])
     return(     
         !edit?<ProfileDetail

@@ -14,11 +14,11 @@ export const CLEAN_FILTER = "CLEAN_FILTER";
 //         })
 //     }
 // }
-export function getprofile(name)
+export function getprofile(id)
 { //obtener detalle de un paciente
     return async function (dispatch)
     {
-        let json = await axios.get("http://localhost:3001/patients/?name="+name);
+        let json = await axios.get("http://localhost:3001/patients/"+id);
         return dispatch({
             type: "GET_PROFILE",
             payload: json.data
