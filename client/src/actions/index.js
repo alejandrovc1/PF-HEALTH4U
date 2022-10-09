@@ -1,6 +1,5 @@
 import axios from "axios"
 export const GET_DETAIL = "GET_DETAIL";
-export const CLEAN_FILTER = "CLEAN_FILTER";
 
 
 export function getDoctors()
@@ -27,10 +26,10 @@ export function getSpecialties()
     }
 }
 
-export const cleanFilter = () =>
+export const cleandetail = () =>
 {
     return {
-        type: 'CLEAN_FILTER',
+        type: 'CLEAN_DETAIL',
         payload: []
     }
 }
@@ -54,17 +53,26 @@ export function orderByName(payload)
 
 export function orderByRating(payload)
 { //ordernar por rating asc o desc
+    console.log(payload)
     return {
         type: "ORDER_BY_RATING",
         payload
     }
 }
 
-export function filterBySpecialties(payload)
+export function filterBySpecialties(specialtie)
 {//filtrado por especialidad
     return {
         type: "FILTER_BY_SPECIALTIES",
-        payload
+        payload: specialtie
+    }
+}
+
+export function filterByMethod(method)
+{   //Filtro de doctores por Metodo
+    return {
+        type: "FILTER_BY_METHOD",
+        payload: method
     }
 }
 
@@ -97,5 +105,67 @@ export function login(payload) {//login
             type: "LOGIN",
             payload: response
         })
+    }
+}
+
+export function getReviews()
+{ //obtener todas las reviews
+    return async function (dispatch)
+    {
+        let response = await axios.get("http://localhost:3001/reviews");
+        return dispatch({
+            type: "GET_REVIEWS",
+            payload: response.data
+        })
+    }
+}
+
+export function getReviewByDoctor(doctor)
+{
+    return async function (dispatch) {
+        let response = await axios.get("http://localhost:3001/reviews?doctor="+doctor)
+        return dispatch({
+            type: "GET_REVIEW_BY_DOCTOR",
+            payload: response.data
+        })
+    }
+}
+
+export function getReviewByPatient(patient)
+{
+    return async function (dispatch) {
+        let response = await axios.get("http://localhost:3001/reviews?patient="+patient)
+        return dispatch({
+            type: "GET_REVIEW_BY_PATIENT",
+            payload: response.data
+        })
+    }
+}
+
+export function getReviewDetail(review)
+{
+    return async function (dispatch) {
+        let response = await axios.get("http://localhost:3001/reviews/"+review)
+        return dispatch({
+            type: "GET_REVIEW_DETAIL",
+            payload: response.data
+        })
+    }
+}
+
+export function addReview(review)
+{
+    return async function (dispatch) {
+        let response = await axios.post("http://localhost:3001/reviews/create", review)
+        return dispatch({
+            type: "ADD_REVIEW",
+            payload: response.data
+        })
+    }
+}
+
+export function reset() {
+    return {
+        type: 'RESET',
     }
 }
