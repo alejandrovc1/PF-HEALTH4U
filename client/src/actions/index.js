@@ -2,6 +2,28 @@ import axios from "axios"
 export const GET_DETAIL = "GET_DETAIL";
 
 
+// export function getDoctors()
+// { //obtener todos los doctores
+//     return async function (dispatch)
+//     {
+//         let json = await axios.get("http://localhost:3001/doctors");
+//         return dispatch({
+//             type: "GET_DOCTORS",
+//             payload: json.data
+//         })
+//     }
+// }
+export function getprofile(name)
+{ //obtener detalle de un paciente
+    return async function (dispatch)
+    {
+        let json = await axios.get("http://localhost:3001/patients/?name="+name);
+        return dispatch({
+            type: "GET_PROFILE",
+            payload: json.data
+        })
+    }
+}
 export function getDoctors()
 { //obtener todos los doctores
     return async function (dispatch)

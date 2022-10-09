@@ -80,7 +80,7 @@ const registerDoctor = async (registerData) => {
                 // method,
                 // image: result.secure_url,
                 // description,
-                // rating: rating || 0,
+                rating: rating || 0,
                 role: "Doctor",
                 // country
             })
