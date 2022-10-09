@@ -2,11 +2,11 @@ import React from "react"
 import { postDoctors, postPatient } from "../actions"
 import { useState, useEffect } from "react"
 import { useAuth } from "../context/authContext"
-import { useHistory } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 
 export default function Register() {
-    const history = useHistory()
+    const history = useNavigate()
     const dispatch = useDispatch()
     const [error, setError] = useState({})
 
@@ -231,7 +231,8 @@ export default function Register() {
                         {error.confirmPassword && <p>{error.confirmPassword}</p>}
 
                         <button type="submit">Register</button>
-                    </div></form>
+                    </div>
+                </form>
             }
             {patient.typeUser == 'patient' &&
                 <form onSubmit={handleSubmitPatient}>
@@ -292,6 +293,5 @@ export default function Register() {
                 </a>
             </p>
         </div >
-
     )
 }

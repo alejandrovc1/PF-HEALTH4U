@@ -12,12 +12,11 @@ import neuro from "./image/neuro.png";
 import ofta from "./image/ofta.png";
 import otor from "./image/otor.png";
 import reum from "./image/reum.png";
-import sphy from "./image/sphy.png";
+import psyc from "./image/psyc.png";
 import tra from "./image/reum.png";
 import uro from "./image/uro.png";
 
-export default function SpecialtiesH()
-{
+export default function SpecialtiesH() {
 
     return (
         <div>
@@ -71,7 +70,7 @@ export default function SpecialtiesH()
                 </div>
                 <div className={style.box}>
                     <div><h3>Psychiatry</h3></div>
-                    <div><img className={style.image} src={sphy} alt=" " /></div>
+                    <div><img className={style.image} src={psyc} alt=" " /></div>
                 </div>
                 <div className={style.box}>
                     <div><h3>Rheumatology</h3></div>
@@ -86,7 +85,6 @@ export default function SpecialtiesH()
                     <div><img className={style.image} src={uro} alt=" " /></div>
                 </div>
             </div>
-
         </div>
     )
 }

@@ -148,7 +148,7 @@ const updatePatient = async (req, res, next ) => {
         
         const updatedPatient = await patientModel.findByIdAndUpdate(id, {
             name: name,
-            emails: email,
+            email: email,
             password: password,
             birthDate: birthDate,
             genre: genre,
