@@ -7,6 +7,10 @@ const { json } = require('body-parser');
 const JWT_SECRET = process.env.JWT_SECRET;
 
 
+
+const nameFolder = 'patientPhotos'
+const {EmeilerConfig}= require('../Emeiler.config.js')
+
 const getAllPatients = async () => {
     try {
         const response = await patientModel.find({})
@@ -127,6 +131,7 @@ const registerPatient = async (registerData) => {
                 newPatient.role = [role._id]
             }
 
+
             const savedUser = await newPatient.save();
             console.log(savedUser)
 
@@ -137,6 +142,9 @@ const registerPatient = async (registerData) => {
             })
 
             return json({ token })
+            EmeilerConfig('Te damos la bienvenida '+name+' ya puedes entrar a http://localhost:3000/' ,email,name)
+            return register
+
         } else {
             return { msg: "This email is already in use" };
         }
@@ -146,6 +154,24 @@ const registerPatient = async (registerData) => {
         throw new Error("Error occurred. Patient couldn't be registered.")
     }
 };
+const emeils = async (msj ) => {
+    try {
+        
+      let mandado =  await transporter.sendMail({
+           from: '"prueba email 👻" <helath.4U.web@gmail.com>', // sender address
+           to: "smitesotra@gmail.com", // list of receivers
+           subject: "Hello ✔", // Subject line
+           text: msj, // plain text body
+           //html: "<b>Hello world?</b>", // html body
+         });
+         
+            return 'msj mandado'
+         
+        } catch (e) {
+            console.error(e);
+            throw new Error("Error occurred. Patient couldn't be registered.")
+        }
+}
 
 const updatePatient = async (req, res, next) => {
     try {
@@ -160,7 +186,7 @@ const updatePatient = async (req, res, next) => {
 
         const updatedPatient = await patientModel.findByIdAndUpdate(id, {
             name: name,
-            emails: email,
+            email: email,
             password: password,
             birthDate: birthDate,
             genre: genre,
@@ -204,5 +230,6 @@ module.exports = {
     getPatientDetail,
     registerPatient,
     updatePatient,
-    deletePatient
+    deletePatient,
+    emeils
 }

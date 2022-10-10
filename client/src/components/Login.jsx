@@ -1,6 +1,6 @@
 import React from "react"
 import { useState } from "react"
-import { useHistory } from "react-router-dom"
+import { useNavigate  } from "react-router-dom"
 import { useAuth } from "../context/authContext"
 import { Link } from "react-router-dom"
 import { login } from "../actions"
@@ -8,6 +8,7 @@ import { login } from "../actions"
 export default function Login() {
 
     const history = useHistory()
+
 
     function validate(user) {
         let error = {}
