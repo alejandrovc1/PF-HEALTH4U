@@ -33,7 +33,6 @@ export default function App() {
           <Route exact path='/register/' element={<Register />} />
           <Route exact path='/docDetail/:id' element={<DoctorDetail />} />
           <Route exact path='/profile/:id'  element={<Profile/>} />
-
           <Route exact path='/appointment' element= { <PrivateRoute element={<Appointment />} />} />
           <Route exact path='/homeDoc' element= { <PrivateRoute hasRole={roles.doctor} element={<HomeDocLogged />} />} />
           <Route exact path='/adminView' element= { <PrivateRoute hasRole={roles.admin} element={<AdminView />} />} />

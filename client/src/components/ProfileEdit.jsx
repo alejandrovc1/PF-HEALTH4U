@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import s from './Profile.module.css'
+import Clou from "./ImageCloudinary";
 export default function ProfileDetail(props){
 const {image,name,email,birthDate,genre,address,country,tel,functiionEdit}=props
 let [editinput,seteditinput]=useState({
@@ -10,7 +11,10 @@ let [editinput,seteditinput]=useState({
 return(
         props?<div className={s.contein}>
              <img src={editinput.image} alt='image'/>
-         <input type="file"  onChange={(e)=>{seteditinput({...editinput,image: URL.createObjectURL(e.target.files[0])})}}/>
+            <Clou
+            seteditinput={seteditinput}
+            editinput={editinput}
+            />
          <input type="text" name="name" value={editinput.name} />
          <input type="text" name="email"  value={editinput.email}/>
          <input type="text" name="birthDate"  value={editinput.birthDate}/>
