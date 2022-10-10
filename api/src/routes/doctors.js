@@ -7,19 +7,20 @@ const {
     deleteDoctor
 } = require('../controllers/doctorController')
 
+const { authJwt, verifySignUp } = require('../middlewares/index')
 const router = Router();
 
 router.get('/', getAllDoctors);
 
 router.get('/:id', getDoctorDetail);
 
-router.post('/register', async (req, res) => {
-    try {  
+router.post('/register', [verifySignUp.checkRolesExisted], async (req, res) => {
+    try {
         const doctorData = req.body
 
-        if(doctorData) {
+        if (doctorData) {
             const registerResponse = await registerDoctor(doctorData)
-            if(registerResponse) {
+            if (registerResponse) {
                 return res.status(200).json(registerResponse)
             }
         }
@@ -30,8 +31,8 @@ router.post('/register', async (req, res) => {
     }
 })
 
-router.put('/:id', updateDoctor);
+router.put('/:id', [authJwt.verifyToken, authJwt.isDoctor], updateDoctor);
 
-router.delete('/:id', deleteDoctor);
+router.delete('/:id', [authJwt.verifyToken, authJwt.isAdmin], deleteDoctor);
 
 module.exports = router

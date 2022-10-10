@@ -7,7 +7,8 @@ import { login } from "../actions"
 
 export default function Login() {
 
-    const history = useNavigate ()
+    const history = useHistory()
+
 
     function validate(user) {
         let error = {}
@@ -27,11 +28,9 @@ export default function Login() {
     const [user, setUser] = useState({
         email: "",
         password: "",
-        role: ""
     })
     const { login, loginWithGoogle } = useAuth()
     const [error, setError] = useState({})
-
 
 
     function handleInputChange(e) {
@@ -45,27 +44,32 @@ export default function Login() {
         }))
     }
 
-
     const handleGoogleSignIn = async () => {
         await loginWithGoogle()
-
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError("")
         try {
-            if (user.email && user.password === "Lbitrn11") {
-                await login(user.email, user.password)
-
-                history.push('/adminview')
-            } else {
-                history.push('/appointment')
-            }
-
-
+            fetch("http:/localhost:3001/login",{
+                method:"POST",
+                crossdomain: true,
+                headers:{
+                    "Content-type": "application/json",
+                    Accept: "application/json",
+                    "Access-Control-Allow-Origin":"*",
+                },
+                // body: JSON.stringify({
+                //     email,
+                //     password,
+                // }),
+            })
+            .then((res) => res.json())
+            .then((data)=>{
+                console.log(data,"userLogin")
+            })
             history.push('/appointment')
-
         } catch (error) {
             console.log(error.code)
             setError(error.message)

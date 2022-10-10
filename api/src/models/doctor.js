@@ -2,6 +2,7 @@
 //Utilizando los esquemas creamos los modelos
 const { Schema, model } = require("mongoose");
 //const mongooseDelete = require("mongoose-delete");
+const bcrypt = require('bcryptjs')
 
 //Mongo da una id predeterminadamente, no es necesario declarar
 const doctorSchema = new Schema({
@@ -35,9 +36,11 @@ const doctorSchema = new Schema({
     rating: {
         type: Number
     },
-    role: {
-        type: String
-    },
+    role: [{
+        //Relacionamos el esquema de role al de los usuarios.
+        ref: "Role",
+        type: Schema.Types.ObjectId
+    }],
     country: {
         type: String
     }
@@ -46,7 +49,17 @@ const doctorSchema = new Schema({
         timestamps: true,
         versionKey: false,
     });
+    
+//Metodos del modelo
+doctorSchema.statics.encryptPassword = async (password) => {
+    //Un salt es un string que hace que el hash sea inpredecible
+    const salt = await bcrypt.genSalt(10)
+    return await bcrypt.hash(password, salt)
+}
 
+doctorSchema.statics.comparePassword = async (password, receivedPassword) => {
+    return await bcrypt.compare(password, receivedPassword)
+}
 const doctorModel = model("Doctor", doctorSchema);
 
 module.exports = doctorModel;
