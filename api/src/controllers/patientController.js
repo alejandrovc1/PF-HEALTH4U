@@ -1,6 +1,11 @@
 const { patientModel } = require('../models/models');
+const { roleModel } = require('../models/models');
 const cloudinary = require('../cloudinary')
-const nameFolder = 'patientPhotos'
+
+const jwt = require('jsonwebtoken')
+const { json } = require('body-parser');
+const JWT_SECRET = process.env.JWT_SECRET;
+
 
 const getAllPatients = async () => {
     try {
@@ -52,9 +57,9 @@ const getPatientByName = async (name) => {
             }
             return Patient
         })
-        if(patients.length > 0) {
+        if (patients.length > 0) {
             return patients
-        } else return { msg: "There are no patients with that name"}
+        } else return { msg: "There are no patients with that name" }
 
     } catch (e) {
         console.error(e);
@@ -78,9 +83,9 @@ const getPatientDetail = async (id) => {
             role: response.role,
             status: response.status
         }
-        if(patient) {
+        if (patient) {
             return patient
-        } else return { msg: "There's no Patient with that id"}
+        } else return { msg: "There's no Patient with that id" }
 
     } catch (e) {
         console.error(e);
@@ -90,41 +95,48 @@ const getPatientDetail = async (id) => {
 
 const registerPatient = async (registerData) => {
     try {
-        const { name, email, password, birthDate, genre, address, country, tel, image } = registerData
-        const found = await patientModel.findOne({ email: email })
+        const { name, email, password, birthDate, genre, address, country, tel, image, roles } = registerData
 
+        const found = await patientModel.findOne({ email: email })
         if (!found) {
             // const result = await cloudinary.uploader.upload(image, {
             //     //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
             //     folder: patientPhotos,
             // })
-            const newPatient = await patientModel.create({
+            const newPatient = new patientModel({
                 name,
                 email,
-                password,
+                password: await patientModel.encryptPassword(password),
                 // birthDate,
                 // genre,
                 // address,
                 // country,
                 // tel,
                 // image: result.secure_url,
-                role: "Patient",
                 status: "active"
             })
-            const register = {
-                id: newPatient._id,
-                name: newPatient.name,
-                email: newPatient.email,
-                // birthDate: newPatient.birthDate,
-                // genre: newPatient.genre,
-                // address: newPatient.address,
-                // country: newPatient.country,
-                // tel: newPatient.tel,
-                // image: newPatient.image,
-                role: newPatient.role,
-                status: newPatient.status
+
+            if (roles) {
+                //en caso de que quisieramos agregar varios roles a un doctor
+                const foundRoles = await roleModel.find({ name: { $in: roles } })
+                //en la propiedad rol del doctor se guarda un arreglo con el id del rol
+                newPatient.role = foundRoles.map(role => role._id)//por cada objeto(role) devuelve el id (role._id)
+            } else {
+                // solo agrega un rol por defecto al usuario
+                const role = await roleModel.findOne({ name: "patient" })
+                newPatient.role = [role._id]
             }
-            return register
+
+            const savedUser = await newPatient.save();
+            console.log(savedUser)
+
+            //Permite crear un token
+            //Recibe que se va a guardar, una clave secreta y un objeto de configuracion
+            const token = jwt.sign({ id: savedUser._id }, JWT_SECRET, {
+                expiresIn: 86400 //Esta en segundos = Expira en 24 horas
+            })
+
+            return json({ token })
         } else {
             return { msg: "This email is already in use" };
         }
@@ -135,17 +147,17 @@ const registerPatient = async (registerData) => {
     }
 };
 
-const updatePatient = async (req, res, next ) => {
+const updatePatient = async (req, res, next) => {
     try {
-        
-        const {id} = req.params
-        const {name, email, password, birthDate, genre, address, country, tel, image, status} = req.body 
+
+        const { id } = req.params
+        const { name, email, password, birthDate, genre, address, country, tel, image, status } = req.body
 
         // const result = await cloudinary.uploader.upload(image, {
         //     //     //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
         //     //     folder: patientPhotos,
         //     // })
-        
+
         const updatedPatient = await patientModel.findByIdAndUpdate(id, {
             name: name,
             emails: email,
@@ -154,32 +166,32 @@ const updatePatient = async (req, res, next ) => {
             genre: genre,
             address: address,
             country: country,
-            tel: tel, 
+            tel: tel,
             image: image,
             status: status
-        }, { new : true}) // este ultimo parámetro hace que nos devuelva el doc actualizado
+        }, { new: true }) // este ultimo parámetro hace que nos devuelva el doc actualizado
 
-        .then( () => {
-            console.log(updatedPatient)
-            res.status(200).send("Patient Successfully Updated")
-        })
-    
-    } catch (error) { 
+            .then(() => {
+                console.log(updatedPatient)
+                res.status(200).send("Patient Successfully Updated")
+            })
+
+    } catch (error) {
         console.error('Failed to update patient');
         next(error)
     }
 
 };
 
-const deletePatient = async (req, res, next) => { 
+const deletePatient = async (req, res, next) => {
     try {
-        const {id} = req.params
+        const { id } = req.params
 
         await patientModel.findByIdAndRemove(id)
-        .then( () => {
-            res.status(200).send("Patient Successfully Deleted")
-        })
-    } catch (error) { 
+            .then(() => {
+                res.status(200).send("Patient Successfully Deleted")
+            })
+    } catch (error) {
         console.error('Failed to remove patient');
         next(error)
     }

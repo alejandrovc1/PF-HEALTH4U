@@ -1,67 +1,47 @@
 const { doctorModel, patientModel, adminModel } = require('../models/models');
 
-const loginFunction = async (loginData) => {
+const jwt = require("jsonwebtoken")
+const JWT_SECRET = process.env.JWT_SECRET;
+
+const loginFunction = async (req, res) => {
     try {
-        const { role, email, password} = loginData
-        console.log(role, email, password);
-        if (role === "Doctor"){
-            if (email && password) {
-                const doctor = await doctorModel.findOne({ email: email, password: password })
-                if (doctor) {
-                    const response = {
-                        id: doctor._id,
-                        name: doctor.name,
-                        email: doctor.email,
-                        status: doctor.status,
-                        specialtie: doctor.specialtie,
-                        method: doctor.method,
-                        image: doctor.image,
-                        description: doctor.description,
-                        rating: doctor.rating,
-                        role: doctor.role
-                    }
-                    return response
+
+        if (req.body.email && req.body.password) {
+            //populate lo que hace es devolver todo el objeto role entero debido a que necesitamos el nombre, no solo el id
+            const doctorFound = await doctorModel.findOne({ email: req.body.email }).populate("role")
+            if (doctorFound) {
+                const matchPassword = await doctorModel.comparePassword(req.body.password, doctorFound.password)
+
+                if (matchPassword === false) return res.status(401).json({ token: null, message: 'Invalid Password 1' })
+
+                const token = jwt.sign({ id: doctorFound._id }, JWT_SECRET, {
+                    expiresIn: 86400 // Un dia 
+                })
+
+                res.json({ token })
+            } else {
+
+                const patientFound = await patientModel.findOne({ email: req.body.email })
+                if (patientFound) {
+                    const matchPassword2 = await patientModel.comparePassword(req.body.password, patientFound.password)
+
+                    if (matchPassword2 === false) return res.status(401).json({ token: null, message: 'Invalid Password 2' })
+
+                    const token = jwt.sign({ id: patientFound._id }, JWT_SECRET, {
+                        expiresIn: 86400 // Un dia 
+                    })
+
+                    res.json({ token })
                 } else {
-                    return { msg: "Doctor not found" };
+                    return res.status(400).json({ token: null, message: 'User not found' })
                 }
             }
-        } else if (role === "Patient"){
-            if (email && password) {
-                const patient = await patientModel.findOne({ email: email, password: password })
-                if (patient) {
-                    const response = {
-                        id: patient._id,
-                        name: patient.name,
-                        email: patient.email,
-                        image: patient.image,
-                        genre: patient.genre,
-                        role: patient.role
-                    }
-                    return response
-                } else {
-                    return { msg: "Patient not found" };
-                }
-            }
-        } else if (role === "Admin"){
-            if (email && password) {
-                const admin = await adminModel.findOne({ email: email, password: password })
-                if (admin) {
-                    const response = {
-                        id: admin._id,
-                        name: admin.name,
-                        email: admin.email,
-                        role: admin.role
-                    }
-                    return response
-                } else {
-                    return { msg: "Not admin user" };
-                }
-            }
-        } else return "Please indicate the user role"
+        } return { msg: "Email and password are required" };
+
     } catch (e) {
         console.error(e);
         throw new Error("Error. Can't logIn.")
     }
 }
 
-module.exports = {loginFunction};
+module.exports = { loginFunction };

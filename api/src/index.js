@@ -1,22 +1,27 @@
 //Archivo que arranca el servidor 
 require("dotenv").config();
 const express = require('express');
+
 const morgan = require('morgan');
 //morgan permite ver las peticiones en consola
+
 const cors = require('cors');
 //cors permite comunicar el servidor y el frontend 
+
 const routes = require('./routes/index.js')
-//conectamos la DB
+
 const { dbConn } = require("./db.js")
+//conectamos la DB
+
+const {createRoles} = require('./libs/initialSetup')
 
 const app = express();
+createRoles();
 
 app.use(express.json())
 app.use(morgan('dev'))
 app.use(cors())
-
 app.use('/', routes)
-
 // Error catching endware.
 app.use((error, req, res, next) => {
     console.log(error)
