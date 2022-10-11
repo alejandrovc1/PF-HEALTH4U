@@ -191,3 +191,11 @@ export function reset() {
         type: 'RESET',
     }
 }
+
+export function loggedState(data) {
+    console.log(data)
+    return {
+        type: 'LOGGEDSTATE',
+        payload: data
+    }
+}

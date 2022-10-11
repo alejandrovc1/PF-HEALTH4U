@@ -4,20 +4,18 @@ const initialState = { //estados iniciales
     doctors: [],
     doctorsCopy: [],
     specialties: [],
-    Patients: []
     Patients: [],
-    profileDetail:[]
+    profileDetail: [],
+    isLogged: {}
 }
 
-function rootReducer(state = initialState, action)
-{
-    switch (action.type)
-    {
-        case "GET_PROFILE": 
-        return{
-            ...state,
-            profileDetail: action.payload 
-        }
+function rootReducer(state = initialState, action) {
+    switch (action.type) {
+        case "GET_PROFILE":
+            return {
+                ...state,
+                profileDetail: action.payload
+            }
         case "GET_DOCTORS":
             return {
                 ...state,
@@ -53,19 +51,19 @@ function rootReducer(state = initialState, action)
         case "ORDER_BY_NAME":
             const nameSorted =
                 action.payload === "Any"
-                ? state.doctors
-                : action.payload === "AZ"
-                ? state.doctorsCopy.sort(function (a, b) {
-                    if (a.name > b.name) return 1;
-                    if (b.name > a.name) return -1;
-                    return 0;
-                })
-                : state.doctorsCopy.sort(function (a, b) {
-                    if (a.name > b.name) return -1;
-                    if (b.name > a.name) return 1;
-                    return 0;
-                })
-            
+                    ? state.doctors
+                    : action.payload === "AZ"
+                        ? state.doctorsCopy.sort(function (a, b) {
+                            if (a.name > b.name) return 1;
+                            if (b.name > a.name) return -1;
+                            return 0;
+                        })
+                        : state.doctorsCopy.sort(function (a, b) {
+                            if (a.name > b.name) return -1;
+                            if (b.name > a.name) return 1;
+                            return 0;
+                        })
+
             return {
                 ...state,
                 doctorsCopy: nameSorted,
@@ -75,10 +73,10 @@ function rootReducer(state = initialState, action)
         case "FILTER_BY_SPECIALTIES":
             const specialtieFiltered =
                 action.payload === "All"
-                ? state.doctors
-                : state.doctorsCopy.filter(d => d.specialtie === action.payload)
-            
-            if(specialtieFiltered.length === 0) {
+                    ? state.doctors
+                    : state.doctorsCopy.filter(d => d.specialtie === action.payload)
+
+            if (specialtieFiltered.length === 0) {
                 alert("There's no Doctors with that specialtie.")
                 return {
                     ...state,
@@ -93,10 +91,10 @@ function rootReducer(state = initialState, action)
         case "FILTER_BY_METHOD":
             const methodFiltered =
                 action.payload === "Any"
-                ? state.doctors
-                : state.doctorsCopy.filter(d => d.method === action.payload)
-            
-            if(methodFiltered.length === 0) {
+                    ? state.doctors
+                    : state.doctorsCopy.filter(d => d.method === action.payload)
+
+            if (methodFiltered.length === 0) {
                 alert("There's no Doctors with that appointment Method.")
                 return {
                     ...state,
@@ -111,18 +109,18 @@ function rootReducer(state = initialState, action)
         case "ORDER_BY_RATING":
             const ratingSorted =
                 action.payload === "Any"
-                ? state.doctors
-                : action.payload === "MinMax"
-                ? state.doctorsCopy.sort(function (a, b) {
-                        if (a.rating > b.rating) { return 1; }
-                        if (b.rating > a.rating) { return -1; }
-                        return 0
-                    })
-                : state.doctorsCopy.sort(function (a, b) {
-                        if (a.rating > b.rating) { return -1 }
-                        if (b.rating > a.rating) { return 1 }
-                        return 0
-                    })
+                    ? state.doctors
+                    : action.payload === "MinMax"
+                        ? state.doctorsCopy.sort(function (a, b) {
+                            if (a.rating > b.rating) { return 1; }
+                            if (b.rating > a.rating) { return -1; }
+                            return 0
+                        })
+                        : state.doctorsCopy.sort(function (a, b) {
+                            if (a.rating > b.rating) { return -1 }
+                            if (b.rating > a.rating) { return 1 }
+                            return 0
+                        })
             return {
                 ...state,
                 doctorsCopy: ratingSorted
@@ -132,6 +130,13 @@ function rootReducer(state = initialState, action)
             return {
                 ...state,
                 doctorsCopy: state.doctors
+            }
+
+        case "LOGGEDSTATE":
+            console.log(action.payload)
+            return {
+                ...state,
+                isLogged: action.payload 
             }
 
         default:
