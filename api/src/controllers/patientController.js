@@ -157,6 +157,7 @@ const registerPatient = async (registerData) => {
 const emeils = async (msj ) => {
     try {
         
+
       let mandado =  await transporter.sendMail({
            from: '"prueba email 👻" <helath.4U.web@gmail.com>', // sender address
            to: "smitesotra@gmail.com", // list of receivers
@@ -176,8 +177,9 @@ const emeils = async (msj ) => {
 const updatePatient = async (req, res, next) => {
     try {
 
-        const { id } = req.params
-        const { name, email, password, birthDate, genre, address, country, tel, image, status } = req.body
+        const {id} = req.params
+        const {name, email, password, birthDate, genre, address, country, tel, image, status} = req.body 
+
 
         // const result = await cloudinary.uploader.upload(image, {
         //     //     //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
@@ -187,23 +189,26 @@ const updatePatient = async (req, res, next) => {
         const updatedPatient = await patientModel.findByIdAndUpdate(id, {
             name: name,
             email: email,
-            password: password,
+           // password: password,
             birthDate: birthDate,
             genre: genre,
             address: address,
             country: country,
             tel: tel,
             image: image,
-            status: status
-        }, { new: true }) // este ultimo parámetro hace que nos devuelva el doc actualizado
 
-            .then(() => {
-                console.log(updatedPatient)
-                res.status(200).send("Patient Successfully Updated")
-            })
+            //status: status
+        }, { new : true}) // este ultimo parámetro hace que nos devuelva el doc actualizado
 
-    } catch (error) {
+        .then( () => {
+           // console.log(updatedPatient)
+            res.status(200).send("Patient Successfully Updated")
+        })
+    
+    } catch (error) { 
+
         console.error('Failed to update patient');
+        console.log(error)
         next(error)
     }
 

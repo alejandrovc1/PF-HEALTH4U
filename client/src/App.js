@@ -15,7 +15,8 @@ import AdminView from "./components/admin/AdminView";
 import roles from "./helpers/roles"
 
 import { AuthProvider } from './context/authContext'
-import Profile from './components/Profile';
+import ProfileDoctor from './components/doctor/ProfileDoctor';
+import ProfilePatient from './components/patient/ProfilePatient';
 
 // import roles from './helpers/roles';
 // import AdminView from './components/AdminView';
@@ -29,14 +30,16 @@ export default function App() {
           <Route exact path='/login/' element={<Login />} />
           <Route exact path='/register/' element={<Register />} />
           <Route exact path='/docDetail/:id' element={<DoctorDetail />} />
-          <Route exact path='/profile/:name'  element={<Profile/>} />
 
-          <Route exact path='/adminView' element={<AdminView />} />
+          <Route exact path='/profile/Doctor/:id'  element={<ProfileDoctor/>} />
+          <Route exact path='/profile/Patient/:id'  element={<ProfilePatient/>} />
+          <Route exact path='/appointment' element= { <PrivateRoute element={<Appointment />} />} />
+          <Route exact path='/homeDoc' element= { <PrivateRoute hasRole={roles.doctor} element={<HomeDocLogged />} />} />
+          <Route exact path='/adminView' element= { <PrivateRoute hasRole={roles.admin} element={<AdminView />} />} />
 
-
-          <Route exact path='/appointment' element= {<Appointment />}/>
           {/* <Route exact path='/homeDoc' element= { <PrivateRoute hasRole={roles.doctor} element={<HomeDocLogged />} />} /> */}
           {/* <Route exact path='/adminView' element= { <PrivateRoute hasRole={roles.admin} element={<AdminView />} />} /> */}
+
           
           
         </Routes>

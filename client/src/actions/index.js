@@ -13,13 +13,29 @@ export const GET_DETAIL = "GET_DETAIL";
 //         })
 //     }
 // }
-export function getprofile(name)
+export function getprofile(id)
 { //obtener detalle de un paciente
     return async function (dispatch)
     {
-        let json = await axios.get("http://localhost:3001/patients/?name="+name);
+        let json = await axios.get("http://localhost:3001/patients/"+id);
         return dispatch({
             type: "GET_PROFILE",
+            payload: json.data
+        })
+    }
+}
+export function putprofile(id,dato)
+{ //update paciente
+    dato={
+        ...dato,
+        tel:parseInt(dato.tel),
+        birthDate:new Date(dato.birthDate+'T00:00:00.000Z')
+    }
+    return async function (dispatch)
+    {
+        let json = await axios.put("http://localhost:3001/patients/"+id,dato);
+        return dispatch({
+            type: "PUT_PROFILE",
             payload: json.data
         })
     }
