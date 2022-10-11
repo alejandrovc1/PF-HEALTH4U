@@ -1,6 +1,15 @@
 const { patientModel } = require('../models/models');
+const { roleModel } = require('../models/models');
 const cloudinary = require('../cloudinary')
+
+const jwt = require('jsonwebtoken')
+const { json } = require('body-parser');
+const JWT_SECRET = process.env.JWT_SECRET;
+
+
+
 const nameFolder = 'patientPhotos'
+const {EmeilerConfig}= require('../Emeiler.config.js')
 
 const getAllPatients = async () => {
     try {
@@ -52,9 +61,9 @@ const getPatientByName = async (name) => {
             }
             return Patient
         })
-        if(patients.length > 0) {
+        if (patients.length > 0) {
             return patients
-        } else return { msg: "There are no patients with that name"}
+        } else return { msg: "There are no patients with that name" }
 
     } catch (e) {
         console.error(e);
@@ -78,9 +87,9 @@ const getPatientDetail = async (id) => {
             role: response.role,
             status: response.status
         }
-        if(patient) {
+        if (patient) {
             return patient
-        } else return { msg: "There's no Patient with that id"}
+        } else return { msg: "There's no Patient with that id" }
 
     } catch (e) {
         console.error(e);
@@ -90,41 +99,52 @@ const getPatientDetail = async (id) => {
 
 const registerPatient = async (registerData) => {
     try {
-        const { name, email, password, birthDate, genre, address, country, tel, image } = registerData
-        const found = await patientModel.findOne({ email: email })
+        const { name, email, password, birthDate, genre, address, country, tel, image, roles } = registerData
 
+        const found = await patientModel.findOne({ email: email })
         if (!found) {
             // const result = await cloudinary.uploader.upload(image, {
             //     //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
             //     folder: patientPhotos,
             // })
-            const newPatient = await patientModel.create({
+            const newPatient = new patientModel({
                 name,
                 email,
-                password,
+                password: await patientModel.encryptPassword(password),
                 // birthDate,
                 // genre,
                 // address,
                 // country,
                 // tel,
                 // image: result.secure_url,
-                role: "Patient",
                 status: "active"
             })
-            const register = {
-                id: newPatient._id,
-                name: newPatient.name,
-                email: newPatient.email,
-                // birthDate: newPatient.birthDate,
-                // genre: newPatient.genre,
-                // address: newPatient.address,
-                // country: newPatient.country,
-                // tel: newPatient.tel,
-                // image: newPatient.image,
-                role: newPatient.role,
-                status: newPatient.status
+
+            if (roles) {
+                //en caso de que quisieramos agregar varios roles a un doctor
+                const foundRoles = await roleModel.find({ name: { $in: roles } })
+                //en la propiedad rol del doctor se guarda un arreglo con el id del rol
+                newPatient.role = foundRoles.map(role => role._id)//por cada objeto(role) devuelve el id (role._id)
+            } else {
+                // solo agrega un rol por defecto al usuario
+                const role = await roleModel.findOne({ name: "patient" })
+                newPatient.role = [role._id]
             }
+
+
+            const savedUser = await newPatient.save();
+            console.log(savedUser)
+
+            //Permite crear un token
+            //Recibe que se va a guardar, una clave secreta y un objeto de configuracion
+            const token = jwt.sign({ id: savedUser._id }, JWT_SECRET, {
+                expiresIn: 86400 //Esta en segundos = Expira en 24 horas
+            })
+
+            return json({ token })
+            EmeilerConfig('Te damos la bienvenida '+name+' ya puedes entrar a http://localhost:3000/' ,email,name)
             return register
+
         } else {
             return { msg: "This email is already in use" };
         }
@@ -134,18 +154,38 @@ const registerPatient = async (registerData) => {
         throw new Error("Error occurred. Patient couldn't be registered.")
     }
 };
-
-const updatePatient = async (req, res, next ) => {
+const emeils = async (msj ) => {
     try {
         
+
+      let mandado =  await transporter.sendMail({
+           from: '"prueba email 👻" <helath.4U.web@gmail.com>', // sender address
+           to: "smitesotra@gmail.com", // list of receivers
+           subject: "Hello ✔", // Subject line
+           text: msj, // plain text body
+           //html: "<b>Hello world?</b>", // html body
+         });
+         
+            return 'msj mandado'
+         
+        } catch (e) {
+            console.error(e);
+            throw new Error("Error occurred. Patient couldn't be registered.")
+        }
+}
+
+const updatePatient = async (req, res, next) => {
+    try {
+
         const {id} = req.params
         const {name, email, password, birthDate, genre, address, country, tel, image, status} = req.body 
-console.log(id,req.body)
+
+
         // const result = await cloudinary.uploader.upload(image, {
         //     //     //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
         //     //     folder: patientPhotos,
         //     // })
-        
+
         const updatedPatient = await patientModel.findByIdAndUpdate(id, {
             name: name,
             email: email,
@@ -154,8 +194,9 @@ console.log(id,req.body)
             genre: genre,
             address: address,
             country: country,
-            tel: tel, 
+            tel: tel,
             image: image,
+
             //status: status
         }, { new : true}) // este ultimo parámetro hace que nos devuelva el doc actualizado
 
@@ -165,6 +206,7 @@ console.log(id,req.body)
         })
     
     } catch (error) { 
+
         console.error('Failed to update patient');
         console.log(error)
         next(error)
@@ -172,15 +214,15 @@ console.log(id,req.body)
 
 };
 
-const deletePatient = async (req, res, next) => { 
+const deletePatient = async (req, res, next) => {
     try {
-        const {id} = req.params
+        const { id } = req.params
 
         await patientModel.findByIdAndRemove(id)
-        .then( () => {
-            res.status(200).send("Patient Successfully Deleted")
-        })
-    } catch (error) { 
+            .then(() => {
+                res.status(200).send("Patient Successfully Deleted")
+            })
+    } catch (error) {
         console.error('Failed to remove patient');
         next(error)
     }
@@ -193,5 +235,6 @@ module.exports = {
     getPatientDetail,
     registerPatient,
     updatePatient,
-    deletePatient
+    deletePatient,
+    emeils
 }

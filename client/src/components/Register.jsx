@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 
 export default function Register() {
-    const history = useNavigate()
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const [error, setError] = useState({})
 
@@ -146,7 +146,7 @@ export default function Register() {
                 password: "",
                 confirmPassword: "",
             })
-            history.push('/login')
+            navigate('/auth/login')
         }
     }
 
@@ -168,7 +168,7 @@ export default function Register() {
                 password: "",
                 confirmPassword: "",
             })
-            history.push('/login')
+            navigate('/login')
         }
     }
 

@@ -1,12 +1,15 @@
 const initialState = { //estados iniciales
     detail: [],
     cargadoDetail: false,
-    Doctors: [],
-    allDoctors: [],
-    Specialties: [],
+    doctors: [],
+    doctorsCopy: [],
+    specialties: [],
     Patients: [],
+
     profileDetail:[],
     profileput:''
+    isLogged: {}
+}
 }
 
 function rootReducer(state = initialState, action)
@@ -22,18 +25,19 @@ function rootReducer(state = initialState, action)
             return{
                 ...state,
                 profileDetail: action.payload 
+
             }
         case "GET_DOCTORS":
             return {
                 ...state,
-                Doctors: action.payload,
-                allDoctors: action.payload
+                doctors: action.payload,
+                doctorsCopy: action.payload
             }
 
-        case "GET_ESPECIALTIES":
+        case "GET_SPECIALTIES":
             return {
                 ...state,
-                Specialties: action.payload
+                specialties: action.payload
             }
 
         case "GET_DETAIL":
@@ -43,7 +47,7 @@ function rootReducer(state = initialState, action)
                 cargadoDetail: true
 
             }
-        case "CLEAN_FILTER":
+        case "CLEAN_DETAIL":
             return {
                 ...state,
                 detail: action.payload,
@@ -56,60 +60,96 @@ function rootReducer(state = initialState, action)
             }
 
         case "ORDER_BY_NAME":
-            let sortedArr = action.payload === "asc" ? state.Doctors.sort(function (a, b)
-            {
-                if (a.name.toLowerCase() > b.name.toLowerCase()) { return 1; }
-                if (b.name.toLowerCase() > a.name.toLowerCase()) { return -1; }
-                return 0
-            })
-                :
-                state.Doctors.sort(function (a, b)
-                {
-                    if (a.name.toLowerCase() > b.name.toLowerCase()) { return -1 }
-                    if (b.name.toLowerCase() > a.name.toLowerCase()) { return 1 }
-                    return 0
-                })
+            const nameSorted =
+                action.payload === "Any"
+                    ? state.doctors
+                    : action.payload === "AZ"
+                        ? state.doctorsCopy.sort(function (a, b) {
+                            if (a.name > b.name) return 1;
+                            if (b.name > a.name) return -1;
+                            return 0;
+                        })
+                        : state.doctorsCopy.sort(function (a, b) {
+                            if (a.name > b.name) return -1;
+                            if (b.name > a.name) return 1;
+                            return 0;
+                        })
+
             return {
                 ...state,
-                Doctors: sortedArr
+                doctorsCopy: nameSorted,
             }
 
 
-        // case "FILTER_BY_SPECIALTIES":
-        //     let filterEspe = state.Specialties.filter(p =>
-        //     {
-        //         if (p.Specialties?.includes(action.payload)) return p
-        //     })
-        //     if (action.payload === "All") { filterEspe = state.Doctors }
-        //     return {
-        //         ...state,
-        //         Doctors: filterEspe
-        //     }
+        case "FILTER_BY_SPECIALTIES":
+            const specialtieFiltered =
+                action.payload === "All"
+                    ? state.doctors
+                    : state.doctorsCopy.filter(d => d.specialtie === action.payload)
 
+            if (specialtieFiltered.length === 0) {
+                alert("There's no Doctors with that specialtie.")
+                return {
+                    ...state,
+                    doctorsCopy: state.doctors
+                }
+            }
+            return {
+                ...state,
+                doctorsCopy: specialtieFiltered
+            }
+
+        case "FILTER_BY_METHOD":
+            const methodFiltered =
+                action.payload === "Any"
+                    ? state.doctors
+                    : state.doctorsCopy.filter(d => d.method === action.payload)
+
+            if (methodFiltered.length === 0) {
+                alert("There's no Doctors with that appointment Method.")
+                return {
+                    ...state,
+                    doctorsCopy: state.doctors
+                }
+            }
+            return {
+                ...state,
+                doctorsCopy: methodFiltered
+            }
 
         case "ORDER_BY_RATING":
-            let sortedArrRating;
-            if (action.payload === "menor")
-            {
-                sortedArrRating = state.Doctors.sort(function (a, b)
-                {
-                    if (a.rating > b.rating) { return 1; }
-                    if (b.rating > a.rating) { return -1; }
-                    return 0
-                })
-            } else if (action.payload === "mayor")
-            {
-                sortedArrRating = state.Doctors.sort(function (a, b)
-                {
-                    if (a.rating > b.rating) { return -1 }
-                    if (b.rating > a.rating) { return 1 }
-                    return 0
-                })
-            }
+            const ratingSorted =
+                action.payload === "Any"
+                    ? state.doctors
+                    : action.payload === "MinMax"
+                        ? state.doctorsCopy.sort(function (a, b) {
+                            if (a.rating > b.rating) { return 1; }
+                            if (b.rating > a.rating) { return -1; }
+                            return 0
+                        })
+                        : state.doctorsCopy.sort(function (a, b) {
+                            if (a.rating > b.rating) { return -1 }
+                            if (b.rating > a.rating) { return 1 }
+                            return 0
+                        })
             return {
                 ...state,
-                Doctors: sortedArrRating
+                doctorsCopy: ratingSorted
             }
+
+        case "RESET":
+            return {
+                ...state,
+                doctorsCopy: state.doctors
+            }
+
+        case "LOGGEDSTATE":
+            console.log(action.payload)
+            return {
+                ...state,
+                isLogged: action.payload 
+            }
+
         default:
             return state;
     }

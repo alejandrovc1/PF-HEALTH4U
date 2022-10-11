@@ -7,6 +7,7 @@ const models = {
     reviewModel: require("./review"),
     scheduleModel: require("./schedule"),
     adminModel: require("./admin"),
+    roleModel: require("./role")
 };
 
 module.exports = models;

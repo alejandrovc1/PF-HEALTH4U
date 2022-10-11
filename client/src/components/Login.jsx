@@ -1,13 +1,17 @@
 import React from "react"
 import { useState } from "react"
-import { useNavigate  } from "react-router-dom"
 import { useAuth } from "../context/authContext"
-import { Link } from "react-router-dom"
-import { login } from "../actions"
+import { Link, Routes, Route } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import axios from "axios"
+import Appointment from './patient/Appointment';
+import { loggedState } from "../actions"
 
-export default function Login() {
 
-    const history = useNavigate ()
+
+export default function Login({ stateUser, setStateUser }) {
+
+    const dispatch = useDispatch();
 
     function validate(user) {
         let error = {}
@@ -24,80 +28,80 @@ export default function Login() {
         return error
     }
 
-    const [user, setUser] = useState({
+    const [data, setData] = useState({
         email: "",
-        password: "",
-        role: ""
-    })
-    const { login, loginWithGoogle } = useAuth()
-    const [error, setError] = useState({})
+        password: ""
+    });
 
+    const { login, loginWithGoogle } = useAuth()
+    const [error, setError] = useState("")
 
 
     function handleInputChange(e) {
-        setUser({
-            ...user,
+        setData({
+            ...data,
             [e.target.name]: e.target.value
         })
         setError(validate({
-            ...user,
+            ...data,
             [e.target.name]: e.target.value
         }))
     }
 
-
     const handleGoogleSignIn = async () => {
         await loginWithGoogle()
-
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError("")
         try {
-            if (user.email && user.password === "Lbitrn11") {
-                await login(user.email, user.password)
-
-                history.push('/adminview')
-            } else {
-                history.push('/appointment')
-            }
-
-
-            history.push('/appointment')
-
+            const url = "http://localhost:3001/login"
+            const { data: res } = await axios.post(url, data)
+            localStorage.setItem("token", res.data)
+            dispatch(loggedState({ isLogged: true, isPatient: true }))
         } catch (error) {
-            console.log(error.code)
-            setError(error.message)
+            if (
+                error.response &&
+                error.response.status >= 400 &&
+                error.response.status <= 500
+            ) {
+                setError(error.response.data.message);
+            }
         }
     }
-
+    //<Notification message={error} />
     return (
         <div>
-            <h1>SIGN IN</h1>
+            <h1>LOG IN</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="email">Email</label>
+
                 <input
                     type="email"
                     name="email"
+                    value={data.email} required
                     placeholder="your email"
                     onChange={handleInputChange}
                 />
                 {error.email && <p>{error.email}</p>}
+
                 <label htmlFor="password">Password</label>
                 <input
                     type="password"
+                    value={data.password} required
                     name="password"
-                    id="password"
-                    placeholder="*******"
+                    placeholder="Password"
                     onChange={handleInputChange}
                 />
                 {error.password && <p>{error.password}</p>}
-                <button>Login</button>
+
+                <button type="submit">Login</button>
 
             </form>
             <button onClick={handleGoogleSignIn}>Login with Google</button>
             <Link to="/"><button>Go back</button></Link>
+
         </div>
     )
 }

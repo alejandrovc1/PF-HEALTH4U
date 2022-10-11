@@ -1,5 +1,10 @@
 const { Router } = require('express')
+//const multer = require("multer");
 const { getAllSpecialties, addSpecialtie } = require('../controllers/specialtieController.js')
+
+// const upload = multer({
+//     dest: ''
+// })
 
 const router = Router();
 
