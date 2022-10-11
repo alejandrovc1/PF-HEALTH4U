@@ -5,7 +5,8 @@ const { loginFunction } = require('../controllers/login');
 
 router.post('/', async (req, res) => {
     try {
-        await loginFunction(req, res)
+        const login = await loginFunction(req, res)
+        return login;
     } catch (e) {
         console.error(e);
     }

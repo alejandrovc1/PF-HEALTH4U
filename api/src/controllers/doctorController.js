@@ -70,10 +70,10 @@ const registerDoctor = async (registerData) => {
 
         const found = await doctorModel.findOne({ email: email })
         if (!found) {
-            const result = await cloudinary.uploader.upload(image, {
-                //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
-                folder: 'doctorPhotos',
-            })
+            // const result = await cloudinary.uploader.upload(image, {
+            //     //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
+            //     folder: 'doctorPhotos',
+            // })
             const newDoctor = new doctorModel({
                 name,
                 email,

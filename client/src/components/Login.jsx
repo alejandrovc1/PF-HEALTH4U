@@ -1,14 +1,17 @@
 import React from "react"
 import { useState } from "react"
-import { useNavigate  } from "react-router-dom"
 import { useAuth } from "../context/authContext"
-import { Link } from "react-router-dom"
-import { login } from "../actions"
+import { Link, Routes, Route } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import axios from "axios"
+import Appointment from './patient/Appointment';
+import { loggedState } from "../actions"
 
-export default function Login() {
 
-    const history = useHistory()
 
+export default function Login({ stateUser, setStateUser }) {
+
+    const dispatch = useDispatch();
 
     function validate(user) {
         let error = {}
@@ -25,21 +28,22 @@ export default function Login() {
         return error
     }
 
-    const [user, setUser] = useState({
+    const [data, setData] = useState({
         email: "",
-        password: "",
-    })
+        password: ""
+    });
+
     const { login, loginWithGoogle } = useAuth()
-    const [error, setError] = useState({})
+    const [error, setError] = useState("")
 
 
     function handleInputChange(e) {
-        setUser({
-            ...user,
+        setData({
+            ...data,
             [e.target.name]: e.target.value
         })
         setError(validate({
-            ...user,
+            ...data,
             [e.target.name]: e.target.value
         }))
     }
@@ -52,56 +56,52 @@ export default function Login() {
         e.preventDefault()
         setError("")
         try {
-            fetch("http:/localhost:3001/login",{
-                method:"POST",
-                crossdomain: true,
-                headers:{
-                    "Content-type": "application/json",
-                    Accept: "application/json",
-                    "Access-Control-Allow-Origin":"*",
-                },
-                // body: JSON.stringify({
-                //     email,
-                //     password,
-                // }),
-            })
-            .then((res) => res.json())
-            .then((data)=>{
-                console.log(data,"userLogin")
-            })
-            history.push('/appointment')
+            const url = "http://localhost:3001/login"
+            const { data: res } = await axios.post(url, data)
+            localStorage.setItem("token", res.data)
+            dispatch(loggedState({ isLogged: true, isPatient: true }))
         } catch (error) {
-            console.log(error.code)
-            setError(error.message)
+            if (
+                error.response &&
+                error.response.status >= 400 &&
+                error.response.status <= 500
+            ) {
+                setError(error.response.data.message);
+            }
         }
     }
-
+    //<Notification message={error} />
     return (
         <div>
-            <h1>SIGN IN</h1>
+            <h1>LOG IN</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="email">Email</label>
+
                 <input
                     type="email"
                     name="email"
+                    value={data.email} required
                     placeholder="your email"
                     onChange={handleInputChange}
                 />
                 {error.email && <p>{error.email}</p>}
+
                 <label htmlFor="password">Password</label>
                 <input
                     type="password"
+                    value={data.password} required
                     name="password"
-                    id="password"
-                    placeholder="*******"
+                    placeholder="Password"
                     onChange={handleInputChange}
                 />
                 {error.password && <p>{error.password}</p>}
-                <button>Login</button>
+
+                <button type="submit">Login</button>
 
             </form>
             <button onClick={handleGoogleSignIn}>Login with Google</button>
             <Link to="/"><button>Go back</button></Link>
+
         </div>
     )
 }
