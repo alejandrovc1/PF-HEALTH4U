@@ -33,6 +33,7 @@ export default function App() {
 
           <Route exact path='/adminView' element={<AdminView />} />
 
+
           <Route exact path='/appointment' element= {<Appointment />}/>
           {/* <Route exact path='/homeDoc' element= { <PrivateRoute hasRole={roles.doctor} element={<HomeDocLogged />} />} /> */}
           {/* <Route exact path='/adminView' element= { <PrivateRoute hasRole={roles.admin} element={<AdminView />} />} /> */}
@@ -42,6 +43,7 @@ export default function App() {
       </AuthProvider>
     </BrowserRouter>
   );
+
 }
 //ROUTEO PROTEGIDO 
 // export default function App() {
@@ -59,3 +61,4 @@ export default function App() {
 // }
 
 // export default App
+

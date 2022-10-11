@@ -14,6 +14,8 @@ export default function Nav() {
                <div>
                   <ul id={style.navul}>
                      <li><a href="index.html">About us</a></li>
+
+                     <li><a href="index.html">Get your membership</a></li>
                      <li><a href="/register">Sign up</a></li>
                      <a href="/login"><button className={style.boton}>Sign in</button></a>
                   </ul>

@@ -1,47 +1,48 @@
 .navbar{
- width: 100vw;
- height: auto;
+  width: 100vw;
+  height: auto;
 }
 
 .navi{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: white;
-    padding: 0 4%;
-    margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  padding: 0 4%;
+  margin: 0;
 }
 
 #navul{
-display: flex;
-align-items: center;
-justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #navul li{
-    list-style: none;
-    padding: 0 1.5rem;
-    position: relative;
+  list-style: none;
+  padding: 0 1.5rem;
+  position: relative;
 }
 
 #navul li a{
-    text-decoration: none;
-    font-size: 1.2rem;
-    font-weight: 2rem;
-    color: black;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 2rem;
+  color: black;
 }
 
 #navul li a:hover{
-    color: #00c3ff;
+  color: #00c3ff;
 }
+
 #navul li a:hover::after{
-    content: "";
-    width: 70%;
-    height: 0.4rem;
-    background: #00c3ff;
-    position: absolute;
-    bottom: -0.3rem;
-    left: 0.4rem;
+  content: "";
+  width: 70%;
+  height: 0.4rem;
+  background: #00c3ff;
+  position: absolute;
+  bottom: -0.3rem;
+  left: 0.4rem;
 }
 
 .boton {
@@ -73,10 +74,10 @@ justify-content: center;
 }
 
 .img{
-    cursor: pointer;
-    width: 7rem;
-    height: 4rem;
-    margin-left: 2rem;
+  cursor: pointer;
+  width: 7rem;
+  height: 4rem;
+  margin-left: 2rem;
 }
 
 .op{
