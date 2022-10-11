@@ -3,7 +3,7 @@ import st from './SideBar.module.css';
 import {Home, Timeline, TrendingUp, MailOutline, MoveToInbox, MarkChatUnread, AdminPanelSettings, PersonOutline, Groups2, Storage, Insights, ReportGmailerrorred} from '@mui/icons-material';
 
 
-export default function SideBar() {
+export default function SideBar({actualizar}) {
   return (
     <div className={st.sidebar}>
       
@@ -11,7 +11,7 @@ export default function SideBar() {
         <div className={st.sidebarMenu}>
           <h3 className={st.sidebarTitle}>Dashboard</h3>
           <ul className={st.sidebarList}>
-            <li className={st.sidebarListItem}>
+            <li onClick = {() => {actualizar("home")}} className={st.sidebarListItem}>
               <Home className={st.sidebarIcon}/>
               Home
             </li>
@@ -55,7 +55,7 @@ export default function SideBar() {
               <PersonOutline/>
               &nbsp; Doctors
             </li>
-            <li className={st.sidebarListItem}>
+            <li onClick = {() => {actualizar("userList")}} className={st.sidebarListItem}>
               <Groups2/>
               &nbsp; Patiens
             </li>
