@@ -21,6 +21,9 @@ const patientSchema = new Schema({
     genre: {
         type: String
     },
+    address:{
+        type: String
+    },
     country: {
         type: String
     },

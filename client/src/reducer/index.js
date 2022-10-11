@@ -5,18 +5,24 @@ const initialState = { //estados iniciales
     allDoctors: [],
     Specialties: [],
     Patients: [],
-    profileDetail:[]
+    profileDetail:[],
+    profileput:''
 }
 
 function rootReducer(state = initialState, action)
 {
     switch (action.type)
     {
+        case "PUT_PROFILE":
+            return{
+                ...state,
+                profileput:action.payload
+            }
         case "GET_PROFILE": 
-        return{
-            ...state,
-            profileDetail: action.payload 
-        }
+            return{
+                ...state,
+                profileDetail: action.payload 
+            }
         case "GET_DOCTORS":
             return {
                 ...state,

@@ -1,38 +1,39 @@
 import React from "react";
 import { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {getprofile} from '../actions/index.js'
+import {getprofile} from '../../actions/index.js'
 import {useParams} from "react-router-dom"
-import ProfileDetail from "./ProfileDetail.jsx";
+import ProfileDetail from "./ProfileDetailPatient.jsx";
 import { useState } from "react";
-import ProfileEdit from "./ProfileEdit.jsx";
-export default function Profile(){
+import ProfileEdit from "./ProfileEditPatient.jsx";
+export default function ProfilePatient(){
     const { id } = useParams();
     const dispatch=useDispatch()
     let[edit,setEdit]=useState(false)
     let  detail=useSelector(f=>f.profileDetail)
-    console.log(detail)
     let props={
        
     }
     let functiionEdit=()=>{
         setEdit(edit?false:true)
     }
+   
     detail?props={
        image:detail.image,
         name:detail.name,
        email:detail.email,
-       birthDate:detail.birthDate,
         genre:detail.genre,
+        birthDate:detail.birthDate,
         address:detail.address,
         country:detail.country,
         tel:detail.tel,
-        functiionEdit
+        functiionEdit,
+        status:detail.status
     }:console.log('algo esta pasando')
     useEffect(()=>{
-        console.log('entra')
         dispatch(getprofile(id))
     },[])
+    console.log(id)
     return(     
         !edit?<ProfileDetail
             {...props}
@@ -44,17 +45,7 @@ export default function Profile(){
                 
             )
         }
-         {/* <>
-         <img src={imgedit} alt='image'/>
-         <input type="file"  onChange={(e)=>{setimgedit(e.target.files[0])}}/>
-         <input type="text" name="name" value={editinput?.name} />
-         <input type="text" name="email"  value={editinput?.email}/>
-         <input type="text" name="birthDate"  value={editinput?.birthDate}/>
-         <input type="text" name="genre" value={editinput?.genre}/>
-         <input type="text" name="address" value={editinput?.address} />
-         <input type="text" name="country" value={editinput.country} />
-         <input type="text" name="tel" value={editinput.tel}/>
-           </> */}
+         
           
         
         

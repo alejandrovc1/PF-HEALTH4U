@@ -140,7 +140,7 @@ const updatePatient = async (req, res, next ) => {
         
         const {id} = req.params
         const {name, email, password, birthDate, genre, address, country, tel, image, status} = req.body 
-
+console.log(id,req.body)
         // const result = await cloudinary.uploader.upload(image, {
         //     //     //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
         //     //     folder: patientPhotos,
@@ -149,23 +149,24 @@ const updatePatient = async (req, res, next ) => {
         const updatedPatient = await patientModel.findByIdAndUpdate(id, {
             name: name,
             email: email,
-            password: password,
+           // password: password,
             birthDate: birthDate,
             genre: genre,
             address: address,
             country: country,
             tel: tel, 
             image: image,
-            status: status
+            //status: status
         }, { new : true}) // este ultimo parámetro hace que nos devuelva el doc actualizado
 
         .then( () => {
-            console.log(updatedPatient)
+           // console.log(updatedPatient)
             res.status(200).send("Patient Successfully Updated")
         })
     
     } catch (error) { 
         console.error('Failed to update patient');
+        console.log(error)
         next(error)
     }
 
