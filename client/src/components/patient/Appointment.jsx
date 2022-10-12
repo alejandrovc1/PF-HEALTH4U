@@ -3,7 +3,7 @@ import NavAppointment from "./NavAppointment";
 import s from "./Appointment.module.css";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { getDoctors, filterBySpecialties, orderByRating, orderByName } from "../../actions";
+import { getDoctors, filterBySpecialties, orderByRating, orderByName, filterByMethod, getSpecialties, reset } from "../../actions";
 import Footer from "../Footer";
 import CardDoc from './CardDoc.jsx';
 import Paginado from "./Paginado.jsx";
@@ -11,26 +11,32 @@ import style from "./Paginado.module.css"
 
 export default function Appointment()
 {
-
-    const allDoctors = useSelector(state => state.Doctors);
-
     const dispatch = useDispatch();
 
+    useEffect(() =>{
+        // dispatch(getPatientes());
+        dispatch(getDoctors());
+        dispatch(getSpecialties());
+    }, [dispatch])
+    
+    const allDoctors = useSelector(state => state.doctorsCopy);
+
+    const allspecialties = useSelector(state => state.specialties)
+    
     const [orden, setOrden] = useState("");
 
-
-
+    const [filter, setFilter] = useState("");
 
     const [currentPage, setCurrentPage] = useState(1);
 
     const [doctorsPerPage, setDoctorsPerPage] = useState(8);
-
+    
     const indexOfLastDoctors = currentPage * doctorsPerPage;
-
+    
     const indexOfFirstDoctors = indexOfLastDoctors - doctorsPerPage;
-
+    
     const currentDoctors = allDoctors.slice(indexOfFirstDoctors, indexOfLastDoctors);
-
+    
 
 
     const paginado = (pageNumber) =>{
@@ -47,19 +53,23 @@ export default function Appointment()
         paginado(currentPage + 1);
     }
 
-
-
-
-
-    useEffect(() =>{
-        // dispatch(getPatientes());
-        dispatch(getDoctors());
-    }, [dispatch])
-
     function handleRating(e){
         e.preventDefault();
+        console.log("Selector: ", e.target.value)
         dispatch(orderByRating(e.target.value));
         setOrden(e.target.value)
+    }
+
+    function handleMethod(e){
+        e.preventDefault();
+        if(filter !== "Specialties") {
+            dispatch(reset())
+            dispatch(filterByMethod(e.target.value))
+            setFilter("Method")
+        } else {
+            dispatch(filterByMethod(e.target.value))
+            setFilter("Method")
+        }
     }
 
     function handleSort(e){
@@ -68,12 +78,22 @@ export default function Appointment()
         setOrden(e.target.value)
     }
 
-    let specialties = ["Cardiology", "Dermatology", "Endocrinology", "Gastroenterology", "Geriatrics", "Gynecology", "Internal Medicine", "Neurology", "Opthalmology", "Otorhinolaryngology", "Pneumology", "Psychiatry", "Rheumatology", "Traumatology", "Urology"]
 
     function handleSpecialties(e){
         e.preventDefault();
-        dispatch(filterBySpecialties(e.target.value));
-        setOrden(e.target.value);
+        if(filter !== "Method") {
+            dispatch(reset())
+            dispatch(filterBySpecialties(e.target.value));
+            setFilter("Specialties");
+        } else {
+            dispatch(filterBySpecialties(e.target.value));
+            setFilter("Specialties");
+        }
+    }
+
+    function handleReset(e) {
+        e.preventDefault();
+        dispatch(reset())
     }
 
 
@@ -85,26 +105,26 @@ export default function Appointment()
             </div>
             <div className={s.conten}>
                 <select className={s.filter} onChange={e => handleSort(e)}>
-                    <option>Alphabetically</option>
-                    <option>Asc</option>
-                    <option>Desc</option>
+                    <option value="Any">Alphabetically</option>
+                    <option value="AZ">Ascendant</option>
+                    <option value="ZA">Descendant</option>
                 </select>
                 <select className={s.filter} onChange={e => handleSpecialties(e)}>
-                    <option hidden={true}>Specialties</option>
-                    {specialties.map(data => (
-                    <option value={data}>{data}</option>
+                    <option value="All">Specialties</option>
+                    {allspecialties.map(data => (
+                    <option value={data.name}>{data.name}</option>
                     ))}
                 </select>
                 <select className={s.filter} onChange={e => handleRating(e)}>
-                    <option>Rating</option>
-                    <option>Asc</option>
-                    <option>Desc</option>
+                    <option value="Any">Rating</option>
+                    <option value="MinMax">Ascendant</option>
+                    <option value="MaxMin">Descendant</option>
                 </select>
-                <select className={s.filter}>
-                    <option>Method</option>
-                    <option>Address</option>
-                    <option>Virtual meeting</option>
-                    <option>Private office</option>
+                <select className={s.filter} onChange={e => handleMethod(e)}>
+                    <option value="Any">Method</option>
+                    <option value="At home">At Home</option>
+                    <option value="Virtual">Virtual meeting</option>
+                    <option value="Private office">Private office</option>
                 </select>
                 <select className={s.filter}>
                     <option>Day Available</option>
@@ -112,6 +132,7 @@ export default function Appointment()
                 <select className={s.filter}>
                     <option>Hour Available</option>
                 </select>
+                <button onClick={e => handleReset(e)}>Clear</button>
             </div>
 
 
