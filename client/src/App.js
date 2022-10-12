@@ -21,7 +21,6 @@ import ProfilePatient from './components/patient/ProfilePatient';
 // import roles from './helpers/roles';
 // import AdminView from './components/AdminView';
 export default function App() {
-
   return (
     <BrowserRouter>
       <AuthProvider>
