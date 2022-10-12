@@ -2,8 +2,9 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux' 
+import { addReview } from '../../actions/index'
 
-export default function Review() {
+export default function Review(doctor) {
     const history = useNavigate()
     const dispatch = useDispatch()
     const [error, setError] = useState({})
@@ -12,8 +13,8 @@ export default function Review() {
         service: "",
         review: "",
         score: "",
-        patient: "",
-        doctor: ""
+        patient: localStorage.getItem("idPaciente") || "Patient Test",
+        doctor: doctor
     })
 
     function validate(review) {
@@ -33,12 +34,6 @@ export default function Review() {
         } else if (([1-5].test(review.score.trim()))) {
             error.service = "Input only accepts Value between 1 and 5"
         }
-        if(!review.patient) {
-            error.patient = "Patient is required"
-        }
-        if(!review.doctor) {
-            error.doctor = "Doctor is required"
-        }
     }
 
     function handleInputChangeReview(e) {
@@ -55,14 +50,14 @@ export default function Review() {
 
     function handleSubmitReview  (e) {
         e.preventDefault()
-        const review = {
+        const newReview = {
             service: review.service,
             review: review.review,
             score: review.score,
             patient: review.patient,
             doctor: review.doctor
         }
-        dispatch()
+        dispatch(addReview(newReview))
         setReview({
             service: "",
             review: "",
@@ -70,7 +65,7 @@ export default function Review() {
             patient: "",
             doctor: ""
         })
-        history.push('/appointment')
+        history.push(`/docDetail/${doctor}`)
     }
 
     return (
@@ -109,28 +104,7 @@ export default function Review() {
                     />
                     {error.score && <p>{error.score}</p>}
                 </div>
-                <div>
-                    <label>Patient:</label>
-                    <input
-                        type="text"
-                        placeholder='Write your Patient id'
-                        name="patient"
-                        value={review.patient}
-                        onChange={handleInputChangeReview}
-                    />
-                    {error.patient && <p>{error.patient}</p>}
-                </div>
-                <div>
-                    <label>Doctor:</label>
-                    <input
-                        type="text"
-                        placeholder='Write your Doctor id'
-                        name="doctor"
-                        value={review.doctor}
-                        onChange={handleInputChangeReview}
-                    />
-                    {error.doctor && <p>{error.doctor}</p>}
-                </div>
+                <button type='submit'>Add Review</button>
             </form>
         </div>
     )

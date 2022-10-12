@@ -6,6 +6,7 @@ import style from './DoctorDetail.module.css'
 import { getDetail } from '../../actions/index.js';
 import { cleandetail } from '../../actions/index.js';
 import Loading from '../Loading';
+import Review from "./Review"
 
 
 export default function DoctorDetail(props)
@@ -15,6 +16,7 @@ export default function DoctorDetail(props)
     const detail = useSelector(state => state.detail);
     let cargado = useSelector(state => state.cargadoDetail);
     const { id } = useParams();
+    let addRev = false;
 
     useEffect(() =>
     {
@@ -40,6 +42,12 @@ export default function DoctorDetail(props)
                             <div><p>Rating: {detail.rating} </p></div>
                         </div>
                     </div>
+
+                    {addRev?
+                        <Review doctor={id}/>
+                        : <button onClick={addRev = true}>
+                            Add Review </button>
+                    }
                 </div> :
                 <div className={style.loading}>
                     <Loading />
