@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import st from "./AdminView.module.css"
-import TopBar from "./MainComponents/TopBar"
-import SideBar from "./MainComponents/SideBar"
+import st from "./AdminView.module.css";
+import TopBar from "./MainComponents/TopBar";
+import SideBar from "./MainComponents/SideBar";
 import HomeAdmin from "./HomaPage/HomeAdmin";
 import UserList from "./UserList/UserList";
 
 export default function AdminView() {
   
-  const [actualPage, setActualPage] = useState("home")
+  const [actualPage, setActualPage] = useState("userList")
 
   return (
     
@@ -23,4 +23,4 @@ export default function AdminView() {
       </div>
     </React.Fragment>
   )
-}
+};

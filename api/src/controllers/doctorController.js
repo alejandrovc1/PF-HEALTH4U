@@ -138,10 +138,10 @@ const updateDoctor = async (req, res, next) => {
             rating,
             country
         }, { new: true }) // este ultimo parámetro hace que nos devuelva el doc actualizado
-            .then(() => {
-                console.log(updatedDoc)
-                res.status(200).send("Doctor Successfully Updated")
-            })
+        .then(() => {
+            console.log(updatedDoc)
+            res.status(200).send("Doctor Successfully Updated")
+        })
     } catch (error) { next(error) }
 };
 

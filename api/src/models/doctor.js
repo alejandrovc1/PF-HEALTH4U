@@ -36,19 +36,22 @@ const doctorSchema = new Schema({
     rating: {
         type: Number
     },
-    role: [{
+    role: {
+        type: String
+        //[{
         //Relacionamos el esquema de role al de los usuarios.
-        ref: "Role",
-        type: Schema.Types.ObjectId
-    }],
+        //ref: "Role",
+        //type: Schema.Types.ObjectId
+        //}]
+    },
     country: {
         type: String
     }
 },
-    {
-        timestamps: true,
-        versionKey: false,
-    });
+{
+    timestamps: true,
+    versionKey: false,
+});
     
 //Metodos del modelo
 doctorSchema.statics.encryptPassword = async (password) => {

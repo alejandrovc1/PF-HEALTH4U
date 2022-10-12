@@ -46,7 +46,7 @@ router.post('/register', async (req, res) => {
         if(patientData) {
             const registerResponse = await registerPatient(patientData)
             if(registerResponse) {
-                return res.status(200).json(registerResponse)
+                return res.status(201).json(registerResponse)
             }
         }
 

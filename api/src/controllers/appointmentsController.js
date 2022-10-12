@@ -24,7 +24,7 @@ const createAppointment = async (req, res, next) => {
         // })
         // .catch(err => next(err))
 
-        res.status(200).send('Appointment Successfully Created');
+        res.status(201).send('Appointment Successfully Created');
     } catch(error) {
         console.log('Error creating the appointment');
         next(error)

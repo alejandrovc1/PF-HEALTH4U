@@ -7,26 +7,27 @@ const initialState = { //estados iniciales
     Patients: [],
 
     profileDetail:[],
-    profileput:''
+    profileput:'',
     isLogged: {}
-}
-}
+};
+
 
 function rootReducer(state = initialState, action)
 {
-    switch (action.type)
-    {
+    switch (action.type){
+
         case "PUT_PROFILE":
             return{
                 ...state,
                 profileput:action.payload
             }
+
         case "GET_PROFILE": 
             return{
                 ...state,
                 profileDetail: action.payload 
-
             }
+
         case "GET_DOCTORS":
             return {
                 ...state,
@@ -45,8 +46,8 @@ function rootReducer(state = initialState, action)
                 ...state,
                 detail: action.payload,
                 cargadoDetail: true
-
             }
+
         case "CLEAN_DETAIL":
             return {
                 ...state,
@@ -74,12 +75,10 @@ function rootReducer(state = initialState, action)
                             if (b.name > a.name) return 1;
                             return 0;
                         })
-
             return {
                 ...state,
                 doctorsCopy: nameSorted,
             }
-
 
         case "FILTER_BY_SPECIALTIES":
             const specialtieFiltered =
@@ -150,9 +149,8 @@ function rootReducer(state = initialState, action)
                 isLogged: action.payload 
             }
 
-        default:
-            return state;
+        default: return state;
     }
-}
+};
 
 export default rootReducer;

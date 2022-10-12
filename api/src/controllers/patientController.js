@@ -7,7 +7,6 @@ const { json } = require('body-parser');
 const JWT_SECRET = process.env.JWT_SECRET;
 
 
-
 const nameFolder = 'patientPhotos'
 const {EmeilerConfig}= require('../Emeiler.config.js')
 
@@ -104,36 +103,36 @@ const registerPatient = async (registerData) => {
         const found = await patientModel.findOne({ email: email })
         if (!found) {
             // const result = await cloudinary.uploader.upload(image, {
-            //     //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
-            //     folder: patientPhotos,
+            // nombre del folder que se crea con las fotos, si no existe se crea automaticamente
+            // folder: patientPhotos,
             // })
             const newPatient = new patientModel({
                 name,
                 email,
-                password: await patientModel.encryptPassword(password),
-                // birthDate,
-                // genre,
-                // address,
-                // country,
-                // tel,
-                // image: result.secure_url,
+                password: password,//await patientModel.encryptPassword(password)
+                birthDate,
+                genre,
+                address,
+                country,
+                tel,
+                image: image, // result.secure_url
+                role: "Patient",
                 status: "active"
             })
 
-            if (roles) {
+            // if (roles) {
                 //en caso de que quisieramos agregar varios roles a un doctor
-                const foundRoles = await roleModel.find({ name: { $in: roles } })
+                // const foundRoles = await roleModel.find({ name: { $in: roles } })
                 //en la propiedad rol del doctor se guarda un arreglo con el id del rol
-                newPatient.role = foundRoles.map(role => role._id)//por cada objeto(role) devuelve el id (role._id)
-            } else {
+            //     newPatient.role = foundRoles.map(role => role._id)//por cada objeto(role) devuelve el id (role._id)
+            // } else {
                 // solo agrega un rol por defecto al usuario
-                const role = await roleModel.findOne({ name: "patient" })
-                newPatient.role = [role._id]
-            }
-
+            //     const role = await roleModel.findOne({ name: "patient" })
+            //     newPatient.role = [role._id]
+            // }
 
             const savedUser = await newPatient.save();
-            console.log(savedUser)
+            console.log('Soy el nuevo Patient: ', savedUser)
 
             //Permite crear un token
             //Recibe que se va a guardar, una clave secreta y un objeto de configuracion
@@ -154,80 +153,75 @@ const registerPatient = async (registerData) => {
         throw new Error("Error occurred. Patient couldn't be registered.")
     }
 };
-const emeils = async (msj ) => {
-    try {
-        
-
-      let mandado =  await transporter.sendMail({
-           from: '"prueba email 👻" <helath.4U.web@gmail.com>', // sender address
-           to: "smitesotra@gmail.com", // list of receivers
-           subject: "Hello ✔", // Subject line
-           text: msj, // plain text body
-           //html: "<b>Hello world?</b>", // html body
-         });
-         
-            return 'msj mandado'
-         
-        } catch (e) {
-            console.error(e);
-            throw new Error("Error occurred. Patient couldn't be registered.")
-        }
-}
 
 const updatePatient = async (req, res, next) => {
     try {
-
+        
         const {id} = req.params
         const {name, email, password, birthDate, genre, address, country, tel, image, status} = req.body 
-
-
+        
         // const result = await cloudinary.uploader.upload(image, {
-        //     //     //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
-        //     //     folder: patientPhotos,
-        //     // })
-
-        const updatedPatient = await patientModel.findByIdAndUpdate(id, {
+            //     //     //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
+            //     //     folder: patientPhotos,
+            //     // })
+            
+        await patientModel.findByIdAndUpdate(id, {
             name: name,
             email: email,
-           // password: password,
+            // password: password,
             birthDate: birthDate,
             genre: genre,
             address: address,
             country: country,
             tel: tel,
             image: image,
-
-            //status: status
+            status: status
         }, { new : true}) // este ultimo parámetro hace que nos devuelva el doc actualizado
-
+        
         .then( () => {
-           // console.log(updatedPatient)
+            // console.log(updatedPatient)
             res.status(200).send("Patient Successfully Updated")
         })
-    
-    } catch (error) { 
 
+    } catch (error) { 
         console.error('Failed to update patient');
         console.log(error)
         next(error)
     }
-
 };
-
+    
 const deletePatient = async (req, res, next) => {
     try {
         const { id } = req.params
-
+        
         await patientModel.findByIdAndRemove(id)
-            .then(() => {
-                res.status(200).send("Patient Successfully Deleted")
-            })
+        .then(() => {
+            res.status(200).send("Patient Successfully Deleted")
+        })
     } catch (error) {
         console.error('Failed to remove patient');
         next(error)
     }
 };
 
+const emeils = async (msj ) => {
+    try {
+        
+        let mandado =  await transporter.sendMail({
+           from: '"prueba email 👻" <helath.4U.web@gmail.com>', // sender address
+           to: "smitesotra@gmail.com", // list of receivers
+           subject: "Hello ✔", // Subject line
+           text: msj, // plain text body
+           //html: "<b>Hello world?</b>", // html body
+        });
+        
+        return 'msj mandado'
+         
+    } catch (e) {
+        console.error(e);
+        throw new Error("Error occurred. Patient couldn't be registered.")
+    }
+};
 
 module.exports = {
     getAllPatients,

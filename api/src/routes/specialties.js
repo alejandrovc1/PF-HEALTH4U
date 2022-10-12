@@ -24,7 +24,7 @@ router.post('/add', async (req, res) => {
         const specialtieData = req.body
         if(specialtieData) {
             const response = await addSpecialtie(specialtieData)
-            return res.status(200).json(response)
+            return res.status(201).json(response)
         }
 
     } catch (e) {

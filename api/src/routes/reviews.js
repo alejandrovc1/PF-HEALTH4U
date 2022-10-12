@@ -52,7 +52,7 @@ router.post('/create', async (req, res) => {
         if(reviewData) {
             const response = await createReview(reviewData)
             if(response) {
-                return res.status(200).send(response)
+                return res.status(201).send(response)
             }
         }
     } catch (e) {

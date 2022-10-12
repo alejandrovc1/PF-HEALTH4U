@@ -1,0 +1,15 @@
+.userList{
+    flex: 6;
+}
+
+.userListUser{
+    display: flex;
+    align-items: center;
+}
+
+.userListPic{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    object-fit: cover;
+}

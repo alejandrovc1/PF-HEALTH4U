@@ -35,19 +35,23 @@ const patientSchema = new Schema({
     image: {
         type: String
     },
-    role: [{
+    role: {
+        type: String
+        //[{
         //Relacionamos el esquema de role al de los usuarios.
-        ref: "Role",
-        type: Schema.Types.ObjectId
-    }],
+        //ref: "Role",
+        //type: Schema.Types.ObjectId
+        //}]
+    },
     status: {
         type: String
     }
 },
-    {
-        timestamps: true,
-        versionKey: false,
-    });
+{
+    timestamps: true,
+    versionKey: false,
+});
+
 //Metodos del modelo 
 patientSchema.statics.encryptPassword= async (password) => {
     //Un salt es un string que hace que el hash sea inpredecible

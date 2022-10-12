@@ -1,25 +1,20 @@
 import React, { useState } from 'react'
-import { BrowserRouter, Redirect, Route, Routes } from "react-router-dom"
-import { Admin, Resource, UserMenu } from "react-admin"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Home from './components/Home';
 import HomeDocLogged from './components/doctor/HomeDocLogged';
 import Login from './components/Login'
 import Register from './components/Register';
+import ProfileDoctor from './components/doctor/ProfileDoctor';
+import ProfilePatient from './components/patient/ProfilePatient';
 import DoctorDetail from './components/patient/DoctorDetail';
 import PrivateRoute from './components/PrivateRoute';
 import Appointment from './components/patient/Appointment'
-import { MainRouter } from './routing/MainRouter';
-
-
 import AdminView from "./components/admin/AdminView";
+import { MainRouter } from './routing/MainRouter';
+import { AuthProvider } from './context/authContext'
+
 import roles from "./helpers/roles"
 
-import { AuthProvider } from './context/authContext'
-import ProfileDoctor from './components/doctor/ProfileDoctor';
-import ProfilePatient from './components/patient/ProfilePatient';
-
-// import roles from './helpers/roles';
-// import AdminView from './components/AdminView';
 export default function App() {
   return (
     <BrowserRouter>
@@ -33,21 +28,20 @@ export default function App() {
 
           <Route exact path='/profile/Doctor/:id'  element={<ProfileDoctor/>} />
           <Route exact path='/profile/Patient/:id'  element={<ProfilePatient/>} />
-          <Route exact path='/appointment' element= { <PrivateRoute element={<Appointment />} />} />
+          <Route exact path='/appointment' element={<Appointment />}/>
+          <Route exact path='/adminView' element={<AdminView />} />
           <Route exact path='/homeDoc' element= { <PrivateRoute hasRole={roles.doctor} element={<HomeDocLogged />} />} />
-          <Route exact path='/adminView' element= { <PrivateRoute hasRole={roles.admin} element={<AdminView />} />} />
 
           {/* <Route exact path='/homeDoc' element= { <PrivateRoute hasRole={roles.doctor} element={<HomeDocLogged />} />} /> */}
           {/* <Route exact path='/adminView' element= { <PrivateRoute hasRole={roles.admin} element={<AdminView />} />} /> */}
 
           
-          
         </Routes>
       </AuthProvider>
     </BrowserRouter>
-  );
+  )
+};
 
-}
 //ROUTEO PROTEGIDO 
 // export default function App() {
 //   const [user, setUser] = useState(null)

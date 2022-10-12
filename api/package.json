@@ -1,6 +1,4 @@
 {
-
-
     "name": "health4u",
     "version": "1.0.0",
     "description": "",
@@ -32,5 +30,4 @@
         "@babel/preset-env": "^7.19.3",
         "nodemon": "^2.0.20"
     }
-
 }
