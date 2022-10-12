@@ -25,6 +25,17 @@ export function getprofile(id)
         })
     }
 }
+export function getprofileDoctor(id)
+{ //obtener detalle de un paciente
+    return async function (dispatch)
+    {
+        let json = await axios.get("http://localhost:3001/doctors/"+id);
+        return dispatch({
+            type: "GET_PROFILE",
+            payload: json.data
+        })
+    }
+}
 export function putprofile(id,dato)
 { //update paciente
     dato={
@@ -35,6 +46,18 @@ export function putprofile(id,dato)
     return async function (dispatch)
     {
         let json = await axios.put("http://localhost:3001/patients/"+id,dato);
+        return dispatch({
+            type: "PUT_PROFILE",
+            payload: json.data
+        })
+    }
+}
+export function putprofiledoctor(id,dato)
+{ //update paciente
+  
+    return async function (dispatch)
+    {
+        let json = await axios.put("http://localhost:3001/doctors/"+id,dato);
         return dispatch({
             type: "PUT_PROFILE",
             payload: json.data
@@ -59,7 +82,7 @@ export function getSpecialties()
     {
         let info = await axios.get("http://localhost:3001/specialties");
         return dispatch({
-            type: "GET_SPECIALTIES",
+            type: "GET_ESPECIALTIES",
             payload: info.data
         })
     }
