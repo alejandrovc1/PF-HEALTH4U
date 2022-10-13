@@ -4,22 +4,27 @@ import TopBar from "./MainComponents/TopBar";
 import SideBar from "./MainComponents/SideBar";
 import HomeAdmin from "./HomaPage/HomeAdmin";
 import UserList from "./UserList/UserList";
+import User from "./User/User";
+import { Routes, Route } from "react-router-dom";
 
 export default function AdminView() {
   
-  const [actualPage, setActualPage] = useState("userList")
+  // const [actualPage, setActualPage] = useState("home")
+  // {actualPage === "home"? <HomeAdmin/> : actualPage === "userList"? <UserList/> : actualPage === "User"? <User /> : null}
 
   return (
     
     <React.Fragment>
       <TopBar/>
       <div className={st.container}>
-        <SideBar actualizar={setActualPage}/>
-        
-        {actualPage === "home"? <HomeAdmin/> : actualPage === "userList"? <UserList/> : null }
+        <SideBar/>
 
-        {/* {actualPage === "userList"? <UserList/> : null } */}
-        
+        <Routes>
+          <Route exact path='/' element={<HomeAdmin />} />
+          <Route path='/users' element={<UserList />} />
+          <Route path='/user/:userId' element={<User />} />
+        </Routes>
+          
       </div>
     </React.Fragment>
   )

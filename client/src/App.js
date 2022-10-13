@@ -29,7 +29,7 @@ export default function App() {
           <Route exact path='/profile/Doctor/:id'  element={<ProfileDoctor/>} />
           <Route exact path='/profile/Patient/:id'  element={<ProfilePatient/>} />
           <Route exact path='/appointment' element={<Appointment />}/>
-          <Route exact path='/adminView' element={<AdminView />} />
+          <Route exact path='/adminView//*' element={<AdminView />} />
           <Route exact path='/homeDoc' element= { <PrivateRoute hasRole={roles.doctor} element={<HomeDocLogged />} />} />
 
           {/* <Route exact path='/homeDoc' element= { <PrivateRoute hasRole={roles.doctor} element={<HomeDocLogged />} />} /> */}
