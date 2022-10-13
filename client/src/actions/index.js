@@ -238,3 +238,14 @@ export function loggedState(data) {
         payload: data
     }
 }
+
+export function checkRole(id) {
+    return async function (dispatch)
+    {
+        let role = await axios.get("http://localhost:3001/checkrole/" + id);
+        return dispatch({
+            type: "CHECKROLE",
+            payload: role.data
+        })
+    }
+}

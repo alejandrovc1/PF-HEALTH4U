@@ -24,6 +24,7 @@ const loginFunction = async (req, res) => {
 
                 res.send({
                     email: doctorFound.email,
+                    id: doctorFound._id,
                     token,
                 })
             } else {
@@ -45,6 +46,7 @@ const loginFunction = async (req, res) => {
 
                     res.send({
                         email: patientFound.email,
+                        id: patientFound._id,
                         token,
                         logged: true
                     })
