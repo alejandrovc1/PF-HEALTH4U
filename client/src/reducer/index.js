@@ -180,6 +180,11 @@ function rootReducer(state = initialState, action)
                 ...state
             }
 
+        case "CHECKROLE":
+            return {
+                ...state
+            }
+
         default:
             return state;
     }

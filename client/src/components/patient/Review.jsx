@@ -13,7 +13,7 @@ export default function Review(doctor) {
         service: "",
         review: "",
         score: "",
-        patient: localStorage.getItem("idPaciente") || "Patient Test",
+        patient: sessionStorage.getItem("id") || "Patient Test",
         doctor: doctor
     })
 
