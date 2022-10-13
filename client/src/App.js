@@ -25,6 +25,7 @@ export default function App() {
     <BrowserRouter>
       <AuthProvider>
 
+
         <Routes>
           <Route exact path='/' element={<Home />} />
           <Route exact path='/login/' element={<Login />} />
