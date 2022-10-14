@@ -58,7 +58,8 @@ export default function Login() {
                 email: data.email,
                 rol: data.rol
             })
-            localStorage.setItem("token", res.data)
+            localStorage.setItem("id", res.id)
+            localStorage.setItem("token", res.token)
             Navigate("/appointment")
         } catch (error) {
             if (

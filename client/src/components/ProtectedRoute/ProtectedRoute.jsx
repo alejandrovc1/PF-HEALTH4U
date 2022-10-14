@@ -3,7 +3,7 @@ import { Navigate, Outlet } from "react-router-dom"
 //Outlet significa que dentro del componente protectedRoute van a haber muchas rutas hijo 
 
 //Protected Route recibe un componente hijo(children) 
-export const ProtectedRoute = ({ isAllowed, children, redirectTo = "/login", }) => {
+export const ProtectedRoute = ({ isAllowed, children, redirectTo = "/login" }) => {
     if (!isAllowed) {
         return <Navigate to={redirectTo} />
     }
