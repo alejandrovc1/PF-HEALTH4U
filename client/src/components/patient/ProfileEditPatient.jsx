@@ -105,7 +105,12 @@ return(
          {/*"T00:00:00.000Z" agregar al momento de mandar put en birthDate*/}
          <input type="date" name="birthDate"  value={editinput.birthDate} placeholder='birthDate' onChange={onChangeInput}/>
          {error.birthDate?<span>{error.birthDate}</span>:null }
-         <input type="text" name="genre" value={editinput.genre} placeholder='genre'onChange={onChangeInput}/>
+         <h3>{editinput.genre}</h3>
+         <select name="genre" onChange={onChangeInput} >
+          <option value='select'>select</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+         </select>
          {error.genre?<span>{error.genre}</span>:null }
          <input type="text" name="address" value={editinput.address}placeholder='address' onChange={onChangeInput} />
          {error.address?<span>{error.address}</span>:null }

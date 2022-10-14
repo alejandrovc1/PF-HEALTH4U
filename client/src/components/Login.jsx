@@ -59,6 +59,7 @@ export default function Login({ stateUser, setStateUser }) {
             const url = "http://localhost:3001/login"
             const { data: res } = await axios.post(url, data)
             localStorage.setItem("token", res.data)
+            sessionStorage.setItem("id", res.data.id)   // session solo guarda el id por el tiempo que esté activo el navegador
             dispatch(loggedState({ isLogged: true, isPatient: true }))
         } catch (error) {
             if (

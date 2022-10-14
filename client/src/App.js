@@ -26,6 +26,7 @@ export default function App() {
     <BrowserRouter>
       <AuthProvider>
 
+
         <Routes>
           
           <Route exact path='/' element={<Home />} />
