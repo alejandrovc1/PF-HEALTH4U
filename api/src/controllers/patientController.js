@@ -1,16 +1,16 @@
 const { patientModel } = require('../models/models');
 const { roleModel } = require('../models/models');
 const cloudinary = require('../cloudinary')
-const axios =require('axios')
+const axios = require('axios')
 require("dotenv").config();
 const jwt = require('jsonwebtoken')
 const { json } = require('body-parser');
 const JWT_SECRET = process.env.JWT_SECRET;
-const mercadopago=require('mercadopago')
+const mercadopago = require('mercadopago')
 
 
 const nameFolder = 'patientPhotos'
-const {EmeilerConfig}= require('../Emeiler.config.js')
+const { EmeilerConfig } = require('../Emeiler.config.js')
 
 
 mercadopago.configure({
@@ -147,7 +147,7 @@ const registerPatient = async (registerData) => {
             })
 
             return json({ token })
-            EmeilerConfig('Te damos la bienvenida '+name+' ya puedes entrar a http://localhost:3000/' ,email,name)
+            EmeilerConfig('Te damos la bienvenida ' + name + ' ya puedes entrar a http://localhost:3000/', email, name)
             return register
 
         } else {
@@ -159,31 +159,29 @@ const registerPatient = async (registerData) => {
         throw new Error("Error occurred. Patient couldn't be registered.")
     }
 };
-const emeils = async (msj ) => {
+const emeils = async (msj) => {
     try {
-        
+        let mandado = await transporter.sendMail({
+            from: '"prueba email 👻" <helath.4U.web@gmail.com>', // sender address
+            to: "smitesotra@gmail.com", // list of receivers
+            subject: "Hello ✔", // Subject line
+            text: msj, // plain text body
+            //html: "<b>Hello world?</b>", // html body
+        });
 
-      let mandado =  await transporter.sendMail({
-           from: '"prueba email 👻" <helath.4U.web@gmail.com>', // sender address
-           to: "smitesotra@gmail.com", // list of receivers
-           subject: "Hello ✔", // Subject line
-           text: msj, // plain text body
-           //html: "<b>Hello world?</b>", // html body
-         });
-         
-            return 'msj mandado'
-         
-        } catch (e) {
-            console.error(e);
-            throw new Error("Error occurred. Patient couldn't be registered.")
-        }
+        return 'msj mandado'
+
+    } catch (e) {
+        console.error(e);
+        throw new Error("Error occurred. Patient couldn't be registered.")
+    }
 }
 
 const updatePatient = async (req, res, next) => {
     try {
 
-        const {id} = req.params
-        const {name, email, password, birthDate, genre, address, country, tel, image, status} = req.body 
+        const { id } = req.params
+        const { name, email, password, birthDate, genre, address, country, tel, image, status } = req.body
 
 
         // const result = await cloudinary.uploader.upload(image, {
@@ -194,7 +192,7 @@ const updatePatient = async (req, res, next) => {
         const updatedPatient = await patientModel.findByIdAndUpdate(id, {
             name: name,
             email: email,
-           // password: password,
+            // password: password,
             birthDate: birthDate,
             genre: genre,
             address: address,
@@ -203,14 +201,14 @@ const updatePatient = async (req, res, next) => {
             image: image,
 
             //status: status
-        }, { new : true}) // este ultimo parámetro hace que nos devuelva el doc actualizado
+        }, { new: true }) // este ultimo parámetro hace que nos devuelva el doc actualizado
 
-        .then( () => {
-           // console.log(updatedPatient)
-            res.status(200).send("Patient Successfully Updated")
-        })
-    
-    } catch (error) { 
+            .then(() => {
+                // console.log(updatedPatient)
+                res.status(200).send("Patient Successfully Updated")
+            })
+
+    } catch (error) {
 
         console.error('Failed to update patient');
         console.log(error)
@@ -232,21 +230,21 @@ const deletePatient = async (req, res, next) => {
         next(error)
     }
 };
-const getmercadopago= async ()=>{
-     const urlplan='https://api.mercadopago.com/preapproval_plan'
-   const plan={
-    
-    "reason": "Plan por mes de Heath 4U",
-    "auto_recurring": {
-      "frequency": 1,
-      "frequency_type": "months",
-      "repetitions": 12,
-      "billing_day": 1,
-      "billing_day_proportional": true,
-      "transaction_amount": 2700,
-      "currency_id": "ARS"
-    },
-          "payment_methods": {
+const getmercadopago = async () => {
+    const urlplan = 'https://api.mercadopago.com/preapproval_plan'
+    const plan = {
+
+        "reason": "Plan por mes de Heath 4U",
+        "auto_recurring": {
+            "frequency": 1,
+            "frequency_type": "months",
+            "repetitions": 12,
+            "billing_day": 1,
+            "billing_day_proportional": true,
+            "transaction_amount": 2700,
+            "currency_id": "ARS"
+        },
+        "payment_methods": {
             "excluded_payment_methods": [
                 {
                     "id": "master"
@@ -259,41 +257,41 @@ const getmercadopago= async ()=>{
             ],
             "installments": 12
         },
-    "back_url": "https://google.com"
-  }
-  const subscription = await axios.post(urlplan, plan, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
+        "back_url": "https://google.com"
     }
-  });
-  console.log(subscription.data)
-  return subscription.data.init_point
-  const sub={
-    "preapproval_plan_id":subscription.data.id,
-    "reason": "Yoga classes",
-    "external_reference": "YG-1234",
-    "payer_email": "test_user@testuser.com",
-    "card_token_id": "e3ed6f098462036dd2cbabe314b9de2a",
-    "auto_recurring": {
-      "frequency": 1,
-      "frequency_type": "months",
-     // "start_date": "2020-06-02T13:07:14.260Z",
-      //"end_date": "2022-07-20T15:59:52.581Z",
-      "transaction_amount": 10,
-      "currency_id": "ARS"
-    },
-    "back_url": "https://www.mercadopago.com.ar",
-    "status": "authorized"
-  }
-//   const url='https://api.mercadopago.com/preapproval'
-//   const subscriptionfinal = await axios.post(url, sub, {
-//     headers: {
-//       "Content-Type": "application/json",
-//       Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
-//     }
-//   });
-  //console.log(subscriptionfinal)
+    const subscription = await axios.post(urlplan, plan, {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
+        }
+    });
+    console.log(subscription.data)
+    return subscription.data.init_point
+    const sub = {
+        "preapproval_plan_id": subscription.data.id,
+        "reason": "Yoga classes",
+        "external_reference": "YG-1234",
+        "payer_email": "test_user@testuser.com",
+        "card_token_id": "e3ed6f098462036dd2cbabe314b9de2a",
+        "auto_recurring": {
+            "frequency": 1,
+            "frequency_type": "months",
+            // "start_date": "2020-06-02T13:07:14.260Z",
+            //"end_date": "2022-07-20T15:59:52.581Z",
+            "transaction_amount": 10,
+            "currency_id": "ARS"
+        },
+        "back_url": "https://www.mercadopago.com.ar",
+        "status": "authorized"
+    }
+    //   const url='https://api.mercadopago.com/preapproval'
+    //   const subscriptionfinal = await axios.post(url, sub, {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
+    //     }
+    //   });
+    //console.log(subscriptionfinal)
     // const body = {
     //     "items": [
     //         {
@@ -351,7 +349,7 @@ const getmercadopago= async ()=>{
     //    // "expiration_date_from": "2016-02-01T12:00:00.000-04:00",
     //     //"expiration_date_to": "2016-02-28T12:00:00.000-04:00"
     // }
-      
+
     //   try {
     //     const url='https://api.mercadopago.com/preapproval'
     //   const resp= await axios( {
@@ -367,10 +365,10 @@ const getmercadopago= async ()=>{
     //   } catch (error) {
     //     console.log(error)
     //   }
-//    mercadopago.preapproval.create(preferencias)
-//    .then(res=>console.log(res.body))
-//    .catch(err=>console.log(err))
-  
+    //    mercadopago.preapproval.create(preferencias)
+    //    .then(res=>console.log(res.body))
+    //    .catch(err=>console.log(err))
+
 }
 
 module.exports = {
