@@ -5,11 +5,22 @@ const {
     getPatientDetail,
     registerPatient,
     updatePatient,
-    deletePatient
+    deletePatient,
+    getmercadopago
 } = require('../controllers/patientController')
 
 const router = Router();
+router.get('/subcription', async (req, res) => {
+    try {
+        
+        const respueta= await getmercadopago()
+        res.send(respueta)
+    } catch (error) {
+        console.log(error)
+        res.json(error)
+    }
 
+})
 router.get('/', async (req, res) => {
     try {
         const { name } = req.query
