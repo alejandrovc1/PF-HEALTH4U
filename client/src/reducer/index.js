@@ -7,7 +7,8 @@ const initialState = { //estados iniciales
     Patients: [],
     profileDetail:[],
     profileput:'',
-    isLogged: {}
+    isLogged: {},
+    role:''
 }
 
 
@@ -18,6 +19,11 @@ function rootReducer(state = initialState, action)
 {
     switch (action.type)
     {
+        case "GET_ROLE":
+            return{
+                ...state,
+                role:action.payload
+            }
         case "PUT_PROFILE":
             return{
                 ...state,

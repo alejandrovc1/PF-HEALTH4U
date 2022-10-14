@@ -1,6 +1,6 @@
 import React from "react"
 import { useState } from "react"
-import { Link, Routes, Route, Navigate } from "react-router-dom"
+import { Link, Routes, Route, useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import axios from "axios"
 import Appointment from '../patient/Appointment/index';
@@ -61,7 +61,8 @@ export default function Login() {
             })
             localStorage.setItem("id", res.id)
             localStorage.setItem("token", res.token)
-            Navigate("/appointment")
+             const nav= useNavigate()
+             nav("/appointment")
         } catch (error) {
             if (
                 error.response &&
