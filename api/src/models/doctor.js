@@ -36,11 +36,12 @@ const doctorSchema = new Schema({
     rating: {
         type: Number
     },
-    role: [{
-        //Relacionamos el esquema de role al de los usuarios.
-        ref: "Role",
-        type: Schema.Types.ObjectId
-    }],
+    role: {
+        type: String
+    },
+    token: {
+        type: String
+    },
     country: {
         type: String
     }

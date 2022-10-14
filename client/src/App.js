@@ -1,67 +1,85 @@
-import React, { useState } from 'react'
-import { BrowserRouter, Redirect, Route, Routes } from "react-router-dom"
+import React from 'react'
+import { useState } from 'react'
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { Admin, Resource, UserMenu } from "react-admin"
-import Home from './components/Home';
-import HomeDocLogged from './components/doctor/HomeDocLogged';
-import Login from './components/Login'
-import Register from './components/Register';
-import DoctorDetail from './components/patient/DoctorDetail';
-import PrivateRoute from './components/PrivateRoute';
-import Appointment from './components/patient/Appointment'
-import { MainRouter } from './routing/MainRouter';
-
-
-import AdminView from "./components/admin/AdminView";
-import roles from "./helpers/roles"
+import { Home } from './components/Home'
+import { Login } from './components/Login'
+import { Register } from './components/Register'
+import { DoctorDetail } from './components/patient/DoctorDetail'
+import { Appointment } from './components/patient/Appointment'
+import AdminView from './components/admin/AdminView'
+import ProfilePatient from './components/patient/ProfilePatient'
+import ProfileDoctor from './components/doctor/ProfileDoctor'
+import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
+import axios from 'axios'
 
 import { AuthProvider } from './context/authContext'
-import ProfileDoctor from './components/doctor/ProfileDoctor';
-import ProfilePatient from './components/patient/ProfilePatient';
 
-// import roles from './helpers/roles';
+const roleF = async () => {
+  const tokenInLocal = localStorage.getItem("token")
+  let role;
+  if (tokenInLocal) {
+    const id = localStorage.getItem("id")
+    role = await axios.get("http://localhost:3001/login", { id, token: tokenInLocal })
+  }
+  return role
+}
 // import AdminView from './components/AdminView';
-export default function App() {
+
+export default function App(roleF) {
   return (
     <BrowserRouter>
       <AuthProvider>
-
         <Routes>
-          <Route exact path='/' element={<Home />} />
-          <Route exact path='/login/' element={<Login />} />
-          <Route exact path='/register/' element={<Register />} />
-          <Route exact path='/docDetail/:id' element={<DoctorDetail />} />
-
-          <Route exact path='/profile/Doctor/:id'  element={<ProfileDoctor/>} />
-          <Route exact path='/profile/Patient/:id'  element={<ProfilePatient/>} />
-          <Route exact path='/appointment' element= { <PrivateRoute element={<Appointment />} />} />
-          <Route exact path='/homeDoc' element= { <PrivateRoute hasRole={roles.doctor} element={<HomeDocLogged />} />} />
-          <Route exact path='/adminView' element= { <PrivateRoute hasRole={roles.admin} element={<AdminView />} />} />
-
-          {/* <Route exact path='/homeDoc' element= { <PrivateRoute hasRole={roles.doctor} element={<HomeDocLogged />} />} /> */}
-          {/* <Route exact path='/adminView' element= { <PrivateRoute hasRole={roles.admin} element={<AdminView />} />} /> */}
-
-          
-          
+          {!tokenInLocal ? <>
+            {/* RUTAS PUBLICAS */}
+            <Route path='/' element={<Home />} />
+            <Route path='*' element={<>NOT FOUND</>} />
+            <Route path='/login/' element={<Login />} />
+            <Route path='/register/' element={<Register />} />
+          </>
+            :
+            role.data.foundRole === 'doctor' ? <>
+              {/* RUTAS DOCTOR */}
+              <Route path='/' element={<h1>Componente prueba</h1>} />
+              <Route path='/profile/Doctor/:id' element={<ProfileDoctor />} />
+              <Route path='/docDetail/:id' element={<DoctorDetail />} />
+            </>
+              :
+              role.data.foundRole === 'patient' ? <>
+                {/* RUTAS DOCTOR */}
+                <Route path='/profile/Doctor/:id' element={<ProfileDoctor />} />
+                <Route path='/docDetail/:id' element={<DoctorDetail />} />
+              </> : <h1>Error</h1>}
         </Routes>
+
       </AuthProvider>
     </BrowserRouter>
   );
-
 }
-//ROUTEO PROTEGIDO 
-// export default function App() {
-//   const [user, setUser] = useState(null)
 
-//   const login = (user) => {
-//     setUser(user)
-//   }
+//  {/* RUTAS PROTEGIDAS*/}
+//           {/* RUTAS PACIENTE */}
+//           {/* !!user significa que si el usuario existe es true sino false */}
+//           <Route element={<ProtectedRoute/>}>
+//             <Route path='/appointment' element={<Appointment />} />
+//             <Route path='/profile/Patient/:id' element={<ProfilePatient />} />
+//           </Route>
 
-//   return (
-//     <AuthProvider>
-//       <MainRouter />
-//     </AuthProvider>
-//   );
-// }
+//           {/* RUTAS DOCTOR */}
+//           <Route path='/profile/Doctor/:id' element={<ProfileDoctor />} />
+//           <Route path='/docDetail/:id' element={<DoctorDetail />} />
 
-// export default App
+//           {/* RUTAS ADMIN */}
+//           {/* Es allowed si primero existe un usuario  */}
+//           <Route path='/adminView' element={
+//             <ProtectedRoute
+//               redirectTo="/login"
+//             >
+//               <AdminView />
+//             </ProtectedRoute>
+//           } />
+
+//         </Routes>
+
 

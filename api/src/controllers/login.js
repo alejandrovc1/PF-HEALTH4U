@@ -1,13 +1,14 @@
 const { doctorModel, patientModel, adminModel } = require('../models/models');
 
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const { findById } = require('../models/patient');
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const loginFunction = async (req, res) => {
     try {
         if (req.body.email && req.body.password) {
             //populate lo que hace es devolver todo el objeto role entero debido a que necesitamos el nombre, no solo el id
-            const doctorFound = await doctorModel.findOne({ email: req.body.email }).populate("role")
+            const doctorFound = await doctorModel.findOne({ email: req.body.email })
             if (doctorFound) {
                 const matchPassword = await doctorModel.comparePassword(req.body.password, doctorFound.password)
 
@@ -22,8 +23,14 @@ const loginFunction = async (req, res) => {
                     expiresIn: 86400 // Un dia 
                 })
 
+                await doctorModel.findByIdAndUpdate(doctorFound._id, {
+                    token: token,
+                })
+
                 res.send({
+                    name: doctorFound.name,
                     email: doctorFound.email,
+                    id: doctorFound._id,
                     token,
                 })
             } else {
@@ -44,9 +51,10 @@ const loginFunction = async (req, res) => {
                     })
 
                     res.send({
+                        name: patientFound.name,
                         email: patientFound.email,
+                        id: patientFound._id,
                         token,
-                        logged: true
                     })
                 } else {
                     return res.status(400).json({ token: null, message: 'User not found' })
@@ -60,4 +68,30 @@ const loginFunction = async (req, res) => {
     }
 }
 
-module.exports = { loginFunction };
+const compareToken = async (req, res) => {
+    try {
+        const { id, token } = req.body
+        const doctorFound = await doctorModel.findOne({ _id: id })
+        if (doctorFound) {
+            if (doctorFound.token === token) {
+                let roleFound = 'doctor'
+                res.send({
+                    roleFound: roleFound,
+                })
+            }
+        }
+        const patientFound = await patientModel.findOne({ _id: id })
+        if (patientFound) {
+            if (patientFound.token === token) {
+                let roleFound = 'patient'
+                res.send({
+                    roleFound: roleFound,
+                })
+            }
+        }
+    } catch (e) {
+        console.log
+    }
+}
+
+module.exports = { loginFunction, compareToken };

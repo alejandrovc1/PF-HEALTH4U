@@ -1,0 +1,57 @@
+.imgpie {
+  width: 100vw;
+  height: 20vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url(../../image/pieDePagina.png);
+  background-size: cover;
+  background-position: center;
+  margin-top: 10rem;
+}
+
+.piepagina {
+  width: 100%;
+}
+
+icon {
+  margin-left: 2rem;
+}
+
+a {
+  cursor: pointer;
+}
+
+.reds {
+  justify-content: center;
+  align-items: center;
+  margin: 0 2rem;
+}
+
+.contac {
+  text-align: center;
+}
+
+.redes {
+  margin: 0 1rem;
+}
+
+.signin {
+  margin: 0 2rem;
+}
+
+.signup {
+  margin: 0 1rem;
+  padding-right: 4rem;
+}
+
+.help {
+  margin: 0 1rem;
+  padding-right: 3rem;
+}
+
+.copy {
+  margin: 0 1rem;
+  padding-right: 3rem;
+  margin-top: 4rem;
+}

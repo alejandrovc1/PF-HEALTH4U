@@ -5,12 +5,11 @@ const initialState = { //estados iniciales
     doctorsCopy: [],
     specialties: [],
     Patients: [],
-
     profileDetail:[],
-    profileput:''
+    profileput:'',
     isLogged: {}
 }
-}
+
 
 function rootReducer(state = initialState, action)
 {
@@ -79,7 +78,6 @@ function rootReducer(state = initialState, action)
                 ...state,
                 doctorsCopy: nameSorted,
             }
-
 
         case "FILTER_BY_SPECIALTIES":
             const specialtieFiltered =
