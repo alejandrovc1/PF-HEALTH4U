@@ -7,8 +7,18 @@ const initialState = { //estados iniciales
     Patients: [],
     profileDetail:[],
     profileput:'',
+<<<<<<< HEAD
     isLogged: {}
 }
+
+=======
+
+    isLogged: {},
+    reviews: [],
+    reviewDetail: {},
+}
+>>>>>>> 372c931b1ed4399c7019ec6387ad41e9d73392f1
+
 
 
 function rootReducer(state = initialState, action)
@@ -146,6 +156,40 @@ function rootReducer(state = initialState, action)
             return {
                 ...state,
                 isLogged: action.payload 
+            }
+
+        case "GET_REVIEWS":
+            return{
+                ...state,
+                reviews: action.payload 
+            }
+
+        case "GET_REVIEW_BY_DOCTOR":
+            return{
+                ...state,
+                reviews: action.payload 
+            }
+
+        case "GET_REVIEW_BY_PATIENT":
+            return{
+                ...state,
+                reviews: action.payload 
+            }
+
+        case "GET_REVIEW_DETAIL":
+            return{
+                ...state,
+                reviewDetail: action.payload 
+            }
+
+        case "ADD_REVIEW":
+            return{
+                ...state
+            }
+
+        case "CHECKROLE":
+            return {
+                ...state
             }
 
         default:

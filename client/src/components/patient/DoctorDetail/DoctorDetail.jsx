@@ -7,12 +7,14 @@ import { getDetail, cleandetail } from '../../../actions/index';
 import { Loading } from '../../Loading/index';
 
 
+
 export default function DoctorDetail(props) {
 
     const dispatch = useDispatch();
     const detail = useSelector(state => state.detail);
     let cargado = useSelector(state => state.cargadoDetail);
     const { id } = useParams();
+    let addRev = false;
 
     useEffect(() => {
         dispatch(getDetail(id));
@@ -37,6 +39,12 @@ export default function DoctorDetail(props) {
                             <div><p>Rating: {detail.rating} </p></div>
                         </div>
                     </div>
+
+                    {addRev?
+                        <Review doctor={id}/>
+                        : <button onClick={addRev = true}>
+                            Add Review </button>
+                    }
                 </div> :
                 <div className={style.loading}>
                     <Loading />

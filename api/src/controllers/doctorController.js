@@ -130,13 +130,13 @@ const updateDoctor = async (req, res, next) => {
         const updatedDoc = await doctorModel.findByIdAndUpdate(id, {
             name,
             email,
-            password,
-            status,
+           // password,
+           // status,
             specialtie,
             method,
             image: result.secure_url,
             description,
-            rating,
+           // rating,
             country
         }, { new: true }) // este ultimo parámetro hace que nos devuelva el doc actualizado
             .then(() => {

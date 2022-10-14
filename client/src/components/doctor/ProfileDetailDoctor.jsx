@@ -1,5 +1,6 @@
 import React from "react";
 import s from './Profile.module.css'
+
 export default function ProfileDetail(props) {
   const { image, name, email, birthDate, genre, address, country, tel, functiionEdit } = props
 
@@ -17,6 +18,5 @@ export default function ProfileDetail(props) {
       <input type="button" value="edit" onClick={functiionEdit} />
     </div>
       : <h1>Cargando...</h1>
-
   )
 }

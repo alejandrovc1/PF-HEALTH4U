@@ -54,6 +54,7 @@ export default function Login() {
         try {
             const url = "http://localhost:3001/login"
             const { data: res } = await axios.post(url, data)
+
             setUser({
                 email: data.email,
                 rol: data.rol
