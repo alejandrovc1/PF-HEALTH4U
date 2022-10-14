@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import style from './DoctorDetail.module.css'
 import { getDetail, cleandetail } from '../../../actions/index';
 import { Loading } from '../../Loading/index';
-
+import Review from '../../patient/Review'
 
 
 export default function DoctorDetail(props) {

@@ -7,17 +7,10 @@ const initialState = { //estados iniciales
     Patients: [],
     profileDetail:[],
     profileput:'',
-<<<<<<< HEAD
     isLogged: {}
 }
 
-=======
 
-    isLogged: {},
-    reviews: [],
-    reviewDetail: {},
-}
->>>>>>> 372c931b1ed4399c7019ec6387ad41e9d73392f1
 
 
 

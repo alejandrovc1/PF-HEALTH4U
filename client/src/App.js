@@ -11,10 +11,8 @@ import AdminView from './components/admin/AdminView'
 import ProfilePatient from './components/patient/ProfilePatient'
 import ProfileDoctor from './components/doctor/ProfileDoctor'
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
-
 import { AuthProvider } from './context/authContext'
-import ProfileDoctor from './components/doctor/ProfileDoctor';
-import ProfilePatient from './components/patient/ProfilePatient';
+
 
 // const tokenInLocal = localStorage.getItem("token")
 // if (tokenInLocal) {
@@ -32,13 +30,7 @@ export default function App({ user }) {
           <Route exact path='/login/' element={<Login />} />
           <Route exact path='/register/' element={<Register />} />
           <Route exact path='/docDetail/:id' element={<DoctorDetail />} />
-
-          <Route exact path='/profile/Doctor/:id'  element={<ProfileDoctor/>} />
-          <Route exact path='/profile/Patient/:id'  element={<ProfilePatient/>} />
-          <Route exact path='/appointment' element= { <PrivateRoute element={<Appointment />} />} />
-          <Route exact path='/homeDoc' element= { <PrivateRoute hasRole={roles.doctor} element={<HomeDocLogged />} />} />
-          <Route exact path='/adminView' element= { <PrivateRoute hasRole={roles.admin} element={<AdminView />} />} />
-
+          
           {/* RUTAS PROTEGIDAS*/}
           {/* RUTAS PACIENTE */}
           {/* !!user significa que si el usuario existe es true sino false */}

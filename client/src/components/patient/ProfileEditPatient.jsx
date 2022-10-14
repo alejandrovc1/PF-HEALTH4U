@@ -85,7 +85,6 @@ export default function ProfileDetail(props) {
       err.tel = 'The phone is required.'
     }
     return err
-<<<<<<< HEAD
   }
   const dispatch = useDispatch()
   const { id } = useParams()
@@ -119,44 +118,4 @@ export default function ProfileDetail(props) {
     </div>
       : <h1>Cagando...</h1>
   )
-=======
-}
-const dispatch=useDispatch()
-const {id}=useParams()
-return(
-        props?<div className={s.contein}>
-             <img src={editinput.image} alt='image'/>
-             {error.image?<span>{error.image}</span>:null }
-            <Clou
-            seteditinput={seteditinput}
-            editinput={editinput}
-            seterror={seterror}
-            validationError={validationError}
-            />
-         <input type="text" name="name" value={editinput.name} placeholder='name' onChange={onChangeInput}/>
-         {error.name?<span>{error.name}</span>:null }
-         <input type="text" name="email"  value={editinput.email}placeholder='email' onChange={onChangeInput}/>
-         {error.email?<span>{error.email}</span>:null }
-         {/*"T00:00:00.000Z" agregar al momento de mandar put en birthDate*/}
-         <input type="date" name="birthDate"  value={editinput.birthDate} placeholder='birthDate' onChange={onChangeInput}/>
-         {error.birthDate?<span>{error.birthDate}</span>:null }
-         <h3>{editinput.genre}</h3>
-         <select name="genre" onChange={onChangeInput} >
-          <option value='select'>select</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-         </select>
-         {error.genre?<span>{error.genre}</span>:null }
-         <input type="text" name="address" value={editinput.address}placeholder='address' onChange={onChangeInput} />
-         {error.address?<span>{error.address}</span>:null }
-         <input type="text" name="country" value={editinput.country}placeholder='country' onChange={onChangeInput} />
-         {error.country?<span>{error.country}</span>:null }
-         <input type="text" name="tel" value={editinput.tel}placeholder='phone' onChange={onChangeInput}/>
-         {error.tel?<span>{error.tel}</span>:null }
-         <input type="button" value="cancel"  onClick={editinput.functiionEdit} /> 
-            {validationInput()?<input type="button" value="update" onClick={Update}/>:null }
-            </div>
-            :<h1>Cagando...</h1>
-    )
->>>>>>> 372c931b1ed4399c7019ec6387ad41e9d73392f1
 }
