@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { loginFunction } = require('../controllers/login');
+const { loginFunction, compareToken } = require('../controllers/login');
 
 router.post('/', async (req, res) => {
     try {
@@ -11,5 +11,7 @@ router.post('/', async (req, res) => {
         console.error(e);
     }
 });
+
+router.put('/', compareToken)
 
 module.exports = router

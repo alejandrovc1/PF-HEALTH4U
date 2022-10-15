@@ -5,17 +5,36 @@ const initialState = { //estados iniciales
     doctorsCopy: [],
     specialties: [],
     Patients: [],
-
     profileDetail:[],
     profileput:'',
+<<<<<<< HEAD
     isLogged: {}
 };
+
+=======
+    isLogged: {},
+    role:''
+}
+>>>>>>> 7fee5bd4547a648e2823ca786d81b708fc9e4c76
+
+
+
 
 
 function rootReducer(state = initialState, action)
 {
+<<<<<<< HEAD
     switch (action.type){
 
+=======
+    switch (action.type)
+    {
+        case "GET_ROLE":
+            return{
+                ...state,
+                role:action.payload
+            }
+>>>>>>> 7fee5bd4547a648e2823ca786d81b708fc9e4c76
         case "PUT_PROFILE":
             return{
                 ...state,
@@ -149,7 +168,46 @@ function rootReducer(state = initialState, action)
                 isLogged: action.payload 
             }
 
+<<<<<<< HEAD
         default: return state;
+=======
+        case "GET_REVIEWS":
+            return{
+                ...state,
+                reviews: action.payload 
+            }
+
+        case "GET_REVIEW_BY_DOCTOR":
+            return{
+                ...state,
+                reviews: action.payload 
+            }
+
+        case "GET_REVIEW_BY_PATIENT":
+            return{
+                ...state,
+                reviews: action.payload 
+            }
+
+        case "GET_REVIEW_DETAIL":
+            return{
+                ...state,
+                reviewDetail: action.payload 
+            }
+
+        case "ADD_REVIEW":
+            return{
+                ...state
+            }
+
+        case "CHECKROLE":
+            return {
+                ...state
+            }
+
+        default:
+            return state;
+>>>>>>> 7fee5bd4547a648e2823ca786d81b708fc9e4c76
     }
 };
 

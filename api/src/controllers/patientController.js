@@ -1,15 +1,20 @@
 const { patientModel } = require('../models/models');
 const { roleModel } = require('../models/models');
 const cloudinary = require('../cloudinary')
-
+const axios = require('axios')
+require("dotenv").config();
 const jwt = require('jsonwebtoken')
 const { json } = require('body-parser');
 const JWT_SECRET = process.env.JWT_SECRET;
-
+const mercadopago = require('mercadopago')
 
 const nameFolder = 'patientPhotos'
-const {EmeilerConfig}= require('../Emeiler.config.js')
+const { EmeilerConfig } = require('../Emeiler.config.js')
 
+
+mercadopago.configure({
+    access_token: process.env.ACCESS_TOKEN
+})
 const getAllPatients = async () => {
     try {
         const response = await patientModel.find({})
@@ -121,6 +126,7 @@ const registerPatient = async (registerData) => {
             })
 
             // if (roles) {
+<<<<<<< HEAD
                 //en caso de que quisieramos agregar varios roles a un doctor
                 // const foundRoles = await roleModel.find({ name: { $in: roles } })
                 //en la propiedad rol del doctor se guarda un arreglo con el id del rol
@@ -130,6 +136,18 @@ const registerPatient = async (registerData) => {
             //     const role = await roleModel.findOne({ name: "patient" })
             //     newPatient.role = [role._id]
             // }
+=======
+            //     en caso de que quisieramos agregar varios roles a un doctor
+            //     const foundRoles = await roleModel.find({ name: { $in: roles } })
+            //     en la propiedad rol del doctor se guarda un arreglo con el id del rol
+            //     newPatient.role = foundRoles.map(role => role._id)//por cada objeto(role) devuelve el id (role._id)
+            // } else {
+            //     solo agrega un rol por defecto al usuario
+            //     const role = await roleModel.findOne({ name: "patient" })
+            //     newPatient.role = [role._id]
+            // }
+
+>>>>>>> 7fee5bd4547a648e2823ca786d81b708fc9e4c76
 
             const savedUser = await newPatient.save();
             console.log('Soy el nuevo Patient: ', savedUser)
@@ -141,7 +159,7 @@ const registerPatient = async (registerData) => {
             })
 
             return json({ token })
-            EmeilerConfig('Te damos la bienvenida '+name+' ya puedes entrar a http://localhost:3000/' ,email,name)
+            EmeilerConfig('Te damos la bienvenida ' + name + ' ya puedes entrar a http://localhost:3000/', email, name)
             return register
 
         } else {
@@ -153,6 +171,7 @@ const registerPatient = async (registerData) => {
         throw new Error("Error occurred. Patient couldn't be registered.")
     }
 };
+<<<<<<< HEAD
 
 const updatePatient = async (req, res, next) => {
     try {
@@ -160,6 +179,33 @@ const updatePatient = async (req, res, next) => {
         const {id} = req.params
         const {name, email, password, birthDate, genre, address, country, tel, image, status} = req.body 
         
+=======
+const emeils = async (msj) => {
+    try {
+        let mandado = await transporter.sendMail({
+            from: '"prueba email 👻" <helath.4U.web@gmail.com>', // sender address
+            to: "smitesotra@gmail.com", // list of receivers
+            subject: "Hello ✔", // Subject line
+            text: msj, // plain text body
+            //html: "<b>Hello world?</b>", // html body
+        });
+
+        return 'msj mandado'
+
+    } catch (e) {
+        console.error(e);
+        throw new Error("Error occurred. Patient couldn't be registered.")
+    }
+}
+
+const updatePatient = async (req, res, next) => {
+    try {
+
+        const { id } = req.params
+        const { name, email, password, birthDate, genre, address, country, tel, image, status } = req.body
+
+
+>>>>>>> 7fee5bd4547a648e2823ca786d81b708fc9e4c76
         // const result = await cloudinary.uploader.upload(image, {
             //     //     //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
             //     //     folder: patientPhotos,
@@ -175,6 +221,7 @@ const updatePatient = async (req, res, next) => {
             country: country,
             tel: tel,
             image: image,
+<<<<<<< HEAD
             status: status
         }, { new : true}) // este ultimo parámetro hace que nos devuelva el doc actualizado
         
@@ -182,6 +229,18 @@ const updatePatient = async (req, res, next) => {
             // console.log(updatedPatient)
             res.status(200).send("Patient Successfully Updated")
         })
+=======
+
+            //status: status
+        }, { new: true }) // este ultimo parámetro hace que nos devuelva el doc actualizado
+
+            .then(() => {
+                // console.log(updatedPatient)
+                res.status(200).send("Patient Successfully Updated")
+            })
+
+    } catch (error) {
+>>>>>>> 7fee5bd4547a648e2823ca786d81b708fc9e4c76
 
     } catch (error) { 
         console.error('Failed to update patient');
@@ -203,7 +262,11 @@ const deletePatient = async (req, res, next) => {
         next(error)
     }
 };
+const getmercadopago = async () => {
+    const urlplan = 'https://api.mercadopago.com/preapproval_plan'
+    const plan = {
 
+<<<<<<< HEAD
 const emeils = async (msj ) => {
     try {
         
@@ -222,6 +285,144 @@ const emeils = async (msj ) => {
         throw new Error("Error occurred. Patient couldn't be registered.")
     }
 };
+=======
+        "reason": "Plan por mes de Heath 4U",
+        "auto_recurring": {
+            "frequency": 1,
+            "frequency_type": "months",
+            "repetitions": 12,
+            "billing_day": 1,
+            "billing_day_proportional": true,
+            "transaction_amount": 2700,
+            "currency_id": "ARS"
+        },
+        "payment_methods": {
+            "excluded_payment_methods": [
+                {
+                    "id": "master"
+                }
+            ],
+            "excluded_payment_types": [
+                {
+                    "id": "ticket"
+                }
+            ],
+            "installments": 12
+        },
+        "back_url": "https://google.com"
+    }
+    const subscription = await axios.post(urlplan, plan, {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
+        }
+    });
+    console.log(subscription.data)
+    return subscription.data.init_point
+    const sub = {
+        "preapproval_plan_id": subscription.data.id,
+        "reason": "Yoga classes",
+        "external_reference": "YG-1234",
+        "payer_email": "test_user@testuser.com",
+        "card_token_id": "e3ed6f098462036dd2cbabe314b9de2a",
+        "auto_recurring": {
+            "frequency": 1,
+            "frequency_type": "months",
+            // "start_date": "2020-06-02T13:07:14.260Z",
+            //"end_date": "2022-07-20T15:59:52.581Z",
+            "transaction_amount": 10,
+            "currency_id": "ARS"
+        },
+        "back_url": "https://www.mercadopago.com.ar",
+        "status": "authorized"
+    }
+    //   const url='https://api.mercadopago.com/preapproval'
+    //   const subscriptionfinal = await axios.post(url, sub, {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
+    //     }
+    //   });
+    //console.log(subscriptionfinal)
+    // const body = {
+    //     "items": [
+    //         {
+    //             "id": "Heath 4U",
+    //             "title": "Heath 4U ",
+    //             "currency_id": "ARS",
+    //             "picture_url": "https://www.mercadopago.com/org-img/MP3/home/logomp3.gif",
+    //             "description": "this is the payment to be able to use the Heath 4U service",
+    //             "category_id": "art",
+    //             "quantity": 1,
+    //             "unit_price": 1200
+    //         }
+    //     ],
+    //     "payer": {
+    //         "name": name,
+    //         "surname": "",
+    //         "email": email,
+    //         "phone": {
+    //             "area_code": "11",
+    //             "number": tel
+    //         },
+    //         "identification": {
+    //             "type": "DNI",
+    //             "number": DNI
+    //         },
+    //         "address": {
+    //             "street_name": adrress,
+    //             "street_number": 123,
+    //             "zip_code": "5700"
+    //         }
+    //     },
+    //     "back_urls": {
+    //         "success": "https://www.success.com",
+    //         "failure": "http://www.failure.com",
+    //         "pending": "http://www.pending.com"
+    //     },
+    //     "auto_return": "approved",
+    //     "payment_methods": {
+    //         "excluded_payment_methods": [
+    //             {
+    //                 "id": "master"
+    //             }
+    //         ],
+    //         "excluded_payment_types": [
+    //             {
+    //                 "id": "ticket"
+    //             }
+    //         ],
+    //         "installments": 12
+    //     },
+    //     "notification_url": "https://www.your-site.com/ipn",
+    //     "statement_descriptor": "MINEGOCIO",
+    //     "external_reference": "Reference_1234",
+    //     "expires": true,
+    //    // "expiration_date_from": "2016-02-01T12:00:00.000-04:00",
+    //     //"expiration_date_to": "2016-02-28T12:00:00.000-04:00"
+    // }
+
+    //   try {
+    //     const url='https://api.mercadopago.com/preapproval'
+    //   const resp= await axios( {
+    //     method: 'post',
+    //     url: url,
+    //     headers: { 
+    //         'Authorization' : `Bearer ${process.env.ACCESS_TOKEN}`,
+    //       'Content-Type': 'application/json'
+    //     },
+    //     data : preferencias
+    //   })
+    //   console.log(resp)
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    //    mercadopago.preapproval.create(preferencias)
+    //    .then(res=>console.log(res.body))
+    //    .catch(err=>console.log(err))
+
+}
+>>>>>>> 7fee5bd4547a648e2823ca786d81b708fc9e4c76
 
 module.exports = {
     getAllPatients,
@@ -230,5 +431,6 @@ module.exports = {
     registerPatient,
     updatePatient,
     deletePatient,
-    emeils
+    emeils,
+    getmercadopago
 }

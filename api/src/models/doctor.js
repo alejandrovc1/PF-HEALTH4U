@@ -38,11 +38,17 @@ const doctorSchema = new Schema({
     },
     role: {
         type: String
+<<<<<<< HEAD
         //[{
         //Relacionamos el esquema de role al de los usuarios.
         //ref: "Role",
         //type: Schema.Types.ObjectId
         //}]
+=======
+    },
+    token: {
+        type: String
+>>>>>>> 7fee5bd4547a648e2823ca786d81b708fc9e4c76
     },
     country: {
         type: String

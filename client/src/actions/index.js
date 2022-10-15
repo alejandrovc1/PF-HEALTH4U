@@ -2,22 +2,42 @@ import axios from "axios"
 export const GET_DETAIL = "GET_DETAIL";
 
 
-// export function getDoctors()
-// { //obtener todos los doctores
-//     return async function (dispatch)
-//     {
-//         let json = await axios.get("http://localhost:3001/doctors");
-//         return dispatch({
-//             type: "GET_DOCTORS",
-//             payload: json.data
-//         })
-//     }
-// }
+export function getRole(body)
+{ //obtener todos los doctores
+    return async function (dispatch)
+    {
+        var config = {
+            method: 'put',
+            url: 'http://localhost:3001/login',
+            headers: { 
+              'Content-Type': 'application/json'
+            },
+            data : body
+          };
+        let json = await axios(config);
+        console.log(json)
+        return dispatch({
+            type: "GET_ROLE",
+            payload: json.data
+        })
+    }
+}
 export function getprofile(id)
 { //obtener detalle de un paciente
     return async function (dispatch)
     {
         let json = await axios.get("http://localhost:3001/patients/"+id);
+        return dispatch({
+            type: "GET_PROFILE",
+            payload: json.data
+        })
+    }
+}
+export function getprofileDoctor(id)
+{ //obtener detalle de un paciente
+    return async function (dispatch)
+    {
+        let json = await axios.get("http://localhost:3001/doctors/"+id);
         return dispatch({
             type: "GET_PROFILE",
             payload: json.data
@@ -34,6 +54,18 @@ export function putprofile(id,dato)
     return async function (dispatch)
     {
         let json = await axios.put("http://localhost:3001/patients/"+id,dato);
+        return dispatch({
+            type: "PUT_PROFILE",
+            payload: json.data
+        })
+    }
+}
+export function putprofiledoctor(id,dato)
+{ //update paciente
+  
+    return async function (dispatch)
+    {
+        let json = await axios.put("http://localhost:3001/doctors/"+id,dato);
         return dispatch({
             type: "PUT_PROFILE",
             payload: json.data
@@ -58,7 +90,7 @@ export function getSpecialties()
     {
         let info = await axios.get("http://localhost:3001/specialties");
         return dispatch({
-            type: "GET_SPECIALTIES",
+            type: "GET_ESPECIALTIES",
             payload: info.data
         })
     }
@@ -213,5 +245,16 @@ export function loggedState(data) {
     return {
         type: 'LOGGEDSTATE',
         payload: data
+    }
+}
+
+export function checkRole(id) {
+    return async function (dispatch)
+    {
+        let role = await axios.get("http://localhost:3001/checkrole/" + id);
+        return dispatch({
+            type: "CHECKROLE",
+            payload: role.data
+        })
     }
 }

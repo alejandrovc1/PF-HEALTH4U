@@ -1,18 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+<<<<<<< HEAD
 import {store} from './store/index';
+=======
+import { AuthProvider } from './context/authContext';
+
+import { store } from './store/index'
+>>>>>>> 7fee5bd4547a648e2823ca786d81b708fc9e4c76
 
 
 ReactDOM.render(
   <Provider store={store}>
     {/* <Router> */}
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
     {/* </Router> */}
   </Provider>,
   document.getElementById('root')
