@@ -122,7 +122,7 @@ export default function Register() {
         e.preventDefault()
         if (true) {
             console.log('Pase por el submit de doctor')
-            await signup(user.email, user.password, user.fullname,)
+            //await signup(user.email, user.password, user.fullname,)
             const doctor = {
                 name: user.fullname,
                 email: user.email,
@@ -154,7 +154,7 @@ export default function Register() {
         e.preventDefault()
         if (true) {
             console.log('Pase por el submit de patient')
-            await signup(patient.email, patient.password, patient.fullname, patient.confirmPassword)
+           // await signup(patient.email, patient.password, patient.fullname, patient.confirmPassword)
             const patient2 = {
                 name: patient.fullname,
                 email: patient.email,

@@ -28,6 +28,11 @@
     margin: 0;
 }
 
+.link{
+    text-decoration: none;
+    color: #555;
+}
+
 .sidebarListItem{
     padding: 5px;
     cursor: pointer;
@@ -41,5 +46,6 @@
 }
 
 .sidebarIcon{
-    margin-right: 5px;
+    align-items: center;
+    margin-right: 10px;
 }
