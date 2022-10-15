@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { Admin, Resource, UserMenu } from "react-admin"
 import { Home } from './components/Home/index.js'
 import { Login } from './components/Login/index.js'
@@ -50,8 +50,9 @@ export default function App({ user }) {
           </>
           :role==='patient'?
           <>
-            <Route path='/appointment' element={<Appointment />} />
+            <Route path='/appointment' element={<Appointment  />} />
             <Route path='/profile/Patient/:id' element={<ProfilePatient />} />
+            <Route path='*' element={<Navigate to='appointment'/>}/>  
           </>
           :role==='admin'?
           <Route path='/docDetail/:id' element={<AdminView/>} />
