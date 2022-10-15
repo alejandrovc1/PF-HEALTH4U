@@ -1,6 +1,6 @@
 import React from 'react'
 import st from './TopBar.module.css'
-import logo from "../../image/logo.png";
+import logo from "../../../image/logo.png"
 import {NotificationsNone, Language, Settings} from '@mui/icons-material';
 
 export default function TopBar(){

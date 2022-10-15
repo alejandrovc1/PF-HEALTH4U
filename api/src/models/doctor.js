@@ -41,6 +41,9 @@ const doctorSchema = new Schema({
     },
     country: {
         type: String
+    },
+    token: {
+        type: String
     }
 },
 {

@@ -27,6 +27,7 @@ export default function AdminView() {
           <Route path='/user/:userId' element={<User />} />
           <Route path='/doctors' element={<DoctorList />} />
           <Route path='/doctor/:doctorId' element={<Doctor />} />
+          <Route path='*' element={<HomeAdmin />} />
         </Routes>
           
       </div>

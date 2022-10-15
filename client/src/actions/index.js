@@ -1,5 +1,24 @@
 import axios from "axios"
 
+export function getRole(body) { //
+    return async function (dispatch)
+    {
+        var config = {
+            method: 'put',
+            url: 'http://localhost:3001/login',
+            headers: { 
+              'Content-Type': 'application/json'
+            },
+            data : body
+          };
+        let json = await axios(config);
+        console.log(json)
+        return dispatch({
+            type: "GET_ROLE",
+            payload: json.data
+        })
+    }
+};
 
 export function getDoctors(){ //Obtener todos los doctors
     return async function (dispatch)
@@ -61,7 +80,6 @@ export function deleteDoctor(id){ //Eliminar doctor
     }
 };
 
-
 export function getPatients(){ //Obtener todos los patients
     return async function (dispatch)
     {
@@ -101,17 +119,6 @@ export function putprofile(id, dato){ //Actualizar patient
     }
 };
 
-export function postPatient(patient) { //Agregar patient
-    return async function (dispatch) 
-    {
-        const response = await axios.post("http://localhost:3001/patients/register", patient)
-        return dispatch({
-            type: "POST_PATIENT",
-            payload: response
-        })
-    }
-};
-
 export function deletePatient(id){ //Eliminar patient
     return async function(dispatch)
     {
@@ -128,7 +135,7 @@ export function getSpecialties(){ //Obtener specialties
     {
         let info = await axios.get("http://localhost:3001/specialties");
         return dispatch({
-            type: "GET_SPECIALTIES",
+            type: "GET_ESPECIALTIES",
             payload: info.data
         })
     }
@@ -178,6 +185,12 @@ export function login(payload) { //Login
             type: "LOGIN",
             payload: response
         })
+    }
+};
+
+export function reset(){
+    return {
+        type: 'RESET',
     }
 };
 
@@ -237,16 +250,21 @@ export function addReview(review){ //Agregar una review
     }
 };
 
-export function reset(){
-    return {
-        type: 'RESET',
-    }
-};
-
 export function loggedState(data) {
     console.log(data)
     return {
         type: 'LOGGEDSTATE',
         payload: data
+    }
+};
+
+export function checkRole(id) {
+    return async function (dispatch)
+    {
+        let role = await axios.get("http://localhost:3001/checkrole/" + id);
+        return dispatch({
+            type: "CHECKROLE",
+            payload: role.data
+        })
     }
 };

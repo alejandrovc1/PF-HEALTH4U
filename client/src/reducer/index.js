@@ -9,13 +9,19 @@ const initialState = { //estados iniciales
     patientDetail: [],
     patientPut:'',
     specialties: [],
-    isLogged: {}
+    isLogged: {},
+    role:''
 };
 
 
-function rootReducer(state = initialState, action)
-{
+function rootReducer(state = initialState, action){
     switch (action.type){
+
+        case "GET_ROLE":
+            return{
+                ...state,
+                role:action.payload
+            }
         
         case "GET_PATIENTS":
             return{
@@ -23,19 +29,19 @@ function rootReducer(state = initialState, action)
                 patients: action.payload,
                 patientsCopy: action.payload
             }
-
+    
         case "GET_PATIENT_PROFILE": 
             return{
                 ...state,
                 patientDetail: action.payload 
             }
-
+    
         case "PUT_PATIENT_PROFILE":
             return{
                 ...state,
                 patientPut:action.payload
             }
-        
+            
         case "POST_PATIENT":
             return {
                 ...state
@@ -83,8 +89,8 @@ function rootReducer(state = initialState, action)
         case "GET_SPECIALTIES":
             return {
                 ...state,
-        specialties: action.payload
-        }
+                specialties: action.payload
+            }
 
         case "CLEAN_DETAIL":
             return {
@@ -180,6 +186,40 @@ function rootReducer(state = initialState, action)
             return {
                 ...state,
                 isLogged: action.payload 
+            }
+
+        case "GET_REVIEWS":
+            return{
+                ...state,
+                reviews: action.payload 
+            }
+
+        case "GET_REVIEW_BY_DOCTOR":
+            return{
+                ...state,
+                reviews: action.payload 
+            }
+
+        case "GET_REVIEW_BY_PATIENT":
+            return{
+                ...state,
+                reviews: action.payload 
+            }
+
+        case "GET_REVIEW_DETAIL":
+            return{
+                ...state,
+                reviewDetail: action.payload 
+            }
+
+        case "ADD_REVIEW":
+            return{
+                ...state
+            }
+
+        case "CHECKROLE":
+            return {
+                ...state
             }
 
         default: return state;

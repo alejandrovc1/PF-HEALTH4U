@@ -6,6 +6,7 @@ const getAllSpecialties = async () => {
         const response = await specialtieModel.find({})
         const specialties = response?.map( E => {
             const Spe = {
+                id: E._id,
                 name: E.name,
                 description: E.description,
                 image: E.image
@@ -46,7 +47,20 @@ const addSpecialtie = async (Data) => {
     }
 }
 
+const updateSpecialties = async (Data) => {
+    try {  
+        const { id, description } = Data
+        const addUpdt = await specialtieModel.findByIdAndUpdate(id, { description })
+        console.log(addUpdt)
+        return addUpdt
+
+    } catch (e) {
+        console.error(e);
+    }
+}
+
 module.exports = {
     getAllSpecialties,
     addSpecialtie,
+    updateSpecialties,
 };

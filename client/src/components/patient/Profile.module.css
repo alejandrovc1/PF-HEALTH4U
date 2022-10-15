@@ -1,13 +1,14 @@
-.contein img{
+.contein img {
     width: 200px;
     height: 200px;
 }
-.contein{
+
+.contein {
     display: flex;
     flex-direction: column;
 
-        align-content: space-around;
+    align-content: space-around;
 
-            align-items: center;
-            margin: 20px;
+    align-items: center;
+    margin: 20px;
 }

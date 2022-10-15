@@ -6,9 +6,14 @@
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@material-ui/core": "4.12.4",
+<<<<<<< HEAD
     "@material-ui/data-grid": "^4.0.0-alpha.37",
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.9",
+=======
+    "@mui/icons-material": "^5.10.6",
+    "@reduxjs/toolkit": "^1.8.6",
+>>>>>>> 7fee5bd4547a648e2823ca786d81b708fc9e4c76
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/user-event": "^14.4.3",
     "axios": "^0.27.2",
@@ -25,6 +30,7 @@
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
+    "redux-toolkit": "^1.1.2",
     "web-vitals": "^3.0.2"
   },
   "scripts": {

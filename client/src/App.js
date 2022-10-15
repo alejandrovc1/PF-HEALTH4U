@@ -1,30 +1,76 @@
-import React, { useState } from 'react'
-import { BrowserRouter, Route, Routes } from "react-router-dom"
-import Home from './components/Home';
-import HomeDocLogged from './components/doctor/HomeDocLogged';
-import Login from './components/Login'
-import Register from './components/Register';
-import ProfileDoctor from './components/doctor/ProfileDoctor';
-import ProfilePatient from './components/patient/ProfilePatient';
-import DoctorDetail from './components/patient/DoctorDetail';
-import PrivateRoute from './components/PrivateRoute';
-import Appointment from './components/patient/Appointment'
-import AdminView from "./components/admin/AdminView";
-import { MainRouter } from './routing/MainRouter';
+import React from 'react'
+import { useState } from 'react'
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { Admin, Resource, UserMenu } from "react-admin"
+import { Home } from './components/Home/index.js'
+import { Login } from './components/Login/index.js'
+import { Register } from './components/Register/index.js'
+import { DoctorDetail } from './components/patient/DoctorDetail/index.js'
+import { Appointment } from './components/patient/Appointment/index.js'
+import AdminView from './components/admin/AdminView'
+import ProfilePatient from './components/patient/ProfilePatient'
+import ProfileDoctor from './components/doctor/ProfileDoctor'
+import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
 import { AuthProvider } from './context/authContext'
+import { useDispatch, useSelector } from 'react-redux'
+import { getRole } from './actions/index.js'
 
-import roles from "./helpers/roles"
 
-export default function App() {
+// const tokenInLocal = localStorage.getItem("token")
+// if (tokenInLocal) {
+//   const id = localStorage.getItem("id")
+//   const role = await axios.get("http://localhost:3001/login", { id, token: tokenIn })
+// }
+
+export default function App( ) {
+
+  const dispatch = useDispatch()
+  const tokenInLocal = localStorage.getItem("token")
+  const role = useSelector (f => f.role)
+
+  if(tokenInLocal){
+    console.log(tokenInLocal)
+    const id = localStorage.getItem("id")
+    dispatch(getRole({id,token:tokenInLocal}))
+  }
+
   return (
     <BrowserRouter>
       <AuthProvider>
-
         <Routes>
-          <Route exact path='/' element={<Home />} />
-          <Route exact path='/login/' element={<Login />} />
-          <Route exact path='/register/' element={<Register />} />
-          <Route exact path='/docDetail/:id' element={<DoctorDetail />} />
+          { !tokenInLocal ?
+            <>
+            <Route exact path='/' element= {<Home />} />
+            <Route exact path='/login' element= {<Login />} />
+            <Route exact path='/register/' element= {<Register />} />
+            <Route exact path='/docDetail/:id' element= {<DoctorDetail />} />
+            <Route path='*' element={<Home />} />
+            </>
+            :role === 'doctor'?
+            <>
+              <Route path='/' element= {<h1>Home doctor</h1>} />
+              <Route path='/profile/Patient/:id' element= {<ProfileDoctor />} />
+              <Route path='*' element={<Home />} />
+            </>
+            :role === 'patient'?
+            <>
+              <Route path='/appointment' element={<Appointment />} />
+              <Route path='/profile/Patient/:id' element={<ProfilePatient />} />
+              <Route path='*' element={<Appointment />} />
+            </>
+            :role === 'admin'?
+            <>
+            <Route exact path='/adminView//*' element={<AdminView />} />
+            <Route path='*' element={<AdminView />} />
+            </>
+            :<Route path='*' element={<h1>Loading...</h1>}/>
+          }
+          {/*          
+          <Route element={<ProtectedRoute 
+            isAllowed={!!user} />}>
+            <Route path='/appointment' element={<Appointment />} />
+            <Route path='/profile/Patient/:id' element={<ProfilePatient />} />
+          </Route>
 
           <Route exact path='/profile/Doctor/:id'  element={<ProfileDoctor/>} />
           <Route exact path='/profile/Patient/:id'  element={<ProfilePatient/>} />
@@ -32,30 +78,20 @@ export default function App() {
           <Route exact path='/adminView//*' element={<AdminView />} />
           <Route exact path='/homeDoc' element= { <PrivateRoute hasRole={roles.doctor} element={<HomeDocLogged />} />} />
 
-          {/* <Route exact path='/homeDoc' element= { <PrivateRoute hasRole={roles.doctor} element={<HomeDocLogged />} />} /> */}
-          {/* <Route exact path='/adminView' element= { <PrivateRoute hasRole={roles.admin} element={<AdminView />} />} /> */}
+          <Route path='/adminView' element={
+            <ProtectedRoute
+              isAllowed={!!user && user.rol.includes('admin')}
+              redirectTo="/login"
+            >
+              <AdminView />
+            </ProtectedRoute>
+          } /> 
+          */}
 
-          
         </Routes>
       </AuthProvider>
     </BrowserRouter>
   )
 };
 
-//ROUTEO PROTEGIDO 
-// export default function App() {
-//   const [user, setUser] = useState(null)
-
-//   const login = (user) => {
-//     setUser(user)
-//   }
-
-//   return (
-//     <AuthProvider>
-//       <MainRouter />
-//     </AuthProvider>
-//   );
-// }
-
-// export default App
 
