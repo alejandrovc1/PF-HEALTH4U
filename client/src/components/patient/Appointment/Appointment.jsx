@@ -96,9 +96,7 @@ export default function Appointment({ user }) {
         dispatch(reset())
     }
 
-    if (!user) {
-        return <Navigate to="/login" />
-    } else {
+   
         return (
             <div>
                 <NavAppointment />
@@ -182,4 +180,3 @@ export default function Appointment({ user }) {
             </div>
         )
     }
-}

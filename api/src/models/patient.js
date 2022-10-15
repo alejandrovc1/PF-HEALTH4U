@@ -25,6 +25,9 @@ const patientSchema = new Schema({
     address:{
         type: String
     },
+    token:{
+        type: String
+    },
     country: {
         type: String
     },
@@ -33,13 +36,11 @@ const patientSchema = new Schema({
     },
     // CLOUDINARY 
     image: {
+        
+    },
+    role: {
         type: String
     },
-    role: [{
-        //Relacionamos el esquema de role al de los usuarios.
-        ref: "Role",
-        type: Schema.Types.ObjectId
-    }],
     status: {
         type: String
     }

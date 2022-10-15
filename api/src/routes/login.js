@@ -12,6 +12,6 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.get('/', compareToken)
+router.put('/', compareToken)
 
 module.exports = router

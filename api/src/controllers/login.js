@@ -49,7 +49,9 @@ const loginFunction = async (req, res) => {
                     const token = jwt.sign(userForToken2, JWT_SECRET, {
                         expiresIn: 86400 // Un dia 
                     })
-
+                  await patientModel.findByIdAndUpdate(patientFound._id, {
+                    token: token,
+                })
                     res.send({
                         name: patientFound.name,
                         email: patientFound.email,
@@ -72,25 +74,29 @@ const compareToken = async (req, res) => {
     try {
         const { id, token } = req.body
         const doctorFound = await doctorModel.findOne({ _id: id })
+        const patientFound = await patientModel.findOne({ _id: id })
+        console.log('doctor: '+ doctorFound+ "patient: "+patientFound )
         if (doctorFound) {
             if (doctorFound.token === token) {
                 let roleFound = 'doctor'
-                res.send({
-                    roleFound: roleFound,
-                })
+            
+                res.send(
+                    roleFound,
+                )
             }
-        }
-        const patientFound = await patientModel.findOne({ _id: id })
+        }else
         if (patientFound) {
             if (patientFound.token === token) {
                 let roleFound = 'patient'
-                res.send({
-                    roleFound: roleFound,
-                })
+                res.send(
+                    roleFound,
+                )
             }
+        }else{
+            res.send('problemas')
         }
     } catch (e) {
-        console.log
+        console.log(e)
     }
 }
 
