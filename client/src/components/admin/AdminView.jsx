@@ -5,6 +5,8 @@ import SideBar from "./MainComponents/SideBar";
 import HomeAdmin from "./HomaPage/HomeAdmin";
 import UserList from "./UserList/UserList";
 import User from "./User/User";
+import DoctorList from "./DoctorList/DoctorList"
+import Doctor from "./Doctor/Doctor"
 import { Routes, Route } from "react-router-dom";
 
 export default function AdminView() {
@@ -23,6 +25,8 @@ export default function AdminView() {
           <Route exact path='/' element={<HomeAdmin />} />
           <Route path='/users' element={<UserList />} />
           <Route path='/user/:userId' element={<User />} />
+          <Route path='/doctors' element={<DoctorList />} />
+          <Route path='/doctor/:doctorId' element={<Doctor />} />
         </Routes>
           
       </div>

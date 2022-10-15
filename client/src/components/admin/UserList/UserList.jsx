@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { getPatients, deletePatient } from "../../../actions/index";
 import st from './UserList.module.css';
 import {DataGrid} from '@material-ui/data-grid';
 import {DeleteForever} from '@mui/icons-material';
@@ -7,10 +9,17 @@ import { Link } from 'react-router-dom';
 
 export default function UserList() {
 
-  const [data, setData] = useState(userRows)
+  const dispatch = useDispatch();
+
+  useEffect(() =>{
+    dispatch(getPatients());
+  }, [dispatch])
+
+  const allPatients = useSelector(state => state.patientsCopy);
   
   const handleDelete = (id) => {
-    setData(data.filter(item => item.id !== id))
+    dispatch(deletePatient(id))
+    alert("Patient successfully deleted");
   }
 
   const columns = [
@@ -23,6 +32,7 @@ export default function UserList() {
     //     </div>
     //   )
     // }},
+    { field: 'idPat', headerName: 'Patient ID', width: 130 },
     { field: 'name', headerName: 'Name', width: 130 },
     { field: 'email', headerName: 'Email', width: 150 },
     { field: 'birthDate', headerName: 'BirthDate', type: 'date', width: 140 },
@@ -33,21 +43,33 @@ export default function UserList() {
     { field: 'actions', headerName: 'Actions', width: 130, renderCell: (params) =>{
       return (
         <>
-          <Link to={'/adminView/user/'+ params.row.id}>
+          <Link to={'/adminView/user/'+ params.row.idPat}>
             <button className={st.userListEdit}>Edit</button>
           </Link>
-            <DeleteForever className={st.userListDelete} onClick={() => handleDelete(params.row.id)}/>
+            <DeleteForever className={st.userListDelete} onClick={() => handleDelete(params.row.id)} />
         </>
       )
     }}
   ];
 
+  const userRows = allPatients.map( (pat, index) => ({
+    id: index + 1,
+    idPat: pat.id,
+    name: pat.name, 
+    email: pat.email,
+    birthDate: pat.birthDate, 
+    genre: pat.genre, 
+    country: pat.country, 
+    tel: pat.tel, 
+    status: pat.status
+  }));
+
 
   return (
     <div className={st.userList}>
-        
+      
       <DataGrid
-      rows={data}
+      rows={userRows}
       columns={columns}
       pageSize={10}
       rowsPerPageOptions={[10]}

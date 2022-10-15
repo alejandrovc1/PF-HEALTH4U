@@ -3,8 +3,10 @@ const { roleModel } = require('../models/models');
 const cloudinary = require('../cloudinary')
 
 const jwt = require('jsonwebtoken');
-const { json } = require('body-parser');
 const JWT_SECRET = process.env.JWT_SECRET;
+const { json } = require('body-parser');
+const {EmeilerConfig}= require('../Emeiler.config.js')
+
 
 const getAllDoctors = async (req, res, next) => {
     try {
@@ -65,8 +67,9 @@ const getDoctorDetail = async (req, res, next) => {
 };
 
 const registerDoctor = async (registerData) => {
+
     try {
-        const { name, email, password, specialtie, method, image, description, rating, country, roles } = registerData
+        const { name, email, password, specialtie, method, image, description, country } = registerData
 
         const found = await doctorModel.findOne({ email: email })
         if (!found) {
@@ -78,25 +81,26 @@ const registerDoctor = async (registerData) => {
                 name,
                 email,
                 password: await doctorModel.encryptPassword(password),
-                status: "active",
                 // specialtie,
                 // method,
                 // image: result.secure_url,
                 // description,
-                rating: rating || 0,
                 // country
+                role: 'Doctor',
+                rating: 0,
+                status: "active",
             })
 
-            if (roles) {
-                //en caso de que quisieramos agregar varios roles a un doctor
-                const foundRoles = await roleModel.find({ name: { $in: roles } })
-                //en la propiedad rol del doctor se guarda un arreglo con el id del rol
-                newDoctor.role = foundRoles.map(role => role._id)//por cada objeto(role) devuelve el id (role._id)
-            } else {
-                // solo agrega un rol por defecto al usuario
-                const role = await roleModel.findOne({ name: "doctor" })
-                newDoctor.role = [role._id]
-            }
+            // if (roles) {
+            //     //en caso de que quisieramos agregar varios roles a un doctor
+            //     const foundRoles = await roleModel.find({ name: { $in: roles } })
+            //     //en la propiedad rol del doctor se guarda un arreglo con el id del rol
+            //     newDoctor.role = foundRoles.map(role => role._id)//por cada objeto(role) devuelve el id (role._id)
+            // } else {
+            //     // solo agrega un rol por defecto al usuario
+            //     const role = await roleModel.findOne({ name: "doctor" })
+            //     newDoctor.role = [role._id]
+            // }
 
             const savedUser = await newDoctor.save();
             console.log(savedUser)
@@ -107,14 +111,16 @@ const registerDoctor = async (registerData) => {
                 expiresIn: 86400 //Esta en segundos = Expira en 24 horas
             })
 
+            EmeilerConfig('Te damos la bienvenida ' + name + ' ya puedes entrar a http://localhost:3000/', email, name)
             return json({ token })
+            
         } else return { msg: "This email is already in use" };
 
     } catch (e) {
         console.error(e);
         throw new Error("Error occurred. Doctor couldn't be registered.")
     }
-}
+};
 
 const updateDoctor = async (req, res, next) => {
     try {
@@ -154,7 +160,7 @@ const deleteDoctor = async (req, res, next) => {
                 res.status(200).send("Doctor Successfully Deleted")
             })
     } catch (error) { next(error) }
-}
+};
 
 module.exports = {
     getAllDoctors,

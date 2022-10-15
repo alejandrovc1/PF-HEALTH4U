@@ -13,7 +13,7 @@ export default function SideBar() {
           <h3 className={st.sidebarTitle}>Dashboard</h3>
           <ul className={st.sidebarList}>
             <li className={st.sidebarListItem}>
-              <Link to='/adminView/' className={st.link}>
+              <Link to='/adminView' className={st.link}>
                 <Home className={st.sidebarIcon}/>
                 Home
               </Link>
@@ -55,8 +55,10 @@ export default function SideBar() {
               Admins
             </li>
             <li className={st.sidebarListItem}>
-              <PersonOutline className={st.sidebarIcon}/>
-              Doctors
+              <Link to='/adminView/doctors' className={st.link}>
+                <PersonOutline className={st.sidebarIcon}/>
+                Doctors
+              </Link>
             </li>
             <li className={st.sidebarListItem}>
               <Link to='/adminView/users' className={st.link}>

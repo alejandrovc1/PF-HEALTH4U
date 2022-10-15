@@ -1,15 +1,15 @@
-.User{
+.Doctor{
     flex: 4;
     padding: 0px 20px;
 }
 
-.userTitleContainer{
+.doctorTitleContainer{
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.useadAddButton{
+.doctorAddButton{
     width: 80px;
     border: none;
     padding: 10px;
@@ -20,18 +20,18 @@
     font-size: 16px;
 }
 
-.userContainer{
+.doctorContainer{
     display: flex;
 }
 
-.userShow{
+.doctorShow{
     flex: 1;
     padding: 20px;
     -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.8); 
     box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.8);
 }
 
-.userUpdate{
+.doctorUpdate{
     flex: 2;
     padding: 20px;
     -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.8); 
@@ -39,100 +39,100 @@
     margin-left: 20px;
 }
 
-.userShowTop{
+.doctorShowTop{
     display: flex;
     align-items: center;
 }
 
-.userShowImg{
+.doctorShowImg{
     width: 60px;
     height: 60px;
     border-radius: 50%;
     object-fit: cover;
 }
 
-.userShowTopTitle{
+.doctorShowTopTitle{
     display: flex;
     flex-direction: column;
     margin-left: 20px;
 }
 
-.userShowUsername{
+.doctorShowUsername{
     font-size: 20px;
     font-weight: 700;
 }
 
-.userShowRole{
+.doctorShowRole{
     font-size: 18px;
     font-weight: 400;
 }
 
-.userShowBottom{
+.doctorShowBottom{
     margin-top: 20px;
 }
 
-.userShowTitle{
+.doctorShowTitle{
     font-size: 18px;
     font-weight: 600;
     color: #555;
 }
 
-.userShowInfo{
+.doctorShowInfo{
     display: flex;
     align-items: center;
     margin: 20px 0px;
     color: #333
 }
 
-.userShowIcon{
+.doctorShowIcon{
     margin-right: 10px;
     font-size: 22px !important;
 }
 
-.userUpdateForm{
+.doctorUpdateForm{
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
     margin-left: 10px;
 }
 
-.userUpdateTitle{
+.doctorUpdateTitle{
     font-size: 25px;
     font-weight: 600;
     margin-left: 10px;
 }
 
-.userUpdateItem{
+.doctorUpdateItem{
     display: flex;
     flex-direction: column;
     margin-top: 5px;
 }
 
-.userUpdateItem>label{
+.doctorUpdateItem>label{
     margin-bottom: 5px;
     font-weight: 500;
 }
 
-.userUpdateInput{
+.doctorUpdateInput{
     border: none;
     width: 250px;
     height: 17px;
     border-bottom: 1px solid grey;
 }
 
-.userUpdateRight{
+.doctorUpdateRight{
     display: flex;
     flex-direction: column;
     justify-content:space-evenly;
     align-items: center;
 }
 
-.userUpdateUpload{
+.doctorUpdateUpload{
     display: flex;
     align-items: center;
 }
 
-.userUpdateImg{
+.doctorUpdateImg{
     width: 200px;
     height: 200px;
     border-radius: 20px;
@@ -140,12 +140,12 @@
     margin-right: 20px;
 }
 
-.userUpdateIcon{
+.doctorUpdateIcon{
     cursor: pointer;
     font-size: 35px !important;
 }
 
-.userUpdateBotton{
+.doctorUpdateBotton{
     width: 150px;
     border: none;
     border-radius: 5px;

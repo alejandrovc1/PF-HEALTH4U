@@ -3,22 +3,20 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './DoctorDetail.module.css'
-import { getDetail } from '../../actions/index.js';
+import { getDetails } from '../../actions/index.js';
 import { cleandetail } from '../../actions/index.js';
 import Loading from '../Loading';
 
 
-export default function DoctorDetail(props)
-{
+export default function DoctorDetail(props){
 
     const dispatch = useDispatch();
     const detail = useSelector(state => state.detail);
     let cargado = useSelector(state => state.cargadoDetail);
     const { id } = useParams();
 
-    useEffect(() =>
-    {
-        dispatch(getDetail(id));
+    useEffect(() => {
+        dispatch(getDetails(id));
         return (() => { dispatch(cleandetail()) })
     }, [id]);
 
@@ -45,5 +43,6 @@ export default function DoctorDetail(props)
                     <Loading />
                 </div>
             }
-        </div>)
-}
+        </div>
+    )
+};
