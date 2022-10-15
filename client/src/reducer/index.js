@@ -1,70 +1,102 @@
 const initialState = { //estados iniciales
-    detail: [],
     cargadoDetail: false,
     doctors: [],
     doctorsCopy: [],
+    doctorDetail: [],
+    doctorPut:'',
+    patients: [],
+    patientsCopy: [],
+    patientDetail: [],
+    patientPut:'',
     specialties: [],
-    Patients: [],
-    profileDetail:[],
-    profileput:'',
     isLogged: {},
     role:''
-}
+};
 
 
+function rootReducer(state = initialState, action){
+    switch (action.type){
 
-
-
-function rootReducer(state = initialState, action)
-{
-    switch (action.type)
-    {
         case "GET_ROLE":
             return{
                 ...state,
                 role:action.payload
             }
-        case "PUT_PROFILE":
+        
+        case "GET_PATIENTS":
             return{
                 ...state,
-                profileput:action.payload
+                patients: action.payload,
+                patientsCopy: action.payload
             }
-        case "GET_PROFILE": 
+    
+        case "GET_PATIENT_PROFILE": 
             return{
                 ...state,
-                profileDetail: action.payload 
+                patientDetail: action.payload 
+            }
+    
+        case "PUT_PATIENT_PROFILE":
+            return{
+                ...state,
+                patientPut:action.payload
+            }
+            
+        case "POST_PATIENT":
+            return {
+                ...state
+            }
+        
+        case "DELETE_PATIENT":
+            return{
+                ...state,
+                patients: state.patients.filter((pat) => pat._id !== action.payload),
+                patientsCopy: state.patientsCopy.filter((pat) => pat._id !== action.payload)
+            }
 
-            }
         case "GET_DOCTORS":
             return {
                 ...state,
                 doctors: action.payload,
                 doctorsCopy: action.payload
             }
+            
+        case "GET_DOCTOR_DETAIL":
+            return {
+                ...state,
+                doctorDetail: action.payload,
+                cargadoDetail: true
+            }
 
+        case "PUT_DOCTOR":
+            return{
+                ...state,
+                doctorPut:action.payload
+            }
+        
+        case "POST_DOCTOR":
+            return {
+                ...state
+            }
+        
+        case "DELETE_DOCTOR":
+            return{
+                ...state,
+                doctors: state.doctors.filter((doc) => doc._id !== action.payload),
+                doctorsCopy: state.doctorsCopy.filter((doc) => doc._id !== action.payload)
+            }
+            
         case "GET_SPECIALTIES":
             return {
                 ...state,
                 specialties: action.payload
             }
 
-        case "GET_DETAIL":
-            return {
-                ...state,
-                detail: action.payload,
-                cargadoDetail: true
-
-            }
         case "CLEAN_DETAIL":
             return {
                 ...state,
                 detail: action.payload,
                 cargadoDetail: false
-            }
-
-        case "POST_DOCTOR":
-            return {
-                ...state
             }
 
         case "ORDER_BY_NAME":
@@ -82,7 +114,6 @@ function rootReducer(state = initialState, action)
                             if (b.name > a.name) return 1;
                             return 0;
                         })
-
             return {
                 ...state,
                 doctorsCopy: nameSorted,
@@ -191,9 +222,8 @@ function rootReducer(state = initialState, action)
                 ...state
             }
 
-        default:
-            return state;
+        default: return state;
     }
-}
+};
 
 export default rootReducer;

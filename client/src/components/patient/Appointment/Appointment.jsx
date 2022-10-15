@@ -10,9 +10,9 @@ import Paginado from "../Paginado/Paginado.jsx";
 import style from "../Paginado/Paginado.module.css"
 import { Navigate } from "react-router-dom";
 
-export default function Appointment({ user }) {
+export default function Appointment() {
     const dispatch = useDispatch();
-
+    
     useEffect(() => {
         // dispatch(getPatientes());
         dispatch(getDoctors());

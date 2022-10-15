@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './DoctorDetail.module.css'
-import { getDetail, cleandetail } from '../../../actions/index';
+import { getDetails, cleandetail } from '../../../actions/index';
 import { Loading } from '../../Loading/index';
 import Review from '../../patient/Review'
 
@@ -17,7 +17,7 @@ export default function DoctorDetail(props) {
     let addRev = false;
 
     useEffect(() => {
-        dispatch(getDetail(id));
+        dispatch(getDetails(id));
         return (() => { dispatch(cleandetail()) })
     }, [id]);
 

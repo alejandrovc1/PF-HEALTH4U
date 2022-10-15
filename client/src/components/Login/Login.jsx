@@ -1,6 +1,6 @@
 import React from "react"
 import { useState } from "react"
-import { Link, Routes, Route, useNavigate } from "react-router-dom"
+import { Link, Routes, Route, useNavigate, Navigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import axios from "axios"
 import Appointment from '../patient/Appointment/index';
@@ -46,8 +46,8 @@ export default function Login() {
         }))
     }
 
-
-
+    const[logeado,setlogeado]=useState(false)
+    
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError("")
@@ -61,8 +61,8 @@ export default function Login() {
             })
             localStorage.setItem("id", res.id)
             localStorage.setItem("token", res.token)
-             const nav= useNavigate()
-             nav("/appointment")
+            setlogeado(true)
+            window.location.reload(true)
         } catch (error) {
             if (
                 error.response &&
@@ -75,6 +75,7 @@ export default function Login() {
     }
     //<Notification message={error} />
     return (
+        
         <div>
             <h1>LOG IN</h1>
             <form onSubmit={handleSubmit}>
@@ -104,7 +105,6 @@ export default function Login() {
             </form>
             <button>Login with Google</button>
             <Link to="/"><button>Go back</button></Link>
-
         </div>
     )
 }

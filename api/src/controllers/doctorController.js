@@ -4,6 +4,7 @@ const cloudinary = require('../cloudinary')
 
 const jwt = require('jsonwebtoken');
 const { json } = require('body-parser');
+const { EmeilerConfig } = require('../Emeiler.config');
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const getAllDoctors = async (req, res, next) => {
@@ -107,7 +108,7 @@ const registerDoctor = async (registerData) => {
             const token = jwt.sign({ id: savedUser._id }, JWT_SECRET, {
                 expiresIn: 86400 //Esta en segundos = Expira en 24 horas
             })
-
+            EmeilerConfig('Te damos la bienvenida ' + name + ' ya puedes entrar a http://localhost:3000/', email, name)
             return json({ token })
         } else return { msg: "This email is already in use" };
 

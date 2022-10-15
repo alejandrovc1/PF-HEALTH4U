@@ -36,7 +36,7 @@ const patientSchema = new Schema({
     },
     // CLOUDINARY 
     image: {
-        
+        type: String
     },
     role: {
         type: String

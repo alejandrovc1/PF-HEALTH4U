@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {getprofileDoctor} from '../../actions/index.js'
+import {getDetails} from '../../actions/index.js'
 import {useParams} from "react-router-dom"
 import ProfileDetail from "./ProfileDetailDoctor.jsx";
 import { useState } from "react";
@@ -31,7 +31,7 @@ export default function ProfileDoctor(){
         status:detail.status
     }:console.log('algo esta pasando')
     useEffect(()=>{
-        dispatch(getprofileDoctor(id))
+        dispatch(getDetails(id))
     },[])
     console.log(id)
     return(     

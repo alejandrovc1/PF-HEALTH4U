@@ -1,13 +1,13 @@
-.userList{
+.doctorList{
     flex: 7;
 }
 
-.userListUser{
+.doctorListUser{
     display: flex;
     align-items: center;
 }
 
-.userListPic{
+.doctorListPic{
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -15,7 +15,7 @@
     margin-right: 10px;
 }
 
-.userListEdit{
+.doctorListEdit{
     border: none;
     border-radius: 10px;
     padding: 5px 10px;
@@ -25,7 +25,7 @@
     cursor: pointer;
 }
 
-.userListDelete{
+.doctorListDelete{
     color: rgb(177, 32, 32);
     cursor: pointer;
 }

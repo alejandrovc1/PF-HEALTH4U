@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { Admin, Resource, UserMenu } from "react-admin"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+//import { Admin, Resource, UserMenu } from "react-admin"
 import { Home } from './components/Home/index.js'
 import { Login } from './components/Login/index.js'
 import { Register } from './components/Register/index.js'
@@ -42,20 +42,27 @@ export default function App({ user }) {
           <Route exact path='/login' element={<Login />} />
           <Route exact path='/register/' element={<Register />} />
           <Route exact path='/docDetail/:id' element={<DoctorDetail />} />
+          <Route path='*' element={<Navigate to='/'/>}/> 
           </>
           :role==='doctor'?
           <>
             <Route path='/' element={<h1>home doctor</h1>} />
             <Route path='/profile/Patient/:id' element={<ProfileDoctor />} />
+            <Route path='*' element={<Navigate to='/'/>}/> 
           </>
           :role==='patient'?
           <>
-            <Route path='/appointment' element={<Appointment />} />
+            <Route path='/appointment' element={<Appointment  />} />
             <Route path='/profile/Patient/:id' element={<ProfilePatient />} />
+            <Route path='*' element={<Navigate to='appointment'/>}/>  
+            <Route path='/adminView//*' element={<AdminView/>} />
           </>
           :role==='admin'?
-          <Route path='/docDetail/:id' element={<AdminView/>} />
-          :<Route path='*' element={<h1>limpiar localStorage y redireccionar</h1>}/>
+         <>
+          <Route path='/adminView//*' element={<AdminView/>} />
+          <Route path='*' element={<Navigate to='/adminView//*'/>}/> 
+         </>
+          :<Route path='*' element={<h1>Ccargando...</h1>}/>
         }
 {/*          
           <Route element={<ProtectedRoute 

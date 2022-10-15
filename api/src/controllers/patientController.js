@@ -146,10 +146,9 @@ const registerPatient = async (registerData) => {
                 expiresIn: 86400 //Esta en segundos = Expira en 24 horas
             })
 
-            return json({ token })
             EmeilerConfig('Te damos la bienvenida ' + name + ' ya puedes entrar a http://localhost:3000/', email, name)
-            return register
-
+            return json({ token })
+            
         } else {
             return { msg: "This email is already in use" };
         }
@@ -159,23 +158,7 @@ const registerPatient = async (registerData) => {
         throw new Error("Error occurred. Patient couldn't be registered.")
     }
 };
-const emeils = async (msj) => {
-    try {
-        let mandado = await transporter.sendMail({
-            from: '"prueba email 👻" <helath.4U.web@gmail.com>', // sender address
-            to: "smitesotra@gmail.com", // list of receivers
-            subject: "Hello ✔", // Subject line
-            text: msj, // plain text body
-            //html: "<b>Hello world?</b>", // html body
-        });
 
-        return 'msj mandado'
-
-    } catch (e) {
-        console.error(e);
-        throw new Error("Error occurred. Patient couldn't be registered.")
-    }
-}
 
 const updatePatient = async (req, res, next) => {
     try {
@@ -378,6 +361,5 @@ module.exports = {
     registerPatient,
     updatePatient,
     deletePatient,
-    emeils,
     getmercadopago
 }
