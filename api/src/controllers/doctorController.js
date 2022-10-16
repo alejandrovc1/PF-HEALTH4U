@@ -84,8 +84,8 @@ const registerDoctor = async (registerData) => {
                 // method,
                 // image: result.secure_url,
                 // description,
-                rating: rating || 0,
                 // country
+                rating: 0,
                 role: "doctor"
             })
 
@@ -108,15 +108,17 @@ const registerDoctor = async (registerData) => {
             const token = jwt.sign({ id: savedUser._id }, JWT_SECRET, {
                 expiresIn: 86400 //Esta en segundos = Expira en 24 horas
             })
+
             EmeilerConfig('Te damos la bienvenida ' + name + ' ya puedes entrar a http://localhost:3000/', email, name)
             return json({ token })
+
         } else return { msg: "This email is already in use" };
 
     } catch (e) {
         console.error(e);
         throw new Error("Error occurred. Doctor couldn't be registered.")
     }
-}
+};
 
 const updateDoctor = async (req, res, next) => {
     try {
@@ -128,7 +130,7 @@ const updateDoctor = async (req, res, next) => {
             folder: 'doctorPhotos',
         })
 
-        const updatedDoc = await doctorModel.findByIdAndUpdate(id, {
+        await doctorModel.findByIdAndUpdate(id, {
             name,
             email,
            // password,
@@ -140,10 +142,43 @@ const updateDoctor = async (req, res, next) => {
            // rating,
             country
         }, { new: true }) // este ultimo parámetro hace que nos devuelva el doc actualizado
-            .then(() => {
-                console.log(updatedDoc)
-                res.status(200).send("Doctor Successfully Updated")
-            })
+
+        .then(() => {
+            //console.log(updatedDoc)
+            res.status(200).send("Doctor Successfully Updated")
+        })
+
+    } catch (error) { next(error) }
+};
+
+const updateDoctorAdmin = async (req, res, next) => {
+    try {
+        const { id } = req.params
+        const { name, email, password, status, specialtie, method, image, description, rating, country } = req.body
+
+        const result = await cloudinary.uploader.upload(image, {
+            //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
+            folder: 'doctorPhotos',
+        })
+        
+        await doctorModel.findByIdAndUpdate(id, {
+            name,
+            email,
+           // password,
+            status,
+            specialtie,
+            method,
+            image: result.secure_url,
+            description,
+            rating,
+            country
+        }, { new: true }) // este ultimo parámetro hace que nos devuelva el doc actualizado
+
+        .then(() => {
+            //console.log(updatedDoc)
+            res.status(200).send("Doctor Successfully Updated")
+        })
+
     } catch (error) { next(error) }
 };
 
@@ -152,16 +187,18 @@ const deleteDoctor = async (req, res, next) => {
         const { id } = req.params
 
         await doctorModel.findByIdAndRemove(id)
-            .then(() => {
-                res.status(200).send("Doctor Successfully Deleted")
-            })
+        .then(() => {
+            res.status(200).send("Doctor Successfully Deleted")
+        })
+        
     } catch (error) { next(error) }
-}
+};
 
 module.exports = {
     getAllDoctors,
     getDoctorDetail,
     registerDoctor,
     updateDoctor,
+    updateDoctorAdmin,
     deleteDoctor
 };

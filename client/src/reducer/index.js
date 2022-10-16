@@ -41,6 +41,12 @@ function rootReducer(state = initialState, action){
                 ...state,
                 patientPut:action.payload
             }
+
+        case "PUT_PATIENT_PROFILE_ADMIN":
+            return{
+                ...state,
+                patientPut:action.payload
+            }
             
         case "POST_PATIENT":
             return {
@@ -69,6 +75,12 @@ function rootReducer(state = initialState, action){
             }
 
         case "PUT_DOCTOR":
+            return{
+                ...state,
+                doctorPut:action.payload
+            }
+            
+        case "PUT_DOCTOR_ADMIN":
             return{
                 ...state,
                 doctorPut:action.payload
