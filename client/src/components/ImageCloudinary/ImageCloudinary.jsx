@@ -3,7 +3,7 @@ import { CloudinaryContext, Image } from 'cloudinary-react';
 import { fetchPhotos, openUploadWidget } from "../patient/CloudinaryService";
 
 
-export default function Clou({ seteditinput, editinput, seterror, validationError }) {
+export default function Clou({ seteditinput, editinput, seterror=false, validationError }) {
 
   const beginUpload = tag => {
     const uploadOptions = {
@@ -15,7 +15,9 @@ export default function Clou({ seteditinput, editinput, seterror, validationErro
       if (!error) {
         if (photos.event === 'success') {
           seteditinput({ ...editinput, image: photos.info.secure_url })
-          seterror(validationError({ ...editinput, image: photos.info.secure_url }))
+          if(seterror){
+            seterror(validationError({ ...editinput, image: photos.info.secure_url }))
+          }
         }
       } else {
       }

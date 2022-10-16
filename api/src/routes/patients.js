@@ -7,14 +7,27 @@ const {
     updatePatient,
     updatePatientAdmin,
     deletePatient,
-    getmercadopago
+    getmercadopago,
+    subpatien
 } = require('../controllers/patientController')
 
 const router = Router();
 
-router.get('/subcription', async (req, res) => {
+router.get('/subcription/:id', async (req, res) => {
     try {
-        const respueta= await getmercadopago()
+        const {id}=req.params
+        const respueta= await getmercadopago(id)
+        res.send(respueta)
+    } catch (error) {
+        console.log(error)
+        res.json(error)
+    }
+
+})
+router.get('/getsub/:id', async (req, res) => {
+    try {
+        const {id}=req.params
+        const respueta= await subpatien(id)
         res.send(respueta)
     } catch (error) {
         console.log(error)

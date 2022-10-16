@@ -17,7 +17,7 @@ export default function ProfilePatient() {
     let functiionEdit = () => {
         setEdit(edit ? false : true)
     }
-
+console.log(detail)
     detail ? props = {
         image: detail.image,
         name: detail.name,
