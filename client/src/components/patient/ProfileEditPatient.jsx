@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import s from './Profile.module.css'
-import Clou from "../ImageCloudinary";
+import Clou from "../ImageCloudinary/ImageCloudinary.jsx";
 import { useDispatch } from "react-redux";
 import { putprofile } from "../../actions";
 import { useNavigate, useParams } from "react-router-dom";
