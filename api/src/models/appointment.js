@@ -5,14 +5,20 @@ const { Schema, model } = require("mongoose");
 
 //Mongo da una id predeterminadamente, no es necesario declarar
 const appointmentSchema = new Schema({
-    service: {
-        type: String,
-    },
-    date: {
+    start: {
         type: Date,
     },
-    doctor: {
-        type: String
+    end: {
+        type: Date,
+    },
+    status: {
+        type: String,
+    },
+    doctorID: {
+        type: String,
+    },
+    patientID: {
+        type: String,
     }
 },
 {
