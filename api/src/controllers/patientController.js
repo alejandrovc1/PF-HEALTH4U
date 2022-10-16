@@ -389,11 +389,19 @@ const subpatien=async(id)=>{
                     Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
                 }
             });
-            console.log(subscription.data)
-            return {
-                id:response._id,
-                name:response.name,
-                substado:subscription.data.results[0].status
+            if(subscription.data.results[0].status){
+
+                return {
+                    id:response._id,
+                    name:response.name,
+                    substado:subscription.data.results[0].status
+                }
+            }else{
+                return {
+                    id:response._id,
+                    name:response.name,
+                    substado:'not subscribed'
+                }    
             }
         }else{
             return {
