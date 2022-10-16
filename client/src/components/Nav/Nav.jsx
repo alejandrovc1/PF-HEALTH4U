@@ -10,7 +10,9 @@ function Nav() {
       <header>
          <nav className={style.navbar}>
             <div className={style.navi}>
+               <Link to={'/'}>
                <img className={style.img} src={logo} />
+               </Link>
                <div>
                   <ul id={style.navul}>
                      <li><a href="/aboutus">About us</a></li>

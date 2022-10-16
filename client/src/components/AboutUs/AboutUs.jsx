@@ -2,10 +2,13 @@ import React from "react";
 import s from './aboutUs.module.css'
 import img from '../../image/imgabout.png'
 import { NavLink } from "react-router-dom";
+import { Nav } from "../Nav";
 
 export default function AboutUs() {
 
     return (
+        <>
+        <Nav/>
         <div className={s.conten}>
             <div className={s.contenImg}>
                 <img src={img} alt="img" />
@@ -39,5 +42,6 @@ export default function AboutUs() {
 
             </div>
         </div>
+        </>
     )
 }
