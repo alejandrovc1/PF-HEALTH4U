@@ -125,20 +125,6 @@ const registerPatient = async (registerData) => {
                 status: "active"
             })
 
-<<<<<<< HEAD
-=======
-            // if (roles) {
-            //     en caso de que quisieramos agregar varios roles a un doctor
-            //     const foundRoles = await roleModel.find({ name: { $in: roles } })
-            //     en la propiedad rol del doctor se guarda un arreglo con el id del rol
-            //     newPatient.role = foundRoles.map(role => role._id)//por cada objeto(role) devuelve el id (role._id)
-            // } else {
-            //     solo agrega un rol por defecto al usuario
-            //     const role = await roleModel.findOne({ name: "patient" })
-            //     newPatient.role = [role._id]
-            // }
-
->>>>>>> 64951cb6946c5f8728c280a1d772b44251a6337e
             const savedUser = await newPatient.save();
             console.log(savedUser)
 
