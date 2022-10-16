@@ -16,16 +16,20 @@ const adminSchema = new Schema({
     password: {
         type: String,
     },
-    role: [{
-        //Relacionamos el esquema de role al de los usuarios.
-        ref: "Role",
-        type: Schema.Types.ObjectId
-    }]
-},
+    role: {
+        // [{
+        // //Relacionamos el esquema de role al de los usuarios.
+        // ref: "Role",
+        // type: Schema.Types.ObjectId
+        // }]
+        type: String,
+    }},
     {
         timestamps: true,
         versionKey: false,
-    });
+    }
+);
+
 //metodos
 adminSchema.statics.encryptPassword = async (password) => {
     //Un salt es un string que hace que el hash sea inpredecible

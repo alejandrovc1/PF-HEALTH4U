@@ -58,6 +58,22 @@ export function updateDoctor(id, dato){ //Actualizar doctor
     }
 };
 
+export function updateDoctorAdmin(id, dato){ //Actualizar doctor
+    // dato={
+    //     ...dato,
+    //     tel:parseInt(dato.tel),
+    //     birthDate:new Date(dato.birthDate+'T00:00:00.000Z')
+    // }
+    return async function (dispatch)
+    {
+        let json = await axios.put("http://localhost:3001/doctors/admin/"+ id, dato);
+        return dispatch({
+            type: "PUT_DOCTOR_ADMIN",
+            payload: json.data
+        })
+    }
+};
+
 export function postDoctors(doctor){ //Agregar doctor
     return async function (dispatch)
     {
@@ -114,6 +130,22 @@ export function putprofile(id, dato){ //Actualizar patient
         let json = await axios.put("http://localhost:3001/patients/"+ id, dato);
         return dispatch({
             type: "PUT_PATIENT_PROFILE",
+            payload: json.data
+        })
+    }
+};
+
+export function putprofileAdmin(id, dato){ //Actualizar patient
+    dato={
+        ...dato,
+        tel:parseInt(dato.tel),
+        birthDate:new Date(dato.birthDate+'T00:00:00.000Z')
+    }
+    return async function (dispatch)
+    {
+        let json = await axios.put("http://localhost:3001/patients/admin/"+ id, dato);
+        return dispatch({
+            type: "PUT_PATIENT_PROFILE_ADMIN",
             payload: json.data
         })
     }
