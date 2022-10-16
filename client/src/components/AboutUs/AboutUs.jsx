@@ -1,6 +1,6 @@
 import React from "react";
 import s from './aboutUs.module.css'
-import img from './image/imgabout.png'
+import img from '../../image/imgabout.png'
 import { NavLink } from "react-router-dom";
 
 export default function AboutUs() {

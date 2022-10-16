@@ -13,6 +13,7 @@ import ProfileDoctor from './components/doctor/ProfileDoctor'
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
 import { AuthProvider } from './context/authContext'
 import { getRole } from './actions/index.js'
+import AboutUs from './components/AboutUs/AboutUs.jsx'
 
 
 // const tokenInLocal = localStorage.getItem("token")
@@ -44,6 +45,7 @@ export default function App( ) {
             <Route exact path='/login' element={<Login />} />
             <Route exact path='/register/' element={<Register />} />
             <Route exact path='/docDetail/:id' element={<DoctorDetail />} />
+            <Route exact path='/aboutus' element={<AboutUs/>} />
             <Route path='*' element={<Navigate to='/'/>}/> 
           </>
           : role === 'doctor'?
