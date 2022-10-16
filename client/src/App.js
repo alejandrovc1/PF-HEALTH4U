@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
-//import { Admin, Resource, UserMenu } from "react-admin"
+import { useDispatch, useSelector } from 'react-redux'
 import { Home } from './components/Home/index.js'
 import { Login } from './components/Login/index.js'
 import { Register } from './components/Register/index.js'
@@ -11,7 +11,6 @@ import AdminView from './components/admin/AdminView'
 import ProfilePatient from './components/patient/ProfilePatient'
 import ProfileDoctor from './components/doctor/ProfileDoctor'
 import { AuthProvider } from './context/authContext'
-import { useDispatch, useSelector } from 'react-redux'
 import { getRole } from './actions/index.js'
 
 // const tokenInLocal = localStorage.getItem("token")
@@ -29,64 +28,43 @@ export default function App() {
     console.log(tokenInLocal)
     const id = localStorage.getItem("id")
     dispatch(getRole({ id, token: tokenInLocal }))
-  }
-  return (
-    <BrowserRouter>
-      <AuthProvider>
 
-        <Routes>
-          {!tokenInLocal ?
-            <>
-              <Route exact path='/' element={<Home />} />
-              <Route exact path='/login' element={<Login />} />
-              <Route exact path='/register/' element={<Register />} />
-              <Route exact path='/docDetail/:id' element={<DoctorDetail />} />
-              <Route path='*' element={<Navigate to='/' />} />
-            </>
-            : role === 'doctor' ?
+
+    return (
+      <BrowserRouter>
+        <AuthProvider>
+
+          <Routes>
+            {!tokenInLocal ?
               <>
-                <Route path='/' element={<h1>home doctor</h1>} />
-                <Route path='/profile/Patient/:id' element={<ProfileDoctor />} />
+                <Route exact path='/' element={<Home />} />
+                <Route exact path='/login' element={<Login />} />
+                <Route exact path='/register/' element={<Register />} />
+                <Route exact path='/docDetail/:id' element={<DoctorDetail />} />
+                <Route path='*' element={<Navigate to='/' />} />
               </>
-              : role === 'patient' ?
+              : role === 'doctor' ?
                 <>
-                  <Route path='/appointment' element={<Appointment />} />
-                  <Route path='/profile/Patient/:id' element={<ProfilePatient />} />
-                  <Route path='*' element={<Navigate to='appointment' />} />
+                  <Route path='/' element={<h1>home doctor</h1>} />
+                  <Route path='/profile/Patient/:id' element={<ProfileDoctor />} />
                 </>
-                : role === 'admin' ?
+                : role === 'patient' ?
                   <>
-                    <Route path='/adminView' element={<AdminView />} />
-                    <Route path='*' element={<Navigate to='/adminView/*' />} />
+                    <Route path='/appointment' element={<Appointment />} />
+                    <Route path='/profile/Patient/:id' element={<ProfilePatient />} />
+                    <Route path='*' element={<Navigate to='appointment' />} />
                   </>
-                  : <Route path='*' element={<h1>Cargando...</h1>} />
-          }
-          {/*          
-          <Route element={<ProtectedRoute 
-            isAllowed={!!user} />}>
-            <Route path='/appointment' element={<Appointment />} />
-            <Route path='/profile/Patient/:id' element={<ProfilePatient />} />
-          </Route>
-
-        
-          <Route path='/profile/Doctor/:id' element={<ProfileDoctor />} />
-          <Route path='/docDetail/:id' element={<DoctorDetail />} />
-
-        
-          <Route path='/adminView' element={
-            <ProtectedRoute
-              isAllowed={!!user && user.rol.includes('admin')}
-              redirectTo="/login"
-            >
-              <AdminView />
-            </ProtectedRoute>
-          } /> */}
-
-        </Routes>
-      </AuthProvider>
-    </BrowserRouter>
-  );
-
+                  : role === 'admin' ?
+                    <>
+                      <Route path='/adminView' element={<AdminView />} />
+                      <Route path='*' element={<Navigate to='/adminView/*' />} />
+                    </>
+                    : <Route path='*' element={<h1>Cargando...</h1>} />
+            }
+          </Routes>
+        </AuthProvider>
+      </BrowserRouter>
+    )
+  };
 }
-
 

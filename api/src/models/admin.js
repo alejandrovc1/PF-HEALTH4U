@@ -26,7 +26,9 @@ const adminSchema = new Schema({
     {
         timestamps: true,
         versionKey: false,
-    });
+    }
+);
+
 //metodos
 adminSchema.statics.encryptPassword = async (password) => {
     //Un salt es un string que hace que el hash sea inpredecible

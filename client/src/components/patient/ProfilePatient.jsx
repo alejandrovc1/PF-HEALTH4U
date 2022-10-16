@@ -10,7 +10,7 @@ export default function ProfilePatient() {
     const { id } = useParams();
     const dispatch = useDispatch()
     let [edit, setEdit] = useState(false)
-    let detail = useSelector(f => f.profileDetail)
+    let detail = useSelector(f => f.patientDetail)
     let props = {
 
     }
