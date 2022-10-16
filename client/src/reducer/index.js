@@ -7,10 +7,10 @@ const initialState = { //estados iniciales
     Patients: [],
 
     profileDetail:[],
-    profileput:''
+    profileput:'',
     isLogged: {}
 }
-}
+
 
 function rootReducer(state = initialState, action)
 {
