@@ -213,7 +213,7 @@ const deletePatient = async (req, res, next) => {
         next(error)
     }
 };
-const getmercadopago = async () => {
+const getmercadopago = async (id) => {
     const urlplan = 'https://api.mercadopago.com/preapproval_plan'
     const plan = {
 
@@ -248,6 +248,11 @@ const getmercadopago = async () => {
             Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
         }
     });
+    await patientModel.findByIdAndUpdate(id, {
+        subscription:subscription.data.id
+
+        //status: status
+    }, { new: true }) 
     console.log(subscription.data)
     return subscription.data.init_point
     const sub = {
@@ -353,7 +358,35 @@ const getmercadopago = async () => {
     //    .catch(err=>console.log(err))
 
 }
-
+const subpatien=async(id)=>{
+    const response = await patientModel.findById(id)
+    if(response){
+        if(response.subscription){
+            
+            const url='https://api.mercadopago.com/preapproval/search?preapproval_plan_id='+response.subscription
+            const subscription = await axios.get(url, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
+                }
+            });
+            console.log(subscription.data)
+            return {
+                id:response._id,
+                name:response.name,
+                substado:subscription.data.results[0].status
+            }
+        }else{
+            return {
+                id:response._id,
+                name:response.name,
+                substado:'not subscribed'
+            }
+        }
+    }
+    
+    return 'user does not exist'
+};
 module.exports = {
     getAllPatients,
     getPatientByName,
@@ -361,5 +394,6 @@ module.exports = {
     registerPatient,
     updatePatient,
     deletePatient,
-    getmercadopago
+    getmercadopago,
+    subpatien
 }
