@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getprofile, putprofileAdmin} from '../../../actions/index.js'
-import { Link, useParams } from 'react-router-dom'
+import { Link ,Navigate,useNavigate,useNavigation,useParams } from 'react-router-dom'
 import st from './User.module.css'
 import Clou from "../../ImageCloudinary/ImageCloudinary";
 import { PermIdentity, AlternateEmail, CalendarMonth, Wc, Public, MyLocation, 
@@ -16,7 +16,7 @@ export default function User( ) {
 
     useEffect(() =>{
         dispatch(getprofile(userId));
-    }, []);
+    }, [dispatch]);
     console.log('SOY EL PATIENT: ', userId)
 
     const [input, setInput] = useState({
@@ -30,10 +30,10 @@ export default function User( ) {
         birthDate: patient.birthDate,
         image: patient.image,
     })
-
+    const [nav,setnav]=useState(false)
     let props = {};
 
-    patient ? props = {
+     patient ? props = {
         id: patient.id,
         name: patient.name,
         email: patient.email,
@@ -45,7 +45,6 @@ export default function User( ) {
         image: patient.image,
         status: patient.status
     } : console.log('Algo esta pasando') 
-
     const handleChange = (e) => {
         e.preventDefault();
         setInput((prev) => ({ 
@@ -53,10 +52,15 @@ export default function User( ) {
         [e.target.name]: e.target.value,
     }))}
 
-    const handleUpdate = () => {
-        dispatch(putprofileAdmin(userId, input))
-        window.location.reload(true)
-    }
+    const handleUpdate = (e) => {
+             e.preventDefault()
+             console.log(e.target.name)
+             if (e.target.name==='update'){
+                 dispatch(putprofileAdmin(userId, input))
+                 //window.location.reload(true)
+                setnav(true)
+             }
+        }
 
 
     return (
@@ -122,7 +126,7 @@ export default function User( ) {
 
                 <div className={st.userUpdate}>
                     <span className={st.userUpdateTitle}>Edit</span>
-                    <form onSubmit={(e) => handleUpdate(e)} className={st.userUpdateForm}>
+                    <form onSubmit={handleUpdate} className={st.userUpdateForm}>
                         <div className={st.userUpdateLeft}>
 
                             <div className={st.userUpdateItem}>
@@ -206,18 +210,21 @@ export default function User( ) {
                                 <img className={st.userUpdateImg} src={input.image} alt="Profile Pic" />
                                 <label htmlFor="file">
                                     <DriveFolderUpload className={st.userUpdateIcon}/>
-                                    {/* <Clou
+                                     <Clou
                                         seteditinput={setInput}
                                         editinput={input}
-                                    /> */}
+                                    /> 
                                 </label>
                                 <input name="image" type="file" id='file' style={{display: "none"}} onChange={(e) => handleChange(e)}/>
                             </div>
-                            <button className={st.userUpdateBotton}>Update</button>
+                            
+                            <button name='update' onClick={handleUpdate} className={st.userUpdateBotton}>Update</button>
+                            
                         </div>
                     </form>
                 </div>
             </div>
+            {nav?<Navigate to={'/adminView/users'} />:null}
         </div>
     )
 };
