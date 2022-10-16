@@ -49,9 +49,9 @@ const loginFunction = async (req, res) => {
                     const token = jwt.sign(userForToken2, JWT_SECRET, {
                         expiresIn: 86400 // Un dia 
                     })
-                  await patientModel.findByIdAndUpdate(patientFound._id, {
-                    token: token,
-                })
+                    await patientModel.findByIdAndUpdate(patientFound._id, {
+                        token: token,
+                    })
                     res.send({
                         name: patientFound.name,
                         email: patientFound.email,
@@ -59,7 +59,28 @@ const loginFunction = async (req, res) => {
                         token,
                     })
                 } else {
-                    return res.status(400).json({ token: null, message: 'User not found' })
+                    const adminFound = await adminModel.findOne({ email: req.body.email })
+                    if (adminFound) {
+                        const userForToken3 = {
+                            id: adminFound._id,
+                            email: adminFound.email
+                        }
+
+                        const token = jwt.sign(userForToken3, JWT_SECRET, {
+                            expiresIn: 86400 // Un dia 
+                        })
+                        await adminModel.findByIdAndUpdate(adminFound._id, {
+                            token: token,
+                        })
+
+                        res.send({
+                            name: adminFound.name,
+                            email: adminFound.email,
+                            id: adminFound._id,
+                            token,
+                        })
+                    }
+                    else { return res.status(400).json({ token: null, message: 'User not found' }) }
                 }
             }
         } return { msg: "Email and password are required" };
@@ -75,26 +96,26 @@ const compareToken = async (req, res) => {
         const { id, token } = req.body
         const doctorFound = await doctorModel.findOne({ _id: id })
         const patientFound = await patientModel.findOne({ _id: id })
-        console.log('doctor: '+ doctorFound+ "patient: "+patientFound )
+        console.log('doctor: ' + doctorFound + "patient: " + patientFound)
         if (doctorFound) {
             if (doctorFound.token === token) {
                 let roleFound = 'doctor'
-            
+
                 res.send(
                     roleFound,
                 )
             }
-        }else
-        if (patientFound) {
-            if (patientFound.token === token) {
-                let roleFound = 'patient'
-                res.send(
-                    roleFound,
-                )
+        } else
+            if (patientFound) {
+                if (patientFound.token === token) {
+                    let roleFound = 'patient'
+                    res.send(
+                        roleFound,
+                    )
+                }
+            } else {
+                res.send('problemas')
             }
-        }else{
-            res.send('problemas')
-        }
     } catch (e) {
         console.log(e)
     }

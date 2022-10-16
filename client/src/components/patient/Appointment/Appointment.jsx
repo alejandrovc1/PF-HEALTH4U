@@ -12,7 +12,7 @@ import { Navigate } from "react-router-dom";
 
 export default function Appointment() {
     const dispatch = useDispatch();
-    
+
     useEffect(() => {
         // dispatch(getPatientes());
         dispatch(getDoctors());
@@ -96,87 +96,87 @@ export default function Appointment() {
         dispatch(reset())
     }
 
-   
-        return (
-            <div>
-                <NavAppointment />
-                <div className={s.tite}>
-                    <h1>Select your preferences to make an appointment!</h1>
-                </div>
-                <div className={s.conten}>
-                    <select className={s.filter} onChange={e => handleSort(e)}>
-                        <option value="Any">Alphabetically</option>
-                        <option value="AZ">Ascendant</option>
-                        <option value="ZA">Descendant</option>
-                    </select>
-                    <select className={s.filter} onChange={e => handleSpecialties(e)}>
-                        <option value="All">Specialties</option>
-                        {allspecialties.map(data => (
-                            <option value={data.name}>{data.name}</option>
-                        ))}
-                    </select>
-                    <select className={s.filter} onChange={e => handleRating(e)}>
-                        <option value="Any">Rating</option>
-                        <option value="MinMax">Ascendant</option>
-                        <option value="MaxMin">Descendant</option>
-                    </select>
-                    <select className={s.filter} onChange={e => handleMethod(e)}>
-                        <option value="Any">Method</option>
-                        <option value="At home">At Home</option>
-                        <option value="Virtual">Virtual meeting</option>
-                        <option value="Private office">Private office</option>
-                    </select>
-                    <select className={s.filter}>
-                        <option>Day Available</option>
-                    </select>
-                    <select className={s.filter}>
-                        <option>Hour Available</option>
-                    </select>
-                    <button onClick={e => handleReset(e)}>Clear</button>
-                </div>
 
-
-                <div className={style.paginado_container}>
-                    <div className={style.paginado1}>
-                        {
-                            currentPage === 1 ? <div></div> :
-                                <button onClick={() => handlerPrev()} className={style.paginado_orden}>{"<"}</button>
-                        }
-                        <Paginado doctorsPerPage={doctorsPerPage}
-                            allDoctors={allDoctors.length}
-                            paginado={paginado}
-                        />
-                        {
-                            currentPage === 2 ? <div></div> :
-                                <button onClick={() => handlerNext()} className={style.paginado_orden}>{">"}</button>
-                        }
-                    </div>
-                </div>
-
-
-                <div className={s.docs}>
-                    <div className={s.cardXdoc}>
-                        {
-
-                            currentDoctors.map(doctors => (
-                                < CardDoc
-                                    id={doctors.id}
-                                    name={doctors.name}
-                                    image={doctors.image}
-                                    description={doctors.description}
-                                    rating={doctors.rating}
-                                    specialtie={doctors.specialtie}
-                                    commets={doctors.commets}
-                                />
-
-                            ))
-                        }
-
-
-                    </div>
-
-                </div>
-                <Footer />
+    return (
+        <div>
+            <NavAppointment />
+            <div className={s.tite}>
+                <h1>Select your preferences to make an appointment!</h1>
             </div>
-        )
-    }
+            <div className={s.conten}>
+                <select className={s.filter} onChange={e => handleSort(e)}>
+                    <option value="Any">Alphabetically</option>
+                    <option value="AZ">Ascendant</option>
+                    <option value="ZA">Descendant</option>
+                </select>
+                <select className={s.filter} onChange={e => handleSpecialties(e)}>
+                    <option value="All">Specialties</option>
+                    {allspecialties.map(data => (
+                        <option value={data.name}>{data.name}</option>
+                    ))}
+                </select>
+                <select className={s.filter} onChange={e => handleRating(e)}>
+                    <option value="Any">Rating</option>
+                    <option value="MinMax">Ascendant</option>
+                    <option value="MaxMin">Descendant</option>
+                </select>
+                <select className={s.filter} onChange={e => handleMethod(e)}>
+                    <option value="Any">Method</option>
+                    <option value="At home">At Home</option>
+                    <option value="Virtual">Virtual meeting</option>
+                    <option value="Private office">Private office</option>
+                </select>
+                <select className={s.filter}>
+                    <option>Day Available</option>
+                </select>
+                <select className={s.filter}>
+                    <option>Hour Available</option>
+                </select>
+                <button onClick={e => handleReset(e)}>Clear</button>
+            </div>
+
+
+            <div className={style.paginado_container}>
+                <div className={style.paginado1}>
+                    {
+                        currentPage === 1 ? <div></div> :
+                            <button onClick={() => handlerPrev()} className={style.paginado_orden}>{"<"}</button>
+                    }
+                    <Paginado doctorsPerPage={doctorsPerPage}
+                        allDoctors={allDoctors.length}
+                        paginado={paginado}
+                    />
+                    {
+                        currentPage === 2 ? <div></div> :
+                            <button onClick={() => handlerNext()} className={style.paginado_orden}>{">"}</button>
+                    }
+                </div>
+            </div>
+
+
+            <div className={s.docs}>
+                <div className={s.cardXdoc}>
+                    {
+
+                        currentDoctors.map(doctors => (
+                            < CardDoc
+                                id={doctors.id}
+                                name={doctors.name}
+                                image={doctors.image}
+                                description={doctors.description}
+                                rating={doctors.rating}
+                                specialtie={doctors.specialtie}
+                                commets={doctors.commets}
+                            />
+
+                        ))
+                    }
+
+
+                </div>
+
+            </div>
+            <Footer />
+        </div>
+    )
+}

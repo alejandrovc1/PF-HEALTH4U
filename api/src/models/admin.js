@@ -16,11 +16,12 @@ const adminSchema = new Schema({
     password: {
         type: String,
     },
-    role: [{
-        //Relacionamos el esquema de role al de los usuarios.
-        ref: "Role",
-        type: Schema.Types.ObjectId
-    }]
+    role: {
+        type: String,
+    },
+    token: {
+        type: String,
+    }
 },
     {
         timestamps: true,
