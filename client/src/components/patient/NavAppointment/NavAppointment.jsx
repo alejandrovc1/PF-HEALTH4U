@@ -12,9 +12,15 @@ export default function NavAppointment() {
     console.log(users)
 
 
-    const handleLogOut = async () => {
-        await logout()
-        navigate("/")
+    const handleLogOut = async (e) => {
+        e.preventDefault()
+        try {
+            localStorage.removeItem("id")
+            localStorage.removeItem("token")
+            window.location.reload(true)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -24,12 +30,10 @@ export default function NavAppointment() {
                     <img className={style.img} src={logo} />
                     <div>
                         <ul id={style.navul}>
-                            <li><a href="index.html">Specialties</a></li>
                             <li><a href="index.html">My Appointments</a></li>
                             <li><a href="/account">Account</a></li>
                             <li><a href="index.html">Cart</a></li>
                             <button className={style.boton} onClick={handleLogOut}>SIGN OUT</button>
-
                         </ul>
                     </div>
                 </div>

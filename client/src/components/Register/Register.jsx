@@ -4,6 +4,11 @@ import { useState, useEffect } from "react"
 import { useAuth } from "../../context/authContext"
 import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
+import {
+    GoogleAuthProvider,
+    signInWithPopup
+} from 'firebase/auth';
+import { auth } from "../../firebase"
 
 export default function Register() {
     const navigate = useNavigate()
@@ -146,7 +151,7 @@ export default function Register() {
                 password: "",
                 confirmPassword: "",
             })
-            navigate('/login')
+            navigate("/login")
         }
     }
 
@@ -154,7 +159,7 @@ export default function Register() {
         e.preventDefault()
         if (true) {
             console.log('Pase por el submit de patient')
-           // await signup(patient.email, patient.password, patient.fullname, patient.confirmPassword)
+            // await signup(patient.email, patient.password, patient.fullname, patient.confirmPassword)
             const patient2 = {
                 name: patient.fullname,
                 email: patient.email,
@@ -168,10 +173,32 @@ export default function Register() {
                 password: "",
                 confirmPassword: "",
             })
-            navigate('/login')
+            navigate("/login")
         }
     }
 
+    const handleGoogleButton = async (e) => {
+        e.preventDefault()
+        const googleProvider = new GoogleAuthProvider()
+        signInWithPopup(auth, googleProvider)
+            .then(res => {
+                console.log(res)
+                const userWithGoogle = {
+                    name: res.user.displayName,
+                    email: res.user.email,
+                    password: res.user.uid
+                }
+                if (user.typeUser == 'doctor') {
+                    console.log(userWithGoogle)
+                    dispatch(postDoctors(userWithGoogle))
+                } else if (patient.typeUser == 'patient') {
+                    console.log(userWithGoogle)
+                    dispatch(postPatient(userWithGoogle))
+                }
+                navigate("/login")
+            })
+            .catch(e => console.log(e))
+    }
     return (
 
         <div>
@@ -231,6 +258,7 @@ export default function Register() {
                         {error.confirmPassword && <p>{error.confirmPassword}</p>}
 
                         <button type="submit">Register</button>
+                        <button onClick={handleGoogleButton}>Register with google</button>
                     </div>
                 </form>
             }
@@ -279,10 +307,10 @@ export default function Register() {
                         {error.confirmPassword && <p>{error.confirmPassword}</p>}
 
                         <button type="submit">Register</button>
+                        <button onClick={handleGoogleButton}>Register with google</button>
                     </div>
                 </form>
             }
-            { }
 
             <p>
                 Already have an account?

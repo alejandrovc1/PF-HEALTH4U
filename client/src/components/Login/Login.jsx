@@ -1,14 +1,34 @@
 import React from "react"
-import { useState } from "react"
-import { Link, Routes, Route, useNavigate, Navigate } from "react-router-dom"
+import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import axios from "axios"
-import Appointment from '../patient/Appointment/index';
-import { loggedState } from "../../actions/index"
-
-
+import {
+    GoogleAuthProvider,
+    signInWithPopup
+} from 'firebase/auth';
+import { auth } from "../../firebase"
 
 export default function Login() {
+
+    const [data, setData] = useState({
+        email: "",
+        password: ""
+    });
+
+    function handleGoogleButton ()  {
+        const googleProvider = new GoogleAuthProvider()
+        signInWithPopup(auth, googleProvider)
+            .then(res => {
+                console.log(res)
+                setData({
+                    email: res.user.email,
+                    password: res.user.uid
+                })
+            })
+            .catch(e => console.log(e))
+    }
+
     const [user, setUser] = useState(null);
     const dispatch = useDispatch();
 
@@ -27,13 +47,7 @@ export default function Login() {
         return error
     }
 
-    const [data, setData] = useState({
-        email: "",
-        password: ""
-    });
-
     const [error, setError] = useState("")
-
 
     function handleInputChange(e) {
         setData({
@@ -46,8 +60,8 @@ export default function Login() {
         }))
     }
 
-    const[logeado,setlogeado]=useState(false)
-    
+    const [logeado, setlogeado] = useState(false)
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError("")
@@ -75,7 +89,7 @@ export default function Login() {
     }
     //<Notification message={error} />
     return (
-        
+
         <div>
             <h1>LOG IN</h1>
             <form onSubmit={handleSubmit}>
@@ -103,7 +117,7 @@ export default function Login() {
                 <button type="submit">Login</button>
 
             </form>
-            <button>Login with Google</button>
+            <button onClick={handleGoogleButton}>LOG IN WITH GOOGLE</button>
             <Link to="/"><button>Go back</button></Link>
         </div>
     )
