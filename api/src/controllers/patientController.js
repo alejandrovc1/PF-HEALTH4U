@@ -8,14 +8,13 @@ const { json } = require('body-parser');
 const JWT_SECRET = process.env.JWT_SECRET;
 const mercadopago = require('mercadopago')
 
-
 const nameFolder = 'patientPhotos'
 const { EmeilerConfig } = require('../Emeiler.config.js')
-
-
 mercadopago.configure({
     access_token: process.env.ACCESS_TOKEN
 })
+
+
 const getAllPatients = async () => {
     try {
         const response = await patientModel.find({})
@@ -104,7 +103,7 @@ const getPatientDetail = async (id) => {
 
 const registerPatient = async (registerData) => {
     try {
-        const { name, email, password, birthDate, genre, address, country, tel, image, roles } = registerData
+        const { name, email, password, birthDate, genre, address, country, tel, image } = registerData
 
         const found = await patientModel.findOne({ email: email })
         if (!found) {
@@ -122,6 +121,7 @@ const registerPatient = async (registerData) => {
                 // country,
                 // tel,
                 // image: result.secure_url,
+                role: "patient",
                 status: "active"
             })
 
@@ -135,7 +135,6 @@ const registerPatient = async (registerData) => {
             //     const role = await roleModel.findOne({ name: "patient" })
             //     newPatient.role = [role._id]
             // }
-
 
             const savedUser = await newPatient.save();
             console.log(savedUser)
@@ -159,7 +158,6 @@ const registerPatient = async (registerData) => {
     }
 };
 
-
 const updatePatient = async (req, res, next) => {
     try {
 
@@ -172,7 +170,7 @@ const updatePatient = async (req, res, next) => {
         //     //     folder: patientPhotos,
         //     // })
 
-        const updatedPatient = await patientModel.findByIdAndUpdate(id, {
+        await patientModel.findByIdAndUpdate(id, {
             name: name,
             email: email,
             // password: password,
@@ -182,22 +180,54 @@ const updatePatient = async (req, res, next) => {
             country: country,
             tel: tel,
             image: image,
-
             //status: status
         }, { new: true }) // este ultimo parámetro hace que nos devuelva el doc actualizado
 
-            .then(() => {
-                // console.log(updatedPatient)
-                res.status(200).send("Patient Successfully Updated")
-            })
+        .then(() => {
+            // console.log(updatedPatient)
+            res.status(200).send("Patient Successfully Updated")
+        })
 
     } catch (error) {
-
         console.error('Failed to update patient');
         console.log(error)
         next(error)
     }
+};
 
+const updatePatientAdmin = async (req, res, next) => {
+    try {
+        const { id } = req.params
+        const { name, email, password, birthDate, genre, address, country, tel, image, status } = req.body
+
+        // const result = await cloudinary.uploader.upload(image, {
+        //     //     //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
+        //     //     folder: patientPhotos,
+        //     // })
+
+        await patientModel.findByIdAndUpdate(id, {
+            name: name,
+            email: email,
+            // password: password,
+            birthDate: birthDate,
+            genre: genre,
+            address: address,
+            country: country,
+            tel: tel,
+            image: image,
+            status: status
+        }, { new: true }) // este ultimo parámetro hace que nos devuelva el doc actualizado
+
+        .then(() => {
+            // console.log(updatedPatient)
+            res.status(200).send("Patient Successfully Updated")
+        })
+
+    } catch (error) {
+        console.error('Failed to update patient');
+        console.log(error)
+        next(error)
+    }
 };
 
 const deletePatient = async (req, res, next) => {
@@ -205,14 +235,15 @@ const deletePatient = async (req, res, next) => {
         const { id } = req.params
 
         await patientModel.findByIdAndRemove(id)
-            .then(() => {
-                res.status(200).send("Patient Successfully Deleted")
-            })
+        .then(() => {
+            res.status(200).send("Patient Successfully Deleted")
+        })
     } catch (error) {
         console.error('Failed to remove patient');
         next(error)
     }
 };
+
 const getmercadopago = async () => {
     const urlplan = 'https://api.mercadopago.com/preapproval_plan'
     const plan = {
@@ -250,7 +281,7 @@ const getmercadopago = async () => {
     });
     console.log(subscription.data)
     return subscription.data.init_point
-    const sub = {
+    /* const sub = {
         "preapproval_plan_id": subscription.data.id,
         "reason": "Yoga classes",
         "external_reference": "YG-1234",
@@ -266,7 +297,8 @@ const getmercadopago = async () => {
         },
         "back_url": "https://www.mercadopago.com.ar",
         "status": "authorized"
-    }
+        }
+    */
     //   const url='https://api.mercadopago.com/preapproval'
     //   const subscriptionfinal = await axios.post(url, sub, {
     //     headers: {
@@ -274,8 +306,8 @@ const getmercadopago = async () => {
     //       Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
     //     }
     //   });
-    //console.log(subscriptionfinal)
-    // const body = {
+    //   console.log(subscriptionfinal)
+    //   const body = {
     //     "items": [
     //         {
     //             "id": "Heath 4U",
@@ -329,17 +361,17 @@ const getmercadopago = async () => {
     //     "statement_descriptor": "MINEGOCIO",
     //     "external_reference": "Reference_1234",
     //     "expires": true,
-    //    // "expiration_date_from": "2016-02-01T12:00:00.000-04:00",
-    //     //"expiration_date_to": "2016-02-28T12:00:00.000-04:00"
-    // }
+    //    //"expiration_date_from": "2016-02-01T12:00:00.000-04:00",
+    //    //"expiration_date_to": "2016-02-28T12:00:00.000-04:00"
+    //  }
 
     //   try {
     //     const url='https://api.mercadopago.com/preapproval'
-    //   const resp= await axios( {
+    //     const resp= await axios( {
     //     method: 'post',
     //     url: url,
     //     headers: { 
-    //         'Authorization' : `Bearer ${process.env.ACCESS_TOKEN}`,
+    //       'Authorization' : `Bearer ${process.env.ACCESS_TOKEN}`,
     //       'Content-Type': 'application/json'
     //     },
     //     data : preferencias
@@ -348,11 +380,10 @@ const getmercadopago = async () => {
     //   } catch (error) {
     //     console.log(error)
     //   }
-    //    mercadopago.preapproval.create(preferencias)
-    //    .then(res=>console.log(res.body))
-    //    .catch(err=>console.log(err))
-
-}
+    //   mercadopago.preapproval.create(preferencias)
+    //   .then(res=>console.log(res.body))
+    //   .catch(err=>console.log(err))
+};
 
 module.exports = {
     getAllPatients,
@@ -360,6 +391,7 @@ module.exports = {
     getPatientDetail,
     registerPatient,
     updatePatient,
+    updatePatientAdmin,
     deletePatient,
     getmercadopago
-}
+};

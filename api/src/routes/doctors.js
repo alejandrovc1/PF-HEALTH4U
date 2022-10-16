@@ -4,6 +4,7 @@ const {
     getDoctorDetail,
     registerDoctor,
     updateDoctor,
+    updateDoctorAdmin,
     deleteDoctor
 } = require('../controllers/doctorController')
 
@@ -29,9 +30,11 @@ router.post('/register', async (req, res) => {
         console.error(e);
         return res.status(400).send("Error occurred. The new user couldn't be created.")
     }
-})
+});
 
 router.put('/:id', [verifyToken, isDoctor], updateDoctor);
+
+router.put('/admin/:id', [verifyToken, isAdmin], updateDoctorAdmin);
 
 router.delete('/:id', [verifyToken, isAdmin], deleteDoctor);
 
