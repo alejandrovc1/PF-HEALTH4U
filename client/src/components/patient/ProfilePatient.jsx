@@ -18,6 +18,7 @@ export default function ProfilePatient({id}) {
     }
 console.log(detail)
     detail ? props = {
+        id:id,
         image: detail.image,
         name: detail.name,
         email: detail.email,
