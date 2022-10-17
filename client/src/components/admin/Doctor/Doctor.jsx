@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link, Navigate, useNavigate, useNavigation, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { getDetails, updateDoctorAdmin} from '../../../actions/index.js'
-import Clou from "../../ImageCloudinary/ImageCloudinary";
 import st from './Doctor.module.css'
+import DoctorEdit from './DoctorEdit.jsx'
 import { PermIdentity, AlternateEmail, BusinessCenter, Grade, Public, Description,
 TrendingUp, ManageAccounts, DriveFolderUpload } from '@mui/icons-material'
 
@@ -16,22 +16,7 @@ export default function Doctor() {
 
     useEffect(() =>{
         dispatch(getDetails(doctorId));
-    }, [dispatch, getDetails]);
-    // console.log('SOY EL DOCTOR: ', doctorId)
-
-    const [input, setInput] = useState({
-        name: doctor.name,
-        email: doctor.email,
-        status: doctor.status,
-        specialtie: doctor.specialtie,
-        method: doctor.method,
-        description: doctor.description,
-        rating: doctor.rating,
-        country: doctor.country,
-        image: doctor.image,
-    })
-
-    const [nav, setNav] = useState(false)
+    }, [getDetails]);
 
     let props = {};
 
@@ -47,23 +32,6 @@ export default function Doctor() {
         image: doctor.image,
         status: doctor.status
     } : console.log('Algo esta pasando') 
-
-    const handleChange = (e) => {
-        e.preventDefault();
-        setInput((prev) => ({ 
-        ...prev, 
-        [e.target.name]: e.target.value,
-    }))}
-
-    const handleUpdate = (e) => {
-        e.preventDefault()
-        // console.log(e.target.name)
-        if (e.target.name === 'update'){
-            dispatch(updateDoctorAdmin(doctorId, input))
-            //window.location.reload(true)
-            setNav(true)
-        }
-    };
 
 
     return (
@@ -126,106 +94,12 @@ export default function Doctor() {
                         </div>
                     </div>    
                 </div>
-
+                
                 <div className={st.doctorUpdate}>
-                    <span className={st.doctorUpdateTitle}>Edit</span>
-                    <form onSubmit={handleUpdate} className={st.doctorUpdateForm}>
-                        <div className={st.doctorUpdateLeft}>
-
-                            <div className={st.doctorUpdateItem}>
-                                <label>Name</label>
-                                <input 
-                                type="text"
-                                name="name"
-                                placeholder={props.name}
-                                className={st.doctorUpdateInput} 
-                                onChange={(e) => handleChange(e)}/>
-                            </div>
-                            <div className={st.doctorUpdateItem}>
-                                <label>Email</label>
-                                <input 
-                                type="email"
-                                name="email"
-                                placeholder={props.email} 
-                                className={st.doctorUpdateInput}
-                                onChange={(e) => handleChange(e)}/>
-                            </div>
-                            <div className={st.doctorUpdateItem}>
-                                <label>Password</label>
-                                <input type="text" disabled={true} placeholder='xxxxxxxxx' className={st.doctorUpdateInput}/>
-                            </div>
-                            <div className={st.doctorUpdateItem}>
-                                <label>Status</label>
-                                <select name='status' placeholder={props.status} className={st.doctorUpdateInput} onChange={(e) => handleChange(e)}>
-                                    <option name="active" value="active">Active</option>
-                                    <option name="suspended" value="suspended">Suspended</option>
-                                    <option name="bloqued" value="bloqued">Bloqued</option>
-                                </select>
-                            </div>
-                            <div className={st.doctorUpdateItem}>
-                                <label>Specialtie</label>
-                                <input 
-                                type="text"
-                                name="specialtie" 
-                                placeholder={props.specialtie} 
-                                className={st.doctorUpdateInput}
-                                onChange={(e) => handleChange(e)}/>
-                            </div>
-                            <div className={st.doctorUpdateItem}>
-                                <label>Method</label>
-                                <select name='method' placeholder={props.method} className={st.doctorUpdateInput} onChange={(e) => handleChange(e)}>
-                                    <option name="Virtual" value="Virtual">Virtual</option>
-                                    <option name="At home" value="At home">At home</option>
-                                    <option name="Private office" value="Private office">Private office</option>
-                                </select>
-                            </div>
-                            <div className={st.doctorUpdateItem}>
-                                <label>Description</label>
-                                <input 
-                                type="text" 
-                                name="description"
-                                placeholder={props.description} 
-                                className={st.doctorUpdateInput}
-                                onChange={(e) => handleChange(e)}/>
-                            </div>
-                            <div className={st.doctorUpdateItem}>
-                                <label>Rating</label>
-                                <input 
-                                type="float"
-                                name="rating"
-                                placeholder={props.rating} 
-                                className={st.doctorUpdateInput}
-                                onChange={(e) => handleChange(e)}/>
-                            </div>
-                            <div className={st.doctorUpdateItem}>
-                                <label>Country</label>
-                                <input 
-                                type="text"
-                                name="country"
-                                placeholder={props.country} 
-                                className={st.doctorUpdateInput}
-                                onChange={(e) => handleChange(e)}/>
-                            </div>
-
-                        </div>
-                        <div className={st.doctorUpdateRight}>
-                            <div className={st.doctorUpdateUpload}>
-                                <img className={st.doctorUpdateImg} src={props.image} alt="Profile Pic" />
-                                <label htmlFor="file">
-                                    {/* <DriveFolderUpload className={st.doctorUpdateIcon}/>  */}
-                                    <Clou
-                                        seteditinput={setInput}
-                                        editinput={input}
-                                    />
-                                </label>
-                                <input name="image" type="file" id='file' style={{display: "none"}} onChange={(e) => handleChange(e)}/>
-                            </div>
-                            <button name='update' onClick={handleUpdate} className={st.doctorUpdateBotton}>Update</button>
-                        </div>
-                    </form>
+                    <DoctorEdit {...props}/>
                 </div>
+                
             </div>
-            { nav? <Navigate to={'/adminView/doctors'} /> : null}
         </div>
     )
 };

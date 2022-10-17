@@ -32,7 +32,7 @@ const patientSchema = new Schema({
         type: String
     },
     tel: {
-        type: String
+        type: Number
     },
     // CLOUDINARY 
     image: {
