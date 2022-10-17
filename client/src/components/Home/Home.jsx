@@ -8,9 +8,12 @@ import t from "../../image/gorjeo.png"
 import tk from "../../image/tik-tok.png"
 import w from "../../image/whatsapp.png"
 import SpecialtiesHome from '../SpecialtiesHome/SpecialtiesHome';
+import { Link } from "react-router-dom";
 
-export default function Home() {
+export default function Home({id}) {
 
+    let adonde;
+    id?adonde='/appointment':adonde='/register'
 
     return (
         <div className={s.fnd}>
@@ -21,7 +24,9 @@ export default function Home() {
                     <h3 className={s.h3}>Solution For Healtcare Needs</h3>
                     <h1 className={s.title}>We Always Provide Best Service</h1>
                     <p className={s.text}>More than 50 specialist doctors waiting to assist you, makean appointment <br />that fits your schedule</p>
+                    <Link to={adonde}>
                     <button className={s.boton}>Get started</button>
+                    </Link>
                 </div>
                 <div className={s.float}>
                     <img className={s.image} src={doctor} />

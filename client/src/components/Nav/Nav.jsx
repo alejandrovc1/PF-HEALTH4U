@@ -15,15 +15,15 @@ function Nav() {
                </Link>
                <div>
                   <ul id={style.navul}>
-                     <Link to='/home/aboutus'>
+                     <Link to='/aboutus'>
                      <li><a>About us</a></li>
                      </Link>
 
                      <li><a href="index.html">Get your membership</a></li>
-                     <Link to='/home/register'>
+                     <Link to='/register'>
                      <li><a>Sign up</a></li>
                      </Link>
-                     <Link to='/home/login'>
+                     <Link to='/login'>
                      <button className={style.boton}>Sign in</button>
                      </Link>
                   </ul>

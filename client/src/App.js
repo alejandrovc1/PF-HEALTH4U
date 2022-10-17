@@ -36,7 +36,7 @@ export default function App( ) {
         <Routes>
           {!tokenInLocal?
           <>
-         <Route path='/home//*' element={<RutasUseNL/>} />
+         <Route path='/*' element={<RutasUseNL/>} />
          <Route path='*' element={<Navigate to='/home'/>}/> 
           </>
           : role === 'doctor'?
@@ -48,8 +48,8 @@ export default function App( ) {
           </>
           : role === 'patient'?
           <>
-          <Route path='/home//*' element={<RutasUseP id={id}/>} />
-          <Route path='*' element={<Navigate to='/home'/>}/>
+          <Route path='/*' element={<RutasUseP id={id}/>} />
+          <Route path='*' element={<Navigate to='/'/>}/>
           </>
           :role ==='admin'?
           <>

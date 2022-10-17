@@ -32,16 +32,16 @@ export default function NavAppointment() {
                     </Link>
                     <div>
                         <ul id={style.navul}>
-                            <Link to='/home/appointment'>
+                            <Link to='/appointment'>
                             <li><a>My Appointments</a></li>
                             </Link>
-                            <Link to='/home/profile' >
+                            <Link to='/profile' >
                             <li><a>Account</a></li>
                             </Link>
-                            <Link to='/home/specialties'>
+                            <Link to='/specialties'>
                             <li><a>Specialties</a></li>
                             </Link> 
-                            <Link to='/home/aboutus'>
+                            <Link to='/aboutus'>
                             <li><a>About US</a></li>
                             </Link>
                             <button className={style.boton} onClick={handleLogOut}>SIGN OUT</button>
