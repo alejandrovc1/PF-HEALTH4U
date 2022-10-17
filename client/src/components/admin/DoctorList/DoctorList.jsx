@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { getDoctors, deleteDoctor } from "../../../actions/index";
 import st from './DoctorList.module.css';
 import {DataGrid} from '@material-ui/data-grid';
 import {DeleteForever} from '@mui/icons-material';
-import { doctorRows } from '../../../dummyData';
 import { Link } from 'react-router-dom';
 
 export default function DoctorList() {
@@ -13,13 +12,18 @@ export default function DoctorList() {
   
   useEffect(() =>{
     dispatch(getDoctors());
-  }, [dispatch])
+  }, [dispatch, getDoctors])
 
   const allDoctors = useSelector(state => state.doctorsCopy);
 
-  const handleDelete = (id) => {
-    dispatch(deleteDoctor(id))
+  // const [docs, setDocs] = useState(allDoctors)
+  // console.log('SOY TODOS LOS DOCS: ', docs)
+
+  const handleDelete = (idDoc) => {
+    
+    dispatch(deleteDoctor(idDoc))
     alert("Doctor successfully deleted");
+    window.location.reload(true)
   }
 
   const columns = [
@@ -46,22 +50,22 @@ export default function DoctorList() {
           <Link to={'/adminView/doctor/'+ params.row.idDoc}>
             <button className={st.doctorListEdit}>Edit</button>
           </Link>
-          <DeleteForever className={st.doctorListDelete} onClick={() => handleDelete(params.row.id)}/>
+          <DeleteForever className={st.doctorListDelete} onClick={() => handleDelete(params.row.idDoc)}/>
         </>
       )
     }}
   ];
 
-  const doctorRows = allDoctors.map( (doc, index) => ({
+  const doctorRows = allDoctors.map( (doctor, index) => ({
     id: index + 1,
-    idDoc: doc.id,
-    name: doc.name, 
-    email: doc.email,
-    specialtie: doc.specialtie, 
-    method: doc.method, 
-    country: doc.country, 
-    rating: doc.rating, 
-    status: doc.status
+    idDoc: doctor.id,
+    name: doctor.name, 
+    email: doctor.email,
+    specialtie: doctor.specialtie, 
+    method: doctor.method, 
+    country: doctor.country, 
+    rating: doctor.rating, 
+    status: doctor.status
   }));
 
 

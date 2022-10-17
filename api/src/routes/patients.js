@@ -23,7 +23,8 @@ router.get('/subcription/:id', async (req, res) => {
         res.json(error)
     }
 
-})
+});
+
 router.get('/getsub/:id', async (req, res) => {
     try {
         const {id}=req.params

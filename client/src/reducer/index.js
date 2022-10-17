@@ -94,8 +94,8 @@ function rootReducer(state = initialState, action){
         case "DELETE_DOCTOR":
             return{
                 ...state,
-                doctors: state.doctors.filter((doc) => doc._id !== action.payload),
-                doctorsCopy: state.doctorsCopy.filter((doc) => doc._id !== action.payload)
+                doctors: state.doctors.filter((doc) => doc.id !== action.payload),
+                doctorsCopy: state.doctorsCopy.filter((doc) => doc.id !== action.payload)
             }
             
         case "GET_ESPECIALTIES":
