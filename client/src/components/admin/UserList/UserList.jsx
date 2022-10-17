@@ -13,13 +13,14 @@ export default function UserList() {
 
   useEffect(() =>{
     dispatch(getPatients());
-  }, [dispatch])
+  }, [dispatch, getPatients])
 
   const allPatients = useSelector(state => state.patientsCopy);
   
-  const handleDelete = (id) => {
-    dispatch(deletePatient(id))
+  const handleDelete = (idPat) => {
+    dispatch(deletePatient(idPat))
     alert("Patient successfully deleted");
+    window.location.reload(true)
   }
 
   const columns = [
@@ -46,7 +47,7 @@ export default function UserList() {
           <Link to={'/adminView/user/'+ params.row.idPat}>
             <button className={st.userListEdit}>Edit</button>
           </Link>
-            <DeleteForever className={st.userListDelete} onClick={() => handleDelete(params.row.id)} />
+            <DeleteForever className={st.userListDelete} onClick={() => handleDelete(params.row.idPat)} />
         </>
       )
     }}

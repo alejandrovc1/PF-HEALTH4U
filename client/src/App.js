@@ -56,7 +56,7 @@ export default function App( ) {
           </>
           : role === 'patient'?
           <>
-            <Route path='/appointment' element={<Appointment  />} />
+            <Route path='/appointment' element={<Appointment />} />
             <Route path='/profile/:id' element={<ProfilePatient />} />
             <Route path='*' element={<Navigate to='appointment'/>}/> 
           </>

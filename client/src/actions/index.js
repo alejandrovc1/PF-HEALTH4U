@@ -86,6 +86,7 @@ export function postDoctors(doctor){ //Agregar doctor
 };
 
 export function deleteDoctor(id){ //Eliminar doctor
+    console.log('SOY EL ID: ', id)
     return async function(dispatch)
     {
         const deleted = await axios.delete(`http://localhost:3001/doctors/${id}`)
@@ -108,7 +109,6 @@ export function getPatients(){ //Obtener todos los patients
 };
 
 export function getprofile(id){ //Obtener el detalle de un patient
-    console.log('soy el ID', id)
     return async function (dispatch)
     {
         let json = await axios.get(`http://localhost:3001/patients/${id}`);

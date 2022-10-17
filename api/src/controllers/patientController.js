@@ -184,6 +184,7 @@ const updatePatient = async (req, res, next) => {
         next(error)
     }
 };
+
 const updatePatientAdmin = async (req, res, next) => {
     try {
         const { id } = req.params
@@ -218,6 +219,7 @@ const updatePatientAdmin = async (req, res, next) => {
         next(error)
     }
 };
+
 const deletePatient = async (req, res, next) => {
     try {
         const { id } = req.params
@@ -231,6 +233,7 @@ const deletePatient = async (req, res, next) => {
         next(error)
     }
 };
+
 const getmercadopago = async (id) => {
     const urlplan = 'https://api.mercadopago.com/preapproval_plan'
     const plan = {
@@ -376,8 +379,9 @@ const getmercadopago = async (id) => {
     //    .then(res=>console.log(res.body))
     //    .catch(err=>console.log(err))
 
-}
-const subpatien=async(id)=>{
+};
+
+const subpatien = async(id) => {
     const response = await patientModel.findById(id)
     if(response){
         if(response.subscription){
@@ -414,6 +418,7 @@ const subpatien=async(id)=>{
     
     return 'user does not exist'
 };
+
 module.exports = {
     getAllPatients,
     getPatientByName,

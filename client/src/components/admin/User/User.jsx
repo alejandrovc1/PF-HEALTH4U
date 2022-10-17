@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Link, Navigate, useNavigate, useNavigation, useParams } from 'react-router-dom'
 import { getprofile, putprofileAdmin} from '../../../actions/index.js'
-import { Link ,Navigate,useNavigate,useNavigation,useParams } from 'react-router-dom'
 import st from './User.module.css'
 import Clou from "../../ImageCloudinary/ImageCloudinary";
 import { PermIdentity, AlternateEmail, CalendarMonth, Wc, Public, MyLocation, 
@@ -16,9 +16,8 @@ export default function User( ) {
 
     useEffect(() =>{
         dispatch(getprofile(userId));
-    }, [dispatch]);
-    console.log('SOY EL PATIENT: ', userId)
-
+    }, [getprofile]);
+    
     const [input, setInput] = useState({
         name: patient.name,
         email: patient.email,
@@ -30,10 +29,12 @@ export default function User( ) {
         birthDate: patient.birthDate,
         image: patient.image,
     })
-    const [nav,setnav]=useState(false)
+
+    const [nav, setNav] = useState(false)
+
     let props = {};
 
-     patient ? props = {
+    patient ? props = {
         id: patient.id,
         name: patient.name,
         email: patient.email,
@@ -44,7 +45,8 @@ export default function User( ) {
         genre: patient.genre,
         image: patient.image,
         status: patient.status
-    } : console.log('Algo esta pasando') 
+    } : console.log('Algo esta pasando')
+    
     const handleChange = (e) => {
         e.preventDefault();
         setInput((prev) => ({ 
@@ -53,14 +55,13 @@ export default function User( ) {
     }))}
 
     const handleUpdate = (e) => {
-             e.preventDefault()
-             console.log(e.target.name)
-             if (e.target.name==='update'){
-                 dispatch(putprofileAdmin(userId, input))
-                 //window.location.reload(true)
-                setnav(true)
-             }
+        e.preventDefault()
+        if (e.target.name === 'update'){
+            dispatch(putprofileAdmin(userId, input))
+            //window.location.reload(true)
+            setNav(true)
         }
+    };
 
 
     return (
@@ -134,7 +135,7 @@ export default function User( ) {
                                 <input 
                                 type="text" 
                                 name="name"
-                                placeholder={input.name} 
+                                placeholder={props.name} 
                                 className={st.userUpdateInput}
                                 onChange={(e) => handleChange(e)}/>
                             </div>
@@ -147,13 +148,14 @@ export default function User( ) {
                                 <input 
                                 type="email"
                                 name="email"
-                                placeholder={input.email} 
+                                placeholder={props.email} 
                                 className={st.userUpdateInput}
                                 onChange={(e) => handleChange(e)}/>
                             </div>
                             <div className={st.userUpdateItem}>
                                 <label>Status</label>
-                                <select name="status" placeholder={input.status} className={st.userUpdateInput} onChange={(e) => handleChange(e)}>
+                                <select name="status" defaultValue="" className={st.userUpdateInput} onChange={(e) => handleChange(e)}>
+                                    <option hidden value="">Select an status</option>
                                     <option name="active" value="active">Active</option>
                                     <option name="suspended" value="suspended">Suspended</option>
                                     <option name="bloqued" value="bloqued">Bloqued</option>
@@ -164,7 +166,7 @@ export default function User( ) {
                                 <input 
                                 type="text"
                                 name="genre" 
-                                placeholder={input.genre} 
+                                placeholder={props.genre} 
                                 className={st.userUpdateInput}
                                 onChange={(e) => handleChange(e)}/>
                             </div>
@@ -173,7 +175,7 @@ export default function User( ) {
                                 <input 
                                 type="text"
                                 name="country"
-                                placeholder={input.country} 
+                                placeholder={props.country} 
                                 className={st.userUpdateInput}
                                 onChange={(e) => handleChange(e)}/>
                             </div>
@@ -182,16 +184,16 @@ export default function User( ) {
                                 <input 
                                 type="text"
                                 name="address"
-                                placeholder={input.address} 
+                                placeholder={props.address} 
                                 className={st.userUpdateInput}
                                 onChange={(e) => handleChange(e)}/>
                             </div>
                             <div className={st.userUpdateItem}>
                                 <label>Tel</label>
                                 <input 
-                                type="phone"
+                                type="number"
                                 name="tel" 
-                                placeholder={input.tel} 
+                                placeholder={props.tel} 
                                 className={st.userUpdateInput}
                                 onChange={(e) => handleChange(e)}/>
                             </div>
@@ -207,24 +209,22 @@ export default function User( ) {
                         </div>
                         <div className={st.userUpdateRight}>
                             <div className={st.userUpdateUpload}>
-                                <img className={st.userUpdateImg} src={input.image} alt="Profile Pic" />
+                                <img className={st.userUpdateImg} src={props.image} alt="Profile Pic" />
                                 <label htmlFor="file">
-                                    <DriveFolderUpload className={st.userUpdateIcon}/>
-                                     <Clou
+                                    {/* <DriveFolderUpload className={st.userUpdateIcon}/> */}
+                                    <Clou
                                         seteditinput={setInput}
                                         editinput={input}
                                     /> 
                                 </label>
                                 <input name="image" type="file" id='file' style={{display: "none"}} onChange={(e) => handleChange(e)}/>
                             </div>
-                            
                             <button name='update' onClick={handleUpdate} className={st.userUpdateBotton}>Update</button>
-                            
                         </div>
                     </form>
                 </div>
             </div>
-            {nav?<Navigate to={'/adminView/users'} />:null}
+            { nav? <Navigate to={'/adminView/users'} /> : null}
         </div>
     )
 };

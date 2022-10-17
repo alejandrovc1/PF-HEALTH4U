@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Link, Navigate, useNavigate, useNavigation, useParams } from 'react-router-dom'
 import { getDetails, updateDoctorAdmin} from '../../../actions/index.js'
-import { Link, useParams } from 'react-router-dom'
 import Clou from "../../ImageCloudinary/ImageCloudinary";
 import st from './Doctor.module.css'
 import { PermIdentity, AlternateEmail, BusinessCenter, Grade, Public, Description,
@@ -16,8 +16,8 @@ export default function Doctor() {
 
     useEffect(() =>{
         dispatch(getDetails(doctorId));
-    }, []);
-    console.log('SOY EL DOCTOR: ', doctorId)
+    }, [dispatch, getDetails]);
+    // console.log('SOY EL DOCTOR: ', doctorId)
 
     const [input, setInput] = useState({
         name: doctor.name,
@@ -30,6 +30,8 @@ export default function Doctor() {
         country: doctor.country,
         image: doctor.image,
     })
+
+    const [nav, setNav] = useState(false)
 
     let props = {};
 
@@ -53,10 +55,15 @@ export default function Doctor() {
         [e.target.name]: e.target.value,
     }))}
 
-    const handleUpdate = () => {
-        dispatch(updateDoctorAdmin(doctorId, input))
-        window.location.reload(true)
-    }
+    const handleUpdate = (e) => {
+        e.preventDefault()
+        // console.log(e.target.name)
+        if (e.target.name === 'update'){
+            dispatch(updateDoctorAdmin(doctorId, input))
+            //window.location.reload(true)
+            setNav(true)
+        }
+    };
 
 
     return (
@@ -122,7 +129,7 @@ export default function Doctor() {
 
                 <div className={st.doctorUpdate}>
                     <span className={st.doctorUpdateTitle}>Edit</span>
-                    <form onSubmit={(e) => handleUpdate(e)} className={st.doctorUpdateForm}>
+                    <form onSubmit={handleUpdate} className={st.doctorUpdateForm}>
                         <div className={st.doctorUpdateLeft}>
 
                             <div className={st.doctorUpdateItem}>
@@ -130,7 +137,7 @@ export default function Doctor() {
                                 <input 
                                 type="text"
                                 name="name"
-                                placeholder={input.name}
+                                placeholder={props.name}
                                 className={st.doctorUpdateInput} 
                                 onChange={(e) => handleChange(e)}/>
                             </div>
@@ -139,7 +146,7 @@ export default function Doctor() {
                                 <input 
                                 type="email"
                                 name="email"
-                                placeholder={input.email} 
+                                placeholder={props.email} 
                                 className={st.doctorUpdateInput}
                                 onChange={(e) => handleChange(e)}/>
                             </div>
@@ -149,7 +156,7 @@ export default function Doctor() {
                             </div>
                             <div className={st.doctorUpdateItem}>
                                 <label>Status</label>
-                                <select name='status' placeholder={input.status} className={st.doctorUpdateInput} onChange={(e) => handleChange(e)}>
+                                <select name='status' placeholder={props.status} className={st.doctorUpdateInput} onChange={(e) => handleChange(e)}>
                                     <option name="active" value="active">Active</option>
                                     <option name="suspended" value="suspended">Suspended</option>
                                     <option name="bloqued" value="bloqued">Bloqued</option>
@@ -160,13 +167,13 @@ export default function Doctor() {
                                 <input 
                                 type="text"
                                 name="specialtie" 
-                                placeholder={input.specialtie} 
+                                placeholder={props.specialtie} 
                                 className={st.doctorUpdateInput}
                                 onChange={(e) => handleChange(e)}/>
                             </div>
                             <div className={st.doctorUpdateItem}>
                                 <label>Method</label>
-                                <select name='method' placeholder={input.method} className={st.doctorUpdateInput} onChange={(e) => handleChange(e)}>
+                                <select name='method' placeholder={props.method} className={st.doctorUpdateInput} onChange={(e) => handleChange(e)}>
                                     <option name="Virtual" value="Virtual">Virtual</option>
                                     <option name="At home" value="At home">At home</option>
                                     <option name="Private office" value="Private office">Private office</option>
@@ -177,7 +184,7 @@ export default function Doctor() {
                                 <input 
                                 type="text" 
                                 name="description"
-                                placeholder={input.description} 
+                                placeholder={props.description} 
                                 className={st.doctorUpdateInput}
                                 onChange={(e) => handleChange(e)}/>
                             </div>
@@ -186,7 +193,7 @@ export default function Doctor() {
                                 <input 
                                 type="float"
                                 name="rating"
-                                placeholder={input.rating} 
+                                placeholder={props.rating} 
                                 className={st.doctorUpdateInput}
                                 onChange={(e) => handleChange(e)}/>
                             </div>
@@ -195,7 +202,7 @@ export default function Doctor() {
                                 <input 
                                 type="text"
                                 name="country"
-                                placeholder={input.country} 
+                                placeholder={props.country} 
                                 className={st.doctorUpdateInput}
                                 onChange={(e) => handleChange(e)}/>
                             </div>
@@ -203,21 +210,22 @@ export default function Doctor() {
                         </div>
                         <div className={st.doctorUpdateRight}>
                             <div className={st.doctorUpdateUpload}>
-                                <img className={st.doctorUpdateImg} src={input.image} alt="Profile Pic" />
+                                <img className={st.doctorUpdateImg} src={props.image} alt="Profile Pic" />
                                 <label htmlFor="file">
-                                    <DriveFolderUpload className={st.doctorUpdateIcon}/> 
-                                    {/* <Clou
-                                        setInput={setInput}
-                                    /> */}
+                                    {/* <DriveFolderUpload className={st.doctorUpdateIcon}/>  */}
+                                    <Clou
+                                        seteditinput={setInput}
+                                        editinput={input}
+                                    />
                                 </label>
                                 <input name="image" type="file" id='file' style={{display: "none"}} onChange={(e) => handleChange(e)}/>
                             </div>
-                            <button className={st.doctorUpdateBotton}>Update</button>
+                            <button name='update' onClick={handleUpdate} className={st.doctorUpdateBotton}>Update</button>
                         </div>
                     </form>
                 </div>
             </div>
-            
+            { nav? <Navigate to={'/adminView/doctors'} /> : null}
         </div>
     )
 };
