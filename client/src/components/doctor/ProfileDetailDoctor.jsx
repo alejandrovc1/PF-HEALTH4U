@@ -1,6 +1,6 @@
 import React from "react";
 import s from './Profile.module.css'
-export default function ProfileDetail(props){
+export default function ProfileDetailDoctor(props){
 const {image,name,email,specialtie,method,description,country,rating,functiionEdit}=props
 
 return(

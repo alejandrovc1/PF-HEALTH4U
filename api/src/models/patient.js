@@ -45,7 +45,7 @@ const patientSchema = new Schema({
         type: String
     },
     subscription:{
-        tupe:String
+        type:String
     }
 },
     {
