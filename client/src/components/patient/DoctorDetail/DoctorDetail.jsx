@@ -1,26 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './DoctorDetail.module.css'
 import { getDetails, cleandetail } from '../../../actions/index';
 import { Loading } from '../../Loading/index';
-import Review from '../../patient/Review'
+import FormReview from '../../patient/FormReview'
 
 
 export default function DoctorDetail(props) {
 
     const dispatch = useDispatch();
-    const detail = useSelector(state => state.detail);
+    const detail = useSelector(state => state.doctorDetail);
+    console.log(detail)
     let cargado = useSelector(state => state.cargadoDetail);
     const { id } = useParams();
-    let addRev = false;
+    const [addRev, setAddRev] = useState(false)
 
     useEffect(() => {
         dispatch(getDetails(id));
         return (() => { dispatch(cleandetail()) })
     }, [id]);
 
+    function handleNewReview() {
+        setAddRev(true)
+    }
 
     return (
         <div >
@@ -39,12 +43,12 @@ export default function DoctorDetail(props) {
                             <div><p>Rating: {detail.rating} </p></div>
                         </div>
                     </div>
-
                     {addRev?
-                        <Review doctor={id}/>
-                        : <button onClick={addRev = true}>
+                        <FormReview doctor={id} service={`${detail.specialtie}, ${detail.method}`}/>
+                        : <button onClick={handleNewReview}>
                             Add Review </button>
                     }
+                    <h1>Reviews</h1>
                 </div> :
                 <div className={style.loading}>
                     <Loading />

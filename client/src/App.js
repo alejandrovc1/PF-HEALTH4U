@@ -58,6 +58,7 @@ export default function App( ) {
           <>
             <Route path='/appointment' element={<Appointment  />} />
             <Route path='/profile/:id' element={<ProfilePatient />} />
+            <Route exact path='/docDetail/:id' element={<DoctorDetail />} />
             <Route path='*' element={<Navigate to='appointment'/>}/> 
           </>
           :role ==='admin'?

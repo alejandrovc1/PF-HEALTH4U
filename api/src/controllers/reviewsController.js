@@ -104,7 +104,7 @@ const getReviewDetail = async (id) => {
 
 const createReview = async (reviewData) => {
     try {
-        const { service, date, review, score, patient, doctor } = reviewData
+        const { service, review, score, patient, doctor } = reviewData
         const newReview = await reviewModel.create({
             service,
             date: new Date(),
