@@ -1,0 +1,90 @@
+.link {
+    text-decoration: none;
+}
+
+.carta {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    /* flex-wrap: wrap; */
+    justify-content: space-evenly;
+    height: 310px;
+    width: 300px;
+    /* border-radius: 10px; */
+    margin: 30px 10px 20px 10px;
+    /* background-color: rgb(246, 242, 242); */
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.datos {
+    display: flex;
+    text-decoration: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 12px;
+}
+
+.image {
+    height: 140px;
+    width: 120px;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.name {
+    color: black;
+    margin-bottom: 0px;
+
+}
+
+.specialtie {
+    color: darkgray;
+    margin-top: 0px;
+}
+
+.star {
+    height: 20px;
+    width: 20px;
+    margin-left: 8px;
+    margin-bottom: 0px;
+}
+
+.ratStar {
+    display: flex;
+    flex-direction: row;
+    margin-left: 50px;
+    margin-top: 3px;
+
+}
+
+.rating {
+    margin-top: 0px;
+    text-decoration: none;
+    color: black;
+}
+
+.ratButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.Schedule {
+
+    background-color: rgb(40, 167, 121);
+    color: white;
+    font-weight: bold;
+    border-radius: 20px;
+    margin-top: 0px;
+    margin-right: 20px;
+    border: 1px black;
+    padding: 8px;
+    text-decoration: none;
+    height: fit-content;
+    cursor: pointer;
+}

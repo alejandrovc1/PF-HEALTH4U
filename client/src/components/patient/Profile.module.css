@@ -1,0 +1,14 @@
+.contein img {
+    width: 200px;
+    height: 200px;
+}
+
+.contein {
+    display: flex;
+    flex-direction: column;
+
+    align-content: space-around;
+
+    align-items: center;
+    margin: 20px;
+}

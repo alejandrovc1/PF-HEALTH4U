@@ -1,0 +1,157 @@
+.Doctor{
+    flex: 4;
+    padding: 0px 20px;
+}
+
+.doctorTitleContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.doctorAddButton{
+    width: 80px;
+    border: none;
+    padding: 10px;
+    background-color: teal;
+    border-radius: 5px;
+    cursor: pointer;
+    color:white;
+    font-size: 16px;
+}
+
+.doctorContainer{
+    display: flex;
+}
+
+.doctorShow{
+    flex: 1;
+    padding: 20px;
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.8); 
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.8);
+}
+
+.doctorUpdate{
+    flex: 2;
+    /* padding: 20px;
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.8); 
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.8);
+    margin-left: 20px; */
+}
+
+.doctorShowTop{
+    display: flex;
+    align-items: center;
+}
+
+.doctorShowImg{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.doctorShowTopTitle{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.doctorShowUsername{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.doctorShowRole{
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.doctorShowBottom{
+    margin-top: 20px;
+}
+
+.doctorShowTitle{
+    font-size: 18px;
+    font-weight: 600;
+    color: #555;
+}
+
+.doctorShowInfo{
+    display: flex;
+    align-items: center;
+    margin: 20px 0px;
+    color: #333
+}
+
+.doctorShowIcon{
+    margin-right: 10px;
+    font-size: 22px !important;
+}
+
+/* .doctorUpdateForm{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.doctorUpdateTitle{
+    font-size: 25px;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.doctorUpdateItem{
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+}
+
+.doctorUpdateItem>label{
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.doctorUpdateInput{
+    border: none;
+    width: 250px;
+    height: 17px;
+    border-bottom: 1px solid grey;
+}
+
+.doctorUpdateRight{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    align-items: center;
+}
+
+.doctorUpdateUpload{
+    display: flex;
+    align-items: center;
+}
+
+.doctorUpdateImg{
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.doctorUpdateIcon{
+    cursor: pointer;
+    font-size: 35px !important;
+}
+
+.doctorUpdateBotton{
+    width: 150px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: teal;
+    color: white;
+    font-weight: 600;
+} */

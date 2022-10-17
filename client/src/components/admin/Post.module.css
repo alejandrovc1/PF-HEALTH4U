@@ -1,0 +1,26 @@
+.form{
+    text-align: center;
+    background: rgb(155, 248, 255);
+    margin-left: 30%;
+    margin-right: 30%;
+    padding-bottom: 3rem;
+    border-radius: 1rem;
+} 
+
+.input{
+    color: rgb(226, 53, 0);
+    padding-bottom: 1.2rem;
+}
+
+input{
+     border-color: rgb(0, 195, 255);
+}
+
+select{
+    border-color: rgb(0, 195, 255);
+    margin: 1rem 1rem;
+}
+
+button{
+    border-color: rgb(0, 195, 255);
+}
