@@ -3,14 +3,14 @@ import { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {getDetails} from '../../actions/index.js'
 import {useParams} from "react-router-dom"
-import ProfileDetail from "./ProfileDetailDoctor.jsx";
+import ProfileDetailDoctor from "./ProfileDetailDoctor.jsx";
 import { useState } from "react";
-import ProfileEdit from "./ProfileEditDoctor.jsx";
-export default function ProfileDoctor(){
-    const { id } = useParams();
+import ProfileEditlDoctor from "./ProfileEditDoctor.jsx";
+export default function ProfileDoctor({id}){
+
     const dispatch=useDispatch()
     let[edit,setEdit]=useState(false)
-    let  detail=useSelector(f=>f.profileDetail)
+    let  detail=useSelector(f=>f.doctorDetail)
     let props={
        
     }
@@ -19,6 +19,7 @@ export default function ProfileDoctor(){
     }
    
     detail?props={
+        id:id,
        image:detail.image,
         name:detail.name,
        email:detail.email,
@@ -30,15 +31,14 @@ export default function ProfileDoctor(){
         functiionEdit,
         status:detail.status
     }:console.log('algo esta pasando')
-    useEffect(()=>{
+    React.useEffect(()=>{
         dispatch(getDetails(id))
-    },[])
-    console.log(id)
+    },[dispatch])
     return(     
-        !edit?<ProfileDetail
+        !edit?<ProfileDetailDoctor
             {...props}
             />: 
-            <ProfileEdit
+            <ProfileEditlDoctor
             {...props}
             />
           

@@ -393,6 +393,14 @@ const subpatien = async(id) => {
                     Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
                 }
             });
+            // const urls='https://api.mercadopago.com/preapproval/search'
+            // const todos = await axios.get(urls, {
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //         Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
+            //     }
+            // });
+            // console.log(todos.data)
             if(subscription.data.results[0].status){
 
                 return {

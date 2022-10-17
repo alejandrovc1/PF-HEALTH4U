@@ -10,16 +10,22 @@ function Nav() {
       <header>
          <nav className={style.navbar}>
             <div className={style.navi}>
-               <Link to={'/'}>
+               <Link to={'/home'}>
                <img className={style.img} src={logo} />
                </Link>
                <div>
                   <ul id={style.navul}>
-                     <li><a href="/aboutus">About us</a></li>
+                     <Link to='/aboutus'>
+                     <li><a>About us</a></li>
+                     </Link>
 
                      <li><a href="index.html">Get your membership</a></li>
-                     <li><a href="/register">Sign up</a></li>
-                     <a href="/login"><button className={style.boton}>Sign in</button></a>
+                     <Link to='/register'>
+                     <li><a>Sign up</a></li>
+                     </Link>
+                     <Link to='/login'>
+                     <button className={style.boton}>Sign in</button>
+                     </Link>
                   </ul>
                </div>
             </div>

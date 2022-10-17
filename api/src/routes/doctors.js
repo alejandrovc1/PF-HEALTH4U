@@ -32,7 +32,7 @@ router.post('/register', async (req, res) => {
     }
 });
 
-router.put('/:id', [verifyToken, isDoctor], updateDoctor);
+router.put('/:id',  updateDoctor);
 
 router.put('/admin/:id', updateDoctorAdmin); // [verifyToken, isDoctor]
 

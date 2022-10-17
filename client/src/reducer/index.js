@@ -98,10 +98,10 @@ function rootReducer(state = initialState, action){
                 doctorsCopy: state.doctorsCopy.filter((doc) => doc.id !== action.payload)
             }
             
-        case "GET_SPECIALTIES":
+        case "GET_ESPECIALTIES":
             return {
                 ...state,
-                specialties: action.payload
+                specialties: [...action.payload]
             }
 
         case "CLEAN_DETAIL":

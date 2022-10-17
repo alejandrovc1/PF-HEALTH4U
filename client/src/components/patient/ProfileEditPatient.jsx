@@ -39,7 +39,7 @@ const validationInput=()=>{
 }
 const navigate=useNavigate()
 const Update=()=>{
-  dispatch(putprofile(id,editinput))
+  dispatch(putprofile(props.id,editinput))
   window.location.reload(true);
 }
 const validationError=(input)=>{
@@ -87,7 +87,6 @@ const validationError=(input)=>{
     return err
 }
 const dispatch=useDispatch()
-const {id}=useParams()
 return(
         props?<div className={s.contein}>
              <img src={editinput.image} alt='image'/>
