@@ -6,11 +6,11 @@ import {useParams} from "react-router-dom"
 import ProfileDetail from "./ProfileDetailDoctor.jsx";
 import { useState } from "react";
 import ProfileEdit from "./ProfileEditDoctor.jsx";
-export default function ProfileDoctor(){
-    const { id } = useParams();
+export default function ProfileDoctor({id}){
+
     const dispatch=useDispatch()
     let[edit,setEdit]=useState(false)
-    let  detail=useSelector(f=>f.profileDetail)
+    let  detail=useSelector(f=>f.doctorDetail)
     let props={
        
     }
@@ -30,9 +30,7 @@ export default function ProfileDoctor(){
         functiionEdit,
         status:detail.status
     }:console.log('algo esta pasando')
-    useEffect(()=>{
         dispatch(getDetails(id))
-    },[])
     console.log(id)
     return(     
         !edit?<ProfileDetail

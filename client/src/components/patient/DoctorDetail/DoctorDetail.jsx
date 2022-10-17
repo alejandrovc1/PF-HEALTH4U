@@ -11,8 +11,9 @@ import Review from '../../patient/Review'
 export default function DoctorDetail(props) {
 
     const dispatch = useDispatch();
-    const detail = useSelector(state => state.detail);
+    const detail = useSelector(state => state.doctorDetail);
     let cargado = useSelector(state => state.cargadoDetail);
+    console.log(detail)
     const { id } = useParams();
     let addRev = false;
 
@@ -25,6 +26,7 @@ export default function DoctorDetail(props) {
     return (
         <div >
             {cargado ?
+                detail?
                 <div className={style.all}>
                     <div>
                         <img className={style.image} src={detail.image} alt="" />
@@ -46,6 +48,10 @@ export default function DoctorDetail(props) {
                             Add Review </button>
                     }
                 </div> :
+                <div className={style.loading}>
+                  <Loading />
+                 </div>
+                :
                 <div className={style.loading}>
                     <Loading />
                 </div>

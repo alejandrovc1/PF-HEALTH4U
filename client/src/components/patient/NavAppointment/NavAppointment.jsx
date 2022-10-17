@@ -31,8 +31,8 @@ export default function NavAppointment() {
                     <div>
                         <ul id={style.navul}>
                             <li><a href="index.html">My Appointments</a></li>
-                            <li><a href="/account">Account</a></li>
-                            <li><a href="index.html">Cart</a></li>
+                            <li><a href="/profile">Account</a></li>
+                            <li><a href="/Specialties">Specialties</a></li>
                             <button className={style.boton} onClick={handleLogOut}>SIGN OUT</button>
                         </ul>
                     </div>

@@ -6,8 +6,7 @@ import { useParams } from "react-router-dom"
 import ProfileDetail from "./ProfileDetailPatient.jsx";
 import { useState } from "react";
 import ProfileEdit from "./ProfileEditPatient.jsx";
-export default function ProfilePatient() {
-    const { id } = useParams();
+export default function ProfilePatient({id}) {
     const dispatch = useDispatch()
     let [edit, setEdit] = useState(false)
     let detail = useSelector(f => f.patientDetail)

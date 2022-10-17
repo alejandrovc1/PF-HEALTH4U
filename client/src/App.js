@@ -14,6 +14,7 @@ import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
 import { AuthProvider } from './context/authContext'
 import { getRole } from './actions/index.js'
 import AboutUs from './components/AboutUs/AboutUs.jsx'
+import Loading from './components/Loading/Loading.jsx'
 
 
 // const tokenInLocal = localStorage.getItem("token")
@@ -27,9 +28,8 @@ export default function App( ) {
   const dispatch = useDispatch()
   const tokenInLocal = localStorage.getItem("token")
   const role = useSelector( f => f.role)
+  const id = localStorage.getItem("id")
   if(tokenInLocal){
-    console.log(tokenInLocal)
-    const id = localStorage.getItem("id")
     dispatch(getRole({id, token:tokenInLocal}))
   }
 
@@ -44,20 +44,20 @@ export default function App( ) {
             <Route exact path='/' element={<Home />} />
             <Route exact path='/login' element={<Login />} />
             <Route exact path='/register/' element={<Register />} />
-            <Route exact path='/docDetail/:id' element={<DoctorDetail />} />
             <Route exact path='/aboutus' element={<AboutUs/>} />
             <Route path='*' element={<Navigate to='/'/>}/> 
           </>
           : role === 'doctor'?
           <>
             <Route path='/' element={<h1>home doctor</h1>} />
-            <Route path='/profile/:id' element={<ProfileDoctor />} />
+            <Route path='/profile' element={<ProfileDoctor id={id} />} />
             <Route path='*' element={<Navigate to='/'/>}/> 
           </>
           : role === 'patient'?
           <>
             <Route path='/appointment' element={<Appointment  />} />
-            <Route path='/profile/:id' element={<ProfilePatient />} />
+            <Route path='/profile' element={<ProfilePatient id={id}/>} />
+            <Route exact path='/docDetail/:id' element={<DoctorDetail />} />
             <Route path='*' element={<Navigate to='appointment'/>}/> 
           </>
           :role ==='admin'?
@@ -65,7 +65,7 @@ export default function App( ) {
             <Route path='/adminView//*' element={<AdminView/>} />
             <Route path='*' element={<Navigate to='/adminView'/>}/> 
           </>
-          : <Route path='*' element={<h1>Loading...</h1>}/>
+          : <Route path='*' element={<Loading/>}/>
           }
         </Routes>
       </AuthProvider>
