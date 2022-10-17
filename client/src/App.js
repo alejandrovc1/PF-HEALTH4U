@@ -2,19 +2,14 @@ import React from 'react'
 import { useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
-import { Home } from './components/Home/index.js'
-import { Login } from './components/Login/index.js'
-import { Register } from './components/Register/index.js'
-import { DoctorDetail } from './components/patient/DoctorDetail/index.js'
-import { Appointment } from './components/patient/Appointment/index.js'
 import AdminView from './components/admin/AdminView'
-import ProfilePatient from './components/patient/ProfilePatient'
 import ProfileDoctor from './components/doctor/ProfileDoctor'
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
 import { AuthProvider } from './context/authContext'
 import { getRole } from './actions/index.js'
-import AboutUs from './components/AboutUs/AboutUs.jsx'
 import Loading from './components/Loading/Loading.jsx'
+import RutasUseNL from './RutasUseNL.jsx'
+import RutasUseP from './RutasUseP'
 
 
 // const tokenInLocal = localStorage.getItem("token")
@@ -41,24 +36,20 @@ export default function App( ) {
         <Routes>
           {!tokenInLocal?
           <>
-            <Route exact path='/' element={<Home />} />
-            <Route exact path='/login' element={<Login />} />
-            <Route exact path='/register/' element={<Register />} />
-            <Route exact path='/aboutus' element={<AboutUs/>} />
-            <Route path='*' element={<Navigate to='/'/>}/> 
+         <Route path='/home//*' element={<RutasUseNL/>} />
+         <Route path='*' element={<Navigate to='/home'/>}/> 
           </>
           : role === 'doctor'?
           <>
+          
             <Route path='/' element={<h1>home doctor</h1>} />
             <Route path='/profile' element={<ProfileDoctor id={id} />} />
             <Route path='*' element={<Navigate to='/'/>}/> 
           </>
           : role === 'patient'?
           <>
-            <Route path='/appointment' element={<Appointment  />} />
-            <Route path='/profile' element={<ProfilePatient id={id}/>} />
-            <Route exact path='/docDetail/:id' element={<DoctorDetail />} />
-            <Route path='*' element={<Navigate to='appointment'/>}/> 
+          <Route path='/home//*' element={<RutasUseP id={id}/>} />
+          <Route path='*' element={<Navigate to='/home'/>}/>
           </>
           :role ==='admin'?
           <>

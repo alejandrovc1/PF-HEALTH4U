@@ -14,7 +14,7 @@ export default function Home() {
 
     return (
         <div className={s.fnd}>
-            <Nav />
+            
             <div className={s.fondo}>
 
                 <div className={s.float1}>
@@ -30,7 +30,7 @@ export default function Home() {
             <div>
                 <SpecialtiesHome />
             </div>
-            <div className={s.imgpie}>
+            {/* <div className={s.imgpie}>
                 <div className={s.signup}>
                     <p><a href="/register">Sing up</a></p>
                     <p>For Patients</p>
@@ -55,7 +55,7 @@ export default function Home() {
                 <div className={s.copy}>
                     <p>@Health4u All rights reserved</p>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }

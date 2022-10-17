@@ -99,7 +99,7 @@ export default function Appointment() {
 
     return (
         <div>
-            <NavAppointment />
+            
             <div className={s.tite}>
                 <h1>Select your preferences to make an appointment!</h1>
             </div>
@@ -176,7 +176,6 @@ export default function Appointment() {
                 </div>
 
             </div>
-            <Footer />
         </div>
     )
 }

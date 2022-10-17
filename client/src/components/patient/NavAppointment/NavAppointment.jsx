@@ -1,7 +1,7 @@
 import React from "react";
 import style from "../../Nav/Nav.module.css";
 import logo from "../../../image/logo.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import { useAuth } from "../../../context/authContext";
 
 export default function NavAppointment() {
@@ -27,12 +27,23 @@ export default function NavAppointment() {
         <header>
             <nav className={style.navbar}>
                 <div className={style.navi}>
+                    <Link to='/home'>
                     <img className={style.img} src={logo} />
+                    </Link>
                     <div>
                         <ul id={style.navul}>
-                            <li><a href="index.html">My Appointments</a></li>
-                            <li><a href="/profile">Account</a></li>
-                            <li><a href="/Specialties">Specialties</a></li>
+                            <Link to='/home/appointment'>
+                            <li><a>My Appointments</a></li>
+                            </Link>
+                            <Link to='/home/profile' >
+                            <li><a>Account</a></li>
+                            </Link>
+                            <Link to='/home/specialties'>
+                            <li><a>Specialties</a></li>
+                            </Link> 
+                            <Link to='/home/aboutus'>
+                            <li><a>About US</a></li>
+                            </Link>
                             <button className={style.boton} onClick={handleLogOut}>SIGN OUT</button>
                         </ul>
                     </div>
