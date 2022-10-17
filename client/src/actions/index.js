@@ -5,7 +5,7 @@ export function getRole(body) { //
     {
         var config = {
             method: 'put',
-            url: 'http://localhost:3001/login',
+            url: '/login',
             headers: { 
               'Content-Type': 'application/json'
             },
@@ -23,7 +23,7 @@ export function getRole(body) { //
 export function getDoctors(){ //Obtener todos los doctors
     return async function (dispatch)
     {
-        let json = await axios.get("http://localhost:3001/doctors");
+        let json = await axios.get("/doctors");
         return dispatch({
             type: "GET_DOCTORS",
             payload: json.data
@@ -34,7 +34,7 @@ export function getDoctors(){ //Obtener todos los doctors
 export function getDetails(id) { //Obtener el detalle de un doctor
     return async function (dispatch) 
     {
-        let respuesta = await axios.get(`http://localhost:3001/doctors/${id}`);
+        let respuesta = await axios.get(`/doctors/${id}`);
         return dispatch({
             type: "GET_DOCTOR_DETAIL", 
             payload: respuesta.data
@@ -50,7 +50,7 @@ export function updateDoctor(id, dato){ //Actualizar doctor
     // }
     return async function (dispatch)
     {
-        let json = await axios.put("http://localhost:3001/doctors/"+ id, dato);
+        let json = await axios.put("/doctors/"+ id, dato);
         return dispatch({
             type: "PUT_DOCTOR",
             payload: json.data
@@ -66,7 +66,7 @@ export function updateDoctorAdmin(id, dato){ //Actualizar doctor
     // }
     return async function (dispatch)
     {
-        let json = await axios.put("http://localhost:3001/doctors/admin/"+ id, dato);
+        let json = await axios.put("/doctors/admin/"+ id, dato);
         return dispatch({
             type: "PUT_DOCTOR_ADMIN",
             payload: json.data
@@ -77,7 +77,7 @@ export function updateDoctorAdmin(id, dato){ //Actualizar doctor
 export function postDoctors(doctor){ //Agregar doctor
     return async function (dispatch)
     {
-        const response = await axios.post("http://localhost:3001/doctors/register", doctor);
+        const response = await axios.post("/doctors/register", doctor);
         return dispatch({
             type: "POST_DOCTOR",
             payload: response
@@ -89,7 +89,7 @@ export function deleteDoctor(id){ //Eliminar doctor
     console.log('SOY EL ID: ', id)
     return async function(dispatch)
     {
-        const deleted = await axios.delete(`http://localhost:3001/doctors/${id}`)
+        const deleted = await axios.delete(`/doctors/${id}`)
         return dispatch({
             type: "DELETE_DOCTOR",
             payload: deleted
@@ -100,7 +100,7 @@ export function deleteDoctor(id){ //Eliminar doctor
 export function getPatients(){ //Obtener todos los patients
     return async function (dispatch)
     {
-        let json = await axios.get("http://localhost:3001/patients");
+        let json = await axios.get("/patients");
         return dispatch({
             type: "GET_PATIENTS",
             payload: json.data
@@ -111,7 +111,7 @@ export function getPatients(){ //Obtener todos los patients
 export function getprofile(id){ //Obtener el detalle de un patient
     return async function (dispatch)
     {
-        let json = await axios.get(`http://localhost:3001/patients/${id}`);
+        let json = await axios.get(`/patients/${id}`);
         return dispatch({
             type: "GET_PATIENT_PROFILE",
             payload: json.data
@@ -127,7 +127,7 @@ export function putprofile(id, dato){ //Actualizar patient
     }
     return async function (dispatch)
     {
-        let json = await axios.put("http://localhost:3001/patients/"+ id, dato);
+        let json = await axios.put("/patients/"+ id, dato);
         return dispatch({
             type: "PUT_PATIENT_PROFILE",
             payload: json.data
@@ -143,7 +143,7 @@ export function putprofileAdmin(id, dato){ //Actualizar patient
     }
     return async function (dispatch)
     {
-        let json = await axios.put("http://localhost:3001/patients/admin/"+ id, dato);
+        let json = await axios.put("/patients/admin/"+ id, dato);
         return dispatch({
             type: "PUT_PATIENT_PROFILE_ADMIN",
             payload: json.data
@@ -154,7 +154,7 @@ export function putprofileAdmin(id, dato){ //Actualizar patient
 export function postPatient(patient){ //Agregar patient
     return async function (dispatch)
     {
-        const response = await axios.post("http://localhost:3001/patients/register", patient);
+        const response = await axios.post("/patients/register", patient);
         return dispatch({
             type: "POST_PATIENT",
             payload: response
@@ -165,7 +165,7 @@ export function postPatient(patient){ //Agregar patient
 export function deletePatient(id){ //Eliminar patient
     return async function(dispatch)
     {
-        const deleted = await axios.delete(`http://localhost:3001/patients/${id}`)
+        const deleted = await axios.delete(`/patients/${id}`)
         return dispatch({
             type: "DELETE_PATIENT",
             payload: deleted
@@ -176,7 +176,7 @@ export function deletePatient(id){ //Eliminar patient
 export function getSpecialties(){ //Obtener specialties
     return async function (dispatch)
     {
-        let info = await axios.get("http://localhost:3001/specialties");
+        let info = await axios.get("/specialties");
         return dispatch({
             type: "GET_ESPECIALTIES",
             payload: info.data
@@ -223,7 +223,7 @@ export function filterByMethod(method){ //Filtro de doctores por Metodo
 export function login(payload) { //Login
     return async function (dispatch) 
     {
-        const response = await axios.post("http://localhost:3001/login", payload)
+        const response = await axios.post("/login", payload)
         return dispatch({
             type: "LOGIN",
             payload: response
@@ -240,7 +240,7 @@ export function reset(){
 export function getReviews(){ //Obtener todas las reviews
     return async function (dispatch)
     {
-        let response = await axios.get("http://localhost:3001/reviews");
+        let response = await axios.get("/reviews");
         return dispatch({
             type: "GET_REVIEWS",
             payload: response.data
@@ -251,7 +251,7 @@ export function getReviews(){ //Obtener todas las reviews
 export function getReviewByDoctor(doctor){ //Obtener las reviews de un doctor
     return async function (dispatch) 
     {
-        let response = await axios.get("http://localhost:3001/reviews?doctor="+doctor)
+        let response = await axios.get("/reviews?doctor="+doctor)
         return dispatch({
             type: "GET_REVIEW_BY_DOCTOR",
             payload: response.data
@@ -263,7 +263,7 @@ export function getReviewByPatient(patient) //Obtener las reviews hechas por un 
 {
     return async function (dispatch) 
     {
-        let response = await axios.get("http://localhost:3001/reviews?patient="+patient)
+        let response = await axios.get("/reviews?patient="+patient)
         return dispatch({
             type: "GET_REVIEW_BY_PATIENT",
             payload: response.data
@@ -274,7 +274,7 @@ export function getReviewByPatient(patient) //Obtener las reviews hechas por un 
 export function getReviewDetail(review){ //Obtener los detalles de una review
     return async function (dispatch) 
     {
-        let response = await axios.get("http://localhost:3001/reviews/"+review)
+        let response = await axios.get("/reviews/"+review)
         return dispatch({
             type: "GET_REVIEW_DETAIL",
             payload: response.data
@@ -285,7 +285,7 @@ export function getReviewDetail(review){ //Obtener los detalles de una review
 export function addReview(review){ //Agregar una review
     return async function (dispatch) 
     {
-        let response = await axios.post("http://localhost:3001/reviews/create", review)
+        let response = await axios.post("/reviews/create", review)
         return dispatch({
             type: "ADD_REVIEW",
             payload: response.data
@@ -304,7 +304,7 @@ export function loggedState(data) {
 export function checkRole(id) {
     return async function (dispatch)
     {
-        let role = await axios.get("http://localhost:3001/checkrole/" + id);
+        let role = await axios.get("/checkrole/" + id);
         return dispatch({
             type: "CHECKROLE",
             payload: role.data
