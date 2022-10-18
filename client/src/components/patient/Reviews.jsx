@@ -4,15 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getReviewByDoctor } from "../../actions";
 import Review from './Review';
 
-export default function Reviews(doctor) {
+export default function Reviews(props) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getReviewByDoctor(doctor))
+        dispatch(getReviewByDoctor(props.doctor))
     }, [dispatch])
 
     const allDoctorReviews = useSelector(state => state.reviews);
-    console.log(allDoctorReviews)
 
     return (
         <div>

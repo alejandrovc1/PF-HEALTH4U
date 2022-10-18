@@ -27,7 +27,6 @@ const getAllReviews = async () => {
 
 const getReviewByDoctor = async (doctor) => {
     try {
-        console.log(doctor)
         const response = await reviewModel.find({ 
             doctor: doctor, 
         }).populate({ path: 'patient' })

@@ -4,71 +4,59 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux' 
 import { addReview } from '../../actions/index'
 
-export default function FormReview(doctor, service) {
+export default function FormReview(props) {
     const history = useNavigate()
     const dispatch = useDispatch()
-    const [error, setError] = useState({})
-
-    const [reviewed, setReview] =useState({
-        service: service,
-        review: "",
-        score: "",
-        patient: sessionStorage.getItem("id") || "Patient Test",
-        doctor: doctor
+    const [error, setError] = useState({
+        review: ""
     })
 
-    function validate(reviewed) {
+    const [input, setInput] =React.useState({
+        service: props.service,
+        review: "",
+        score: "",
+        patient: localStorage.getItem("id") || "Patient Test",
+        doctor: props.doctor
+    })
+
+    function validate(input) {
         let error = {}
-        if(!reviewed.review) {
+        if(!input.review) {
             error.review = "Review is required"
-        } else if ((!/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/.test(reviewed.review.trim()))) {
+        } else if ((!/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/.test(input.review.trim()))) {
             error.review = "Input only accepts letters"
         }
-        if(!reviewed.score) {
+        if(!input.score) {
             error.score = "Score is required"
-        } else if (([1-5].test(reviewed.score.trim()))) {
+        } else if ((/[1-5]/.test(input.score.trim()))) {
             error.score = "Input only accepts Value between 1 and 5"
         }
     }
 
-    function handleInputChangeReview(e) {
-        console.log('Cambio en input')
-        setReview({
-            ...reviewed,
-            [e.target.review]: e.target.value
-        })
-
+    function handleInputChange(e) {
+        setInput((input) => ({
+            ...input,
+            [e.target.name]: e.target.value
+        }));
         setError(validate({
-            ...reviewed,
-            [e.target.review]: e.target.value
+            ...input,
+            [e.target.name]: e.target.value
         }))
-    }
-
-    function handleInputChangeScore(e) {
-        console.log('Cambio en input')
-        setReview({
-            ...reviewed,
-            [e.target.score]: e.target.value
-        })
-
-        setError(validate({
-            ...reviewed,
-            [e.target.score]: e.target.value
-        }))
+        console.log(e.target.value)
     }
 
     function handleSubmitReview  (e) {
         e.preventDefault()
         console.log('Envio review')
         const newReview = {
-            service: reviewed.service,
-            review: reviewed.review,
-            score: reviewed.score,
-            patient: reviewed.patient,
-            doctor: reviewed.doctor
+            service: input.service,
+            review: input.review,
+            score: input.score,
+            patient: input.patient,
+            doctor: input.doctor
         }
         dispatch(addReview(newReview))
-        setReview({
+        setInput({
             service: "",
             review: "",
             score: "",
@@ -80,27 +68,16 @@ export default function FormReview(doctor, service) {
     return (
         <div>
             <h2>Add Review:</h2>
-            <form onSubmit={handleSubmitReview}>
+            <form>
                 <div>
                     <label>Review:</label>
-                    <input
-                        type="text"
-                        placeholder="Write your review"
-                        name="review1"
-                        value={reviewed.review1}
-                        onChange={e => handleInputChangeReview(e)}
-                    />
-                    {error.review && <p>{error.review}</p>}
+                    <input type="text" name='review' onChange={handleInputChange} placeholder="Write your review"/>
+                    {error.review? <p>{error.review}</p>: null}
                 </div>
                 <div>
                     <label>Score:</label>
-                    <input
-                        type="number"
-                        name="score"
-                        value={reviewed.score}
-                        onChange={e => handleInputChangeReview(e)}
-                    />
-                    {error.score && <p>{error.score}</p>}
+                    <input type="number" name='score' onChange={handleInputChange}/>
+                    {error.score? <p>{error.score}</p> : null}
                 </div>
                 <button type='submit'>Add Review</button>
             </form>

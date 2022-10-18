@@ -4,24 +4,24 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux' 
 import { dispDateByDoctor, dispHourByDoctor, requestAppointment } from '../../actions/index'
 
-export default function FormAppointment(doctorId) {
+export default function FormAppointment(props) {
     const history = useNavigate()
     const dispatch = useDispatch()
     const [error, setError] = useState({})
 
     useEffect(() => {
-        dispatch(dispDateByDoctor(doctorId.doctorId))
-        dispatch(dispHourByDoctor(doctorId.doctorId))
+        dispatch(dispDateByDoctor(props.doctorId))
+        dispatch(dispHourByDoctor(props.doctorId))
     }, [dispatch]);
 
     const Dates = useSelector((state) => state.dates)
     const Hours = useSelector((state) => state.hours)
 
     const [appointment, setAppointment] = useState({
-        doctor: doctorId,
+        doctor: props.doctorId,
         date: "",
         hour: "",
-        patient: sessionStorage.getItem("id")
+        patient: localStorage.getItem("id") || "Patient Test"
     })
 
     function validate(appointment) {
@@ -34,15 +34,27 @@ export default function FormAppointment(doctorId) {
         }
     }
 
-    function handleInputChange(e) {
+    function handleDateChange(e) {
         setAppointment({
             ...appointment,
-            [e.target.date]: e.target.value
+            date: e.target.value
+        })
+        setError(validate({
+            ...appointment,
+            date: e.target.value
+        }))
+        console.log(appointment)
+    }
+
+    function handleHourChange(e) {
+        setAppointment({
+            ...appointment,
+            hour: e.target.value
         })
 
         setError(validate({
             ...appointment,
-            [e.target.hour]: e.target.value
+            hour: e.target.value
         }))
     }
 
@@ -60,18 +72,18 @@ export default function FormAppointment(doctorId) {
             hour: "",
             patient: ""
         })
-        history.push(`/docDetail/${doctorId}`)
+        history.push(`/docDetail/${props.doctorId}`)
     }
 
     return (
         <div>
             <h2>New Appointment</h2>
-            <form onSubmit={handleSubmitAppointment}>
+            <form onSubmit={e => {handleSubmitAppointment(e)}}>
                 <div>
                     <label>Available Dates:</label>
                     <select
                         defaultValue="None"
-                        onChange={(e) => handleInputChange(e)}
+                        onChange={(e) => {handleDateChange(e)}}
                     >
                         <option value="None">
                             Select a date
@@ -91,7 +103,7 @@ export default function FormAppointment(doctorId) {
                     <label>Available Hours:</label>
                     <select
                         defaultValue="None"
-                        onChange={(e) => handleInputChange(e)}
+                        onChange={(e) => {handleHourChange(e)}}
                     >
                         <option value="None">
                             Select an Hour

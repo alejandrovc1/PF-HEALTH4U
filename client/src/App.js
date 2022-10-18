@@ -28,7 +28,6 @@ export default function App( ) {
   const tokenInLocal = localStorage.getItem("token")
   const role = useSelector( f => f.role)
   if(tokenInLocal){
-    console.log(tokenInLocal)
     const id = localStorage.getItem("id")
     dispatch(getRole({id, token:tokenInLocal}))
   }

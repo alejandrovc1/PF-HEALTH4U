@@ -12,7 +12,6 @@ export function getRole(body) { //
             data : body
           };
         let json = await axios(config);
-        console.log(json)
         return dispatch({
             type: "GET_ROLE",
             payload: json.data
