@@ -16,6 +16,7 @@ import psyc from "../../image/psyc.png";
 import tra from "../../image/reum.png";
 import uro from "../../image/uro.png";
 
+
 export default function SpecialtiesHome() {
 
     return (
