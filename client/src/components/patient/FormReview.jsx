@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux' 
 import { addReview } from '../../actions/index'
 
-export default function FormReview(doctor, service) {
+export default function FormReview({doctor, service}) {
     const history = useNavigate()
     const dispatch = useDispatch()
     const [error, setError] = useState({})
@@ -12,7 +12,7 @@ export default function FormReview(doctor, service) {
     const [reviewed, setReview] =useState({
         service: service,
         review: "",
-        score: "",
+        score: 0,
         patient: sessionStorage.getItem("id") || "Patient Test",
         doctor: doctor
     })
@@ -21,26 +21,32 @@ export default function FormReview(doctor, service) {
         let error = {}
         if(!review.review) {
             error.review = "Review is required"
-        } else if ((!/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/.test(review.review.trim()))) {
-            error.service = "Input only accepts letters"
+        } 
+        if ((!/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/.test(review.review.trim()))) {
+            error.review = "Input only accepts letters"
         }
         if(!review.score) {
             error.score = "Score is required"
-        } else if (([1-5].test(review.score.trim()))) {
-            error.service = "Input only accepts Value between 1 and 5"
         }
+         if (review.score<1) {
+            error.score = "Input only accepts Value between 1 and 5"
+        }
+        if(review.score>5) {
+           error.score = "Input only accepts Value between 1 and 5"
+       }
+        return error
     }
 
-    function handleInputChangeReview(e) {
-        console.log('Cambio en input')
+    const  handleInputChangeReview=(e)=> {
+        console.log('Cambio en input',error)
         setReview({
             ...reviewed,
-            [e.target.service]: e.target.value
+            [e.target.name]: e.target.value
         })
 
         setError(validate({
             ...reviewed,
-            [e.target.service]: e.target.value
+            [e.target.name]: e.target.value
         }))
     }
 
@@ -75,7 +81,6 @@ export default function FormReview(doctor, service) {
                         type="text"
                         placeholder="Write your review"
                         name="review"
-                        value={reviewed.review}
                         onChange={handleInputChangeReview}
                     />
                     {error.review && <p>{error.review}</p>}
@@ -85,7 +90,6 @@ export default function FormReview(doctor, service) {
                     <input
                         type="number"
                         name="score"
-                        value={reviewed.score}
                         onChange={handleInputChangeReview}
                     />
                     {error.score && <p>{error.score}</p>}
