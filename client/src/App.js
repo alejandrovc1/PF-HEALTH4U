@@ -10,6 +10,7 @@ import { getRole } from './actions/index.js'
 import Loading from './components/Loading/Loading.jsx'
 import RutasUseNL from './RutasUseNL.jsx'
 import RutasUseP from './RutasUseP'
+import RutasUseD from './RutasUseD'
 
 
 // const tokenInLocal = localStorage.getItem("token")
@@ -41,10 +42,8 @@ export default function App( ) {
           </>
           : role === 'doctor'?
           <>
-          
-            <Route path='/' element={<h1>home doctor</h1>} />
-            <Route path='/profile' element={<ProfileDoctor id={id} />} />
-            <Route path='*' element={<Navigate to='/'/>}/> 
+          <Route path='/*' element={<RutasUseD id={id}/>} />
+          <Route path='*' element={<Navigate to='/'/>}/>
           </>
           : role === 'patient'?
           <>
