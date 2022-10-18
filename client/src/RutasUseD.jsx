@@ -12,21 +12,21 @@ import ProfilePatient from './components/patient/ProfilePatient'
 import NavAppointment from "./components/patient/NavAppointment/NavAppointment.jsx";
 import Specialties from "./components/Specialties/Specialties.jsx";
 import Subscribe from "./components/patient/Subscribe/Subscribe.jsx";
+import NavDoctorLogged from "./components/doctor/NavDoctorLogged/NavDoctorLogged.jsx";
+import ProfileDoctor from "./components/doctor/ProfileDoctor.jsx";
+import HomeD from "./components/Home/HomeD.jsx";
 
 
-export default function RutasUseP({id}){
+export default function RutasUseD({id}){
 
     return(
         <React.Fragment>
-        <NavAppointment />
+        <NavDoctorLogged/>
         <Routes>
-        <Route exact path='/' element={<Home id={id} />} />
+        <Route exact path='/' element={<HomeD/>} />
         <Route  path='/aboutus' element={<AboutUs/>} />
-        <Route path='/specialties' element={<Specialties/>}/>
-        <Route path='/subscription' element={<Subscribe id={id}/>}/>
-        <Route path='/appointment' element={<Appointment  />} />
-        <Route path='/profile' element={<ProfilePatient id={id}/>} />
-        <Route exact path='/docDetail/:id' element={<DoctorDetail />} />
+        <Route path='/myqueries' element={<h1>my queries</h1>}/>
+        <Route path='/profile' element={<ProfileDoctor id={id}/>} />
         <Route path='*' element={<Navigate to='/'/>}/> 
         </Routes>
         <Footer/>

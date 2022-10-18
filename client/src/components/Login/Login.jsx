@@ -8,6 +8,7 @@ import {
     signInWithPopup
 } from 'firebase/auth';
 import { auth } from "../../firebase"
+import { GetError } from "../../actions"
 
 export default function Login() {
 
@@ -78,13 +79,14 @@ export default function Login() {
             setlogeado(true)
             window.location.reload(true)
         } catch (error) {
-            if (
-                error.response &&
-                error.response.status >= 400 &&
-                error.response.status <= 500
-            ) {
-                setError(error.response.data.message);
-            }
+            // if (
+            //     error.response &&
+            //     error.response.status >= 400 &&
+            //     error.response.status <= 500
+            // ) {
+            //     setError(error.response.data.message);
+            // }
+            dispatch(GetError('something went wrong with the login check the fields or you may be blocked'))
         }
     }
     //<Notification message={error} />

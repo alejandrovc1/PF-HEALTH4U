@@ -1,22 +1,19 @@
 import React from 'react'
+import './App.css'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 import AdminView from './components/admin/AdminView'
-import ProfileDoctor from './components/doctor/ProfileDoctor'
-import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
 import { AuthProvider } from './context/authContext'
 import { getRole } from './actions/index.js'
 import Loading from './components/Loading/Loading.jsx'
 import RutasUseNL from './RutasUseNL.jsx'
 import RutasUseP from './RutasUseP'
 import HelpUsImprove from './components/HelpUsImprove/HelpUsImprove'
+import RutasUseD from './RutasUseD'
+import { Nav } from './components/Nav'
+import Footer from './components/Footer/Footer'
 
 
-// const tokenInLocal = localStorage.getItem("token")
-// if (tokenInLocal) {
-//   const id = localStorage.getItem("id")
-//   const role = await axios.get("http://localhost:3001/login", { id, token: tokenIn })
-// }
 
 export default function App( ) {
 
@@ -32,7 +29,7 @@ export default function App( ) {
   return (
     <BrowserRouter>
       <AuthProvider>
-
+      <div className='App'>
         <Routes>
           {!tokenInLocal?
           <>
@@ -42,10 +39,8 @@ export default function App( ) {
           </>
           : role === 'doctor'?
           <>
-          
-            <Route path='/' element={<h1>home doctor</h1>} />
-            <Route path='/profile' element={<ProfileDoctor id={id} />} />
-            <Route path='*' element={<Navigate to='/'/>}/> 
+          <Route path='/*' element={<RutasUseD id={id}/>} />
+          <Route path='*' element={<Navigate to='/'/>}/>
           </>
           : role === 'patient'?
           <>
@@ -57,9 +52,16 @@ export default function App( ) {
             <Route path='/adminView//*' element={<AdminView/>} />
             <Route path='*' element={<Navigate to='/adminView/'/>}/> 
           </>
-          : <Route path='*' element={<Loading/>}/>
+          : <Route path='*' element={
+            <>
+            <Nav/>
+            <Loading/>
+            <Footer/>
+            </>
+        }/>
           }
         </Routes>
+      </div>
       </AuthProvider>
     </BrowserRouter>
   )

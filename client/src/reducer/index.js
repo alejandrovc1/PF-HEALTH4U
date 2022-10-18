@@ -13,12 +13,19 @@ const initialState = { //estados iniciales
     role:'',
     messages: [],
     admins: []
+    sub:'',
+    error:''
 };
 
 
 function rootReducer(state = initialState, action){
     switch (action.type){
-
+        
+        case "GET_ERROR":
+            return{
+                ...state,
+                error:action.payload
+            }
         case "GET_ROLE":
             return{
                 ...state,
@@ -30,7 +37,13 @@ function rootReducer(state = initialState, action){
                 ...state,
                 admins: action.payload
             }
-        
+
+        case "GET_SUB":
+            return{
+                ...state,
+                sub:action.payload
+            }
+
         case "GET_PATIENTS":
             return{
                 ...state,
