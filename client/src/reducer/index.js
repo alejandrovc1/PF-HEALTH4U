@@ -10,7 +10,8 @@ const initialState = { //estados iniciales
     patientPut:'',
     specialties: [],
     isLogged: {},
-    role:''
+    role:'',
+    sub:''
 };
 
 
@@ -22,7 +23,11 @@ function rootReducer(state = initialState, action){
                 ...state,
                 role:action.payload
             }
-        
+        case "GET_SUB":
+            return{
+                ...state,
+                sub:action.payload
+            }
         case "GET_PATIENTS":
             return{
                 ...state,

@@ -261,7 +261,7 @@ const getmercadopago = async (id) => {
             ],
             "installments": 12
         },
-        "back_url": "https://google.com"
+        "back_url": process.env.URL_MP ||'https://google.com'
     }
     const subscription = await axios.post(urlplan, plan, {
         headers: {
@@ -401,8 +401,10 @@ const subpatien = async(id) => {
             //     }
             // });
             // console.log(todos.data)
-            if(subscription.data.results[0].status){
+            if(subscription.data){
 
+                if(subscription.data.results[0].status){
+                    
                 return {
                     id:response._id,
                     name:response.name,
@@ -422,6 +424,13 @@ const subpatien = async(id) => {
                 substado:'not subscribed'
             }
         }
+    }else{
+        return {
+            id:response._id,
+            name:response.name,
+            substado:'not subscribed'
+        }
+    }
     }
     
     return 'user does not exist'

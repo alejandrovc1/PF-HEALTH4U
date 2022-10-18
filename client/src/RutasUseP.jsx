@@ -11,6 +11,7 @@ import { Appointment } from './components/patient/Appointment/index.js'
 import ProfilePatient from './components/patient/ProfilePatient'
 import NavAppointment from "./components/patient/NavAppointment/NavAppointment.jsx";
 import Specialties from "./components/Specialties/Specialties.jsx";
+import Subscribe from "./components/patient/Subscribe/Subscribe.jsx";
 
 
 export default function RutasUseP({id}){
@@ -22,6 +23,7 @@ export default function RutasUseP({id}){
         <Route exact path='/' element={<Home id={id} />} />
         <Route  path='/aboutus' element={<AboutUs/>} />
         <Route path='/specialties' element={<Specialties/>}/>
+        <Route path='/subscription' element={<Subscribe id={id}/>}/>
         <Route path='/appointment' element={<Appointment  />} />
         <Route path='/profile' element={<ProfilePatient id={id}/>} />
         <Route exact path='/docDetail/:id' element={<DoctorDetail />} />
