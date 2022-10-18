@@ -5,9 +5,10 @@ import { Provider } from 'react-redux';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './context/authContext';
-
+import axios from 'axios'
 import { store } from './store/index'
 
+axios.defaults.baseURL = process.env.REACT_APP_API || 'http://localhost:3001/';
 
 ReactDOM.render(
   <Provider store={store}>

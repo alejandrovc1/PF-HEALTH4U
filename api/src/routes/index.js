@@ -2,13 +2,13 @@ const express = require("express");
 // const fs = require("fs");
 const router = express.Router();
 
-const doctors = require ("./doctors")
-const patients = require ("./patients")
-const appointments = require ("./appointments")
-const specialties = require ("./specialties")
-const reviews = require ("./reviews")
-const login = require ("./login")
-const checkRole = require ("./checkRole")
+const doctors = require("./doctors")
+const patients = require("./patients")
+const appointments = require("./appointments")
+const specialties = require("./specialties")
+const reviews = require("./reviews")
+const login = require("./login")
+const checkRole = require("./checkRole")
 
 // const PATH_ROUTES = __dirname; 
 
@@ -32,6 +32,9 @@ router.use('/specialties', specialties)
 router.use('/login', login)
 router.use('/reviews', reviews)
 router.use('/checkrole', checkRole)
+router.get('/', (req, res) => {
+    res.status(200).send({ message: 'Servidor Activo' })
+})
 
 
 

@@ -15,6 +15,7 @@ export default function DoctorDetail(props) {
     const dispatch = useDispatch();
     const detail = useSelector(state => state.doctorDetail);
     let cargado = useSelector(state => state.cargadoDetail);
+    console.log(detail)
     const { id } = useParams();
     const [addRev, setAddRev] = useState(false)
     const [RequestAppo, setRequestAppo] = useState(false)
@@ -35,6 +36,7 @@ export default function DoctorDetail(props) {
     return (
         <div >
             {cargado ?
+                detail?
                 <div className={style.all}>
                     <div>
                         <img className={style.image} src={detail.image} alt="" />
@@ -61,6 +63,10 @@ export default function DoctorDetail(props) {
                     }
                     <Reviews doctor={id}/>
                 </div> :
+                <div className={style.loading}>
+                  <Loading />
+                 </div>
+                :
                 <div className={style.loading}>
                     <Loading />
                 </div>

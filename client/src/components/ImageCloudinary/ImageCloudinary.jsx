@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CloudinaryContext, Image } from 'cloudinary-react';
 import { fetchPhotos, openUploadWidget } from "../patient/CloudinaryService";
-
+import { DriveFolderUpload } from '@mui/icons-material'
 
 export default function Clou({ seteditinput, editinput, seterror=false, validationError }) {
 
@@ -31,7 +31,7 @@ export default function Clou({ seteditinput, editinput, seterror=false, validati
   return (
     <CloudinaryContext cloudName="dymfd1z8t">
       <div >
-        <button onClick={() => beginUpload("image")}>Edit photo profile</button>
+        <button onClick={() => beginUpload("image")}> <DriveFolderUpload style={{ "cursor": "pointer", "font-size": "35px !important"}} /> </button>
       </div>
     </CloudinaryContext>
   );

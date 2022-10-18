@@ -12,6 +12,9 @@ function EmeilerConfig(msj, email, name) {
         user: 'helath.4U.web@gmail.com', // generated ethereal user
         pass: 'auilxcylrfjtbbvs', // generated ethereal password
       },
+      tls: {
+        rejectUnauthorized: false
+      }
     });
 
     transporter.sendMail({

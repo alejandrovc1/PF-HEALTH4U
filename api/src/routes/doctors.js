@@ -8,7 +8,7 @@ const {
     deleteDoctor
 } = require('../controllers/doctorController')
 
-const { verifyToken, checkRolesExisted,isDoctor,isAdmin,isPatient } = require('../middlewares/index')
+const { verifyToken, checkRolesExisted, isDoctor, isAdmin } = require('../middlewares/index')
 const router = Router();
 
 router.get('/', getAllDoctors);
@@ -32,10 +32,10 @@ router.post('/register', async (req, res) => {
     }
 });
 
-router.put('/:id', [verifyToken, isDoctor], updateDoctor);
+router.put('/:id',  updateDoctor);
 
-router.put('/admin/:id', [verifyToken, isAdmin], updateDoctorAdmin);
+router.put('/admin/:id', updateDoctorAdmin); // [verifyToken, isDoctor]
 
-router.delete('/:id', [verifyToken, isAdmin], deleteDoctor);
+router.delete('/:id', deleteDoctor); // [verifyToken, isAdmin]
 
 module.exports = router

@@ -131,16 +131,16 @@ const updateDoctor = async (req, res, next) => {
         })
 
         await doctorModel.findByIdAndUpdate(id, {
-            name,
-            email,
+            name: name,
+            email: email,
            // password,
            // status,
-            specialtie,
-            method,
-            image: result.secure_url,
-            description,
+            specialtie: specialtie,
+            method: method,
+            image: image,
+            description: description,
            // rating,
-            country
+            country: country
         }, { new: true }) // este ultimo parámetro hace que nos devuelva el doc actualizado
 
         .then(() => {
@@ -156,22 +156,22 @@ const updateDoctorAdmin = async (req, res, next) => {
         const { id } = req.params
         const { name, email, password, status, specialtie, method, image, description, rating, country } = req.body
 
-        const result = await cloudinary.uploader.upload(image, {
-            //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
-            folder: 'doctorPhotos',
-        })
+        // const result = await cloudinary.uploader.upload(image, {
+        //     //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
+        //     folder: 'doctorPhotos',
+        // })
         
         await doctorModel.findByIdAndUpdate(id, {
-            name,
-            email,
+            name: name,
+            email: email,
            // password,
-            status,
-            specialtie,
-            method,
-            image: result.secure_url,
-            description,
-            rating,
-            country
+            status: status,
+            specialtie: specialtie,
+            method: method,
+            image: image,
+            description: description,
+            rating: rating,
+            country: country
         }, { new: true }) // este ultimo parámetro hace que nos devuelva el doc actualizado
 
         .then(() => {
