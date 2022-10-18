@@ -182,6 +182,18 @@ export function getSubscribe(id){ //Eliminar patient
         })
     }
 };
+export function GetError(msj){
+    return{
+        type:"GET_ERROR",
+        payload:msj
+    }
+}
+export function deleteError(){
+    return{
+        type:"GET_ERROR",
+        payload:''
+    }
+}
 
 export function getSpecialties(){ //Obtener specialties
     return async function (dispatch)

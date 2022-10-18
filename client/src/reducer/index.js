@@ -11,13 +11,19 @@ const initialState = { //estados iniciales
     specialties: [],
     isLogged: {},
     role:'',
-    sub:''
+    sub:'',
+    error:''
 };
 
 
 function rootReducer(state = initialState, action){
     switch (action.type){
-
+        
+        case "GET_ERROR":
+            return{
+                ...state,
+                error:action.payload
+            }
         case "GET_ROLE":
             return{
                 ...state,

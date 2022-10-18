@@ -12,9 +12,15 @@ export default function NavDoctorLogged() {
     console.log(users)
 
 
-    const handleLogOut = async () => {
-        await logout()
-        history.push("/login")
+    const handleLogOut =  (e) => {
+        e.preventDefault()
+        try {
+            localStorage.removeItem("id")
+            localStorage.removeItem("token")
+            window.location.reload(true)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
