@@ -172,6 +172,28 @@ export function deletePatient(id){ //Eliminar patient
         })
     }
 };
+export function getSubscribe(id){ //Eliminar patient
+    return async function(dispatch)
+    {
+        const deleted = await axios.get(`/patients/getsub/${id}`)
+        return dispatch({
+            type: "GET_SUB",
+            payload: deleted.data
+        })
+    }
+};
+export function GetError(msj){
+    return{
+        type:"GET_ERROR",
+        payload:msj
+    }
+}
+export function deleteError(){
+    return{
+        type:"GET_ERROR",
+        payload:''
+    }
+}
 
 export function getSpecialties(){ //Obtener specialties
     return async function (dispatch)

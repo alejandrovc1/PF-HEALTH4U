@@ -41,6 +41,9 @@ export default function NavAppointment() {
                             <Link to='/specialties'>
                             <li><a>Specialties</a></li>
                             </Link> 
+                            <Link to='/subscription'>
+                            <li><a>Subscription</a></li>
+                            </Link> 
                             <Link to='/aboutus'>
                             <li><a>About US</a></li>
                             </Link>
