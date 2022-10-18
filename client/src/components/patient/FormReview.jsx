@@ -17,17 +17,17 @@ export default function FormReview(doctor, service) {
         doctor: doctor
     })
 
-    function validate(review) {
+    function validate(reviewed) {
         let error = {}
-        if(!review.review) {
+        if(!reviewed.review) {
             error.review = "Review is required"
-        } else if ((!/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/.test(review.review.trim()))) {
-            error.service = "Input only accepts letters"
+        } else if ((!/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/.test(reviewed.review.trim()))) {
+            error.review = "Input only accepts letters"
         }
-        if(!review.score) {
+        if(!reviewed.score) {
             error.score = "Score is required"
-        } else if (([1-5].test(review.score.trim()))) {
-            error.service = "Input only accepts Value between 1 and 5"
+        } else if (([1-5].test(reviewed.score.trim()))) {
+            error.score = "Input only accepts Value between 1 and 5"
         }
     }
 
@@ -35,12 +35,25 @@ export default function FormReview(doctor, service) {
         console.log('Cambio en input')
         setReview({
             ...reviewed,
-            [e.target.service]: e.target.value
+            [e.target.review]: e.target.value
         })
 
         setError(validate({
             ...reviewed,
-            [e.target.service]: e.target.value
+            [e.target.review]: e.target.value
+        }))
+    }
+
+    function handleInputChangeScore(e) {
+        console.log('Cambio en input')
+        setReview({
+            ...reviewed,
+            [e.target.score]: e.target.value
+        })
+
+        setError(validate({
+            ...reviewed,
+            [e.target.score]: e.target.value
         }))
     }
 
@@ -62,21 +75,20 @@ export default function FormReview(doctor, service) {
             patient: "",
             doctor: ""
         })
-        history.push(`/docDetail/${doctor}`)
     }
 
     return (
         <div>
-            <h1>Add Review:</h1>
+            <h2>Add Review:</h2>
             <form onSubmit={handleSubmitReview}>
                 <div>
                     <label>Review:</label>
                     <input
                         type="text"
                         placeholder="Write your review"
-                        name="review"
-                        value={reviewed.review}
-                        onChange={handleInputChangeReview}
+                        name="review1"
+                        value={reviewed.review1}
+                        onChange={e => handleInputChangeReview(e)}
                     />
                     {error.review && <p>{error.review}</p>}
                 </div>
@@ -86,7 +98,7 @@ export default function FormReview(doctor, service) {
                         type="number"
                         name="score"
                         value={reviewed.score}
-                        onChange={handleInputChangeReview}
+                        onChange={e => handleInputChangeReview(e)}
                     />
                     {error.score && <p>{error.score}</p>}
                 </div>

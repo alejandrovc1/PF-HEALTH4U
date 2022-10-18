@@ -6,16 +6,18 @@ import style from './DoctorDetail.module.css'
 import { getDetails, cleandetail } from '../../../actions/index';
 import { Loading } from '../../Loading/index';
 import FormReview from '../../patient/FormReview'
+import Reviews from '../Reviews'
+import FormAppointment from '../FormAppointment';
 
 
 export default function DoctorDetail(props) {
 
     const dispatch = useDispatch();
     const detail = useSelector(state => state.doctorDetail);
-    console.log(detail)
     let cargado = useSelector(state => state.cargadoDetail);
     const { id } = useParams();
     const [addRev, setAddRev] = useState(false)
+    const [RequestAppo, setRequestAppo] = useState(false)
 
     useEffect(() => {
         dispatch(getDetails(id));
@@ -24,6 +26,10 @@ export default function DoctorDetail(props) {
 
     function handleNewReview() {
         setAddRev(true)
+    }
+
+    function handleNewAppointment() {
+        setRequestAppo(true)
     }
 
     return (
@@ -43,12 +49,17 @@ export default function DoctorDetail(props) {
                             <div><p>Rating: {detail.rating} </p></div>
                         </div>
                     </div>
+                    {RequestAppo?
+                        <FormAppointment doctorId={id}/>
+                        : <button onClick={handleNewAppointment}>
+                            Request Appointment </button>
+                    }
                     {addRev?
                         <FormReview doctor={id} service={`${detail.specialtie}, ${detail.method}`}/>
                         : <button onClick={handleNewReview}>
                             Add Review </button>
                     }
-                    <h1>Reviews</h1>
+                    <Reviews doctor={id}/>
                 </div> :
                 <div className={style.loading}>
                     <Loading />

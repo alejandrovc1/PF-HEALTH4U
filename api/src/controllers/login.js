@@ -7,6 +7,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const loginFunction = async (req, res) => {
     try {
         if (req.body.email && req.body.password) {
+            console.log(req)
             //populate lo que hace es devolver todo el objeto role entero debido a que necesitamos el nombre, no solo el id
             const doctorFound = await doctorModel.findOne({ email: req.body.email })
             if (doctorFound) {

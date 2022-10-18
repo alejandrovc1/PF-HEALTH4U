@@ -311,3 +311,52 @@ export function checkRole(id) {
         })
     }
 };
+
+export function dispDateByDoctor(doctor) {
+    return async function (dispatch) {
+        let appointments = await axios.get("http://localhost:3001/appointments?doctor=" + doctor)
+        return dispatch({
+            type: "DISP_DATE_BY_DOCTOR",
+            payload: appointments.data
+        })
+    }
+}
+
+export function dispHourByDoctor(doctor) {
+    return async function (dispatch) {
+        let appointments = await axios.get("http://localhost:3001/appointments?doctor=" + doctor)
+        return dispatch({
+            type: "DISP_HOUR_BY_DOCTOR",
+            payload: appointments.data
+        })
+    }
+}
+
+export function addDisponibility(disponibility) {
+    return async function (dispatch) {
+        const dispo = {
+            start: disponibility.date + "T" + disponibility.hour.split(" - ")[0],
+            end: disponibility.date + "T" + disponibility.hour.split(" - ")[1],
+            doctor: disponibility.doctor
+        }
+        let response = await axios.post("http://localhost:3001/appointments/create", dispo)
+        return dispatch({
+            type: "ADD_DISPONIBILITY",
+            payload: response.data
+        })
+    }
+}
+
+export function requestAppointment(appointment) {
+    return async function (dispatch) {
+        const appo = {
+            start: appointment.date + "T" + appointment.hour.split(" - ")[0],
+            patient: appointment.patient
+        }
+        let response = await axios.put("http://localhost:3001/appointments/update", appo)
+        return dispatch({
+            type: "REQUEST_APPOINTMENT",
+            payload: response.data
+        })
+    }
+}

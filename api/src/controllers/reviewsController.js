@@ -1,4 +1,4 @@
-const { reviewModel, doctorModel } = require('../models/models');
+const { reviewModel, doctorModel, patientModel } = require('../models/models');
 
 const getAllReviews = async () => {
     try {
@@ -7,7 +7,7 @@ const getAllReviews = async () => {
             const re = {
                 id: r._id,
                 service: r.service,
-                calification: r.calification,
+                score: r.score,
                 patient: r.patient,
                 doctor: r.doctor
             }
@@ -27,15 +27,17 @@ const getAllReviews = async () => {
 
 const getReviewByDoctor = async (doctor) => {
     try {
+        console.log(doctor)
         const response = await reviewModel.find({ 
             doctor: doctor, 
-        })
+        }).populate({ path: 'patient' })
         const reviews = response?.map(r => {
             const re = {
                 id: r._id,
                 service: r.service,
-                calification: r.calification,
-                patient: r.patient,
+                score: r.score,
+                review: r.review,
+                patient: r.patient.name,
                 doctor: r.doctor
             }
             return re
@@ -61,7 +63,7 @@ const getReviewByPatient = async (patient) => {
             const re = {
                 id: r._id,
                 service: r.service,
-                calification: r.calification,
+                score: r.score,
                 patient: r.patient,
                 doctor: r.doctor
             }
@@ -87,7 +89,7 @@ const getReviewDetail = async (id) => {
             service: response.service,
             date: response.date,
             review: response.review,
-            calification: response.calification,
+            score: response.score,
             patient: response.patient,
             doctor: response.doctor
         }
