@@ -1,5 +1,4 @@
 import React from 'react'
-import { useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 import AdminView from './components/admin/AdminView'
@@ -10,6 +9,7 @@ import { getRole } from './actions/index.js'
 import Loading from './components/Loading/Loading.jsx'
 import RutasUseNL from './RutasUseNL.jsx'
 import RutasUseP from './RutasUseP'
+import HelpUsImprove from './components/HelpUsImprove/HelpUsImprove'
 
 
 // const tokenInLocal = localStorage.getItem("token")
@@ -36,8 +36,9 @@ export default function App( ) {
         <Routes>
           {!tokenInLocal?
           <>
-         <Route path='/*' element={<RutasUseNL/>} />
-         <Route path='*' element={<Navigate to='/home'/>}/> 
+            <Route path='/*' element={<RutasUseNL/>} />
+            <Route path='*' element={<Navigate to='/home'/>}/>
+            <Route path='/helpusimprove' element={<HelpUsImprove/>}/>
           </>
           : role === 'doctor'?
           <>
@@ -48,10 +49,10 @@ export default function App( ) {
           </>
           : role === 'patient'?
           <>
-          <Route path='/*' element={<RutasUseP id={id}/>} />
-          <Route path='*' element={<Navigate to='/'/>}/>
+            <Route path='/*' element={<RutasUseP id={id}/>} />
+            <Route path='*' element={<Navigate to='/'/>}/>
           </>
-          :role ==='admin'?
+          : role ==='admin'?
           <>
             <Route path='/adminView//*' element={<AdminView/>} />
             <Route path='*' element={<Navigate to='/adminView'/>}/> 

@@ -10,7 +10,8 @@ const initialState = { //estados iniciales
     patientPut:'',
     specialties: [],
     isLogged: {},
-    role:''
+    role:'',
+    messages: []
 };
 
 
@@ -233,7 +234,18 @@ function rootReducer(state = initialState, action){
             return {
                 ...state
             }
+        
+        case "GET_MESSAGES":
+            return{
+                ...state,
+                messages: action.payload
+            }
 
+        case "POST_MESSAGE":
+            return{
+                ...state,
+            }
+        
         default: return state;
     }
 };

@@ -1,5 +1,6 @@
 import axios from "axios"
 
+
 export function getRole(body) { //
     return async function (dispatch)
     {
@@ -308,6 +309,29 @@ export function checkRole(id) {
         return dispatch({
             type: "CHECKROLE",
             payload: role.data
+        })
+    }
+};
+
+export function getMessages(){ //Obtener lo mensajes de Help us to improve
+    return async function (dispatch)
+    {
+        let json = await axios.get("/messages"); // http://localhost:3001/messages
+        return dispatch({
+            type: "GET_MESSAGES",
+            payload: json.data
+        })
+    }
+};
+
+export function createMessage(data){ //Obtener lo mensajes de Help us to improve
+    console.log('SOY LA DATA DE LA ACTION: ', data)
+    return async function (dispatch)
+    {
+        let response = await axios.post("/messages/send", data); // http://localhost:3001/messages/send
+        return dispatch({
+            type: "POST_MESSAGE",
+            payload: response
         })
     }
 };
