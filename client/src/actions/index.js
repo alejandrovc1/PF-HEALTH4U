@@ -13,9 +13,20 @@ export function getRole(body) { //
             data : body
           };
         let json = await axios(config);
-        console.log(json)
+        // console.log(json)
         return dispatch({
             type: "GET_ROLE",
+            payload: json.data
+        })
+    }
+};
+
+export function getAdmins(){ //Obtener los admins registrados
+    return async function(dispatch)
+    {
+        let json = await axios.get("http://localhost:3001/admins");
+        return dispatch({
+            type: "GET_ADMINS",
             payload: json.data
         })
     }
@@ -27,6 +38,17 @@ export function getDoctors(){ //Obtener todos los doctors
         let json = await axios.get("/doctors");
         return dispatch({
             type: "GET_DOCTORS",
+            payload: json.data
+        })
+    }
+};
+
+export function getDoctorsExceptBlockeds(){ //Obtener todos los doctors
+    return async function (dispatch)
+    {
+        let json = await axios.get("/doctors");
+        return dispatch({
+            type: "GET_DOCTORS_-BLOCKEDS",
             payload: json.data
         })
     }

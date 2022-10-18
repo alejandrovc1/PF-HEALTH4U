@@ -3,7 +3,7 @@ import { NavAppointment } from "../NavAppointment";
 import s from "./Appointment.module.css";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { getDoctors, filterBySpecialties, orderByRating, orderByName, filterByMethod, getSpecialties, reset } from "../../../actions";
+import { filterBySpecialties, orderByRating, orderByName, filterByMethod, getSpecialties, reset, getDoctorsExceptBlockeds } from "../../../actions";
 import Footer from "../../Footer/Footer";
 import CardDoc from '../CardDoc/CardDoc.jsx';
 import Paginado from "../Paginado/Paginado.jsx";
@@ -15,7 +15,7 @@ export default function Appointment() {
 
     useEffect(() => {
         // dispatch(getPatientes());
-        dispatch(getDoctors());
+        dispatch(getDoctorsExceptBlockeds());
         dispatch(getSpecialties());
     }, [dispatch])
 

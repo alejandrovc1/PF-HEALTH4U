@@ -13,11 +13,36 @@ export default function HelpUsMail() {
         dispatch(getMessages());
     }, [dispatch, getMessages]);
 
+    console.log(messages)
+
     // let comments = messages?.map( M => {
         
     // })
 
     return (
-        <span> HelpUsMail </span>
+        
+        <div className={st.Container}>
+            <h1 className={st.title}> HelpUsMail </h1>
+
+            <div className={st.listContainer}>
+                <ul className={st.listMessages}>
+                    { messages && messages.map( msg => {
+                        return (
+                            <div className={st.listItem}>
+                                <li className={st.MSG}>
+                                    Name: {msg.name}
+                                </li>
+                                <li className={st.MSG}>
+                                    Email: {msg.email}
+                                </li>
+                                <li className={st.MSG}>
+                                    Message: {msg.message}
+                                </li>
+                            </div>
+                        )
+                    })}
+                </ul>
+            </div>
+        </div>
     )
 }

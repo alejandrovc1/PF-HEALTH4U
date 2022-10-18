@@ -55,7 +55,7 @@ export default function App( ) {
           : role ==='admin'?
           <>
             <Route path='/adminView//*' element={<AdminView/>} />
-            <Route path='*' element={<Navigate to='/adminView'/>}/> 
+            <Route path='*' element={<Navigate to='/adminView/'/>}/> 
           </>
           : <Route path='*' element={<Loading/>}/>
           }

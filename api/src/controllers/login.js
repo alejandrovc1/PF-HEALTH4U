@@ -9,6 +9,9 @@ const loginFunction = async (req, res) => {
         if (req.body.email && req.body.password) {
             //populate lo que hace es devolver todo el objeto role entero debido a que necesitamos el nombre, no solo el id
             const doctorFound = await doctorModel.findOne({ email: req.body.email })
+
+            
+
             if (doctorFound) {
                 const matchPassword = await doctorModel.comparePassword(req.body.password, doctorFound.password)
 
@@ -27,12 +30,15 @@ const loginFunction = async (req, res) => {
                     token: token,
                 })
 
-                res.send({
-                    name: doctorFound.name,
-                    email: doctorFound.email,
-                    id: doctorFound._id,
-                    token,
-                })
+                if (doctorFound && doctorFound.status ==='blocked') { res.status(400).send({msg: 'User Blocked'})}
+                else {
+                    res.send({
+                        name: doctorFound.name,
+                        email: doctorFound.email,
+                        id: doctorFound._id,
+                        token,
+                    })
+                }
             } else {
 
                 const patientFound = await patientModel.findOne({ email: req.body.email })
@@ -73,12 +79,15 @@ const loginFunction = async (req, res) => {
                             token: token,
                         })
 
-                        res.send({
-                            name: adminFound.name,
-                            email: adminFound.email,
-                            id: adminFound._id,
-                            token,
-                        })
+                        if (patientFound && patientFound.status ==='blocked') { res.status(400).send({msg: 'User Blocked'})}
+                        else {
+                            res.send({
+                                name: adminFound.name,
+                                email: adminFound.email,
+                                id: adminFound._id,
+                                token,
+                            })
+                        }
                     }
                     else { return res.status(400).json({ token: null, message: 'User not found' }) }
                 }

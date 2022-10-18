@@ -1,0 +1,20 @@
+.Container{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.title{
+    background-color: yellowgreen;
+}
+
+.listContainer{
+    display: flex;
+    width: 100%;
+    background-color: pink;
+}
+
+
+/* .listMessages{
+    flex-direction: column;
+} */

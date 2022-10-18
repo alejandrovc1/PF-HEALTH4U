@@ -11,7 +11,8 @@ const initialState = { //estados iniciales
     specialties: [],
     isLogged: {},
     role:'',
-    messages: []
+    messages: [],
+    admins: []
 };
 
 
@@ -22,6 +23,12 @@ function rootReducer(state = initialState, action){
             return{
                 ...state,
                 role:action.payload
+            }
+
+        case "GET_ADMINS":
+            return{
+                ...state,
+                admins: action.payload
             }
         
         case "GET_PATIENTS":
@@ -67,7 +74,14 @@ function rootReducer(state = initialState, action){
                 doctors: action.payload,
                 doctorsCopy: action.payload
             }
-            
+
+        case "GET_DOCTORS_-BLOCKEDS":
+            return {
+                ...state,
+                doctors: action.payload.filter((doc) => doc.status !== "blocked"),
+                doctorsCopy: action.payload.filter((doc) => doc.status !== "blocked"),
+            }
+        
         case "GET_DOCTOR_DETAIL":
             return {
                 ...state,
