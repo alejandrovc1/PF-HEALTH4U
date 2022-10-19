@@ -1,0 +1,20 @@
+.container {
+    margin: 15px;
+    border-radius: 15px;
+    background-color: rgb(45, 161, 161);
+    padding-bottom: 1rem;
+}
+
+.title {
+    border-radius: 10px;
+    background-color: azure;
+}
+
+.noRevs {
+    height: 3rem;
+    padding-top: 1.5rem;
+    font-weight: bolder;
+    background-color: azure;
+    margin-inline: 1rem;
+    border-radius: 15px;
+}

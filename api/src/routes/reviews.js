@@ -51,9 +51,9 @@ router.post('/create', async (req, res) => {
         const reviewData = req.body
         if(reviewData) {
             const response = await createReview(reviewData)
-            if(response) {
+            if(!response.msg) {
                 return res.status(200).send(response)
-            }
+            } else return res.status(400).send(response)
         }
     } catch (e) {
         console.error(e);

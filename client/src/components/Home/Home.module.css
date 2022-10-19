@@ -4,7 +4,7 @@
 }
 
 .fondo {
-  margin: 1% 5%;
+  margin: 3% 8% 0% 1%;
   border-radius: 2rem;
   display: flex;
 }
@@ -39,6 +39,7 @@
 }
 
 .text {
+  font-size: 20px;
   margin-bottom: 1rem;
   margin-top: 3rem;
   margin-left: 1rem;
@@ -48,11 +49,11 @@
   display: flex;
   align-items: center;
   font-family: inherit;
-  font-weight: 500;
-  font-size: 1rem;
+  font-weight: 600;
+  font-size: 1.2rem;
   padding: 0.7em 1.4em 0.7em 1.1em;
   color: black;
-  background: linear-gradient(#BBF3F9, #7CD1E5);
+  background: linear-gradient(#a4e7ee, #56a0b1);
   border: none;
   letter-spacing: 0.05em;
   border-radius: 20em;
@@ -67,11 +68,12 @@
 }
 
 .boton:hover {
-  box-shadow: 0 0.5em 1.5em -0.5em #2596ff98;
+  -webkit-box-shadow: 6px 6px 12px 4px rgba(0,0,0,0.4); 
+  box-shadow: 6px 6px 12px 4px rgba(0,0,0,0.4);
 }
 
 .boton:active {
-  box-shadow: 0 0.3em 1em -0.5em #00c3ff98;
+  box-shadow: 0 0.3em 1em -0.5em #1aacd898;
 }
 
 
@@ -94,7 +96,7 @@
   background-position: center;
 }
 
-.piepagina {
+/* .piepagina {
   width: 100%;
 }
 
@@ -138,4 +140,4 @@ a {
   margin: 0 1rem;
   padding-right: 3rem;
   margin-top: 4rem;
-}
+} */

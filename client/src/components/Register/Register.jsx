@@ -4,6 +4,8 @@ import { useState, useEffect } from "react"
 import { useAuth } from "../../context/authContext"
 import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
+import s from './Register.module.css'
+import img from '../../image/img-registro.jpg'
 import {
     GoogleAuthProvider,
     signInWithPopup
@@ -201,7 +203,11 @@ export default function Register() {
     }
     return (
 
-        <div>
+        <div className={s.conten}>
+            <div className={s.image}>
+                <img src={img} alt='image'/>
+            </div>
+            <div className={s.contenForm}>
             <h1>USUARY REGISTER</h1>
             <form>
                 <div>
@@ -216,6 +222,8 @@ export default function Register() {
             {user.typeUser == 'doctor' &&
                 <form onSubmit={handleSubmitDoctor}>
                     <div>
+                        <div>
+
                         <label>FullName</label>
                         <input
                             type="text"
@@ -223,9 +231,10 @@ export default function Register() {
                             name="fullname"
                             value={user.fullname}
                             onChange={handleInputChangeDoctor}
-                        />
+                            />
                         {error.fullname && <p>{error.fullname}</p>}
-
+                        </div>
+                        <div>
                         <label htmlFor="email">Email</label>
                         <input
                             type="email"
@@ -233,9 +242,10 @@ export default function Register() {
                             value={user.email}
                             placeholder="your email"
                             onChange={handleInputChangeDoctor}
-                        />
+                            />
                         {error.email && <p>{error.email}</p>}
-
+                        </div>
+                        <div>
                         <label htmlFor="password">Password</label>
                         <input
                             type="password"
@@ -244,9 +254,10 @@ export default function Register() {
                             placeholder="*******"
                             value={user.password}
                             onChange={handleInputChangeDoctor}
-                        />
+                            />
                         {error.password && <p>{error.password}</p>}
-
+                        </div>
+                        <div>    
                         <label>Confirm Password</label>
                         <input
                             type="password"
@@ -254,27 +265,33 @@ export default function Register() {
                             name="confirmPassword"
                             value={user.confirmPassword}
                             onChange={handleInputChangeDoctor}
-                        />
+                            />
                         {error.confirmPassword && <p>{error.confirmPassword}</p>}
-
+                        </div> 
+                        <div>
                         <button type="submit">Register</button>
+                        </div>
+                        <div>
                         <button onClick={handleGoogleButton}>Register with google</button>
+                        </div>
                     </div>
                 </form>
             }
             {patient.typeUser == 'patient' &&
                 <form onSubmit={handleSubmitPatient}>
                     <div>
-                        <label>FullName</label>
+                     <div>
+                      <label>FullName</label>
                         <input
                             type="text"
                             placeholder="Write your fullname"
                             name="fullname"
                             value={patient.fullname}
                             onChange={handleInputChangePatient}
-                        />
+                            />
                         {error.fullname && <p>{error.fullname}</p>}
-
+                      </div>
+                      <div>
                         <label htmlFor="email">Email</label>
                         <input
                             type="email"
@@ -282,9 +299,10 @@ export default function Register() {
                             value={patient.email}
                             placeholder="your email"
                             onChange={handleInputChangePatient}
-                        />
+                            />
                         {error.email && <p>{error.email}</p>}
-
+                       </div>
+                       <div>
                         <label htmlFor="password">Password</label>
                         <input
                             type="password"
@@ -293,9 +311,10 @@ export default function Register() {
                             placeholder="*******"
                             value={patient.password}
                             onChange={handleInputChangePatient}
-                        />
+                            />
                         {error.password && <p>{error.password}</p>}
-
+                        </div>
+                        <div>
                         <label>Confirm Password</label>
                         <input
                             type="password"
@@ -303,23 +322,29 @@ export default function Register() {
                             name="confirmPassword"
                             value={patient.confirmPassword}
                             onChange={handleInputChangePatient}
-                        />
+                            />
                         {error.confirmPassword && <p>{error.confirmPassword}</p>}
-
+                       </div>
+                       <div>
                         <button type="submit">Register</button>
+                       </div>
+                       <div>
                         <button onClick={handleGoogleButton}>Register with google</button>
+                       </div>
                     </div>
                 </form>
             }
-
-            <p>
+            <div>
+             <p>
                 Already have an account?
                 <a
                     href="/login"
-                >
+                    >
                     LogIn
                 </a>
-            </p>
+             </p>
+            </div>
+        </div>
         </div >
     )
 }

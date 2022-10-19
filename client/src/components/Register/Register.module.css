@@ -1,0 +1,30 @@
+.conten{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5% auto;
+    background-color: #37cdef;
+}
+.conten img{
+    width: 100%;
+    height: 100%;
+    max-width: 400px;
+    
+    
+}
+.image{
+    width: 50%;
+    height: 80%;
+}
+.contenForm{
+    width: 50%;
+    height: 80%;
+    background-color: #fff;
+    padding: 5%;
+    align-items: center;
+}
+.contenForm div{
+    margin: 3%;
+    width: 100%;
+}

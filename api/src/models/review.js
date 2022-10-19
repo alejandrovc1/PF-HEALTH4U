@@ -1,5 +1,7 @@
 //Utilizando los esquemas creamos los modelos
 const { Schema, model } = require("mongoose");
+const Patient = require("./patient")
+const Doctor = require("./doctor")
 
 const reviewSchema = new Schema({
     service: {
@@ -15,10 +17,12 @@ const reviewSchema = new Schema({
         type: Number,
     },
     patient: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'Patient',
     },
     doctor: {
-        type: String
+        type: Schema.Types.ObjectId,
+        ref: 'Doctor',
     }
 },
 {
