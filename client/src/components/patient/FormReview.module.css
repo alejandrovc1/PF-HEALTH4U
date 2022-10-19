@@ -1,0 +1,50 @@
+.formulary {
+    text-align: center;
+    width: 30rem;
+    border-radius: 20px;;
+    background-color: rgb(75, 219, 219);
+}
+
+.inputData {
+    font-weight: bolder;
+    font-size: 1.2rem;
+}
+
+.inputData input {
+    padding-left: 10px;
+    border-radius: 15px;
+    border: none;
+    font-weight: bolder;
+    margin: 1rem;
+}
+
+.inputData input {
+    text-align: center;
+}
+
+.inputData textarea {
+    vertical-align: middle;
+    padding-left:  10px;
+    border-radius: 15px;
+    border: none;
+    font-weight: bolder;
+    margin: 1rem;
+}
+
+.inputData textarea[placeholder] {
+    text-align: center;
+}
+
+.btnholder {
+    padding-bottom: 1rem;
+}
+
+.btn {
+    padding-inline: 15px;
+    margin-inline: 10px;
+    height: 2rem;
+    font-weight: bolder;
+    background-color: azure;
+    border: none;
+    border-radius: 15px;
+}
