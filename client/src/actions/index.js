@@ -23,7 +23,7 @@ export function getRole(body) { //
 export function getAdmins(){ //Obtener los admins registrados
     return async function(dispatch)
     {
-        let json = await axios.get("http://localhost:3001/admins");
+        let json = await axios.get("/admins");
         return dispatch({
             type: "GET_ADMINS",
             payload: json.data
@@ -387,7 +387,7 @@ export function createMessage(data){ //crear un mensaje en el buzón de HelpUsTo
 
 export function dispDateByDoctor(doctor) {
     return async function (dispatch) {
-        let appointments = await axios.get("http://localhost:3001/appointments?doctor=" + doctor)
+        let appointments = await axios.get("/appointments?doctor=" + doctor)
         return dispatch({
             type: "DISP_DATE_BY_DOCTOR",
             payload: appointments.data
@@ -397,7 +397,7 @@ export function dispDateByDoctor(doctor) {
 
 export function dispHourByDoctor(doctor) {
     return async function (dispatch) {
-        let appointments = await axios.get("http://localhost:3001/appointments?doctor=" + doctor)
+        let appointments = await axios.get("/appointments?doctor=" + doctor)
         return dispatch({
             type: "DISP_HOUR_BY_DOCTOR",
             payload: appointments.data
@@ -412,7 +412,7 @@ export function addDisponibility(disponibility) {
             end: disponibility.date + "T" + disponibility.hour.split(" - ")[1] + ":00.000Z",
             doctor: disponibility.doctor
         }
-        let response = await axios.post("http://localhost:3001/appointments/create", dispo)
+        let response = await axios.post("/appointments/create", dispo)
         return dispatch({
             type: "ADD_DISPONIBILITY",
             payload: response.data
@@ -427,7 +427,7 @@ export function requestAppointment(appointment) {
             patient: appointment.patient
         }
         console.log("Action: ", appo)
-        let response = await axios.put("http://localhost:3001/appointments/update", appo)
+        let response = await axios.put("/appointments/update", appo)
         if(response.status === 200) {
             alert("Appointment Successfully requested")
         } else alert(response.data)

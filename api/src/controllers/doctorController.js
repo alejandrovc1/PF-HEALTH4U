@@ -109,7 +109,7 @@ const registerDoctor = async (registerData) => {
                 expiresIn: 86400 //Esta en segundos = Expira en 24 horas
             })
 
-            EmeilerConfig('Te damos la bienvenida ' + name + ' ya puedes entrar a http://localhost:3000/', email, name)
+            EmeilerConfig('Te damos la bienvenida ' + name + ' ya puedes entrar a https://health4u.vercel.app/', email, name)
             return json({ token })
 
         } else return { msg: "This email is already in use" };
