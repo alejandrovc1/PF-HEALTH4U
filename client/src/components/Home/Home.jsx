@@ -21,9 +21,9 @@ export default function Home({id}) {
             <div className={s.fondo}>
 
                 <div className={s.float1}>
-                    <h3 className={s.h3}>Solution For Healtcare Needs</h3>
-                    <h1 className={s.title}>We Always Provide Best Service</h1>
-                    <p className={s.text}>More than 50 specialist doctors waiting to assist you, makean appointment <br />that fits your schedule</p>
+                    <h3 className={s.h3}>Solutions For Healtcare Needs</h3>
+                    <h1 className={s.title}>We Always Provide The Best Service</h1>
+                    <p className={s.text}>More than 50 specialist doctors waiting to assist you, schedule your appointment today that suits your schedule</p>
                     <Link to={adonde}>
                     <button className={s.boton}>Get started</button>
                     </Link>
@@ -63,4 +63,4 @@ export default function Home({id}) {
             </div> */}
         </div>
     )
-}
+};

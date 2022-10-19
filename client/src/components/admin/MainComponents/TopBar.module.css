@@ -1,11 +1,14 @@
 .topbar{
-    margin-top: 1em;
+    margin-top: 1px;
     width: 100%;
-    height: 50px;
-    background-color: white;
+    height: 70px;
     position: sticky;
+    background: #D7FCF1;
+    background: -moz-linear-gradient(left, #D7FCF1 0%, #A0FCE4 50%, #7DF7FC 100%);
+    background: -webkit-linear-gradient(left, #D7FCF1 0%, #A0FCE4 50%, #7DF7FC 100%);
+    background: linear-gradient(to right, #D7FCF1 0%, #A0FCE4 50%, #7DF7FC 100%);
     top: 0;
-    z-index: 999;
+    z-index: 1000;
 }
 
 .topbarWrapper{

@@ -1,0 +1,43 @@
+.Container{
+    display: flex;
+    flex-direction: column;
+    width: 82%;
+}
+
+.title{
+    align-self: center;
+    font-weight: 600;
+    margin: 0px;
+}
+
+.listContainer{
+    display: flex;
+    padding: 0px 10px;
+}
+
+/* .listMessages{
+    background-color: blueviolet;
+} */
+
+.divItem{
+    border-radius: 10px;
+    margin: 20px 20px 30px 0px;
+    padding: 5px;
+    -webkit-box-shadow: 0px 0px 15px 2px #000000; 
+    box-shadow: 0px 0px 15px 2px #000000;
+}
+
+.listHead{
+    border-radius: 10px;
+    background-color: rgb(214, 252, 241);
+}
+
+.itemMsg{
+    border-radius: 10px;
+    background-color: rgb(159, 241, 217);
+}
+
+.listItem{
+    list-style-type: none;
+    margin: 10px;
+}

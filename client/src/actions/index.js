@@ -1,5 +1,6 @@
 import axios from "axios"
 
+
 export function getRole(body) { //
     return async function (dispatch)
     {
@@ -12,9 +13,19 @@ export function getRole(body) { //
             data : body
           };
         let json = await axios(config);
-        console.log(json)
         return dispatch({
             type: "GET_ROLE",
+            payload: json.data
+        })
+    }
+};
+
+export function getAdmins(){ //Obtener los admins registrados
+    return async function(dispatch)
+    {
+        let json = await axios.get("http://localhost:3001/admins");
+        return dispatch({
+            type: "GET_ADMINS",
             payload: json.data
         })
     }
@@ -26,6 +37,17 @@ export function getDoctors(){ //Obtener todos los doctors
         let json = await axios.get("/doctors");
         return dispatch({
             type: "GET_DOCTORS",
+            payload: json.data
+        })
+    }
+};
+
+export function getDoctorsExceptBlockeds(){ //Obtener todos los doctors
+    return async function (dispatch)
+    {
+        let json = await axios.get("/doctors");
+        return dispatch({
+            type: "GET_DOCTORS_-BLOCKEDS",
             payload: json.data
         })
     }
@@ -172,6 +194,7 @@ export function deletePatient(id){ //Eliminar patient
         })
     }
 };
+
 export function getSubscribe(id){ //Eliminar patient
     return async function(dispatch)
     {
@@ -182,18 +205,20 @@ export function getSubscribe(id){ //Eliminar patient
         })
     }
 };
+
 export function GetError(msj){
     return{
         type:"GET_ERROR",
         payload:msj
     }
-}
+};
+
 export function deleteError(){
     return{
         type:"GET_ERROR",
         payload:''
     }
-}
+};
 
 export function getSpecialties(){ //Obtener specialties
     return async function (dispatch)
@@ -281,8 +306,7 @@ export function getReviewByDoctor(doctor){ //Obtener las reviews de un doctor
     }
 };
 
-export function getReviewByPatient(patient) //Obtener las reviews hechas por un patient
-{
+export function getReviewByPatient(patient){ //Obtener las reviews hechas por un patient
     return async function (dispatch) 
     {
         let response = await axios.get("/reviews?patient="+patient)
@@ -307,7 +331,11 @@ export function getReviewDetail(review){ //Obtener los detalles de una review
 export function addReview(review){ //Agregar una review
     return async function (dispatch) 
     {
+        console.log("action: ",review)
         let response = await axios.post("/reviews/create", review)
+        if(response.status === 200){
+            alert("Review Added successfully")
+        }
         return dispatch({
             type: "ADD_REVIEW",
             payload: response.data
@@ -331,5 +359,87 @@ export function checkRole(id) {
             type: "CHECKROLE",
             payload: role.data
         })
+    }
+};
+
+export function getMessages(){ //Obtener lo mensajes de Help us to improve
+    return async function (dispatch)
+    {
+        let json = await axios.get("/messages"); // http://localhost:3001/messages
+        return dispatch({
+            type: "GET_MESSAGES",
+            payload: json.data
+        })
+    }
+};
+
+export function createMessage(data){ //crear un mensaje en el buzón de HelpUsToImprove
+    // console.log('SOY LA DATA DE LA ACTION: ', data)
+    return async function (dispatch)
+    {
+        let response = await axios.post("/messages/send", data); // http://localhost:3001/messages/send
+        return dispatch({
+            type: "POST_MESSAGE",
+            payload: response
+        })
+    }
+};
+
+export function dispDateByDoctor(doctor) {
+    return async function (dispatch) {
+        let appointments = await axios.get("http://localhost:3001/appointments?doctor=" + doctor)
+        return dispatch({
+            type: "DISP_DATE_BY_DOCTOR",
+            payload: appointments.data
+        })
+    }
+};
+
+export function dispHourByDoctor(doctor) {
+    return async function (dispatch) {
+        let appointments = await axios.get("http://localhost:3001/appointments?doctor=" + doctor)
+        return dispatch({
+            type: "DISP_HOUR_BY_DOCTOR",
+            payload: appointments.data
+        })
+    }
+};
+
+export function addDisponibility(disponibility) {
+    return async function (dispatch) {
+        const dispo = {
+            start: disponibility.date + "T" + disponibility.hour.split(" - ")[0] + ":00.000Z",
+            end: disponibility.date + "T" + disponibility.hour.split(" - ")[1] + ":00.000Z",
+            doctor: disponibility.doctor
+        }
+        let response = await axios.post("http://localhost:3001/appointments/create", dispo)
+        return dispatch({
+            type: "ADD_DISPONIBILITY",
+            payload: response.data
+        })
+    }
+};
+
+export function requestAppointment(appointment) {
+    return async function (dispatch) {
+        const appo = {
+            start: appointment.date + "T" + appointment.hour.split(" - ")[0] + ":00.000Z",
+            patient: appointment.patient
+        }
+        console.log("Action: ", appo)
+        let response = await axios.put("http://localhost:3001/appointments/update", appo)
+        if(response.status === 200) {
+            alert("Appointment Successfully requested")
+        } else alert(response.data)
+        return dispatch({
+            type: "REQUEST_APPOINTMENT",
+            payload: response.data
+        })
+    }
+};
+
+export function resetReviews() {
+    return {
+        type: 'RESET_REVIEWS',
     }
 };

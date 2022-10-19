@@ -9,8 +9,14 @@ const initialState = { //estados iniciales
     patientDetail: [],
     patientPut:'',
     specialties: [],
+    reviews: [],
+    dates: [],
+    hours: [],
+    appointments: [],
     isLogged: {},
     role:'',
+    messages: [],
+    admins: [],
     sub:'',
     error:''
 };
@@ -18,22 +24,31 @@ const initialState = { //estados iniciales
 
 function rootReducer(state = initialState, action){
     switch (action.type){
-        
+    
         case "GET_ERROR":
             return{
                 ...state,
                 error:action.payload
             }
+            
         case "GET_ROLE":
             return{
                 ...state,
                 role:action.payload
             }
+
+        case "GET_ADMINS":
+            return{
+                ...state,
+                admins: action.payload
+            }
+
         case "GET_SUB":
             return{
                 ...state,
                 sub:action.payload
             }
+
         case "GET_PATIENTS":
             return{
                 ...state,
@@ -77,7 +92,14 @@ function rootReducer(state = initialState, action){
                 doctors: action.payload,
                 doctorsCopy: action.payload
             }
-            
+
+        case "GET_DOCTORS_-BLOCKEDS":
+            return {
+                ...state,
+                doctors: action.payload.filter((doc) => doc.status !== "blocked"),
+                doctorsCopy: action.payload.filter((doc) => doc.status !== "blocked"),
+            }
+        
         case "GET_DOCTOR_DETAIL":
             return {
                 ...state,
@@ -243,6 +265,62 @@ function rootReducer(state = initialState, action){
         case "CHECKROLE":
             return {
                 ...state
+            }
+        
+        case "GET_MESSAGES":
+            return{
+                ...state,
+                messages: action.payload
+            }
+
+        case "POST_MESSAGE":
+            return{
+                ...state,
+            }
+        
+        case "DISP_DATE_BY_DOCTOR":
+            const dates = action.payload;
+            const freeDates = dates.filter(d => d.status === "Free")
+            const allDates = freeDates.map(a => {
+                const disponibility = {
+                    date: a.start.split("T")[0]
+                }
+                return disponibility
+            })
+            const dispDate = new Set(allDates)
+            return {
+                ...state,
+                dates: Array.from(dispDate)
+            }
+
+        case "DISP_HOUR_BY_DOCTOR":
+            const hours =  action.payload;
+            const freeHours = hours.filter(h => h.status === "Free")
+            const dispHour = freeHours.map(a => {
+                const disponibility = {
+                    hour: a.start.split("T")[1].slice(0,5) + " - " + a.end.split("T")[1].slice(0,5)
+                }
+                return disponibility
+            })
+            return {
+                ...state,
+                hours: dispHour
+            }
+
+        case "ADD_DISPONIBILITY":
+            return {
+                ...state
+            }
+
+        case "REQUEST_APPOINTMENT":
+            return {
+                ...state
+            }
+
+        case "RESET_REVIEWS":
+            return {
+                ...state,
+                reviews: [],
             }
 
         default: return state;

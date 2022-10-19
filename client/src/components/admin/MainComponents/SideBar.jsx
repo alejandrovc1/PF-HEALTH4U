@@ -1,6 +1,6 @@
 import React from 'react';
 import st from './SideBar.module.css';
-import {Home, Timeline, TrendingUp, MailOutline, MoveToInbox, MarkChatUnread, AdminPanelSettings, PersonOutline, Groups2, Storage, Insights, ReportGmailerrorred} from '@mui/icons-material';
+import {Home, Timeline, TrendingUp, MailOutline, MoveToInbox, MarkChatUnread, AdminPanelSettings, PersonOutline, Groups2, Storage, Insights, EventAvailable} from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 
 
@@ -33,12 +33,16 @@ export default function SideBar() {
           <h3 className={st.sidebarTitle}>Notifications</h3>
           <ul className={st.sidebarList}>
             <li className={st.sidebarListItem}>
-              <MailOutline className={st.sidebarIcon}/>
-              Mail
+              <a href="http://www.gmail.com" className={st.link}>
+                <MailOutline className={st.sidebarIcon}/>
+                Mail
+              </a>
             </li>
             <li className={st.sidebarListItem}>
-              <MoveToInbox className={st.sidebarIcon}/>
-              Help us to improve
+              <Link to='/adminView/helpusmail' className={st.link}>
+                <MoveToInbox className={st.sidebarIcon}/>
+                Help us to improve
+              </Link>
             </li>
             <li className={st.sidebarListItem}>
               <MarkChatUnread className={st.sidebarIcon}/>
@@ -51,8 +55,10 @@ export default function SideBar() {
           <h3 className={st.sidebarTitle}>Users</h3>
           <ul className={st.sidebarList}>
             <li className={st.sidebarListItem}>
-              <AdminPanelSettings className={st.sidebarIcon}/>
-              Admins
+              <Link to='/adminView/admins' className={st.link}>
+                <AdminPanelSettings className={st.sidebarIcon}/>
+                Admins
+              </Link>
             </li>
             <li className={st.sidebarListItem}>
               <Link to='/adminView/doctors' className={st.link}>
@@ -73,16 +79,20 @@ export default function SideBar() {
           <h3 className={st.sidebarTitle}>Merberships</h3>
           <ul className={st.sidebarList}>
             <li className={st.sidebarListItem}>
-              <Storage className={st.sidebarIcon}/>
-              Manage
+              <Link to='/adminView/memberships' className={st.link}>
+                <Storage className={st.sidebarIcon}/>
+                Memberships
+              </Link>
             </li>
             <li className={st.sidebarListItem}>
               <Insights className={st.sidebarIcon}/>
               Analytics
             </li>
             <li className={st.sidebarListItem}>
-              <ReportGmailerrorred className={st.sidebarIcon}/>
-              Reports
+              <Link to='/adminView/appointments' className={st.link}>
+                <EventAvailable className={st.sidebarIcon}/>
+                Appointments
+              </Link>
             </li>
           </ul>
         </div>
@@ -90,4 +100,4 @@ export default function SideBar() {
       
     </div>
   )
-}
+};
