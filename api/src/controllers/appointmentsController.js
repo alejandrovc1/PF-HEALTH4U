@@ -1,4 +1,4 @@
-const appointmentModel = require('../models/appointment')
+const { appointmentModel, patientModel } = require('../models/models')
 // const mongoose = require("mongoose");
 
 const createAppointments = async (req, res, next) => {
@@ -114,17 +114,22 @@ const getAppointmentByPatient = async (patient) => {
 const updateAppointment = async (req, res, next) => {
     try {
         const { start, patient } = req.body
-        const idAppo = await appointmentModel.findOne({ start: start })
-        if(!idAppo) {
-            res.status(400).send("Can't find the Appointment")
+        const premium = await patientModel.findById(patient)
+        if(premium.subscription) {
+            const idAppo = await appointmentModel.findOne({ start: start })
+            if(!idAppo) {
+                res.status(400).send("Can't find the Appointment")
+            } else {
+                await appointmentModel.findByIdAndUpdate(idAppo._id, {
+                    status: "Occupied",
+                    patientID: patient
+                }, { new : true}) // este ultimo parámetro hace que nos devuelva el doc actualizado
+                .then( () => {
+                    res.status(200).send("Appointment Successfully Updated")
+                })
+            }
         } else {
-            const updatedAppo = await appointmentModel.findByIdAndUpdate(idAppo._id, {
-                status: "Occupied",
-                patientID: patient
-            }, { new : true}) // este ultimo parámetro hace que nos devuelva el doc actualizado
-            .then( () => {
-                res.status(200).send("Appointment Successfully Updated")
-            })
+            res.status(400).send("You need to be Premium to make an appointment")
         }
         
     } catch (error) { next(error)}

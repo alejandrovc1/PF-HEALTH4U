@@ -20,6 +20,7 @@ export default function App( ) {
   const role = useSelector( f => f.role)
   const id = localStorage.getItem("id")
   if(tokenInLocal){
+    const id = localStorage.getItem("id")
     dispatch(getRole({id, token:tokenInLocal}))
   }
 
@@ -41,8 +42,10 @@ export default function App( ) {
           </>
           : role === 'patient'?
           <>
-          <Route path='/*' element={<RutasUseP id={id}/>} />
-          <Route path='*' element={<Navigate to='/'/>}/>
+            <Route path='/appointment' element={<Appointment  />} />
+            <Route path='/profile/:id' element={<ProfilePatient />} />
+            <Route exact path='/docDetail/:id' element={<DoctorDetail />} />
+            <Route path='*' element={<Navigate to='appointment'/>}/> 
           </>
           :role ==='admin'?
           <>

@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.all {
+    text-align: center;
+    width: 30rem;
+    height: auto;
+    background-color: rgb(75, 219, 219);
+    border-radius: 5%;
+}
+
+.image {
+    width: 15rem;
+    height: 15rem;
+}
+
+.details {
+    text-align: center;
+}
+
+.btn {
+    padding-inline: 15px;
+    margin-inline: 10px;
+    height: 2rem;
+    background-color: azure;
+    border: none;
+    border-radius: 15px;
+}
