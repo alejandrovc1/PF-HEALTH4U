@@ -28,7 +28,7 @@
     margin: 0;
 }
 
-.link{
+.link, .link.active, .link:hover{
     text-decoration: none;
     color: #555;
 }
@@ -43,6 +43,7 @@
 
 .sidebarListItem.active, .sidebarListItem:hover{
     background-color: rgb(175, 245, 224);
+    color: #555;
 }
 
 .sidebarIcon{

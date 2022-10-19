@@ -15,32 +15,35 @@ export default function HelpUsMail() {
 
     console.log(messages)
 
-    // let comments = messages?.map( M => {
-        
-    // })
-
     return (
         
         <div className={st.Container}>
-            <h1 className={st.title}> HelpUsMail </h1>
+            <h1 className={st.title}> Help Us Mail </h1>
 
             <div className={st.listContainer}>
                 <ul className={st.listMessages}>
-                    { messages && messages.map( msg => {
+                    { messages && messages.map( (msg, index) => {
                         return (
-                            <div className={st.listItem}>
-                                <li className={st.MSG}>
-                                    Name: {msg.name}
-                                </li>
-                                <li className={st.MSG}>
-                                    Email: {msg.email}
-                                </li>
-                                <li className={st.MSG}>
-                                    Message: {msg.message}
-                                </li>
+                            <div className={st.divItem}>
+                                <div className={st.listHead}>
+                                    <li className={st.listItem}>
+                                        ID: {index + 1}
+                                    </li>
+                                    <li className={st.listItem}>
+                                        Name: {msg.name}
+                                    </li>
+                                    <li className={st.listItem}>
+                                        Email: {msg.email}
+                                    </li>
+                                </div>
+                                <div className={st.itemMsg}>
+                                    <li className={st.listItem}>
+                                        Message: {msg.message}
+                                    </li>
+                                </div>
                             </div>
                         )
-                    })}
+                    }).reverse()}
                 </ul>
             </div>
         </div>

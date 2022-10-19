@@ -1,4 +1,5 @@
 .navbar{
+  margin-top: 5px;
   width: 100vw;
   height: auto;
 }
@@ -22,20 +23,18 @@
   list-style: none;
   padding: 0 1.5rem;
   position: relative;
-}
 
-#navul li a{
-  text-decoration: none;
   font-size: 1.2rem;
   font-weight: 2rem;
   color: black;
 }
 
-#navul li a:hover{
-  color: #00c3ff;
+.link{
+  text-decoration:none;
 }
 
-#navul li a:hover::after{
+#navul li:hover::after{
+  color: #00c3ff;
   content: "";
   width: 70%;
   height: 0.4rem;

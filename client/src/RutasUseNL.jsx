@@ -10,17 +10,17 @@ import Footer from './components/Footer/Footer.jsx'
 
 export default function RutasUseNL(){
 
-    return(
-        <React.Fragment>
-        <Nav/>
-        <Routes>
+  return(
+    <React.Fragment>
+      <Nav/>
+      <Routes>
         <Route exact path='/' element={<Home />} />
-        <Route  path='/login' element={<Login />} />
-        <Route  path='/register/' element={<Register />} />
-        <Route  path='/aboutus' element={<AboutUs/>} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register/' element={<Register />} />
+        <Route path='/aboutus' element={<AboutUs/>} />
         <Route path='*' element={<Navigate to='/'/>}/> 
-        </Routes>
-        <Footer/>
-      </React.Fragment>
-    )
+      </Routes>
+      <Footer/>
+    </React.Fragment>
+  )
 }
