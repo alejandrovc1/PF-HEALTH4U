@@ -9,27 +9,51 @@ import {
 } from 'firebase/auth';
 import { auth } from "../../firebase"
 import { GetError } from "../../actions"
+import { async } from "@firebase/util"
 
 export default function Login() {
-
+    const[googleL,setgoogleL]=useState(false)
     const [data, setData] = useState({
         email: "",
         password: ""
     });
-
-    function handleGoogleButton ()  {
+    const [dataG, setDataG] = useState({
+        email: "",
+        password: ""
+    });
+    useEffect(()=>{
+        if(googleL){
+            (async ()=>{ const url = "/login"
+            const { data: res } = await axios.post(url, dataG)
+    
+        setUser({
+           email: data.email,
+           rol: data.rol
+       })
+       localStorage.setItem("id", res.id)
+       localStorage.setItem("token", res.token)
+       window.location.reload(true)})();
+        }
+    },[googleL])
+   
+     function  handleGoogleButton ()  {
         const googleProvider = new GoogleAuthProvider()
         signInWithPopup(auth, googleProvider)
-            .then(res => {
+            .then(  (res) => {
                 console.log(res)
-                setData({
+                setDataG({
                     email: res.user.email,
                     password: res.user.uid
                 })
+                setgoogleL(true)
+                
             })
-            .catch(e => console.log(e))
+            .catch(e =>{
+                 console.log(e)
+                 dispatch(GetError('something went wrong with the login check the fields or you may be blocked'))
+                })
     }
-
+  
     const [user, setUser] = useState(null);
     const dispatch = useDispatch();
 
@@ -67,7 +91,7 @@ export default function Login() {
         e.preventDefault()
         setError("")
         try {
-            const url = "http://localhost:3001/login"
+            const url = "/login"
             const { data: res } = await axios.post(url, data)
 
             setUser({
@@ -76,7 +100,6 @@ export default function Login() {
             })
             localStorage.setItem("id", res.id)
             localStorage.setItem("token", res.token)
-            setlogeado(true)
             window.location.reload(true)
         } catch (error) {
             // if (
