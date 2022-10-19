@@ -97,7 +97,6 @@ const compareToken = async (req, res) => {
         const doctorFound = await doctorModel.findOne({ _id: id })
         const patientFound = await patientModel.findOne({ _id: id })
         const adminFound = await adminModel.findOne({_id:id})
-        console.log('doctor: ' + doctorFound + "patient: " + patientFound)
         if (doctorFound) {
             if (doctorFound.token === token) {
                 let roleFound = 'doctor'
