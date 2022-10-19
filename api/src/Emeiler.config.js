@@ -9,9 +9,10 @@ function EmeilerConfig(msj, email, name) {
       port: 465,
       secure: true, // true for 465, false for other ports
       auth: {
-        user: 'helath.4U.web@gmail.com', // generated ethereal user
-        pass: 'auilxcylrfjtbbvs', // generated ethereal password
+        user: 'smitesotra@gmail.com', // generated ethereal user
+        pass: 'scnqnrcylutjchhw', // generated ethereal password
       },
+
       tls: {
         rejectUnauthorized: false
       }
