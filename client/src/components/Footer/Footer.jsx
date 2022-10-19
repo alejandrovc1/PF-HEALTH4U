@@ -32,7 +32,7 @@ export default function Footer() {
                     <p><a>Help?</a></p>
                 </div>
                 <div className={s.copy}>
-                    <p>@Health4u All rights reserved</p>
+                    <p>@Health4u 2022 - All rights reserved</p>
                 </div>
             </div>
         </footer>

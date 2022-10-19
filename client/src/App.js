@@ -8,6 +8,7 @@ import { getRole } from './actions/index.js'
 import Loading from './components/Loading/Loading.jsx'
 import RutasUseNL from './RutasUseNL.jsx'
 import RutasUseP from './RutasUseP'
+import HelpUsImprove from './components/HelpUsImprove/HelpUsImprove'
 import RutasUseD from './RutasUseD'
 import { Nav } from './components/Nav'
 import Footer from './components/Footer/Footer'
@@ -32,33 +33,35 @@ export default function App( ) {
         <Routes>
           {!tokenInLocal?
           <>
-         <Route path='/*' element={<RutasUseNL/>} />
-         <Route path='*' element={<Navigate to='/home'/>}/> 
+            <Route path='/*' element={<RutasUseNL/>} />
+            <Route path='*' element={<Navigate to='/home'/>}/>
+            <Route path='/helpusimprove' element={<HelpUsImprove/>}/>
           </>
           : role === 'doctor'?
           <>
-          <Route path='/*' element={<RutasUseD id={id}/>} />
-          <Route path='*' element={<Navigate to='/'/>}/>
+            <Route path='/*' element={<RutasUseD id={id}/>} />
+            <Route path='*' element={<Navigate to='/'/>}/>
           </>
           : role === 'patient'?
           <>
-            <Route path='/appointment' element={<Appointment  />} />
+            <Route path='/appointment' element={<Appointment />} />
             <Route path='/profile/:id' element={<ProfilePatient />} />
             <Route exact path='/docDetail/:id' element={<DoctorDetail />} />
-            <Route path='*' element={<Navigate to='appointment'/>}/> 
+            <Route path='*' element={<Navigate to='/appointment'/>}/> 
           </>
-          :role ==='admin'?
+          : role ==='admin'?
           <>
             <Route path='/adminView//*' element={<AdminView/>} />
-            <Route path='*' element={<Navigate to='/adminView'/>}/> 
+            <Route exact path='/' element={<RutasUseNL />} />
+            <Route path='*' element={<Navigate to='/adminView/'/>}/> 
           </>
           : <Route path='*' element={
             <>
-            <Nav/>
-            <Loading/>
-            <Footer/>
+              <Nav/>
+              <Loading/>
+              <Footer/>
             </>
-        }/>
+            }/>
           }
         </Routes>
       </div>

@@ -25,6 +25,7 @@
     display: flex;
     align-items: center;
     font-weight: 600;
+    margin: 15px;
 } 
 
 .LgWidgetImg{

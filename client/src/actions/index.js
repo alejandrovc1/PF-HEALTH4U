@@ -1,5 +1,6 @@
 import axios from "axios"
 
+
 export function getRole(body) { //
     return async function (dispatch)
     {
@@ -19,12 +20,34 @@ export function getRole(body) { //
     }
 };
 
+export function getAdmins(){ //Obtener los admins registrados
+    return async function(dispatch)
+    {
+        let json = await axios.get("http://localhost:3001/admins");
+        return dispatch({
+            type: "GET_ADMINS",
+            payload: json.data
+        })
+    }
+};
+
 export function getDoctors(){ //Obtener todos los doctors
     return async function (dispatch)
     {
         let json = await axios.get("/doctors");
         return dispatch({
             type: "GET_DOCTORS",
+            payload: json.data
+        })
+    }
+};
+
+export function getDoctorsExceptBlockeds(){ //Obtener todos los doctors
+    return async function (dispatch)
+    {
+        let json = await axios.get("/doctors");
+        return dispatch({
+            type: "GET_DOCTORS_-BLOCKEDS",
             payload: json.data
         })
     }
@@ -171,6 +194,7 @@ export function deletePatient(id){ //Eliminar patient
         })
     }
 };
+
 export function getSubscribe(id){ //Eliminar patient
     return async function(dispatch)
     {
@@ -181,18 +205,20 @@ export function getSubscribe(id){ //Eliminar patient
         })
     }
 };
+
 export function GetError(msj){
     return{
         type:"GET_ERROR",
         payload:msj
     }
-}
+};
+
 export function deleteError(){
     return{
         type:"GET_ERROR",
         payload:''
     }
-}
+};
 
 export function getSpecialties(){ //Obtener specialties
     return async function (dispatch)
@@ -280,8 +306,7 @@ export function getReviewByDoctor(doctor){ //Obtener las reviews de un doctor
     }
 };
 
-export function getReviewByPatient(patient) //Obtener las reviews hechas por un patient
-{
+export function getReviewByPatient(patient){ //Obtener las reviews hechas por un patient
     return async function (dispatch) 
     {
         let response = await axios.get("/reviews?patient="+patient)
@@ -337,6 +362,29 @@ export function checkRole(id) {
     }
 };
 
+export function getMessages(){ //Obtener lo mensajes de Help us to improve
+    return async function (dispatch)
+    {
+        let json = await axios.get("/messages"); // http://localhost:3001/messages
+        return dispatch({
+            type: "GET_MESSAGES",
+            payload: json.data
+        })
+    }
+};
+
+export function createMessage(data){ //crear un mensaje en el buzón de HelpUsToImprove
+    // console.log('SOY LA DATA DE LA ACTION: ', data)
+    return async function (dispatch)
+    {
+        let response = await axios.post("/messages/send", data); // http://localhost:3001/messages/send
+        return dispatch({
+            type: "POST_MESSAGE",
+            payload: response
+        })
+    }
+};
+
 export function dispDateByDoctor(doctor) {
     return async function (dispatch) {
         let appointments = await axios.get("http://localhost:3001/appointments?doctor=" + doctor)
@@ -345,7 +393,7 @@ export function dispDateByDoctor(doctor) {
             payload: appointments.data
         })
     }
-}
+};
 
 export function dispHourByDoctor(doctor) {
     return async function (dispatch) {
@@ -355,7 +403,7 @@ export function dispHourByDoctor(doctor) {
             payload: appointments.data
         })
     }
-}
+};
 
 export function addDisponibility(disponibility) {
     return async function (dispatch) {
@@ -370,7 +418,7 @@ export function addDisponibility(disponibility) {
             payload: response.data
         })
     }
-}
+};
 
 export function requestAppointment(appointment) {
     return async function (dispatch) {
@@ -388,10 +436,10 @@ export function requestAppointment(appointment) {
             payload: response.data
         })
     }
-}
+};
 
 export function resetReviews() {
     return {
         type: 'RESET_REVIEWS',
     }
-}
+};

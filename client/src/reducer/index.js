@@ -15,6 +15,8 @@ const initialState = { //estados iniciales
     appointments: [],
     isLogged: {},
     role:'',
+    messages: [],
+    admins: [],
     sub:'',
     error:''
 };
@@ -22,22 +24,31 @@ const initialState = { //estados iniciales
 
 function rootReducer(state = initialState, action){
     switch (action.type){
-        
+    
         case "GET_ERROR":
             return{
                 ...state,
                 error:action.payload
             }
+            
         case "GET_ROLE":
             return{
                 ...state,
                 role:action.payload
             }
+
+        case "GET_ADMINS":
+            return{
+                ...state,
+                admins: action.payload
+            }
+
         case "GET_SUB":
             return{
                 ...state,
                 sub:action.payload
             }
+
         case "GET_PATIENTS":
             return{
                 ...state,
@@ -81,7 +92,14 @@ function rootReducer(state = initialState, action){
                 doctors: action.payload,
                 doctorsCopy: action.payload
             }
-            
+
+        case "GET_DOCTORS_-BLOCKEDS":
+            return {
+                ...state,
+                doctors: action.payload.filter((doc) => doc.status !== "blocked"),
+                doctorsCopy: action.payload.filter((doc) => doc.status !== "blocked"),
+            }
+        
         case "GET_DOCTOR_DETAIL":
             return {
                 ...state,
@@ -248,7 +266,18 @@ function rootReducer(state = initialState, action){
             return {
                 ...state
             }
+        
+        case "GET_MESSAGES":
+            return{
+                ...state,
+                messages: action.payload
+            }
 
+        case "POST_MESSAGE":
+            return{
+                ...state,
+            }
+        
         case "DISP_DATE_BY_DOCTOR":
             const dates = action.payload;
             const freeDates = dates.filter(d => d.status === "Free")

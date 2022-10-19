@@ -9,6 +9,8 @@ const specialties = require("./specialties")
 const reviews = require("./reviews")
 const login = require("./login")
 const checkRole = require("./checkRole")
+const messages = require("./messages")
+const admins = require("./admins")
 
 // const PATH_ROUTES = __dirname; 
 
@@ -32,15 +34,17 @@ router.use('/specialties', specialties)
 router.use('/login', login)
 router.use('/reviews', reviews)
 router.use('/checkrole', checkRole)
+router.use('/messages', messages)
+router.use('/admins', admins);
+
 router.get('/', (req, res) => {
     res.status(200).send({ message: 'Servidor Activo' })
-})
-
+});
 
 
 //middleware para el Not Found
 router.use((req, res, next) => {
     res.status(404).end()
-})
+});
 
 module.exports = router;
