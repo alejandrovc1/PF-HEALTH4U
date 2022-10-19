@@ -36,19 +36,19 @@ function rootReducer(state = initialState, action){
                 ...state,
                 role:action.payload
             }
-        
+
         case "GET_ADMINS":
             return{
                 ...state,
                 admins: action.payload
             }
-        
+
         case "GET_SUB":
             return{
                 ...state,
                 sub:action.payload
             }
-            
+
         case "GET_PATIENTS":
             return{
                 ...state,
