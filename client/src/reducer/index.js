@@ -240,7 +240,8 @@ function rootReducer(state = initialState, action){
 
         case "DISP_DATE_BY_DOCTOR":
             const dates = action.payload;
-            const allDates = dates.map(a => {
+            const freeDates = dates.filter(d => d.status === "Free")
+            const allDates = freeDates.map(a => {
                 const disponibility = {
                     date: a.start.split("T")[0]
                 }
@@ -254,7 +255,8 @@ function rootReducer(state = initialState, action){
 
         case "DISP_HOUR_BY_DOCTOR":
             const hours =  action.payload;
-            const dispHour = hours.map(a => {
+            const freeHours = hours.filter(h => h.status === "Free")
+            const dispHour = freeHours.map(a => {
                 const disponibility = {
                     hour: a.start.split("T")[1].slice(0,5) + " - " + a.end.split("T")[1].slice(0,5)
                 }
@@ -273,6 +275,12 @@ function rootReducer(state = initialState, action){
         case "REQUEST_APPOINTMENT":
             return {
                 ...state
+            }
+
+        case "RESET_REVIEWS":
+            return {
+                ...state,
+                reviews: [],
             }
 
         default: return state;

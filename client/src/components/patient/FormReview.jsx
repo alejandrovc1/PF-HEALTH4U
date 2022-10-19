@@ -3,13 +3,12 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux' 
 import { addReview } from '../../actions/index'
+import style from './FormReview.module.css'
 
 export default function FormReview(props) {
     const history = useNavigate()
     const dispatch = useDispatch()
-    const [error, setError] = useState({
-        review: ""
-    })
+    const [error, setError] = useState({})
 
     const [input, setInput] =React.useState({
         service: props.service,
@@ -28,9 +27,10 @@ export default function FormReview(props) {
         }
         if(!input.score) {
             error.score = "Score is required"
-        } else if ((/[1-5]/.test(input.score.trim()))) {
+        } else if ((!/[1-5]/.test(input.score.trim()))) {
             error.score = "Input only accepts Value between 1 and 5"
         }
+        return error
     }
 
     function handleInputChange(e) {
@@ -42,7 +42,6 @@ export default function FormReview(props) {
             ...input,
             [e.target.name]: e.target.value
         }))
-        console.log(e.target.value)
     }
 
     function handleSubmitReview  (e) {
@@ -63,23 +62,28 @@ export default function FormReview(props) {
             patient: "",
             doctor: ""
         })
+        history(`docDetail/${props.doctor}`)
     }
 
     return (
-        <div>
+        <div className={style.formulary}>
             <h2>Add Review:</h2>
-            <form>
-                <div>
-                    <label>Review:</label>
-                    <input type="text" name='review' onChange={handleInputChange} placeholder="Write your review"/>
+            <form onSubmit={handleSubmitReview}>
+                <div className={style.inputData}>
+                    <label>
+                        Review:
+                        <textarea type="text" name='review' onChange={handleInputChange} rows="5" placeholder="Write your review"/>
+                    </label>
                     {error.review? <p>{error.review}</p>: null}
                 </div>
-                <div>
+                <div className={style.inputData}>
                     <label>Score:</label>
-                    <input type="number" name='score' onChange={handleInputChange}/>
+                    <input type="number" name='score' onChange={handleInputChange} placeholder="Write the score"/>
                     {error.score? <p>{error.score}</p> : null}
                 </div>
-                <button type='submit'>Add Review</button>
+                <div className={style.btnholder}>
+                    <button className={style.btn} type='submit'>Add Review</button>
+                </div>
             </form>
         </div>
     )

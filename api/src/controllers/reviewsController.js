@@ -27,6 +27,7 @@ const getAllReviews = async () => {
 
 const getReviewByDoctor = async (doctor) => {
     try {
+        console.log(doctor)
         const response = await reviewModel.find({ 
             doctor: doctor, 
         }).populate({ path: 'patient' })
@@ -37,7 +38,8 @@ const getReviewByDoctor = async (doctor) => {
                 score: r.score,
                 review: r.review,
                 patient: r.patient.name,
-                doctor: r.doctor
+                doctor: r.doctor,
+                date: r.date
             }
             return re
         })
@@ -125,8 +127,6 @@ const createReview = async (reviewData) => {
         const putRating = await doctorModel.findByIdAndUpdate(doctor, {
             rating: rating
         }, { new : true})
-        console.log(putRating)
-        console.log("total: ", total, ", rating: ", rating)
 
         if(newReview) {
             return newReview

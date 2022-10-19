@@ -7,7 +7,6 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const loginFunction = async (req, res) => {
     try {
         if (req.body.email && req.body.password) {
-            console.log(req)
             //populate lo que hace es devolver todo el objeto role entero debido a que necesitamos el nombre, no solo el id
             const doctorFound = await doctorModel.findOne({ email: req.body.email })
             if (doctorFound) {
@@ -98,7 +97,6 @@ const compareToken = async (req, res) => {
         const doctorFound = await doctorModel.findOne({ _id: id })
         const patientFound = await patientModel.findOne({ _id: id })
         const adminFound = await adminModel.findOne({_id:id})
-        console.log('doctor: ' + doctorFound + "patient: " + patientFound)
         if (doctorFound) {
             if (doctorFound.token === token) {
                 let roleFound = 'doctor'

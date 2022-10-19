@@ -284,7 +284,11 @@ export function getReviewDetail(review){ //Obtener los detalles de una review
 export function addReview(review){ //Agregar una review
     return async function (dispatch) 
     {
+        console.log("action: ",review)
         let response = await axios.post("http://localhost:3001/reviews/create", review)
+        if(response.status === 200){
+            alert("Review Added successfully")
+        }
         return dispatch({
             type: "ADD_REVIEW",
             payload: response.data
@@ -334,8 +338,8 @@ export function dispHourByDoctor(doctor) {
 export function addDisponibility(disponibility) {
     return async function (dispatch) {
         const dispo = {
-            start: disponibility.date + "T" + disponibility.hour.split(" - ")[0],
-            end: disponibility.date + "T" + disponibility.hour.split(" - ")[1],
+            start: disponibility.date + "T" + disponibility.hour.split(" - ")[0] + ":00.000Z",
+            end: disponibility.date + "T" + disponibility.hour.split(" - ")[1] + ":00.000Z",
             doctor: disponibility.doctor
         }
         let response = await axios.post("http://localhost:3001/appointments/create", dispo)
@@ -349,13 +353,23 @@ export function addDisponibility(disponibility) {
 export function requestAppointment(appointment) {
     return async function (dispatch) {
         const appo = {
-            start: appointment.date + "T" + appointment.hour.split(" - ")[0],
+            start: appointment.date + "T" + appointment.hour.split(" - ")[0] + ":00.000Z",
             patient: appointment.patient
         }
+        console.log("Action: ", appo)
         let response = await axios.put("http://localhost:3001/appointments/update", appo)
+        if(response.status === 200) {
+            alert("Appointment Successfully requested")
+        } else alert(response.data)
         return dispatch({
             type: "REQUEST_APPOINTMENT",
             payload: response.data
         })
+    }
+}
+
+export function resetReviews() {
+    return {
+        type: 'RESET_REVIEWS',
     }
 }

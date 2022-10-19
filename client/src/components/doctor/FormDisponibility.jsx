@@ -22,6 +22,7 @@ export default function FormDisponibility() {
         if(!disponibility.hour) {
             error.hour = "Hour is required"
         }
+        return error
     }
 
     function handleInputChange(e) {
@@ -71,7 +72,7 @@ export default function FormDisponibility() {
                     <label>Hour:</label>
                     <select
                         defaultValue="None"
-                        onChange={(e) => handleInputChange(e)}
+                        onChange={handleInputChange}
                     >
                         <option value="None">Select an Hour</option>
                         <option value="All Day">All Day</option>

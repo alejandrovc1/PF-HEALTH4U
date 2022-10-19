@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux' 
 import { dispDateByDoctor, dispHourByDoctor, requestAppointment } from '../../actions/index'
+import style from './FormAppointment.module.css'
 
 export default function FormAppointment(props) {
     const history = useNavigate()
@@ -32,6 +33,7 @@ export default function FormAppointment(props) {
         if(!appointment.hour) {
             error.hour = "Hour is required"
         }
+        return error
     }
 
     function handleDateChange(e) {
@@ -43,7 +45,6 @@ export default function FormAppointment(props) {
             ...appointment,
             date: e.target.value
         }))
-        console.log(appointment)
     }
 
     function handleHourChange(e) {
@@ -60,30 +61,30 @@ export default function FormAppointment(props) {
 
     function handleSubmitAppointment(e) {
         e.preventDefault()
-        console.log("envio appointment")
         const newAppointment = {
             date: appointment.date,
             hour: appointment.hour,
             patient: appointment.patient
         }
+        console.log("envio appointment: ", newAppointment)
         dispatch(requestAppointment(newAppointment))
         setAppointment({
             date: "",
             hour: "",
             patient: ""
         })
-        history.push(`/docDetail/${props.doctorId}`)
+        history(`/docDetail/${props.doctorId}`)
     }
 
     return (
-        <div>
+        <div className={style.formulary}>
             <h2>New Appointment</h2>
-            <form onSubmit={e => {handleSubmitAppointment(e)}}>
-                <div>
+            <form onSubmit={handleSubmitAppointment}>
+                <div className={style.selector}>
                     <label>Available Dates:</label>
                     <select
                         defaultValue="None"
-                        onChange={(e) => {handleDateChange(e)}}
+                        onChange={handleDateChange}
                     >
                         <option value="None">
                             Select a date
@@ -99,11 +100,11 @@ export default function FormAppointment(props) {
                     </select>
                     {error.date && <p>{error.date}</p>}
                 </div>
-                <div>
+                <div className={style.selector}>
                     <label>Available Hours:</label>
                     <select
                         defaultValue="None"
-                        onChange={(e) => {handleHourChange(e)}}
+                        onChange={handleHourChange}
                     >
                         <option value="None">
                             Select an Hour
@@ -118,8 +119,8 @@ export default function FormAppointment(props) {
                     </select>
                     {error.hour && <p>{error.hour}</p>}
                 </div>
-                <div>
-                    <button type='submit'>Request Appointment</button>
+                <div className={style.btnholder}>
+                    <button className={style.btn} type='submit'>Request Appointment</button>
                 </div>
             </form>
         </div>
