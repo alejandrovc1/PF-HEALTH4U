@@ -22,6 +22,7 @@ export default function RutasUseNL() {
         <Route path='/aboutus' element={<AboutUs />} />
         <Route path='/subscription' element={<Navigate to='/register' />} />
         <Route path='*' element={<Navigate to='/' />} />
+
       </Routes>
       <Footer />
     </React.Fragment>

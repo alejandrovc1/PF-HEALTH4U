@@ -62,6 +62,7 @@ export default function FormAppointment(props) {
     function handleSubmitAppointment(e) {
         e.preventDefault()
         const newAppointment = {
+            doctorId:props.doctorId,
             date: appointment.date,
             hour: appointment.hour,
             patient: appointment.patient
@@ -69,6 +70,7 @@ export default function FormAppointment(props) {
         console.log("envio appointment: ", newAppointment)
         dispatch(requestAppointment(newAppointment))
         setAppointment({
+            doctor:'',
             date: "",
             hour: "",
             patient: ""

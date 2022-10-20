@@ -29,40 +29,47 @@ export default function Appointment() {
     }, [dispatch])
 
     const allDoctors = useSelector(state => state.doctorsCopy);
-
+    console.log("doctores: ", allDoctors)
+    
     const allspecialties = useSelector(state => state.specialties)
-
+    
     const [orden, setOrden] = useState("");
-
+    
     const [filter, setFilter] = useState("");
-
-    const [currentPage, setCurrentPage] = useState(1);
-
+    
+    let [currentPage, setCurrentPage] = useState(1);
+    
     const [doctorsPerPage, setDoctorsPerPage] = useState(8);
-
+    
     const [checked, setChecked] = useState(false)
-
-    const indexOfLastDoctors = currentPage * doctorsPerPage;
-
-    const indexOfFirstDoctors = indexOfLastDoctors - doctorsPerPage;
-
+    
+    let indexOfLastDoctors = currentPage * doctorsPerPage;
+    if(allDoctors.length < 8) indexOfLastDoctors =  allDoctors.length;
+    
+    let indexOfFirstDoctors = indexOfLastDoctors - doctorsPerPage;
+    if(indexOfFirstDoctors < 1) indexOfFirstDoctors = 0;
+    
     const currentDoctors = allDoctors.slice(indexOfFirstDoctors, indexOfLastDoctors);
+    console.log("Revision: ", currentDoctors)
 
+    const indexPages = Math.ceil(allDoctors.length / doctorsPerPage)
+    console.log("index: ", indexPages)
+    
+    
+    
+    // const paginado = (pageNumber) => {
+    //     setCurrentPage(pageNumber)
+    // }
 
+    // function handlerPrev() {
+    //     if (currentPage <= 1) return;
+    //     paginado(currentPage - 1);
+    // }
 
-    const paginado = (pageNumber) => {
-        setCurrentPage(pageNumber)
-    }
-
-    function handlerPrev() {
-        if (currentPage <= 1) return;
-        paginado(currentPage - 1);
-    }
-
-    function handlerNext() {
-        if (currentPage >= currentPage.length) return;
-        paginado(currentPage + 1);
-    }
+    // function handlerNext() {
+    //     if (currentPage >= currentPage.length) return;
+    //     paginado(currentPage + 1);
+    // }
 
     function handleRating(e) {
         e.preventDefault();
@@ -119,7 +126,6 @@ export default function Appointment() {
 
     return (
         <div>
-            
             <div className={s.tite}>
                 <h1>Select your preferences to make an appointment!</h1>
             </div>
@@ -154,18 +160,25 @@ export default function Appointment() {
 
             <div className={style.paginado_container}>
                 <div className={style.paginado1}>
-                    {
-                        currentPage === 1 ? <div></div> :
-                            <button onClick={() => handlerPrev()} className={style.paginado_orden}>{"<"}</button>
-                    }
-                    <Paginado doctorsPerPage={doctorsPerPage}
-                        allDoctors={allDoctors.length}
-                        paginado={paginado}
-                    />
-                    {
-                        currentPage === 2 ? <div></div> :
-                            <button onClick={() => handlerNext()} className={style.paginado_orden}>{">"}</button>
-                    }
+                    <button className={style.paginado_orden} onClick={() => setCurrentPage(currentPage = 1)}>
+                        {"<<"}
+                    </button>
+                    <button className={style.paginado_orden} onClick={() => currentPage === 1?
+                        null
+                        : setCurrentPage(--currentPage)}>
+                        {"<"}
+                    </button>
+                    <p className={style.index}>
+                        {currentPage} of {indexPages}
+                    </p>
+                    <button className={style.paginado_orden} onClick={() => currentPage === indexPages?
+                        null 
+                        : setCurrentPage(++currentPage)}>
+                        {">"}
+                    </button>
+                    <button className={style.paginado_orden} onClick={() => setCurrentPage(indexPages)}>
+                        {">>"}
+                    </button>
                 </div>
             </div>
 
@@ -173,7 +186,6 @@ export default function Appointment() {
             <div className={s.docs}>
                 <div className={s.cardXdoc}>
                     {
-
                         currentDoctors.map(doctors => (
                             < CardDoc
                                 id={doctors.id}

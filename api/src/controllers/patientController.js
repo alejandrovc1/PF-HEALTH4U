@@ -78,11 +78,13 @@ const getPatientByName = async (name) => {
 const getPatientDetail = async (id) => {
     try {
         const response = await patientModel.findById(id)
+        let data='';
+        if(response.birthDate)data=response.birthDate.toDateString()
         const patient = {
             id: response._id,
             name: response.name,
             email: response.email,
-            birthDate: response.birthDate.toDateString(),
+            birthDate: data,
             address: response.address,
             country: response.country,
             tel: response.tel,
