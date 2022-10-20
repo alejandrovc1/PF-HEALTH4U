@@ -1,6 +1,6 @@
 .formulary {
     text-align: center;
-    width: 30rem;
+    width: 60rem;
     border-radius: 20px;;
     background-color: rgb(75, 219, 219);
 }
@@ -8,6 +8,7 @@
 .selector {
     font-weight: bolder;
     font-size: 1.2rem;
+    flex-direction: row;
 }
 
 .selector select {
@@ -17,15 +18,20 @@
 }
 
 .item {
+    width: 10rem;
     flex-wrap: wrap;
-    flex-direction: row;
     background-color: azure;
     border-radius: 10px;
 }
 
 .item button {
+    position: absolute;
+    margin-left: 60px;
+    margin-top: -45px;
     height: fit-content;
     width: fit-content;
+    border-radius: 50%;
+    border: none;
 }
 
 .btnholder {

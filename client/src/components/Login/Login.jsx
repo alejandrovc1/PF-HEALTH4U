@@ -127,7 +127,6 @@ export default function Login() {
                     placeholder="your email"
                     onChange={handleInputChange}
                 />
-                {error.email && <p>{error.email}</p>}
 
                 <label htmlFor="password">Password</label>
                 <input
@@ -137,7 +136,6 @@ export default function Login() {
                     placeholder="Password"
                     onChange={handleInputChange}
                 />
-                {error.password && <p>{error.password}</p>}
 
                 <button type="submit">Login</button>
 
