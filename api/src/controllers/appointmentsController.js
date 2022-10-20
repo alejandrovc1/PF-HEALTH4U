@@ -107,14 +107,19 @@ const getAppointmentByPatient = async (patient) => {
 
 const updateAppointment = async (req, res, next) => {
     try {
-        const { start, patient } = req.body
+        const { start, patient, doctorId } = req.body
         const premium = await patientModel.findById(patient)
+        console.log(patient, ", ", doctorId)
         if(premium.subscription) {
-            const idAppo = await appointmentModel.findOne({ start: start })
-            if(!idAppo) {
+            let idAppo = await appointmentModel.find({ start: start })
+            console.log(idAppo)
+            idAppo = idAppo.filter(a => a.doctorID === doctorId)
+            const appo = idAppo[0]
+            console.log("back: ", appo)
+            if(!appo) {
                 res.status(400).send("Can't find the Appointment")
             } else {
-                await appointmentModel.findByIdAndUpdate(idAppo._id, {
+                await appointmentModel.findByIdAndUpdate(appo._id, {
                     status: "Occupied",
                     patientID: patient
                 }, { new : true}) // este ultimo parámetro hace que nos devuelva el doc actualizado
