@@ -18,6 +18,7 @@ const initialState = { //estados iniciales
     messages: [],
     admins: [],
     sub:'',
+    Subs: [],
     error:''
 };
 
@@ -47,6 +48,12 @@ function rootReducer(state = initialState, action){
             return{
                 ...state,
                 sub:action.payload
+            }
+
+        case "GET_SUBS":
+            return{
+                ...state,
+                Subs: action.payload
             }
 
         case "GET_PATIENTS":
