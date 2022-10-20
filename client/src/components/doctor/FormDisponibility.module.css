@@ -1,0 +1,43 @@
+.formulary {
+    text-align: center;
+    width: 30rem;
+    border-radius: 20px;;
+    background-color: rgb(75, 219, 219);
+}
+
+.selector {
+    font-weight: bolder;
+    font-size: 1.2rem;
+}
+
+.selector select {
+    border-radius: 15px;
+    border: none;
+    margin: 1rem;
+}
+
+.item {
+    flex-wrap: wrap;
+    flex-direction: row;
+    background-color: azure;
+    border-radius: 10px;
+}
+
+.item button {
+    height: fit-content;
+    width: fit-content;
+}
+
+.btnholder {
+    padding-bottom: 1rem;
+}
+
+.btn {
+    padding-inline: 15px;
+    margin-inline: 10px;
+    height: 2rem;
+    font-weight: bolder;
+    background-color: azure;
+    border: none;
+    border-radius: 15px;
+}
