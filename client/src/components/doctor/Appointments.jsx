@@ -6,7 +6,7 @@ import Appointment from './Appointment';
 import FormDisponibility from './FormDisponibility'
 import style from './Appointments.module.css';
 
-export default function Reviews() {
+export default function Appointments() {
     const dispatch = useDispatch();
     const [addDisponibility, setDisponibility] = useState(false)
 
@@ -30,9 +30,10 @@ export default function Reviews() {
                         start={appo.start}
                         end={appo.end}
                         patient={appo.patient}
+                        status={appo.status}
                     />
                 ))
-                : <p className={style.noRevs}>There's no Appointments right now</p>
+                : <p className={style.noAppos}>There's no Appointments right now</p>
             }
             {addDisponibility?
                 <FormDisponibility/>

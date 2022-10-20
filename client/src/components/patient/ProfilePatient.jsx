@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import {getprofile} from '../../actions/index.js'
 import {useParams} from "react-router-dom"
 import ProfileDetail from "./ProfileDetailPatient.jsx";
@@ -13,10 +14,12 @@ export default function ProfilePatient({id}){
     let  detail=useSelector(f=>f.patientDetail)
     let props={
        
+
     }
     let functiionEdit=()=>{
         setEdit(edit?false:true)
     }
+
    
     detail?props={
        image:detail.image,
@@ -33,6 +36,7 @@ export default function ProfilePatient({id}){
     useEffect(()=>{
         dispatch(getprofile(id))
     },[])
+
     console.log(id)
     return(     
         !edit?<ProfileDetail

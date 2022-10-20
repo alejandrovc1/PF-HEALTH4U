@@ -47,6 +47,7 @@ export default function Appointment() {
     const indexOfFirstDoctors = indexOfLastDoctors - doctorsPerPage;
 
     const currentDoctors = allDoctors.slice(indexOfFirstDoctors, indexOfLastDoctors);
+    console.log(currentDoctors)
 
 
 
