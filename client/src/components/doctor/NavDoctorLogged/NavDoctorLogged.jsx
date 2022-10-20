@@ -32,9 +32,6 @@ export default function NavDoctorLogged() {
                 </Link>
                 <div>
                     <ul id={style.navul}>
-                        <Link to='/myqueries'>
-                        <li><a>My Queries</a></li>
-                        </Link>
                         <Link to='/profile' >
                         <li><a>Account</a></li>
                         </Link>
