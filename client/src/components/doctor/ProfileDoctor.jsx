@@ -17,7 +17,8 @@ export default function ProfileDoctor({id}){
     let functiionEdit=()=>{
         setEdit(edit?false:true)
     }
-   
+    let rating='';
+   if(detail.rating)rating=detail.rating.toString().slice(0,3)
     detail?props={
         id:id,
        image:detail.image,
@@ -27,7 +28,7 @@ export default function ProfileDoctor({id}){
        method:detail.method,
         country:detail.country,
         description:detail.description,
-        rating:detail.rating.toString().slice(0,3),
+        rating:rating,
         functiionEdit,
         status:detail.status
     }:console.log('algo esta pasando')
