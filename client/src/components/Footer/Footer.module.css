@@ -7,19 +7,17 @@
   background: url(../../image/pieDePagina.png);
   background-size: cover;
   background-position: center;
-  margin-top: 10rem;
+  margin-top: 0;
 }
 
 .piepagina {
   width: 100%;
 }
 
-icon {
-  margin-left: 2rem;
-}
-
 a {
   cursor: pointer;
+  text-decoration: none;
+  color:rgb(31, 30, 30);
 }
 
 .reds {

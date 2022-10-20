@@ -48,7 +48,7 @@ export default function TopBar(){
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                        <Dropdown.Item onClick={handleLogOut}>Sing Out</Dropdown.Item>
+                        <Dropdown.Item onClick={handleLogOut}>Sign Out</Dropdown.Item>
                         <Dropdown.Item href="http://localhost:3000/">Home Page</Dropdown.Item>
                         <Dropdown.Item href="http://www.gmail.com">Gmail</Dropdown.Item>
                         </Dropdown.Menu>

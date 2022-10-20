@@ -103,58 +103,92 @@
 }
 
 .mission{
-  margin: 5%;
+  display: flex;
+  margin: 7% 7% 2%;
+  align-items: center;
 }
 
-.mission>p{
-  margin: 0% 50% 0% 5%;
-  text-align: left;
+.missionText{
+  margin: 0% 20% 0% 7%;
+  text-align:justify;
+}
+
+.missionText>h3{
+  text-align: center;
+}
+
+.missionText>p{
+  font-size: 20px;
 }
 
 .imgMision{
   width: 400px;
   float: right;
-  margin-right: 8em;
+  margin-right: 7%;
   -webkit-box-shadow: 2px 4px 15px 3px rgba(0,0,0,0.8); 
   box-shadow: 2px 4px 15px 3px rgba(0,0,0,0.8);
   border-radius: 10%;
 }
 
 .vision{
-  text-align: right;
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 4% 7%;
+  align-items: center;
+}
+
+.visionText{
+  margin: 0% 6% 0% 18%;
+  text-align: justify;
+}
+
+.visionText>h3{
+  text-align:center;
+}
+
+.visionText>p{
+  font-size: 20px;
 }
 
 .imgVision{
   width: 450px;
   float: left;
-  margin-left: 10em;
+  margin-left: 6%;
   -webkit-box-shadow: -5px 5px 15px 3px rgba(0,0,0,0.8); 
   box-shadow: -5px 5px 15px 3px rgba(0,0,0,0.8);
   border-radius: 20px;
 }
 
 .values{
-  text-align: left;
+  display: flex;
+  margin: 3% 7% 5%;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.value>p{
-  text-align: center;
+.valuesDiv{
+  margin: 0% 20% 0% 8%;
 }
 
-ul>li{
+.valuesDiv>h3{
+  font-weight: 700;
+}
+
+.listItem{
   line-height: 2;
   list-style-type: none;
   text-align: left;
+  font-size: 20px;
 }
 
-ul>li:before{
+.listItem:before{
   content:"★ "
 }
 
 .imgValues{
   width: 300px;
   float: right;
-  margin-right: 18em;
+  margin-right: 10%;
   -webkit-box-shadow: 2px 4px 15px 3px rgba(0,0,0,0.8); 
   box-shadow: 2px 4px 15px 3px rgba(0,0,0,0.8);
   border-radius: 10%;

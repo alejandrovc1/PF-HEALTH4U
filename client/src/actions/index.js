@@ -65,11 +65,6 @@ export function getDetails(id) { //Obtener el detalle de un doctor
 };
 
 export function updateDoctor(id, dato){ //Actualizar doctor
-    // dato={
-    //     ...dato,
-    //     tel:parseInt(dato.tel),
-    //     birthDate:new Date(dato.birthDate+'T00:00:00.000Z')
-    // }
     return async function (dispatch)
     {
         let json = await axios.put("/doctors/"+ id, dato);
@@ -81,11 +76,6 @@ export function updateDoctor(id, dato){ //Actualizar doctor
 };
 
 export function updateDoctorAdmin(id, dato){ //Actualizar doctor
-    // dato={
-    //     ...dato,
-    //     tel:parseInt(dato.tel),
-    //     birthDate:new Date(dato.birthDate+'T00:00:00.000Z')
-    // }
     return async function (dispatch)
     {
         let json = await axios.put("/doctors/admin/"+ id, dato);
@@ -195,13 +185,24 @@ export function deletePatient(id){ //Eliminar patient
     }
 };
 
-export function getSubscribe(id){ //Eliminar patient
+export function getSubscribe(id){ //Obtener info de un paciente suscrito
     return async function(dispatch)
     {
-        const deleted = await axios.get(`/patients/getsub/${id}`)
+        const Sub = await axios.get(`/patients/getsub/${id}`)
         return dispatch({
             type: "GET_SUB",
-            payload: deleted.data
+            payload: Sub.data
+        })
+    }
+};
+
+export function getAllSubscribers(){ //Obtener todos los pacientes con suscripción
+    return async function(dispatch)
+    {
+        const Subs = await axios.get(`/subscribers`)
+        return dispatch({
+            type: "GET_SUBS",
+            payload: Subs.data
         })
     }
 };

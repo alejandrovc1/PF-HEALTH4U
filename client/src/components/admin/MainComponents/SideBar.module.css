@@ -31,13 +31,14 @@
 .link, .link.active, .link:hover{
     text-decoration: none;
     color: #555;
+    text-align:left;
 }
 
 .sidebarListItem{
     padding: 5px;
     cursor: pointer;
     display: flex;
-    align-items: center;
+    align-items:left;
     border-radius: 10px;
 }
 
