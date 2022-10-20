@@ -97,7 +97,6 @@ const getPatientDetail = async (id) => {
 
     } catch (e) {
         console.error(e);
-        throw new Erorr("Error occurred. Patient not found")
     }
 };
 
@@ -436,6 +435,20 @@ const subpatien = async(id) => {
     return 'user does not exist'
 };
 
+const getAllSubscribers = async (req, res, next) => {
+    
+    try{
+        let Subs = await patientModel.find({})
+        const response = Subs.filter( pat => pat.subscription)
+
+        res.status(200).send(response)
+
+    }catch (error) {
+        console.log('No se pudieron obtener los patients con Sub')
+        next(error)
+    }
+};
+
 module.exports = {
     getAllPatients,
     getPatientByName,
@@ -445,5 +458,6 @@ module.exports = {
     updatePatientAdmin,
     deletePatient,
     getmercadopago,
-    subpatien
+    subpatien,
+    getAllSubscribers
 }

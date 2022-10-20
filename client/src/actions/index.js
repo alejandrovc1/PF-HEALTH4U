@@ -65,11 +65,6 @@ export function getDetails(id) { //Obtener el detalle de un doctor
 };
 
 export function updateDoctor(id, dato){ //Actualizar doctor
-    // dato={
-    //     ...dato,
-    //     tel:parseInt(dato.tel),
-    //     birthDate:new Date(dato.birthDate+'T00:00:00.000Z')
-    // }
     return async function (dispatch)
     {
         let json = await axios.put("/doctors/"+ id, dato);
@@ -81,11 +76,6 @@ export function updateDoctor(id, dato){ //Actualizar doctor
 };
 
 export function updateDoctorAdmin(id, dato){ //Actualizar doctor
-    // dato={
-    //     ...dato,
-    //     tel:parseInt(dato.tel),
-    //     birthDate:new Date(dato.birthDate+'T00:00:00.000Z')
-    // }
     return async function (dispatch)
     {
         let json = await axios.put("/doctors/admin/"+ id, dato);
@@ -195,13 +185,24 @@ export function deletePatient(id){ //Eliminar patient
     }
 };
 
-export function getSubscribe(id){ //Eliminar patient
+export function getSubscribe(id){ //Obtener info de un paciente suscrito
     return async function(dispatch)
     {
-        const deleted = await axios.get(`/patients/getsub/${id}`)
+        const Sub = await axios.get(`/patients/getsub/${id}`)
         return dispatch({
             type: "GET_SUB",
-            payload: deleted.data
+            payload: Sub.data
+        })
+    }
+};
+
+export function getAllSubscribers(){ //Obtener todos los pacientes con suscripción
+    return async function(dispatch)
+    {
+        const Subs = await axios.get(`/subscribers`)
+        return dispatch({
+            type: "GET_SUBS",
+            payload: Subs.data
         })
     }
 };
@@ -430,7 +431,6 @@ export function addDisponibility(disponibility) {
                 disponibility.hour = ["09:00 - 10:00","10:00 - 11:00","11:00 - 12:00","12:00 - 13:00","13:00 - 14:00","14:00 - 15:00","15:00 - 16:00","16:00 - 17:00"]
             }
             for(let j = 0; j < disponibility.hour.length; j++) {
-
                 const dispo = {
                     start: disponibility.date[i] + "T" + disponibility.hour[j].split(" - ")[0] + ":00.000Z",
                     end: disponibility.date[i] + "T" + disponibility.hour[j].split(" - ")[1] + ":00.000Z",
@@ -478,7 +478,6 @@ export function getAppointmentsByDoctor(doctor) {
     return async function (dispatch) {
         let response = await axios.get("/appointments?doctor=" + doctor)
         const appointments = response.data
-        console.log(appointments)
         const occupiedAppo = appointments.filter(a => a.status !== "Free")
         return dispatch({
             type: "GET_APPOINTMENTS_BY_DOCTOR",

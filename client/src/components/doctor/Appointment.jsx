@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './Appointment.module.css';
 
+
 export default function Appointment(props) {
     return (
         <div className={style.appoCard}>

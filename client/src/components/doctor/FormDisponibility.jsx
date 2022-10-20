@@ -118,7 +118,6 @@ export default function FormDisponibility() {
                         }) : null
                     }
                     <label>Available dates:</label>
-
                     <input
                         type="date"
                         name="date"

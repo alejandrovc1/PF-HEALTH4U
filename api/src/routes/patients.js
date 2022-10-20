@@ -8,7 +8,8 @@ const {
     updatePatientAdmin,
     deletePatient,
     getmercadopago,
-    subpatien
+    subpatien,
+    getAllSubscribers
 } = require('../controllers/patientController')
 
 const router = Router();
@@ -83,6 +84,8 @@ router.post('/register', async (req, res) => {
 });
 
 router.put('/:id', updatePatient);
+
+router.get('/subscribers', getAllSubscribers);
 
 router.put('/admin/:id', updatePatientAdmin);
 
