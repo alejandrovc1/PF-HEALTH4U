@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Routes ,Route ,Navigate} from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Home } from './components/Home/index.js'
 import { Login } from './components/Login/index.js'
 import { Register } from './components/Register/index.js'
@@ -9,20 +9,21 @@ import Footer from './components/Footer/Footer.jsx'
 import Error from "./components/Error/Error.jsx";
 
 
-export default function RutasUseNL(){
-  
-  return(
+export default function RutasUseNL() {
+
+  return (
     <React.Fragment>
-      <Nav/>
+      <Nav />
       <Error />
       <Routes>
         <Route exact path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register/' element={<Register />} />
-        <Route path='/aboutus' element={<AboutUs/>} />
-        <Route path='*' element={<Navigate to='/'/>}/> 
+        <Route path='/aboutus' element={<AboutUs />} />
+        <Route path='/subscription' element={<Navigate to='/register' />} />
+        <Route path='*' element={<Navigate to='/' />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </React.Fragment>
   )
 }
