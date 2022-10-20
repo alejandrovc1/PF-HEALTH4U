@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteError } from "../../actions";
+import s from './Error.module.css'
 
 export default function Error(){
     let Error=useSelector(f=>f.error)
@@ -21,7 +22,7 @@ const dispatch=useDispatch()
     },[Error])
     return(
         <>
-       {error?<span>{Error}</span>:null}
+       {error?<span className={s.error}>{'Error: '+Error}</span>:null}
         </>
     )
 }
