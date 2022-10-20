@@ -1,10 +1,12 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import st from './HelpUsImp.module.css'
-import {createMessage} from '../../actions/index'
-import {Nav} from '../Nav';
-import {Footer} from '../Footer/index';
-
+import { createMessage } from '../../actions/index'
+import { Nav } from '../Nav';
+import { Footer } from '../Footer/index';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import image from '../../image/img4.jpg'
 
 export default function HelpUsImprove() {
 
@@ -18,47 +20,63 @@ export default function HelpUsImprove() {
 
     const handleChange = (e) => {
         e.preventDefault();
-        setMessage((prev) => ({ 
-        ...prev,
-        [e.target.name]: e.target.value,
-    }))}
+        setMessage((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+        }))
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log('SOY EL MESAJE', Message)
         
-        if (e.target.name === 'update'){
+        if (e.target.name == 'update') {
+            console.log('SOY EL MENSAJE', Message)
             dispatch(createMessage(Message))
-            setMessage({ 
-            name: '',
-            email: '',
-            message: '',
+            setMessage({
+                name: '',
+                email: '',
+                message: '',
             })
         }
     };
 
     return (
-        <div className={st.Form}>
+        <div>
+            <Nav />
+            <br />
+            <h1 className={st.Title}>FORM - HELP US TO IMPROVE</h1>
+            <br />
 
-            <Nav/>
-            
-            <span className={st.Title}>HelpUsImprove</span>
+            <div className="color-overlay d-flex justify-content-center align-items-center">
 
-            <form onSubmit={handleSubmit} className={st.Form}>
-                <div>
-                    <label>Name</label>
-                    <input type="text" value={Message.name} name="name" onChange={handleChange} />
-                    <label>Email</label>
-                    <input type="email" value={Message.email} name="email" onChange={handleChange}/>
-                    <label>Message</label>
-                    <input type="text" value={Message.message} name="message" onChange={handleChange}/>
+                <div className={st.float1}>
+                    <img src={image} className={st.img} alt="img" />
                 </div>
-                <button name='update' onClick={handleSubmit}>Send</button>
-            
-            </form>
+                <div className={st.float}>
+                    <Form classname="rounded p-4 p-sm-3" onSubmit={handleSubmit}>
+                        <Form.Group className="mb-3" controlId="formBasicEmail" >
+                            <br />
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control type="text" value={Message.name} name="name" onChange={handleChange} placeholder="Enter your name" />
+                        </Form.Group>
 
-            <Footer/>
-            
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="email" value={Message.email} name="email" onChange={handleChange} placeholder="Enter email" />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Message</Form.Label>
+                            <Form.Control type="text" value={Message.message} name="message" onChange={handleChange} placeholder="Write your message" />
+                        </Form.Group>
+
+                        <Button name='update' variant="primary" type="submit" onClick={handleSubmit}>
+                            Submit
+                        </Button>
+                    </Form>
+                </div>
+            </div>
+            <Footer />
         </div>
     )
 };
