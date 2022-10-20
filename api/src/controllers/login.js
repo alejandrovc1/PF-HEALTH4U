@@ -42,6 +42,7 @@ const loginFunction = async (req, res) => {
             } else {
 
                 const patientFound = await patientModel.findOne({ email: req.body.email })
+                console.log(patientFound)
                 if (patientFound) {
                     const matchPassword2 = await patientModel.comparePassword(req.body.password, patientFound.password)
 

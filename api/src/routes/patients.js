@@ -13,7 +13,7 @@ const {
 } = require('../controllers/patientController')
 
 const router = Router();
-
+router.get('/subscribers', getAllSubscribers);
 router.get('/subcription/:id', async (req, res) => {
     try {
         const {id}=req.params
@@ -85,7 +85,7 @@ router.post('/register', async (req, res) => {
 
 router.put('/:id', updatePatient);
 
-router.get('/subscribers', getAllSubscribers);
+
 
 router.put('/admin/:id', updatePatientAdmin);
 

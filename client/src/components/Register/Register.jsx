@@ -335,7 +335,7 @@ export default function Register() {
                         {error.confirmPassword && <p>{error.confirmPassword}</p>}
                        </div>
                        <div>
-                       <div className={s.btngoogle} onClick={handleSubmitDoctor}>
+                       <div className={s.btngoogle} onClick={handleSubmitPatient}>
                             <span>Register </span>
                         </div>
                        </div>

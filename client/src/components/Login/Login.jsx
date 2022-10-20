@@ -122,6 +122,7 @@ export default function Login() {
             // ) {
                 
             // }
+            console.log(err)
             dispatch(GetError(err.response.data.msg))
         }
     }
