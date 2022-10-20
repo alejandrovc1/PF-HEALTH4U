@@ -82,7 +82,7 @@ const getPatientDetail = async (id) => {
             id: response._id,
             name: response.name,
             email: response.email,
-            birthDate: response.birthDate,
+            birthDate: response.birthDate.toDateString(),
             address: response.address,
             country: response.country,
             tel: response.tel,

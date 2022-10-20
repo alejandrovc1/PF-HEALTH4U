@@ -75,10 +75,7 @@ const getAppointmentByDoctor = async (doctor) => {
             } 
             return Appoint;
         })
-        if (Appointments.length > 0) {
-            return Appointments
-        } else return { msg: "There is no Appointments with that doctor ID" }
-
+        return Appointments
 
     } catch (e) {
         console.error(e);
@@ -100,10 +97,7 @@ const getAppointmentByPatient = async (patient) => {
             } 
             return Appoint;
         })
-        if (Appointments.length > 0) {
-            return Appointments
-        } else return { msg: "There is no Appointments with that patient ID" }
-
+        return Appointments
 
     } catch (e) {
         console.error(e);

@@ -18,7 +18,7 @@ export default function Card({ image, name, rating, specialtie, id }) {
 
                 <div className={style.ratButton}>
                     <div className={style.ratStar}>
-                        <h3 className={style.rating} >{rating}/5 </h3>
+                        <h3 className={style.rating} >{rating.toString().slice(0,3)}/5 </h3>
                         <img className={style.star} src={star} alt="" />
                     </div>
                     <div>
