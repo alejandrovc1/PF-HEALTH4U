@@ -24,15 +24,21 @@ export default function Login() {
     useEffect(()=>{
         if(googleL){
             (async ()=>{ const url = "/login"
-            const { data: res } = await axios.post(url, dataG)
+                    try {
+                        const { data: res } = await axios.post(url, dataG)
+            
     
-        setUser({
-           email: data.email,
-           rol: data.rol
-       })
-       localStorage.setItem("id", res.id)
-       localStorage.setItem("token", res.token)
-       window.location.reload(true)})();
+                        setUser({
+                            email: data.email,
+                            rol: data.rol
+                         })
+                         localStorage.setItem("id", res.id)
+                         localStorage.setItem("token", res.token)
+                         window.location.reload(true)
+                    } catch (err) {
+                        dispatch(GetError(err.response.data.msg))
+                    }
+                })();
         }
     },[googleL])
    
@@ -50,7 +56,7 @@ export default function Login() {
             })
             .catch(e =>{
                  console.log(e)
-                 dispatch(GetError('something went wrong with the login check the fields or you may be blocked'))
+                 dispatch(GetError(e.response.data.msg))
                 })
     }
   
@@ -93,23 +99,28 @@ export default function Login() {
         try {
             const url = "/login"
             const { data: res } = await axios.post(url, data)
+           
+            // res.msg? dispatch(GetError('User blocked')):
+           
 
-            setUser({
-                email: data.email,
-                rol: data.rol
-            })
-            localStorage.setItem("id", res.id)
-            localStorage.setItem("token", res.token)
-            window.location.reload(true)
-        } catch (error) {
+               setUser({
+                   email: data.email,
+                   rol: data.rol
+                })
+                localStorage.setItem("id", res.id)
+                localStorage.setItem("token", res.token)
+                window.location.reload(true)
+            
+    
+        } catch (err) {
             // if (
             //     error.response &&
             //     error.response.status >= 400 &&
             //     error.response.status <= 500
             // ) {
-            //     setError(error.response.data.message);
+                
             // }
-            dispatch(GetError('something went wrong with the login check the fields or you may be blocked'))
+            dispatch(GetError(err.response.data.msg))
         }
     }
     //<Notification message={error} />
