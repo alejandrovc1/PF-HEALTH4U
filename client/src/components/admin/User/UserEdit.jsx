@@ -75,7 +75,7 @@ export default function UserEdit(props) {
                     <select name="status" defaultValue="" className={st.userUpdateInput} onChange={(e) => handleChange(e)}>
                         <option hidden value="">Select a status</option>
                         <option name="active" value="active">Active</option>
-                        <option name="bloqued" value="bloqued">Bloqued</option>
+                        <option name="blocked" value="blocked">Blocked</option>
                     </select>
                 </div>
                 <div className={st.userUpdateItem}>

@@ -12,7 +12,7 @@ export default function SmallWidget() {
           <li className={st.SmWidgetListItem}> 
             <img src="https://cdn-images.livecareer.es/pages/foto_cv_lc_es_4.jpg" alt="Foto de perfil" className={st.SmWidgetImg} />
             <div className={st.SmWidgetUser}>
-              <span className={st.SmWidgetUsername}>Alejandro Villegas</span>
+              <span className={st.SmWidgetUsername}>Alejandro Zuluaga H</span>
               <span className={st.SmWidgetUserRole}>Doctor</span>  
               <span className={st.SmWidgetUserCountry}>Colombia</span>
             </div>
@@ -26,7 +26,7 @@ export default function SmallWidget() {
           <li className={st.SmWidgetListItem}> 
             <img src="https://cdn-images.livecareer.es/pages/foto_cv_lc_es_4.jpg" alt="Foto de perfil" className={st.SmWidgetImg} />
             <div className={st.SmWidgetUser}>
-              <span className={st.SmWidgetUsername}>Erick Ramírez</span>
+              <span className={st.SmWidgetUsername}>Eliza Castaño Rosas</span>
               <span className={st.SmWidgetUserRole}>Patient</span> 
               <span className={st.SmWidgetUserCountry}>Mexico</span>
             </div>
@@ -39,7 +39,7 @@ export default function SmallWidget() {
           <li className={st.SmWidgetListItem}> 
             <img src="https://cdn-images.livecareer.es/pages/foto_cv_lc_es_4.jpg" alt="Foto de perfil" className={st.SmWidgetImg} />
             <div className={st.SmWidgetUser}>
-              <span className={st.SmWidgetUsername}>Alejandro Henao</span>  
+              <span className={st.SmWidgetUsername}>Juan Sebastian Rodríguez</span>  
               <span className={st.SmWidgetUserRole}>Patient</span>  
               <span className={st.SmWidgetUserCountry}>Colombia</span>
             </div>
@@ -52,7 +52,7 @@ export default function SmallWidget() {
           <li className={st.SmWidgetListItem}> 
             <img src="https://cdn-images.livecareer.es/pages/foto_cv_lc_es_4.jpg" alt="Foto de perfil" className={st.SmWidgetImg} />
             <div className={st.SmWidgetUser}>
-              <span className={st.SmWidgetUsername}>Victor Cavallo</span>
+              <span className={st.SmWidgetUsername}>Victor Antonio Cuartas</span>
               <span className={st.SmWidgetUserRole}>Doctor</span> 
               <span className={st.SmWidgetUserCountry}>Argentina</span>
             </div>
@@ -65,7 +65,7 @@ export default function SmallWidget() {
           <li className={st.SmWidgetListItem}> 
             <img src="https://cdn-images.livecareer.es/pages/foto_cv_lc_es_4.jpg" alt="Foto de perfil" className={st.SmWidgetImg} />
             <div className={st.SmWidgetUser}>
-              <span className={st.SmWidgetUsername}>Felipe Tau</span>
+              <span className={st.SmWidgetUsername}>Sara Castro R.</span>
               <span className={st.SmWidgetUserRole}>Patient</span> 
               <span className={st.SmWidgetUserCountry}>Argentina</span>
             </div>

@@ -16,11 +16,11 @@ export default function Memberships() {
   }, [dispatch, getAllSubscribers])
 
   const allSubscribers = useSelector(state => state.Subs);
-  console.log(allSubscribers)
+  // console.log(allSubscribers)
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 100 },
-    { field: 'idPat', headerName: 'Patient ID', width: 130 },
+    { field: 'idPat', headerName: 'Patient ID', width: 220 },
     { field: 'pic', headerName: 'Pic', width: 100, renderCell: (params)=>{
       return (
         <div className={st.userListUser}>
@@ -28,17 +28,17 @@ export default function Memberships() {
         </div>
       )
     }},
-    { field: 'name', headerName: 'Name', width: 130 },
-    { field: 'email', headerName: 'Email', width: 150 },
+    { field: 'name', headerName: 'Name', width: 150 },
+    { field: 'email', headerName: 'Email', width: 180 },
     { field: 'country', headerName: 'Country', width: 135 },
     { field: 'status', headerName: 'Status', width: 120 },
-    { field: 'subscription', headerName: 'Subscription ID', width: 120 },
+    { field: 'subscription', headerName: 'Subscription ID', width: 190 },
     
   ];
 
   const userRows = allSubscribers.map( (pat, index) => ({
     id: index + 1,
-    idPat: pat.id,
+    idPat: pat._id,
     pic: pat.image,
     name: pat.name, 
     email: pat.email,
