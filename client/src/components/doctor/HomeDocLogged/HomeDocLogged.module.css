@@ -8,8 +8,9 @@
 }
   
 .banner {
+    width: 90%;
     padding: 40px 10px;
-    margin: 2% 13% 0% 4%;
+    margin: 2% 13% 0% 2%;
     /* border-radius: 2rem; */
     display: flex;
 }
@@ -25,6 +26,7 @@
 .float {
     display: flex;
     align-items: center;
+    margin-right: 10px;
     background-color: #9eeafc;
     border-top-right-radius: 3rem;
     border-bottom-right-radius: 3rem;
@@ -36,7 +38,7 @@
 
 .text {
     font-size: 20px;
-    margin: 2rem 2rem;
+    margin: 2rem 4rem
 }
 
 .boton {
@@ -56,7 +58,7 @@
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
-    margin: 4rem 0 4rem 12rem;
+    margin: 4rem 0 4rem 14rem;
 }
   
 .boton:hover {
@@ -69,8 +71,10 @@
 }
 
 .image {
+    border-radius: 20%;
     width: 26rem;
     height: 26rem;
+
 }
   
 /* .h3 {

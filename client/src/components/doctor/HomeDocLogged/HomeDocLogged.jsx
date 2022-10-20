@@ -16,7 +16,7 @@ export default function HomeDocLogged() {
                         <h3 className={s.title}>Welcome Doctor 👨🏽‍⚕️👩🏽‍⚕️</h3>
                         <p className={s.text}>This site and what we stand for is only possible because of your effort and hard work. Our main mission is to help people and counting on you to make it possible is something that makes us extremely happy.</p>
                         <p className={s.text}>Thank you for being one of over 50 specialists waiting to serve the needs of our patients. ¡Have a great day!</p>
-                        <Link to={'/myqueries'}>
+                        <Link to={'/profile'}>
                             <button className={s.boton}>Check your profile</button>
                         </Link>
                     </div>
