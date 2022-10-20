@@ -211,7 +211,7 @@ export function getSubscribe(id){ //Obtener info de un paciente suscrito
 export function getAllSubscribers(){ //Obtener todos los pacientes con suscripción
     return async function(dispatch)
     {
-        const Subs = await axios.get(`http://localhost:3001/patients/subscribed`)
+        const Subs = await axios.get(`/patients/subscribed`)
         return dispatch({
             type: "GET_SUBS",
             payload: Subs.data
