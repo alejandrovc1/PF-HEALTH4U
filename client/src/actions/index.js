@@ -267,6 +267,24 @@ export function filterByMethod(method){ //Filtro de doctores por Metodo
     }
 };
 
+export function filterByAvailable() {
+    return async function(dispatch) {
+        const response = await axios.get("/appointments")
+        const appointments = response.data
+        const doctorsId = appointments.filter(a => a.status === "Free")
+        const subResponse = doctorsId.map(d => {
+            axios.get("/doctors/"+d.id)
+        })
+        console.log(subResponse)
+        const doctors = await axios.all(subResponse)
+
+        return dispatch({
+            type: "FILTER_BY_AVAILABLE",
+            payload: doctors
+        })
+    }
+}
+
 export function login(payload) { //Login
     return async function (dispatch) 
     {
@@ -407,21 +425,28 @@ export function dispHourByDoctor(doctor) {
 
 export function addDisponibility(disponibility) {
     return async function (dispatch) {
-        console.log("paso action: ", disponibility.date.length)
-        for(let i = 0; i <= disponibility.date.length; i++) {
+        for(let i = 0; i < disponibility.date.length; i++) {
             if(disponibility.hour.length === 1 && disponibility.hour[0] === "All Day") {
                 disponibility.hour = ["09:00 - 10:00","10:00 - 11:00","11:00 - 12:00","12:00 - 13:00","13:00 - 14:00","14:00 - 15:00","15:00 - 16:00","16:00 - 17:00"]
             }
-            console.log("pasé primer for")
-            for(let j = 0; j <= disponibility.hour.length; j++) {
+            for(let j = 0; j < disponibility.hour.length; j++) {
                 const dispo = {
                     start: disponibility.date[i] + "T" + disponibility.hour[j].split(" - ")[0] + ":00.000Z",
                     end: disponibility.date[i] + "T" + disponibility.hour[j].split(" - ")[1] + ":00.000Z",
                     doctor: disponibility.doctor
                 }
-                console.log("pasé segundo for")
                 console.log(dispo)
-                await axios.post("/appointments/create", dispo)
+                try{
+                    const response = await axios.post("/appointments/create", dispo)
+                    console.log(response.status)
+                    if(response.status === 200) {
+                        alert("New available date added")
+                    }
+
+                } catch(e) {
+                    console.error(e);
+                    alert(`Date ${disponibility.date} - ${disponibility.hour} already exists`)
+                }
             }
         }
         return dispatch({
@@ -452,7 +477,6 @@ export function getAppointmentsByDoctor(doctor) {
     return async function (dispatch) {
         let response = await axios.get("/appointments?doctor=" + doctor)
         const appointments = response.data
-        console.log(appointments)
         const occupiedAppo = appointments.filter(a => a.status !== "Free")
         return dispatch({
             type: "GET_APPOINTMENTS_BY_DOCTOR",

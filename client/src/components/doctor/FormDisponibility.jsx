@@ -27,7 +27,7 @@ export default function FormDisponibility() {
     }
 
     function handleInputDate(e) {
-        if(!disponibility.date.includes(e.target.value)) {
+        if(!disponibility.date.includes(e.target.value) && e.target.value !== "") {
             setDisponibility({
                 ...disponibility,
                 date: [
@@ -47,7 +47,7 @@ export default function FormDisponibility() {
     }
 
     function handleInputHour(e) {
-        if(!disponibility.hour.includes(e.target.value)) {
+        if(!disponibility.hour.includes(e.target.value) && e.target.value !== "" && e.target.value !== "None") {
             setDisponibility({
                 ...disponibility,
                 hour: [
@@ -62,6 +62,7 @@ export default function FormDisponibility() {
                     e.target.value
                 ]
             }))
+            e.target.value = 'None'
             console.log(disponibility)
         } else return disponibility
     }
@@ -115,7 +116,7 @@ export default function FormDisponibility() {
                             )
                         }) : null
                     }
-                    <label>Date:</label>
+                    <label>Available dates:</label>
                     <input
                         type="date"
                         name="date"
@@ -135,7 +136,7 @@ export default function FormDisponibility() {
                             )
                         }) : null
                     }
-                    <label>Hour:</label>
+                    <label>Available hours:</label>
                     <select
                         defaultValue="None"
                         onChange={handleInputHour}

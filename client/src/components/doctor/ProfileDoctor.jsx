@@ -27,7 +27,7 @@ export default function ProfileDoctor({id}){
        method:detail.method,
         country:detail.country,
         description:detail.description,
-        rating:detail.rating,
+        rating:detail.rating.toString().slice(0,3),
         functiionEdit,
         status:detail.status
     }:console.log('algo esta pasando')

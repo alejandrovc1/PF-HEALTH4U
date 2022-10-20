@@ -200,6 +200,24 @@ function rootReducer(state = initialState, action){
                 doctorsCopy: methodFiltered
             }
 
+        case "FILTER_BY_AVAILABLE":
+            const availableFiltered =
+                !action.payload
+                ? state.doctors
+                : state.doctorsCopy.filter((d, index) => d.id === action.payload[index].id)
+            
+            if (availableFiltered.length === 0) {
+                alert("There's no Doctors with available dates.")
+                return {
+                    ...state,
+                    doctorsCopy: state.doctors
+                }
+            }
+            return {
+                ...state, 
+                doctorsCopy: availableFiltered
+            }
+
         case "ORDER_BY_RATING":
             const ratingSorted =
                 action.payload === "Any"
