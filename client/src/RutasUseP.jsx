@@ -13,7 +13,7 @@ import NavAppointment from "./components/patient/NavAppointment/NavAppointment.j
 import Specialties from "./components/Specialties/Specialties.jsx";
 import Subscribe from "./components/patient/Subscribe/Subscribe.jsx";
 
-
+ 
 
 export default function RutasUseP({id,role}){
 
@@ -29,6 +29,7 @@ export default function RutasUseP({id,role}){
         <Route path='/profile' element={<ProfilePatient id={id}/>} />
         <Route exact path='/docDetail/:id' element={<DoctorDetail />} />
         <Route path='*' element={<Navigate to='/'/>}/> 
+
         </Routes>
         <Footer/>
       </React.Fragment>

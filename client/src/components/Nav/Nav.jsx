@@ -21,6 +21,10 @@ export default function Nav() {
                      <li>Get your membership</li>
                   </Link>
 
+                  <Link to='/helpusimprove' className={style.link}>
+                     <li>Help Us to Improve</li>
+                  </Link>
+
                   <Link to='/register' className={style.link}>
                      <li>Sign up</li>
                   </Link>
