@@ -11,25 +11,24 @@ export default function Footer() {
         <footer>
             <div className={s.imgpie}>
                 <div className={s.signup}>
-                    <p><a>Sing up</a></p>
-                    <p>For Patients</p>
-                    <p>For Medical Staff</p>
+                    <p>Sign up</p>
+                    <p><a href="https://health4u.vercel.app/register">For Patients</a></p>
+                    <p><a href="https://health4u.vercel.app/register">For Medical Staff</a></p>
                 </div>
                 <div className={s.signin}>
-                    <p><a>Sing in</a></p>
-                    <p>For Patients</p>
-                    <p>For Medical Staff</p>
+                    <p>Sign in</p>
+                    <p><a href="https://health4u.vercel.app/login">Patients</a></p>
+                    <p><a href="https://health4u.vercel.app/login">Medical Staff</a></p>
                 </div>
                 <div className={s.reds}>
                     <p className={s.contac}>Contact</p>
-                    <img src={f} className={s.redes} />
-                    <img src={i} className={s.redes} />
-                    <img src={t} className={s.redes} />
-                    <img src={tk} className={s.redes} />
-                    <img src={w} className={s.redes} />
+                    <a href="https://wwww.facebook.com/"><img src={f} className={s.redes} /></a>
+                    <a href="https://wwww.instagram.com/"><img src={i} className={s.redes} /></a>
+                    <a href="https://twitter.com/"><img src={t} className={s.redes} /></a>
+                    <a href="https://web.whatsapp.com/"><img src={w} className={s.redes} /></a>
                 </div>
                 <div className={s.help}>
-                    <p><a>Help?</a></p>
+                    <p><a href="https://health4u.vercel.app/helpusimprove">Help?</a></p>
                 </div>
                 <div className={s.copy}>
                     <p>@Health4u 2022 - All rights reserved</p>

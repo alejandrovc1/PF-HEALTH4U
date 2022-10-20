@@ -65,11 +65,6 @@ export function getDetails(id) { //Obtener el detalle de un doctor
 };
 
 export function updateDoctor(id, dato){ //Actualizar doctor
-    // dato={
-    //     ...dato,
-    //     tel:parseInt(dato.tel),
-    //     birthDate:new Date(dato.birthDate+'T00:00:00.000Z')
-    // }
     return async function (dispatch)
     {
         let json = await axios.put("/doctors/"+ id, dato);
@@ -81,11 +76,6 @@ export function updateDoctor(id, dato){ //Actualizar doctor
 };
 
 export function updateDoctorAdmin(id, dato){ //Actualizar doctor
-    // dato={
-    //     ...dato,
-    //     tel:parseInt(dato.tel),
-    //     birthDate:new Date(dato.birthDate+'T00:00:00.000Z')
-    // }
     return async function (dispatch)
     {
         let json = await axios.put("/doctors/admin/"+ id, dato);
@@ -195,13 +185,24 @@ export function deletePatient(id){ //Eliminar patient
     }
 };
 
-export function getSubscribe(id){ //Eliminar patient
+export function getSubscribe(id){ //Obtener info de un paciente suscrito
     return async function(dispatch)
     {
-        const deleted = await axios.get(`/patients/getsub/${id}`)
+        const Sub = await axios.get(`/patients/getsub/${id}`)
         return dispatch({
             type: "GET_SUB",
-            payload: deleted.data
+            payload: Sub.data
+        })
+    }
+};
+
+export function getAllSubscribers(){ //Obtener todos los pacientes con suscripción
+    return async function(dispatch)
+    {
+        const Subs = await axios.get(`/subscribers`)
+        return dispatch({
+            type: "GET_SUBS",
+            payload: Subs.data
         })
     }
 };
@@ -266,6 +267,24 @@ export function filterByMethod(method){ //Filtro de doctores por Metodo
         payload: method
     }
 };
+
+export function filterByAvailable() {
+    return async function(dispatch) {
+        const response = await axios.get("/appointments")
+        const appointments = response.data
+        const doctorsId = appointments.filter(a => a.status === "Free")
+        const subResponse = doctorsId.map(d => {
+            axios.get("/doctors/"+d.id)
+        })
+        console.log(subResponse)
+        const doctors = await axios.all(subResponse)
+
+        return dispatch({
+            type: "FILTER_BY_AVAILABLE",
+            payload: doctors
+        })
+    }
+}
 
 export function login(payload) { //Login
     return async function (dispatch) 
@@ -407,15 +426,32 @@ export function dispHourByDoctor(doctor) {
 
 export function addDisponibility(disponibility) {
     return async function (dispatch) {
-        const dispo = {
-            start: disponibility.date + "T" + disponibility.hour.split(" - ")[0] + ":00.000Z",
-            end: disponibility.date + "T" + disponibility.hour.split(" - ")[1] + ":00.000Z",
-            doctor: disponibility.doctor
+        for(let i = 0; i < disponibility.date.length; i++) {
+            if(disponibility.hour.length === 1 && disponibility.hour[0] === "All Day") {
+                disponibility.hour = ["09:00 - 10:00","10:00 - 11:00","11:00 - 12:00","12:00 - 13:00","13:00 - 14:00","14:00 - 15:00","15:00 - 16:00","16:00 - 17:00"]
+            }
+            for(let j = 0; j < disponibility.hour.length; j++) {
+                const dispo = {
+                    start: disponibility.date[i] + "T" + disponibility.hour[j].split(" - ")[0] + ":00.000Z",
+                    end: disponibility.date[i] + "T" + disponibility.hour[j].split(" - ")[1] + ":00.000Z",
+                    doctor: disponibility.doctor
+                }
+                console.log(dispo)
+                try{
+                    const response = await axios.post("/appointments/create", dispo)
+                    console.log(response.status)
+                    if(response.status === 200) {
+                        alert("New available date added")
+                    }
+
+                } catch(e) {
+                    console.error(e);
+                    alert(`Date ${disponibility.date} - ${disponibility.hour} already exists`)
+                }
+            }
         }
-        let response = await axios.post("/appointments/create", dispo)
         return dispatch({
             type: "ADD_DISPONIBILITY",
-            payload: response.data
         })
     }
 };
@@ -438,8 +474,36 @@ export function requestAppointment(appointment) {
     }
 };
 
+export function getAppointmentsByDoctor(doctor) {
+    return async function (dispatch) {
+        let response = await axios.get("/appointments?doctor=" + doctor)
+        const appointments = response.data
+        const occupiedAppo = appointments.filter(a => a.status !== "Free")
+        return dispatch({
+            type: "GET_APPOINTMENTS_BY_DOCTOR",
+            payload: occupiedAppo
+        })
+    }
+}
+
+export function getAppointmentsByPatient(patient) {
+    return async function (dispatch) {
+        let response = await axios.get("/appointments?patient=" + patient)
+        return dispatch({
+            type: "GET_APPOINTMENTS_BY_PATIENT",
+            payload: response.data
+        })
+    }
+}
+
 export function resetReviews() {
     return {
         type: 'RESET_REVIEWS',
+    }
+};
+
+export function resetAppointments() {
+    return {
+        type: 'RESET_APPOINTMENTS',
     }
 };

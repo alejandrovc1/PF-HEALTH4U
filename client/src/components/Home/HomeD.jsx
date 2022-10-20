@@ -9,6 +9,8 @@ import tk from "../../image/tik-tok.png"
 import w from "../../image/whatsapp.png"
 import SpecialtiesHome from '../SpecialtiesHome/SpecialtiesHome';
 import { Link } from "react-router-dom";
+import Appointments from "../doctor/Appointments"
+
 
 export default function HomeD({id}) {
 
@@ -32,6 +34,7 @@ export default function HomeD({id}) {
                     <img className={s.image} src={doctor} />
                 </div>
             </div>
+            <Appointments/>
             
             {/* <div className={s.imgpie}>
                 <div className={s.signup}>
