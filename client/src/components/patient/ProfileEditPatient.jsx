@@ -5,6 +5,7 @@ import Clou from "../ImageCloudinary/ImageCloudinary.jsx";
 import { useDispatch } from "react-redux";
 import { putprofile } from "../../actions";
 import { useNavigate, useParams } from "react-router-dom";
+import img from '../../image/img-profile.webp'
 export default function ProfileDetail(props){
 const {image,name,email,birthDate,genre,address,country,tel,functiionEdit}=props
 
@@ -86,10 +87,11 @@ const validationError=(input)=>{
       }
     return err
 }
+
 const dispatch=useDispatch()
 return(
         props?<div className={s.contein}>
-             <img src={editinput.image} alt='image'/>
+             {editinput.image?<img src={editinput.image} alt='image'/>:<img src={img} alt=''/>}
              {error.image?<span>{error.image}</span>:null }
             <Clou
             seteditinput={seteditinput}

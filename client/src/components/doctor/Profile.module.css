@@ -1,13 +1,23 @@
-.contein img{
+.contein img {
     width: 200px;
     height: 200px;
 }
-.contein{
+
+.contein {
     display: flex;
     flex-direction: column;
 
-        align-content: space-around;
+    align-content: space-around;
 
-            align-items: center;
-            margin: 20px;
+    align-items: center;
+    margin: 20px auto;
+    background: linear-gradient(#BBF3F9, #7CD1E5);
+    width: 100%;
+    padding: 20px;
+    max-width: fit-content;
+    border-radius: 20px;
+    
+}
+.contein h3{
+    text-align: center;
 }
