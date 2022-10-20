@@ -317,10 +317,28 @@ function rootReducer(state = initialState, action){
                 ...state
             }
 
+        case "GET_APPOINTMENTS_BY_DOCTOR":
+            return {
+                ...state,
+                appointments: action.payload
+            }
+
+        case "GET_APPOINTMENTS_BY_PATIENT":
+            return {
+                ...state,
+                appointments: action.payload
+            }
+
         case "RESET_REVIEWS":
             return {
                 ...state,
                 reviews: [],
+            }
+
+        case "RESET_APPOINTMENTS":
+            return {
+                ...state,
+                appointments: [],
             }
 
         default: return state;
