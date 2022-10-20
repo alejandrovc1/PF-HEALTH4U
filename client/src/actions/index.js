@@ -63,7 +63,8 @@ export function getDetails(id) { //Obtener el detalle de un doctor
         })
     }
 };
-export function getquery(id) { //Obtener el detalle de un doctor
+
+export function getquery(id) { //Obtener las consultas de un doctor
     return async function (dispatch) 
     {
         let respuesta = await axios.get(`/appointments?doctor=${id}`);
@@ -73,6 +74,7 @@ export function getquery(id) { //Obtener el detalle de un doctor
         })
     }
 };
+
 export function updateDoctor(id, dato){ //Actualizar doctor
     return async function (dispatch)
     {
@@ -209,7 +211,7 @@ export function getSubscribe(id){ //Obtener info de un paciente suscrito
 export function getAllSubscribers(){ //Obtener todos los pacientes con suscripción
     return async function(dispatch)
     {
-        const Subs = await axios.get(`/subscribers`)
+        const Subs = await axios.get(`http://localhost:3001/patients/subscribed`)
         return dispatch({
             type: "GET_SUBS",
             payload: Subs.data

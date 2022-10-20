@@ -10,7 +10,7 @@ export default function featuredInfo() {
       <div className={st.featuredItem}>
         <span className={st.featuredTitle}> Actual Month Revenue </span>
         <div className={st.featuredMoneyCont}>
-          <span className={st.featuredMoney}> USD 852 </span>
+          <span className={st.featuredMoney}> USD 485 </span>
           <span className={st.featuredMoneyRate}>
             -45.0 <ArrowDownward className={st.featuredIcon_negative}/>
           </span>
@@ -21,7 +21,7 @@ export default function featuredInfo() {
       <div className={st.featuredItem}>
         <span className={st.featuredTitle}> Total Sales </span>
         <div className={st.featuredMoneyCont}>
-          <span className={st.featuredMoney}> USD 1.485 </span>
+          <span className={st.featuredMoney}> USD 2.350 </span>
           <span className={st.featuredMoneyRate}>
             + 52.2 <ArrowUpward className={st.featuredIcon}/>
           </span>
@@ -32,9 +32,9 @@ export default function featuredInfo() {
       <div className={st.featuredItem}>
         <span className={st.featuredTitle}> Cost </span>
         <div className={st.featuredMoneyCont}>
-          <span className={st.featuredMoney}> USD 167 </span>
+          <span className={st.featuredMoney}> USD 175 </span>
           <span className={st.featuredMoneyRate}>
-            -11.0 <ArrowDownward className={st.featuredIcon_negative}/>
+            -18.0 <ArrowDownward className={st.featuredIcon_negative}/>
           </span>
         </div>
         <span className={st.featuredSub}>Compared to last month</span>

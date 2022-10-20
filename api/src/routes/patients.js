@@ -9,7 +9,7 @@ const {
     deletePatient,
     getmercadopago,
     subpatien,
-    getAllSubscribers
+    getSubscribed
 } = require('../controllers/patientController')
 
 const router = Router();
@@ -36,6 +36,8 @@ router.get('/getsub/:id', async (req, res) => {
         res.json(error)
     }
 });
+
+router.get('/subscribed', getSubscribed);
 
 router.get('/', async (req, res) => {
     try {
@@ -84,8 +86,6 @@ router.post('/register', async (req, res) => {
 });
 
 router.put('/:id', updatePatient);
-
-router.get('/subscribers', getAllSubscribers);
 
 router.put('/admin/:id', updatePatientAdmin);
 
