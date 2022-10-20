@@ -28,7 +28,7 @@ export default function Footer() {
                     <a href="https://web.whatsapp.com/"><img src={w} className={s.redes} /></a>
                 </div>
                 <div className={s.help}>
-                    <p><a href="https://health4u.vercel.app/helpusimprove">Help?</a></p>
+                    <p><a href="https://health4u.vercel.app/helpusimprove">Help us improve</a></p>
                 </div>
                 <div className={s.copy}>
                     <p>@Health4u 2022 - All rights reserved</p>

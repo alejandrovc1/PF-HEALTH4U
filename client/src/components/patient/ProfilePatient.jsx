@@ -22,6 +22,7 @@ export default function ProfilePatient({id}){
 
    
     detail?props={
+        id:id,
        image:detail.image,
         name:detail.name,
        email:detail.email,

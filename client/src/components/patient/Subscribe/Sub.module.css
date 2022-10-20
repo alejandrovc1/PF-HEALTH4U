@@ -1,0 +1,36 @@
+.conten{
+    margin: 20px auto;
+    background: linear-gradient(#BBF3F9, #7CD1E5);
+    width: 100%;
+    padding: 20px;
+    max-width: fit-content;
+    border-radius: 20px;
+}
+.contenButon{
+    display: flex;
+    align-items: center;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.7em 1.4em 0.7em 1.1em;
+    color: black;
+    background: linear-gradient(#BBF3F9, #7CD1E5);
+    border: none;
+    letter-spacing: 0.05em;
+    border-radius: 20em;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin: 5px auto;
+    
+}
+
+.contenButon:hover {
+    box-shadow: 0 0.5em 1.5em -0.5em #02006198;
+    background: linear-gradient(#bbccf9, #7cbee5);
+  }
+  
+  .contenButon:active {
+    box-shadow: 0 0.3em 1em -0.5em #00c3ff98;
+  }

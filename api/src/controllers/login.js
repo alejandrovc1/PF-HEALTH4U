@@ -30,7 +30,9 @@ const loginFunction = async (req, res) => {
                     token: token,
                 })
 
-                if (doctorFound && doctorFound.status == 'bloqued') { res.status(400).send({msg: 'User Blocked'})}
+
+                if ( doctorFound.status ==='bloqued') { res.status(400).send({msg:'User bloqued'})}
+
                 else {
                     res.send({
                         name: doctorFound.name,
@@ -42,6 +44,7 @@ const loginFunction = async (req, res) => {
             } else {
 
                 const patientFound = await patientModel.findOne({ email: req.body.email })
+                console.log(patientFound)
                 if (patientFound) {
                     const matchPassword2 = await patientModel.comparePassword(req.body.password, patientFound.password)
 
@@ -58,6 +61,7 @@ const loginFunction = async (req, res) => {
                     await patientModel.findByIdAndUpdate(patientFound._id, {
                         token: token,
                     })
+                    if ( patientFound.status ==='bloqued') { res.status(400).send({msg:'User bloqued'})}
                     res.send({
                         name: patientFound.name,
                         email: patientFound.email,
@@ -79,20 +83,22 @@ const loginFunction = async (req, res) => {
                             token: token,
                         })
 
-                        if (patientFound && patientFound.status == 'bloqued') { res.status(400).send({msg: 'User Blocked'})}
-                        else {
+
+                        if ( patientFound.status ==='bloqued') { res.status(400).send({msg:'User bloqued'})}
+
+          
                             res.send({
                                 name: adminFound.name,
                                 email: adminFound.email,
                                 id: adminFound._id,
                                 token,
                             })
-                        }
+                        
                     }
-                    else { return res.status(400).json({ token: null, message: 'User not found' }) }
+                    else {  res.status(400).json({ msg: 'User not found' }) }
                 }
             }
-        } return { msg: "Email and password are required" };
+        } res.status(400).json({ msg: "Email and password are required" })
 
     } catch (e) {
         console.error(e);
@@ -106,6 +112,9 @@ const compareToken = async (req, res) => {
         const doctorFound = await doctorModel.findOne({ _id: id })
         const patientFound = await patientModel.findOne({ _id: id })
         const adminFound = await adminModel.findOne({_id:id})
+
+        // console.log(`doctor: ${doctorFound} paciente: ${patientFound} admin: ${adminFound}`)
+        
         if (doctorFound) {
             if (doctorFound.token === token) {
                 let roleFound = 'doctor'

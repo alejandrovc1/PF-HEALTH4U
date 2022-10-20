@@ -62,7 +62,7 @@ export default function FormReview(props) {
             patient: "",
             doctor: ""
         })
-        history(`docDetail/${props.doctor}`)
+        window.location.reload(true)
     }
 
     return (

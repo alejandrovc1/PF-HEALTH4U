@@ -1,8 +1,10 @@
 import React from "react"
 import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import axios from "axios"
+import s from './Login.module.css'
+import imggoogle from '../../image/logo-google.png'
 import {
     GoogleAuthProvider,
     signInWithPopup
@@ -24,15 +26,21 @@ export default function Login() {
     useEffect(()=>{
         if(googleL){
             (async ()=>{ const url = "/login"
-            const { data: res } = await axios.post(url, dataG)
+                    try {
+                        const { data: res } = await axios.post(url, dataG)
+            
     
-        setUser({
-           email: data.email,
-           rol: data.rol
-       })
-       localStorage.setItem("id", res.id)
-       localStorage.setItem("token", res.token)
-       window.location.reload(true)})();
+                        setUser({
+                            email: data.email,
+                            rol: data.rol
+                         })
+                         localStorage.setItem("id", res.id)
+                         localStorage.setItem("token", res.token)
+                         window.location.reload(true)
+                    } catch (err) {
+                        dispatch(GetError(err.response.data.msg))
+                    }
+                })();
         }
     },[googleL])
    
@@ -50,7 +58,7 @@ export default function Login() {
             })
             .catch(e =>{
                  console.log(e)
-                 dispatch(GetError('something went wrong with the login check the fields or you may be blocked'))
+                 dispatch(GetError(e.response.data.msg))
                 })
     }
   
@@ -93,55 +101,75 @@ export default function Login() {
         try {
             const url = "/login"
             const { data: res } = await axios.post(url, data)
+           
+            // res.msg? dispatch(GetError('User blocked')):
+           
 
-            setUser({
-                email: data.email,
-                rol: data.rol
-            })
-            localStorage.setItem("id", res.id)
-            localStorage.setItem("token", res.token)
-            window.location.reload(true)
-        } catch (error) {
+               setUser({
+                   email: data.email,
+                   rol: data.rol
+                })
+                localStorage.setItem("id", res.id)
+                localStorage.setItem("token", res.token)
+                window.location.reload(true)
+            
+    
+        } catch (err) {
             // if (
             //     error.response &&
             //     error.response.status >= 400 &&
             //     error.response.status <= 500
             // ) {
-            //     setError(error.response.data.message);
+                
             // }
-            dispatch(GetError('something went wrong with the login check the fields or you may be blocked'))
+            console.log(err)
+            dispatch(GetError(err.response.data.msg))
         }
     }
     //<Notification message={error} />
     return (
 
-        <div>
+        <div className={s.conte}>
             <h1>LOG IN</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="email">Email</label>
-
+            <form className={s.contenform} onSubmit={handleSubmit}>
+                
+                <label htmlFor="email">   Email: </label>
                 <input
                     type="email"
                     name="email"
                     value={data.email} required
                     placeholder="your email"
                     onChange={handleInputChange}
-                />
-
-                <label htmlFor="password">Password</label>
+                    />
+                
+                <label htmlFor="password">Password: </label>
                 <input
                     type="password"
                     value={data.password} required
                     name="password"
                     placeholder="Password"
                     onChange={handleInputChange}
-                />
+                    />
+                
 
-                <button type="submit">Login</button>
+                <hr/>
+            <div className={s.btngoogle} onClick={handleSubmit}>
+                            <span>Login </span>
+                        </div>
 
             </form>
-            <button onClick={handleGoogleButton}>LOG IN WITH GOOGLE</button>
-            <Link to="/"><button>Go back</button></Link>
+            <hr/>
+            <div className={s.btngoogle} onClick={handleGoogleButton}>
+                            <img src={imggoogle} alt="" />
+                            <span>Login with google</span>
+                        </div>
+                        <hr/>
+            
+            <div className={s.btngoogle} onClick={handleSubmit}>
+            <NavLink to="/" className={s.NavLink}>
+                            <span>Go back Home </span>
+            </NavLink>
+                        </div>
         </div>
     )
 }
