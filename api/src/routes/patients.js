@@ -13,6 +13,16 @@ const {
 } = require('../controllers/patientController')
 
 const router = Router();
+router.get('/getsub/:id', async (req, res) => {
+    try {
+        const {id}=req.params
+        const respueta= await subpatien(id)
+        res.send(respueta)
+    } catch (error) {
+        console.log(error)
+        res.json(error)
+    }
+});
 
 router.get('/subcription/:id', async (req, res) => {
     try {
@@ -26,16 +36,7 @@ router.get('/subcription/:id', async (req, res) => {
 
 });
 
-router.get('/getsub/:id', async (req, res) => {
-    try {
-        const {id}=req.params
-        const respueta= await subpatien(id)
-        res.send(respueta)
-    } catch (error) {
-        console.log(error)
-        res.json(error)
-    }
-});
+
 
 router.get('/subscribed', getSubscribed);
 
