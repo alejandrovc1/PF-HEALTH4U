@@ -18,8 +18,9 @@ const initialState = { //estados iniciales
     messages: [],
     admins: [],
     sub:'',
-    error:'',
-    query:[]
+    query:[],
+    Subs: [],
+    error:''
 };
 
 
@@ -61,6 +62,12 @@ function rootReducer(state = initialState, action){
             return{
                 ...state,
                 sub:action.payload
+            }
+
+        case "GET_SUBS":
+            return{
+                ...state,
+                Subs: action.payload
             }
 
         case "GET_PATIENTS":
@@ -214,6 +221,24 @@ function rootReducer(state = initialState, action){
                 doctorsCopy: methodFiltered
             }
 
+        case "FILTER_BY_AVAILABLE":
+            const availableFiltered =
+                !action.payload
+                ? state.doctors
+                : state.doctorsCopy.filter((d, index) => d.id === action.payload[index].id)
+            
+            if (availableFiltered.length === 0) {
+                alert("There's no Doctors with available dates.")
+                return {
+                    ...state,
+                    doctorsCopy: state.doctors
+                }
+            }
+            return {
+                ...state, 
+                doctorsCopy: availableFiltered
+            }
+
         case "ORDER_BY_RATING":
             const ratingSorted =
                 action.payload === "Any"
@@ -333,10 +358,28 @@ function rootReducer(state = initialState, action){
                 ...state
             }
 
+        case "GET_APPOINTMENTS_BY_DOCTOR":
+            return {
+                ...state,
+                appointments: action.payload
+            }
+
+        case "GET_APPOINTMENTS_BY_PATIENT":
+            return {
+                ...state,
+                appointments: action.payload
+            }
+
         case "RESET_REVIEWS":
             return {
                 ...state,
                 reviews: [],
+            }
+
+        case "RESET_APPOINTMENTS":
+            return {
+                ...state,
+                appointments: [],
             }
 
         default: return state;

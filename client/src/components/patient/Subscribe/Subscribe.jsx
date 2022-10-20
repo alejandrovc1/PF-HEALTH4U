@@ -5,12 +5,14 @@ import { Loading } from "../../Loading";
 import MercadoPago from "../MercadoPago";
 
 export default function Subscribe({id}){
+
     const dispatch = useDispatch()
+
     useEffect(()=>{
         dispatch(getSubscribe(id))
-
     },[dispatch])
-    const sub=useSelector(f=>f.sub)
+
+    const sub = useSelector(f=>f.sub)
     console.log(sub.substado)
     //not subscribed
     return(
@@ -30,7 +32,7 @@ export default function Subscribe({id}){
         <h3>you are already subscribed</h3>
         <h3>and the status of your subscription is: {sub.substado}</h3>
         </>
-    }
+        }
         </>
     )
-}
+};

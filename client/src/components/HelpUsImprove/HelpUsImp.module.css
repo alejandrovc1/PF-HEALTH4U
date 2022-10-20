@@ -1,0 +1,25 @@
+.img {
+    width: 502px;
+    height: 320px;
+    object-fit: scale-down;
+    margin-left: 0em;
+    margin-right: 0em;
+    border-radius: 45px;
+}
+
+.float {
+    width: 400px;
+    background-color: #9eeafc;
+    border-top-right-radius: 3rem;
+    border-bottom-right-radius: 3rem;
+}
+
+.float1 {
+    width: 600px;
+    height: 320px;
+    margin-left: 6rem;
+    background-color: #9eeafc;
+    border-bottom-left-radius: 3rem;
+    border-top-left-radius: 3rem;
+    text-align: center;
+}

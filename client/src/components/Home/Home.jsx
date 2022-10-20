@@ -42,26 +42,36 @@ export default function Home({id}) {
             </div>
 
             <section className={s.infoAboutUs}>
+
                 <div className={s.mission}>
-                    <p>Our Mission: Our purpose is to connect health care talent from the different regions of Latin America with the rest of the world. Always providing a professional, human and innovative service that anyone who wishes can access from the comfort of their home or receiving a visit from a professional.</p>
+                    <div className={s.missionText}>
+                        <h3>Our Mission:</h3>
+                        <p>Our purpose is to connect health care talent from the different regions of Latin America with the rest of the world. Always providing a professional, human and innovative service that anyone who wishes can access from the comfort of their home or receiving a visit from a professional.</p>
+                    </div>
                     <img src={mision} className={s.imgMision} alt="Mission img" />
                 </div>
 
                 <div className={s.vision}>
-                    <p>Our Vision: We hope to become one of the preferred options for people when entrusting their health care, connecting more and more patients with suitable professionals specialized in the different areas of medicine.</p>
-
+                    <div className={s.visionText}>
+                        <h3>Our Vision:</h3>
+                        <p>We hope to become one of the preferred options for people when entrusting their health care, connecting more and more patients with suitable professionals specialized in the different areas of medicine.</p>
+                    </div>
                     <img src={vision} className={s.imgVision} alt="Vision img" />
                 </div>
 
                 <div className={s.values}>
-                    <p>Our Main Values:</p>
-                    <ul>
-                        <li>Professionalism and suitability</li>
-                        <li>Commitment and vocation</li>
-                        <li>Continuous innovation</li>
-                        <li>Personalized care with human sense</li>
-                    </ul><img src={values} className={s.imgValues} alt="Values img" />
+                    <div className={s.valuesDiv}>
+                        <h3>Our Main Values:</h3>
+                        <ul>
+                            <li className={s.listItem}>Professionalism and suitability</li>
+                            <li className={s.listItem}>Commitment and vocation</li>
+                            <li className={s.listItem}>Continuous innovation</li>
+                            <li className={s.listItem}>Personalized care with human sense</li>
+                        </ul>
+                    </div>
+                    <img src={values} className={s.imgValues} alt="Values img" />
                 </div>
+
             </section>
 
             {/* <div className={s.imgpie}>
