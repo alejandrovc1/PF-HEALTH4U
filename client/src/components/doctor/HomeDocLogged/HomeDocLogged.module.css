@@ -1,0 +1,85 @@
+.fnd {
+    width: 100%;
+    height: auto;
+}
+  
+.fondo {
+    background: linear-gradient(180deg, #6871ee 0%, #3ce2df 100%)
+}
+  
+.banner {
+    padding: 40px 10px;
+    margin: 2% 13% 0% 4%;
+    /* border-radius: 2rem; */
+    display: flex;
+}
+
+.float1 {
+    margin-left: 5rem;
+    background-color: #9eeafc;
+    border-bottom-left-radius: 3rem;
+    border-top-left-radius: 3rem;
+    text-align: center;
+}
+
+.float {
+    display: flex;
+    align-items: center;
+    background-color: #9eeafc;
+    border-top-right-radius: 3rem;
+    border-bottom-right-radius: 3rem;
+}
+
+.title {
+    margin: 4rem 2rem 1rem;
+}
+
+.text {
+    font-size: 20px;
+    margin: 2rem 2rem;
+}
+
+.boton {
+    display: flex;
+    align-items: center;
+    /* text-align: center; */
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 1.2rem;
+    padding: 0.7em 1.4em 0.7em 1.1em;
+    color: black;
+    background: linear-gradient(#a4e7ee, #56a0b1);
+    border: none;
+    letter-spacing: 0.05em;
+    border-radius: 20em;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin: 4rem 0 4rem 12rem;
+}
+  
+.boton:hover {
+    -webkit-box-shadow: 6px 6px 12px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 6px 6px 12px 4px rgba(0, 0, 0, 0.4);
+}
+  
+.boton:active {
+    box-shadow: 0 0.3em 1em -0.5em #1aacd898;
+}
+
+.image {
+    width: 26rem;
+    height: 26rem;
+}
+  
+/* .h3 {
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    margin-top: 3rem;
+    margin-left: 1rem;
+}
+*/
+  
+
+  
