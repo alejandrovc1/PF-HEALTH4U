@@ -33,7 +33,7 @@ export default function AboutUs({ role }) {
 
                     <div className={s.contoenInfoNosotros}>
                         <h3 className={s.subtituloInfoNosotros}>about HEALTH 4U</h3>
-                        <p className={s.infoNosotros}>We are aN ambitious company that seeks
+                        <p className={s.infoNosotros}>We are an ambitious company that seeks
                             <br />
                             to leave its mark on the world of medicine and
                             <br />
