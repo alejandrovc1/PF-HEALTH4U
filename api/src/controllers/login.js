@@ -30,7 +30,7 @@ const loginFunction = async (req, res) => {
                     token: token,
                 })
 
-                if (doctorFound && doctorFound.status ==='blocked') { res.status(400).send({msg: 'User Blocked'})}
+                if (doctorFound && doctorFound.status == 'bloqued') { res.status(400).send({msg: 'User Blocked'})}
                 else {
                     res.send({
                         name: doctorFound.name,
@@ -79,7 +79,7 @@ const loginFunction = async (req, res) => {
                             token: token,
                         })
 
-                        if (patientFound && patientFound.status ==='blocked') { res.status(400).send({msg: 'User Blocked'})}
+                        if (patientFound && patientFound.status == 'bloqued') { res.status(400).send({msg: 'User Blocked'})}
                         else {
                             res.send({
                                 name: adminFound.name,
@@ -106,7 +106,9 @@ const compareToken = async (req, res) => {
         const doctorFound = await doctorModel.findOne({ _id: id })
         const patientFound = await patientModel.findOne({ _id: id })
         const adminFound = await adminModel.findOne({_id:id})
+
         // console.log(`doctor: ${doctorFound} paciente: ${patientFound} admin: ${adminFound}`)
+        
         if (doctorFound) {
             if (doctorFound.token === token) {
                 let roleFound = 'doctor'

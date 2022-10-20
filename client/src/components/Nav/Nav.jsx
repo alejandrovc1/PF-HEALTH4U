@@ -17,7 +17,7 @@ export default function Nav() {
                      <li>About us</li>
                   </Link>
                   
-                  <Link to='#' className={style.link}>
+                  <Link to='/subscription' className={style.link}>
                      <li>Get your membership</li>
                   </Link>
 

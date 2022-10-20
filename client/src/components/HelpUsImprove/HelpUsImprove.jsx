@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useDispatch } from 'react-redux';
 import st from './HelpUsImp.module.css'
 import { createMessage } from '../../actions/index'
@@ -7,9 +7,12 @@ import { Footer } from '../Footer/index';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import image from '../../image/img4.jpg'
+import Overlay from 'react-bootstrap/Overlay';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 export default function HelpUsImprove() {
-
+    const [show, setShow] = useState(false);
+    const target = useRef(null);
     const dispatch = useDispatch()
 
     const [Message, setMessage] = useState({
@@ -28,7 +31,7 @@ export default function HelpUsImprove() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        
+
         if (e.target.name == 'update') {
             console.log('SOY EL MENSAJE', Message)
             dispatch(createMessage(Message))
@@ -70,9 +73,21 @@ export default function HelpUsImprove() {
                             <Form.Control type="text" value={Message.message} name="message" onChange={handleChange} placeholder="Write your message" />
                         </Form.Group>
 
-                        <Button name='update' variant="primary" type="submit" onClick={handleSubmit}>
+                        <Button name='update' variant="primary" ref={target} type="submit" onClick={(e) => {
+                            handleSubmit(e);
+                            setShow(!show);
+                        }}>
                             Submit
                         </Button>
+
+                        <Overlay target={target.current} show={show} placement="right">
+                            {(props) => (
+                                <Tooltip id="overlay-example" {...props}>
+                                    Form send successfull!
+                                </Tooltip>
+                            )}
+                        </Overlay>
+
                     </Form>
                 </div>
             </div>
