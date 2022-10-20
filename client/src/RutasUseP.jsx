@@ -14,14 +14,15 @@ import Specialties from "./components/Specialties/Specialties.jsx";
 import Subscribe from "./components/patient/Subscribe/Subscribe.jsx";
 
 
-export default function RutasUseP({id}){
+
+export default function RutasUseP({id,role}){
 
     return(
         <React.Fragment>
         <NavAppointment />
         <Routes>
         <Route exact path='/' element={<Home id={id} />} />
-        <Route  path='/aboutus' element={<AboutUs/>} />
+        <Route  path='/aboutus' element={<AboutUs role={role}/>}  />
         <Route path='/specialties' element={<Specialties/>}/>
         <Route path='/subscription' element={<Subscribe id={id}/>}/>
         <Route path='/appointment' element={<Appointment  />} />

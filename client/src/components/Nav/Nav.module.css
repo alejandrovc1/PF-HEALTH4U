@@ -64,11 +64,11 @@
   margin-right: 2rem;
 }
 
-.boton:hover {
+.contenButon:hover {
   box-shadow: 0 0.5em 1.5em -0.5em #02006198;
 }
 
-.boton:active {
+.contenButon:active {
   box-shadow: 0 0.3em 1em -0.5em #00c3ff98;
 }
 
