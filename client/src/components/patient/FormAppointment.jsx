@@ -64,16 +64,18 @@ export default function FormAppointment(props) {
         const newAppointment = {
             date: appointment.date,
             hour: appointment.hour,
-            patient: appointment.patient
+            patient: appointment.patient,
+            doctor: appointment.doctor
         }
         console.log("envio appointment: ", newAppointment)
         dispatch(requestAppointment(newAppointment))
         setAppointment({
             date: "",
             hour: "",
-            patient: ""
+            patient: "",
+            doctor: ""
         })
-        history(`/docDetail/${props.doctorId}`)
+        window.location.reload(true)
     }
 
     return (

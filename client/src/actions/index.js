@@ -460,17 +460,24 @@ export function requestAppointment(appointment) {
     return async function (dispatch) {
         const appo = {
             start: appointment.date + "T" + appointment.hour.split(" - ")[0] + ":00.000Z",
-            patient: appointment.patient
+            patient: appointment.patient,
+            doctorId: appointment.doctor
         }
         console.log("Action: ", appo)
-        let response = await axios.put("/appointments/update", appo)
-        if(response.status === 200) {
-            alert("Appointment Successfully requested")
-        } else alert(response.data)
-        return dispatch({
-            type: "REQUEST_APPOINTMENT",
-            payload: response.data
-        })
+        try {
+            let response = await axios.put("/appointments/update", appo)
+            if(response.status === 200) {
+                alert("Appointment Successfully requested")
+            } 
+            return dispatch({
+                type: "REQUEST_APPOINTMENT",
+                payload: response.data
+            })
+            
+        } catch (e) {
+            console.error(e);
+            alert("Can't request Appointment")
+        }
     }
 };
 
