@@ -1,0 +1,70 @@
+.conte{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    background: linear-gradient(#BBF3F9, #7CD1E5);
+    border-radius: 10%;
+    width: 100%;
+    max-width: fit-content;
+    padding: 5%;
+    margin: auto;
+}
+
+.contenform{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.btngoogle{
+    width: 100%;
+    max-width: 200px;
+    height: 100%;
+    max-height: fit-content;
+    background-color: #fff;
+    border: solid 0.5px;
+    display: flex;
+    flex-wrap: nowrap;
+    text-align: center;
+    justify-content: center;
+    margin:2% auto;
+    padding: 1%;
+}
+.NavLink{
+    text-decoration: none;
+    width: 100%;
+    max-width: 200px;
+    height: 100%;
+    max-height: fit-content;
+    background-color: #fff;
+    display: flex;
+    flex-wrap: nowrap;
+    text-align: center;
+    justify-content: center;
+    margin:auto;
+    padding: 1%;
+}
+.NavLink div{
+    text-decoration: none;
+}
+.inputs{
+    
+    margin: 5% ;
+}
+.NavLink span{
+    text-decoration: none;
+}
+.btngoogle:hover{
+background-color: rgb(215, 210, 210);
+cursor: pointer;
+}
+.btngoogle img{
+    width: 25px;
+    max-width: fit-content;
+}
+.btngoogle span{
+    width: 100%;
+    max-width: fit-content;
+    
+}
