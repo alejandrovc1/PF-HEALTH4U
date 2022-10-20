@@ -2,12 +2,15 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getprofile } from '../../actions/index.js'
-import { useParams } from "react-router-dom"
 import ProfileDetail from "./ProfileDetailPatient.jsx";
 import { useState } from "react";
 import ProfileEdit from "./ProfileEditPatient.jsx";
-export default function ProfilePatient({id}) {
+export default function ProfilePatient({ id }) {
+    
     const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getprofile(id))
+    }, [])
     let [edit, setEdit] = useState(false)
     let detail = useSelector(f => f.patientDetail)
     let props = {
@@ -16,9 +19,9 @@ export default function ProfilePatient({id}) {
     let functiionEdit = () => {
         setEdit(edit ? false : true)
     }
-console.log(detail)
+    console.log(detail)
     detail ? props = {
-        id:id,
+        id: id,
         image: detail.image,
         name: detail.name,
         email: detail.email,
@@ -30,9 +33,6 @@ console.log(detail)
         functiionEdit,
         status: detail.status
     } : console.log('algo esta pasando')
-    useEffect(() => {
-        dispatch(getprofile(id))
-    }, [])
     console.log(id)
     return (
         !edit ? <ProfileDetail

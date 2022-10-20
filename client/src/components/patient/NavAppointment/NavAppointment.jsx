@@ -8,8 +8,8 @@ export default function NavAppointment() {
 
     const navigate = useNavigate()
 
-    const { users, logout, loading } = useAuth()
-    console.log(users)
+    // const { users, logout, loading } = useAuth()
+    // console.log(users)
 
 
     const handleLogOut = async (e) => {

@@ -3,84 +3,84 @@ const initialState = { //estados iniciales
     doctors: [],
     doctorsCopy: [],
     doctorDetail: [],
-    doctorPut:'',
+    doctorPut: '',
     patients: [],
     patientsCopy: [],
     patientDetail: [],
-    patientPut:'',
+    patientPut: '',
     specialties: [],
     reviews: [],
     dates: [],
     hours: [],
     appointments: [],
     isLogged: {},
-    role:'',
+    role: '',
     messages: [],
     admins: [],
-    sub:'',
-    error:''
+    sub: '',
+    error: ''
 };
 
 
-function rootReducer(state = initialState, action){
-    switch (action.type){
-    
+function rootReducer(state = initialState, action) {
+    switch (action.type) {
+
         case "GET_ERROR":
-            return{
+            return {
                 ...state,
-                error:action.payload
+                error: action.payload
             }
-            
+
         case "GET_ROLE":
-            return{
+            return {
                 ...state,
-                role:action.payload
+                role: action.payload
             }
 
         case "GET_ADMINS":
-            return{
+            return {
                 ...state,
                 admins: action.payload
             }
 
         case "GET_SUB":
-            return{
+            return {
                 ...state,
-                sub:action.payload
+                sub: action.payload
             }
 
         case "GET_PATIENTS":
-            return{
+            return {
                 ...state,
                 patients: action.payload,
                 patientsCopy: action.payload
             }
-    
-        case "GET_PATIENT_PROFILE": 
-            return{
+
+        case "GET_PATIENT_PROFILE":
+            return {
                 ...state,
-                patientDetail: action.payload 
+                patientDetail: action.payload
             }
-    
+
         case "PUT_PATIENT_PROFILE":
-            return{
+            return {
                 ...state,
-                patientPut:action.payload
+                patientPut: action.payload
             }
 
         case "PUT_PATIENT_PROFILE_ADMIN":
-            return{
+            return {
                 ...state,
-                patientPut:action.payload
+                patientPut: action.payload
             }
-            
+
         case "POST_PATIENT":
             return {
                 ...state
             }
-        
+
         case "DELETE_PATIENT":
-            return{
+            return {
                 ...state,
                 patients: state.patients.filter((pat) => pat._id !== action.payload),
                 patientsCopy: state.patientsCopy.filter((pat) => pat._id !== action.payload)
@@ -99,7 +99,7 @@ function rootReducer(state = initialState, action){
                 doctors: action.payload.filter((doc) => doc.status !== "blocked"),
                 doctorsCopy: action.payload.filter((doc) => doc.status !== "blocked"),
             }
-        
+
         case "GET_DOCTOR_DETAIL":
             return {
                 ...state,
@@ -108,33 +108,40 @@ function rootReducer(state = initialState, action){
             }
 
         case "PUT_DOCTOR":
-            return{
+            return {
                 ...state,
-                doctorPut:action.payload
+                doctorPut: action.payload
             }
-            
+
         case "PUT_DOCTOR_ADMIN":
-            return{
+            return {
                 ...state,
-                doctorPut:action.payload
+                doctorPut: action.payload
             }
-        
+
         case "POST_DOCTOR":
             return {
                 ...state
             }
-        
+
         case "DELETE_DOCTOR":
-            return{
+            return {
                 ...state,
                 doctors: state.doctors.filter((doc) => doc.id !== action.payload),
                 doctorsCopy: state.doctorsCopy.filter((doc) => doc.id !== action.payload)
             }
-            
+
         case "GET_ESPECIALTIES":
             return {
                 ...state,
                 specialties: [...action.payload]
+            }
+
+        case "CLEAN_DETAIL":
+            return {
+                ...state,
+                detail: action.payload,
+                cargadoDetail: false
             }
 
         case "CLEAN_DETAIL":
@@ -230,35 +237,35 @@ function rootReducer(state = initialState, action){
             console.log(action.payload)
             return {
                 ...state,
-                isLogged: action.payload 
+                isLogged: action.payload
             }
 
         case "GET_REVIEWS":
-            return{
+            return {
                 ...state,
-                reviews: action.payload 
+                reviews: action.payload
             }
 
         case "GET_REVIEW_BY_DOCTOR":
-            return{
+            return {
                 ...state,
-                reviews: action.payload 
+                reviews: action.payload
             }
 
         case "GET_REVIEW_BY_PATIENT":
-            return{
+            return {
                 ...state,
-                reviews: action.payload 
+                reviews: action.payload
             }
 
         case "GET_REVIEW_DETAIL":
-            return{
+            return {
                 ...state,
-                reviewDetail: action.payload 
+                reviewDetail: action.payload
             }
 
         case "ADD_REVIEW":
-            return{
+            return {
                 ...state
             }
 
@@ -266,18 +273,18 @@ function rootReducer(state = initialState, action){
             return {
                 ...state
             }
-        
+
         case "GET_MESSAGES":
-            return{
+            return {
                 ...state,
                 messages: action.payload
             }
 
         case "POST_MESSAGE":
-            return{
+            return {
                 ...state,
             }
-        
+
         case "DISP_DATE_BY_DOCTOR":
             const dates = action.payload;
             const freeDates = dates.filter(d => d.status === "Free")
@@ -294,11 +301,11 @@ function rootReducer(state = initialState, action){
             }
 
         case "DISP_HOUR_BY_DOCTOR":
-            const hours =  action.payload;
+            const hours = action.payload;
             const freeHours = hours.filter(h => h.status === "Free")
             const dispHour = freeHours.map(a => {
                 const disponibility = {
-                    hour: a.start.split("T")[1].slice(0,5) + " - " + a.end.split("T")[1].slice(0,5)
+                    hour: a.start.split("T")[1].slice(0, 5) + " - " + a.end.split("T")[1].slice(0, 5)
                 }
                 return disponibility
             })
