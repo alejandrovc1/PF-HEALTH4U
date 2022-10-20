@@ -437,17 +437,15 @@ const subpatien = async(id) => {
     return 'user does not exist'
 };
 
-const getAllSubscribers = async (req, res, next) => {
-    
+const getSubscribed = async (req , res, next) =>{
     try{
-        let Subs = await patientModel.find({})
-        const response = Subs.filter( pat => pat.subscription)
+    let subs = await patientModel.find({})
+    const response = subs.filter(f=>f.subscription)
+    res.status(200).send(response)
 
-        res.status(200).send(response)
-
-    }catch (error) {
-        console.log('No se pudieron obtener los patients con Sub')
-        next(error)
+    } catch (err) {
+        console.log('Pasoó este error: ', err)
+        next(err)
     }
 };
 
@@ -461,5 +459,5 @@ module.exports = {
     deletePatient,
     getmercadopago,
     subpatien,
-    getAllSubscribers
+    getSubscribed
 }

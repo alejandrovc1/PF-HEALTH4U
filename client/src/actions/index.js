@@ -63,7 +63,8 @@ export function getDetails(id) { //Obtener el detalle de un doctor
         })
     }
 };
-export function getquery(id) { //Obtener el detalle de un doctor
+
+export function getquery(id) { //Obtener las consultas de un doctor
     return async function (dispatch) 
     {
         let respuesta = await axios.get(`/appointments?doctor=${id}`);
@@ -73,6 +74,7 @@ export function getquery(id) { //Obtener el detalle de un doctor
         })
     }
 };
+
 export function updateDoctor(id, dato){ //Actualizar doctor
     return async function (dispatch)
     {
@@ -209,7 +211,7 @@ export function getSubscribe(id){ //Obtener info de un paciente suscrito
 export function getAllSubscribers(){ //Obtener todos los pacientes con suscripción
     return async function(dispatch)
     {
-        const Subs = await axios.get(`/subscribers`)
+        const Subs = await axios.get(`/patients/subscribed`)
         return dispatch({
             type: "GET_SUBS",
             payload: Subs.data
@@ -471,17 +473,24 @@ export function requestAppointment(appointment) {
         const appo = {
             doctorId:appointment.doctorId,
             start: appointment.date + "T" + appointment.hour.split(" - ")[0] + ":00.000Z",
-            patient: appointment.patient
+            patient: appointment.patient,
+            doctorId: appointment.doctor
         }
         console.log("Action: ", appo)
-        let response = await axios.put("/appointments/update", appo)
-        if(response.status === 200) {
-            alert("Appointment Successfully requested")
-        } else alert(response.data)
-        return dispatch({
-            type: "REQUEST_APPOINTMENT",
-            payload: response.data
-        })
+        try {
+            let response = await axios.put("/appointments/update", appo)
+            if(response.status === 200) {
+                alert("Appointment Successfully requested")
+            } 
+            return dispatch({
+                type: "REQUEST_APPOINTMENT",
+                payload: response.data
+            })
+            
+        } catch (e) {
+            console.error(e);
+            alert("Can't request Appointment")
+        }
     }
 };
 

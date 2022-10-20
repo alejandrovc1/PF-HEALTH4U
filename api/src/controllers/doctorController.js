@@ -125,10 +125,10 @@ const updateDoctor = async (req, res, next) => {
         const { id } = req.params
         const { name, email, password, status, specialtie, method, image, description, rating, country } = req.body
 
-        const result = await cloudinary.uploader.upload(image, {
-            //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
-            folder: 'doctorPhotos',
-        })
+        // const result = await cloudinary.uploader.upload(image, {
+        //     //nombre del folder que se crea con las fotos, si no existe se crea automaticamente
+        //     folder: 'doctorPhotos',
+        // })
 
         await doctorModel.findByIdAndUpdate(id, {
             name: name,

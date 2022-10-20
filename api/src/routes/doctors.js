@@ -15,6 +15,10 @@ router.get('/', getAllDoctors);
 
 router.get('/:id', getDoctorDetail);
 
+router.put('/:id',  updateDoctor);
+
+router.put('/admin/:id', updateDoctorAdmin); // [verifyToken, isDoctor]
+
 router.post('/register', async (req, res) => {
     try {
         const doctorData = req.body
@@ -31,10 +35,6 @@ router.post('/register', async (req, res) => {
         return res.status(400).send("Error occurred. The new user couldn't be created.")
     }
 });
-
-router.put('/:id',  updateDoctor);
-
-router.put('/admin/:id', updateDoctorAdmin); // [verifyToken, isDoctor]
 
 router.delete('/:id', deleteDoctor); // [verifyToken, isAdmin]
 
