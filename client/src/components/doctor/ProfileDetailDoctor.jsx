@@ -13,7 +13,7 @@ return(
                  <h3>{method}</h3>
                  <h3>{description}</h3>
                  <h3>{country}</h3>
-               <h3>{rating}</h3>
+               <h3>{rating.toString().slice(0,3)}</h3>
              <input type="button" value="edit"  onClick={functiionEdit} /> 
              </div>
             :<h1>Cargando...</h1>         

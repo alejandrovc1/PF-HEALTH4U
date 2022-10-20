@@ -3,7 +3,16 @@ import { NavAppointment } from "../NavAppointment";
 import s from "./Appointment.module.css";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { filterBySpecialties, orderByRating, orderByName, filterByMethod, getSpecialties, reset, getDoctorsExceptBlockeds } from "../../../actions";
+import { 
+    filterBySpecialties, 
+    orderByRating, 
+    orderByName, 
+    filterByMethod, 
+    getSpecialties, 
+    filterByAvailable,
+    reset, 
+    getDoctorsExceptBlockeds 
+} from "../../../actions";
 import Footer from "../../Footer/Footer";
 import CardDoc from '../CardDoc/CardDoc.jsx';
 import Paginado from "../Paginado/Paginado.jsx";
@@ -30,6 +39,8 @@ export default function Appointment() {
     const [currentPage, setCurrentPage] = useState(1);
 
     const [doctorsPerPage, setDoctorsPerPage] = useState(8);
+
+    const [checked, setChecked] = useState(false)
 
     const indexOfLastDoctors = currentPage * doctorsPerPage;
 
@@ -91,6 +102,15 @@ export default function Appointment() {
         }
     }
 
+    // function handleAvailableDate(e) {
+    //     e.preventDefault();
+    //     setChecked(!checked)
+    //     if(checked) {
+    //         console.log("Pase aca! -----")
+    //         dispatch(filterByAvailable())
+    //     }
+    // }
+
     function handleReset(e) {
         e.preventDefault();
         dispatch(reset())
@@ -126,12 +146,8 @@ export default function Appointment() {
                     <option value="Virtual">Virtual meeting</option>
                     <option value="Private office">Private office</option>
                 </select>
-                <select className={s.filter}>
-                    <option>Day Available</option>
-                </select>
-                <select className={s.filter}>
-                    <option>Hour Available</option>
-                </select>
+                {/* <label>Available Doctor</label>
+                <input type="checkbox" name="dispoCheck" value={checked} className={s.filter} onChange={e => handleAvailableDate(e)}/> */}
                 <button onClick={e => handleReset(e)}>Clear</button>
             </div>
 
