@@ -18,13 +18,27 @@ const initialState = { //estados iniciales
     messages: [],
     admins: [],
     sub:'',
-    error:''
+    error:'',
+    query:[]
 };
 
 
 function rootReducer(state = initialState, action){
     switch (action.type){
-    
+        
+        case 'GET_DOCTOR_QUERY':
+            if(action.payload.length){
+                return{
+                    ...state,
+                    query:[...action.payload]
+                } 
+            }else{
+                return{
+                    ...state,
+                    query:[]
+
+                }
+            }
         case "GET_ERROR":
             return{
                 ...state,
@@ -279,7 +293,9 @@ function rootReducer(state = initialState, action){
             }
         
         case "DISP_DATE_BY_DOCTOR":
-            const dates = action.payload;
+            let dates;
+            if(action.payload==='There is no Appointments with that doctor ID')dates=[]
+             dates = [...action.payload];
             const freeDates = dates.filter(d => d.status === "Free")
             const allDates = freeDates.map(a => {
                 const disponibility = {

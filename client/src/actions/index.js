@@ -63,7 +63,16 @@ export function getDetails(id) { //Obtener el detalle de un doctor
         })
     }
 };
-
+export function getquery(id) { //Obtener el detalle de un doctor
+    return async function (dispatch) 
+    {
+        let respuesta = await axios.get(`/appointments?doctor=${id}`);
+        return dispatch({
+            type: "GET_DOCTOR_QUERY", 
+            payload: respuesta.data
+        })
+    }
+};
 export function updateDoctor(id, dato){ //Actualizar doctor
     // dato={
     //     ...dato,
@@ -423,6 +432,7 @@ export function addDisponibility(disponibility) {
 export function requestAppointment(appointment) {
     return async function (dispatch) {
         const appo = {
+            doctorId:appointment.doctorId,
             start: appointment.date + "T" + appointment.hour.split(" - ")[0] + ":00.000Z",
             patient: appointment.patient
         }
