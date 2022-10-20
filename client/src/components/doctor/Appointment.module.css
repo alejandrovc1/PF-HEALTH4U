@@ -1,0 +1,29 @@
+.appoCard {
+    margin-top: 1rem;
+    margin-inline: 15px;
+    border-radius: 15px;
+    background-color: azure;
+}
+
+.appoData {
+    background-color: rgb(210, 233, 233);
+    border-radius: 15px;
+}
+
+.date {
+    font-weight: bolder;
+    font-size: 1.3rem;
+}
+
+.hour {
+    margin-left: 2rem;
+    padding-bottom: 3px;
+    text-align: left;
+    width: 100%;
+}
+
+.appoText {
+    margin-inline: 2rem;
+    padding-bottom: 5px;
+    text-align: justify;
+}

@@ -430,6 +430,7 @@ export function addDisponibility(disponibility) {
                 disponibility.hour = ["09:00 - 10:00","10:00 - 11:00","11:00 - 12:00","12:00 - 13:00","13:00 - 14:00","14:00 - 15:00","15:00 - 16:00","16:00 - 17:00"]
             }
             for(let j = 0; j < disponibility.hour.length; j++) {
+
                 const dispo = {
                     start: disponibility.date[i] + "T" + disponibility.hour[j].split(" - ")[0] + ":00.000Z",
                     end: disponibility.date[i] + "T" + disponibility.hour[j].split(" - ")[1] + ":00.000Z",
@@ -477,6 +478,7 @@ export function getAppointmentsByDoctor(doctor) {
     return async function (dispatch) {
         let response = await axios.get("/appointments?doctor=" + doctor)
         const appointments = response.data
+        console.log(appointments)
         const occupiedAppo = appointments.filter(a => a.status !== "Free")
         return dispatch({
             type: "GET_APPOINTMENTS_BY_DOCTOR",
