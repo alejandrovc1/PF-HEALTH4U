@@ -20,14 +20,14 @@ export default function RutasUseP({id}){
         <React.Fragment>
         <NavAppointment />
         <Routes>
-        <Route exact path='/' element={<Home id={id} />} />
-        <Route  path='/aboutus' element={<AboutUs/>} />
-        <Route path='/specialties' element={<Specialties/>}/>
-        <Route path='/subscription' element={<Subscribe id={id}/>}/>
-        <Route path='/appointment' element={<Appointment  />} />
-        <Route path='/profile' element={<ProfilePatient id={id}/>} />
-        <Route exact path='/docDetail/:id' element={<DoctorDetail />} />
-        <Route path='*' element={<Navigate to='/'/>}/> 
+          <Route exact path='/' element={<Home id={id} />} />
+          <Route path='/aboutus' element={<AboutUs/>} />
+          <Route path='/specialties' element={<Specialties/>}/>
+          <Route path='/subscription' element={<Subscribe id={id}/>}/>
+          <Route path='/appointment' element={<Appointment  />} />
+          <Route path='/profile' element={<ProfilePatient id={id}/>} />
+          <Route exact path='/docDetail/:id' element={<DoctorDetail />} />
+          <Route path='*' element={<Navigate to='/'/>}/> 
         </Routes>
         <Footer/>
       </React.Fragment>
