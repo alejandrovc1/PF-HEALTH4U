@@ -33,14 +33,14 @@ export default function TopBar(){
                             <NotificationsNone/>
                         </div> 
                     </Link>
-            
+{/*             
                     <div className={st.topbarIconsContainer}>
                         <Language/>
                     </div> 
             
                     <div className={st.topbarIconsContainer}>
                         <Settings/>
-                    </div>
+                    </div> */}
 
                     <Dropdown>
                         <Dropdown.Toggle variant='#D7FCF1' id="dropdown-basic">
