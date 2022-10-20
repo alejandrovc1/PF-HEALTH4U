@@ -7,16 +7,17 @@ import { addDisponibility } from '../../actions/index'
 export default function FormDisponibility() {
     const dispatch = useDispatch()
     const [error, setError] = useState({})
+    const history = useNavigate()
 
     const [disponibility, setDisponibility] = useState({
-        doctor: sessionStorage.getItem("id"),
-        date: "",
-        hour: "",
+        doctor: localStorage.getItem("id"),
+        date: [],
+        hour: [],
     })
 
     function validate(disponibility) {
         let error = {}
-        if(!disponibility.date) {
+        if(!disponibility.date.length) {
             error.date = "Date is required"
         }
         if(!disponibility.hour) {
@@ -25,16 +26,60 @@ export default function FormDisponibility() {
         return error
     }
 
-    function handleInputChange(e) {
-        setDisponibility({
-            ...appointment,
-            [e.target.date]: e.target.value
-        })
+    function handleInputDate(e) {
+        if(!disponibility.date.includes(e.target.value)) {
+            setDisponibility({
+                ...disponibility,
+                date: [
+                    ...disponibility.date, 
+                    e.target.value
+                ]
+            })
+            setError(validate({
+                ...disponibility,
+                date: [
+                    ...disponibility.date, 
+                    e.target.value
+                ]
+            }))
+            console.log(disponibility)
+        } else return disponibility
+    }
 
-        setError(validate({
-            ...appointment,
-            [e.target.hour]: e.target.value
-        }))
+    function handleInputHour(e) {
+        if(!disponibility.hour.includes(e.target.value)) {
+            setDisponibility({
+                ...disponibility,
+                hour: [
+                    ...disponibility.hour,
+                    e.target.value
+                ]
+            })
+            setError(validate({
+                ...disponibility,
+                hour: [
+                    ...disponibility.hour,
+                    e.target.value
+                ]
+            }))
+            console.log(disponibility)
+        } else return disponibility
+    }
+
+    function handleDeleteDate(date) {
+        setDisponibility({
+            ...disponibility,
+            date: disponibility.date.filter(d => d !== date),
+        });
+        console.log(disponibility)
+    };
+
+    function handleDeleteHour(hour) {
+        setDisponibility({
+            ...disponibility,
+            hour: disponibility.hour.filter(h => h !== hour),
+        });
+        console.log(disponibility)
     }
 
     function handleSubmitAppointment(e) {
@@ -45,13 +90,14 @@ export default function FormDisponibility() {
             date: disponibility.date,
             hour: disponibility.hour,
         }
+        console.log("dispatch: ", newDisponibility)
         dispatch(addDisponibility(newDisponibility))
-        setAppointment({
+        setDisponibility({
             doctor: "",
             date: "",
             hour: "",
         })
-        history.push(`/`)
+        history(`/`)
     }
 
     return (
@@ -59,20 +105,40 @@ export default function FormDisponibility() {
             <h1>New Disponibility</h1>
             <form onSubmit={handleSubmitAppointment}>
                 <div>
+                    { disponibility.date?
+                        disponibility.date.map(d => {
+                            return (
+                                <div>
+                                    <p>{d}</p>
+                                    <button onClick={() => {handleDeleteDate(d)}}>x</button>
+                                </div>
+                            )
+                        }) : null
+                    }
                     <label>Date:</label>
                     <input
                         type="date"
                         name="date"
                         value={disponibility.date}
-                        onChange={handleInputChange}
+                        onChange={handleInputDate}
                     />
                     {error.date && <p>{error.date}</p>}
                 </div>
                 <div>
+                    { disponibility.hour?
+                        disponibility.hour.map(h => {
+                            return (
+                                <div>
+                                    <p>{h}</p>
+                                    <button onClick={() => {handleDeleteHour(h)}}>x</button>
+                                </div>
+                            )
+                        }) : null
+                    }
                     <label>Hour:</label>
                     <select
                         defaultValue="None"
-                        onChange={handleInputChange}
+                        onChange={handleInputHour}
                     >
                         <option value="None">Select an Hour</option>
                         <option value="All Day">All Day</option>

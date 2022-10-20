@@ -3,6 +3,7 @@ import NavDoctorLogged from "../NavDoctorLogged/NavDoctorLogged";
 import Footer from "../../Footer/Footer";
 import s from "../../Home/Home.module.css";
 import doctor from "../../../image/Doctor.png";
+import Appointments from "../Appointments"
 
 export default function HomeDocLogged() {
     return (
@@ -20,6 +21,7 @@ export default function HomeDocLogged() {
                         <img className={s.image} src={doctor} />
                     </div>
                 </div>
+                <Appointments/>
             </div>
             <Footer />
         </div>
