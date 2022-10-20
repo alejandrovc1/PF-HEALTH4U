@@ -2,9 +2,10 @@ import React from "react"
 import { postDoctors, postPatient } from "../../actions"
 import { useState, useEffect } from "react"
 import { useAuth } from "../../context/authContext"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 import s from './Register.module.css'
+import imggoogle from '../../image/logo-google.png'
 import img from '../../image/img-registro.jpg'
 import {
     GoogleAuthProvider,
@@ -208,7 +209,9 @@ export default function Register() {
                 <img src={img} alt='image'/>
             </div>
             <div className={s.contenForm}>
+            <div className={s.form}>
             <h1>USUARY REGISTER</h1>
+            <hr/>
             <form>
                 <div>
                     <label>Select your user</label>
@@ -220,7 +223,7 @@ export default function Register() {
                 </div>
             </form>
             {user.typeUser == 'doctor' &&
-                <form onSubmit={handleSubmitDoctor}>
+                <form>
                     <div>
                         <div>
 
@@ -258,7 +261,7 @@ export default function Register() {
                         {error.password && <p>{error.password}</p>}
                         </div>
                         <div>    
-                        <label>Confirm Password</label>
+                        <label>Password</label>
                         <input
                             type="password"
                             placeholder="Re password"
@@ -269,10 +272,16 @@ export default function Register() {
                         {error.confirmPassword && <p>{error.confirmPassword}</p>}
                         </div> 
                         <div>
-                        <button type="submit">Register</button>
+                        <div className={s.btngoogle} onClick={handleSubmitDoctor}>
+                            <span>Register </span>
                         </div>
+                        </div>
+                        <hr/>
                         <div>
-                        <button onClick={handleGoogleButton}>Register with google</button>
+                        <div className={s.btngoogle} onClick={handleGoogleButton}>
+                            <img src={imggoogle} alt="" />
+                            <span>Register with google</span>
+                        </div>
                         </div>
                     </div>
                 </form>
@@ -315,7 +324,7 @@ export default function Register() {
                         {error.password && <p>{error.password}</p>}
                         </div>
                         <div>
-                        <label>Confirm Password</label>
+                        <label>Password</label>
                         <input
                             type="password"
                             placeholder="Re password"
@@ -326,23 +335,32 @@ export default function Register() {
                         {error.confirmPassword && <p>{error.confirmPassword}</p>}
                        </div>
                        <div>
-                        <button type="submit">Register</button>
+                       <div className={s.btngoogle} onClick={handleSubmitDoctor}>
+                            <span>Register </span>
+                        </div>
                        </div>
+                       <hr/>
                        <div>
-                        <button onClick={handleGoogleButton}>Register with google</button>
+                        <div className={s.btngoogle} onClick={handleGoogleButton}>
+                            <img src={imggoogle} alt="" />
+                            <span>Register with google</span>
+                        </div>
                        </div>
                     </div>
                 </form>
             }
+            <hr/>
             <div>
              <p>
                 Already have an account?
+                <Link to='/login'>
                 <a
-                    href="/login"
                     >
                     LogIn
                 </a>
+                </Link>
              </p>
+            </div>
             </div>
         </div>
         </div >

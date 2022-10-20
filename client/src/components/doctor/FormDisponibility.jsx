@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux' 
 import { addDisponibility } from '../../actions/index'
+import style from './FormDisponibility.module.css'
 
 export default function FormDisponibility() {
     const dispatch = useDispatch()
@@ -102,14 +103,14 @@ export default function FormDisponibility() {
     }
 
     return (
-        <div>
+        <div className={style.formulary}>
             <h1>New Disponibility</h1>
             <form onSubmit={handleSubmitAppointment}>
-                <div>
+                <div className={style.selector}>
                     { disponibility.date?
                         disponibility.date.map(d => {
                             return (
-                                <div>
+                                <div className={style.item}>
                                     <p>{d}</p>
                                     <button onClick={() => {handleDeleteDate(d)}}>x</button>
                                 </div>
@@ -125,11 +126,11 @@ export default function FormDisponibility() {
                     />
                     {error.date && <p>{error.date}</p>}
                 </div>
-                <div>
+                <div className={style.selector}>
                     { disponibility.hour?
                         disponibility.hour.map(h => {
                             return (
-                                <div>
+                                <div className={style.item}>
                                     <p>{h}</p>
                                     <button onClick={() => {handleDeleteHour(h)}}>x</button>
                                 </div>
@@ -154,8 +155,8 @@ export default function FormDisponibility() {
                     </select>
                     {error.hour && <p>{error.hour}</p>}
                 </div>
-                <div>
-                    <button type='submit'>Add Disponibility</button>
+                <div className={style.btnholder}>
+                    <button className={style.btn} type='submit'>Add Disponibility</button>
                 </div>
             </form>
         </div>

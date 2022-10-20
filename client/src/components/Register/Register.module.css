@@ -2,16 +2,53 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    text-align: center;
     justify-content: space-between;
     margin: 5% auto;
-    background-color: #37cdef;
+    background-color: #85d4e5;
 }
 .conten img{
     width: 100%;
     height: 100%;
-    max-width: 400px;
+    max-width: 500px;
+}
+.conten label{
+    margin-right: 2%;
+}
+.conten input{
+    text-align: center;
+}
+.btngoogle{
+    width: 100%;
+    max-width: 92%;
+    height: 100%;
+    max-height: fit-content;
+    background-color: #fff;
+    border: solid 0.5px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin:auto;
+    padding: 2%;
+}
+.btngoogle:hover{
+background-color: rgb(215, 210, 210);
+cursor: pointer;
+}
+.btngoogle span{
+    width: 100%;
+    max-width: fit-content;
     
-    
+}
+.btngoogle img{
+    width: 25px;
+    max-width: fit-content;
+}
+.form{
+    margin: 20%;
+    padding: 10%;
+    background-color: #fff;
+    border-radius: 10%;
 }
 .image{
     width: 50%;
@@ -20,9 +57,12 @@
 .contenForm{
     width: 50%;
     height: 80%;
-    background-color: #fff;
     padding: 5%;
     align-items: center;
+    text-align: center;
+}
+.contenForm option{
+    text-align: center;
 }
 .contenForm div{
     margin: 3%;
