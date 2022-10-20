@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react'
 import { useDispatch } from 'react-redux';
 import st from './HelpUsImp.module.css'
 import {createMessage} from '../../actions/index'
+import {Nav} from '../Nav';
+import {Footer} from '../Footer/index';
 
 
 export default function HelpUsImprove() {
@@ -37,6 +39,8 @@ export default function HelpUsImprove() {
 
     return (
         <div className={st.Form}>
+
+            <Nav/>
             
             <span className={st.Title}>HelpUsImprove</span>
 
@@ -52,6 +56,8 @@ export default function HelpUsImprove() {
                 <button name='update' onClick={handleSubmit}>Send</button>
             
             </form>
+
+            <Footer/>
             
         </div>
     )

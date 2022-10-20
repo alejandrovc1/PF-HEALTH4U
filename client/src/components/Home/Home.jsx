@@ -8,6 +8,9 @@ import t from "../../image/gorjeo.png"
 import tk from "../../image/tik-tok.png"
 import w from "../../image/whatsapp.png"
 import SpecialtiesHome from '../SpecialtiesHome/SpecialtiesHome';
+import mision from '../../image/Mission.jpg'
+import vision from '../../image/Vision.jpg'
+import values from '../../image/Values.jpg'
 import { Link } from "react-router-dom";
 
 export default function Home({id}) {
@@ -19,22 +22,48 @@ export default function Home({id}) {
         <div className={s.fnd}>
             
             <div className={s.fondo}>
+                <div className={s.banner}>
+                    <div className={s.float1}>
+                        <h3 className={s.h3}>Solutions For Healtcare Needs</h3>
+                        <h1 className={s.title}>We Always Provide The Best Service</h1>
+                        <p className={s.text}>More than 50 specialist doctors waiting to assist you, schedule your appointment today that suits your schedule</p>
+                        <Link to={adonde}>
+                            <button className={s.boton}>Get started</button>
+                        </Link>
+                    </div>
+                    <div className={s.float}>
+                        <img className={s.image} src={doctor} />
+                    </div>
+                </div>
+            </div>
+            
+            <div className={s.specialties}>
+                <SpecialtiesHome/>
+            </div>
 
-                <div className={s.float1}>
-                    <h3 className={s.h3}>Solutions For Healtcare Needs</h3>
-                    <h1 className={s.title}>We Always Provide The Best Service</h1>
-                    <p className={s.text}>More than 50 specialist doctors waiting to assist you, schedule your appointment today that suits your schedule</p>
-                    <Link to={adonde}>
-                    <button className={s.boton}>Get started</button>
-                    </Link>
+            <section className={s.infoAboutUs}>
+                <div className={s.mission}>
+                    <p>Our Mission: Our purpose is to connect health care talent from the different regions of Latin America with the rest of the world. Always providing a professional, human and innovative service that anyone who wishes can access from the comfort of their home or receiving a visit from a professional.</p>
+                    <img src={mision} className={s.imgMision} alt="Mission img" />
                 </div>
-                <div className={s.float}>
-                    <img className={s.image} src={doctor} />
+
+                <div className={s.vision}>
+                    <p>Our Vision: We hope to become one of the preferred options for people when entrusting their health care, connecting more and more patients with suitable professionals specialized in the different areas of medicine.</p>
+
+                    <img src={vision} className={s.imgVision} alt="Vision img" />
                 </div>
-            </div>
-            <div>
-                <SpecialtiesHome />
-            </div>
+
+                <div className={s.values}>
+                    <p>Our Main Values:</p>
+                    <ul>
+                        <li>Professionalism and suitability</li>
+                        <li>Commitment and vocation</li>
+                        <li>Continuous innovation</li>
+                        <li>Personalized care with human sense</li>
+                    </ul><img src={values} className={s.imgValues} alt="Values img" />
+                </div>
+            </section>
+
             {/* <div className={s.imgpie}>
                 <div className={s.signup}>
                     <p><a href="/register">Sing up</a></p>
