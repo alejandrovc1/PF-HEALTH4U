@@ -45,7 +45,7 @@ export default function App( ) {
           : role === 'patient'?
           <>
             <Route path='/*' element={<RutasUseP id={id}/>} />
-            {/* <Route path='*' element={<Navigate to='/appointment'/>}/>  */}
+            <Route path='*' element={<Navigate to='/'/>}/> 
           </>
           : role ==='admin'?
           <>
