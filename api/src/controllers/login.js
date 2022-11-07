@@ -31,7 +31,7 @@ const loginFunction = async (req, res) => {
                 })
 
 
-                if ( doctorFound.status ==='bloqued') { res.status(400).send({msg:'User bloqued'})}
+                if ( doctorFound.status ==='blocked') { res.status(400).send({msg:'User bloqued'})}
 
                 else {
                     res.send({
@@ -61,7 +61,7 @@ const loginFunction = async (req, res) => {
                     await patientModel.findByIdAndUpdate(patientFound._id, {
                         token: token,
                     })
-                    if ( patientFound.status ==='bloqued') { res.status(400).send({msg:'User bloqued'})}
+                    if ( patientFound.status ==='blocked') { res.status(400).send({msg:'User bloqued'})}
                     res.send({
                         name: patientFound.name,
                         email: patientFound.email,
@@ -84,7 +84,7 @@ const loginFunction = async (req, res) => {
                         })
 
 
-                        if ( patientFound.status ==='bloqued') { res.status(400).send({msg:'User bloqued'})}
+                        
 
           
                             res.send({
