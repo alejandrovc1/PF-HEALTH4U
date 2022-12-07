@@ -5,7 +5,7 @@ import { getprofile, putprofileAdmin} from '../../../actions/index.js'
 import st from './User.module.css'
 import UserEdit from './UserEdit.jsx'
 import { PermIdentity, AlternateEmail, CalendarMonth, Wc, Public, MyLocation, 
-PhoneInTalk, ManageAccounts, DriveFolderUpload } from '@mui/icons-material'
+PhoneAndroid, ManageAccounts, DriveFolderUpload } from '@mui/icons-material'
 
 
 export default function User( ) {
@@ -85,7 +85,7 @@ export default function User( ) {
                             <span className={st.userShowInfoTitle}>Address: {props.address}</span>
                         </div>
                         <div className={st.userShowInfo}>
-                            <PhoneInTalk className={st.userShowIcon}/>
+                            <PhoneAndroid className={st.userShowIcon}/>
                             <span className={st.userShowInfoTitle}>Tel: {props.tel}</span>
                         </div>
                         <div className={st.userShowInfo}>
