@@ -8,12 +8,12 @@ const morgan = require('morgan');
 const cors = require('cors');
 //cors permite comunicar el servidor y el frontend 
 
-const routes = require('./routes/index.js')
+const routes = require('./src/routes/index.js')
 
-const { dbConn } = require("./db.js")
+const { dbConn } = require("./src/db.js")
 //conectamos la DB
 
-const {createRoles} = require('./libs/initialSetup')
+const {createRoles} = require('./src/libs/initialSetup')
 
 const app = express();
 createRoles();
