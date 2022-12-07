@@ -87,7 +87,6 @@ router.post('/register', async (req, res) => {
 
 router.put('/:id', updatePatient);
 
-
 router.put('/admin/:id', updatePatientAdmin);
 
 router.delete('/:id', deletePatient);
